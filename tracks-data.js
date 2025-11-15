@@ -1,6 +1,5 @@
 window.RELEASES_TODAY = "2025-11-15";
 window.RELEASED_TRACKS_DATA = [
-  { slug: "ruzcoin-icon", title: "Ruzcoin Icon", releaseDate: "скоро", access: "early-access" },
   { slug: "chernyy-yashchik", title: "Черный ящик", releaseDate: "скоро", access: "early-access" },
   { slug: "zima", title: "Зима", releaseDate: "скоро", access: "early-access" },
   { slug: "pomni", title: "Помни", releaseDate: "скоро", access: "early-access" },
