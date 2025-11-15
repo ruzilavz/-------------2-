@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>AVZALØV (Рузиль Авзалов) — Официальный сайт</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Официальный сайт артиста AVZALØV (Рузиль Авзалов). Музыка, релизы, новости и контакты." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --accent: #2f6bff;
+      --accent-soft: rgba(47, 107, 255, 0.2);
+      --text: #f5f5f5;
+      --muted: #9a9fb4;
+      --card: #101320;
+      --border: #1c2133;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.65);
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.5);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      --transition: 200ms ease-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #151a33 0, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+      box-shadow: 0 0 12px rgba(47, 107, 255, 0.3);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-text-main {
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    nav a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width var(--transition);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(7, 8, 15, 0.9);
+      color: var(--muted);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hero {
+      display: flex;
+      gap: 26px;
+      margin-bottom: 40px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex: 1 1 260px;
+      min-width: 0;
+    }
+
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-image: url("img/avzalov.jpg");
+      background-size: cover;
+      background-position: center 40%;
+      position: relative;
+      overflow: hidden;
+      filter: blur(0.6px) contrast(1.05) saturate(1.02);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.07), 0 14px 30px rgba(0, 0, 0, 0.7);
+      flex-shrink: 0;
+    }
+
+    .hero-avatar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 0, rgba(255, 255, 255, 0.24), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.8;
+    }
+
+    .hero-avatar-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: #f5f6ff;
+      text-align: center;
+      padding: 0 14px;
+      background: radial-gradient(circle at 50% 120%, rgba(0, 0, 0, 0.55), transparent 55%);
+    }
+
+    .hero-main {
+      flex: 2 1 320px;
+      min-width: 0;
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 4.6vw, 38px);
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle span {
+      color: #d9defb;
+      font-weight: 600;
+    }
+
+    .hero-text {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 22px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(89, 109, 184, 0.45);
+      background: radial-gradient(circle at top, rgba(92, 134, 255, 0.09), rgba(10, 12, 24, 0.9));
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 11px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2f6bff, #6d9dff);
+      color: #fff;
+      box-shadow: 0 16px 40px rgba(47, 107, 255, 0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 50px rgba(47, 107, 255, 0.55);
+    }
+
+    .btn-ghost {
+      background: rgba(7, 9, 18, 0.9);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(18, 22, 34, 0.96);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .tracks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+    @media (min-width: 721px) {
+      .tracks-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+    }
+
+    .track-card {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 12px 13px 11px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition), outline-color var(--transition);
+      outline: 2px solid transparent;
+      outline-offset: -2px;
+    }
+
+
+    .track-card.playing {
+      border-color: rgba(46, 213, 139, 0.6);
+      outline-color: rgba(46, 213, 139, 0.5);
+    }
+
+    .track-cover {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      background-size: cover;
+      background-position: center;
+      background-color: #1b2031;
+      flex-shrink: 0;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .track-cover .play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #fff;
+      opacity: 0;
+      transition: opacity var(--transition);
+      backdrop-filter: blur(2px);
+    }
+
+    .track-card:hover .track-cover .play-overlay {
+      opacity: 1;
+    }
+
+    .track-card.playing .track-cover .play-overlay {
+      opacity: 1; /* Keep visible when playing */
+    }
+
+    .track-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .track-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-meta {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--muted);
+      opacity: 0.7;
+    }
+    
+    .track-player-details {
+      display: none; /* Hidden by default */
+    }
+
+    .news-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .news-item {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: rgba(9, 11, 21, 0.9);
+      box-shadow: 0 9px 20px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .news-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(68, 115, 255, 0.15), transparent 60%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .news-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #9fb1ff;
+      margin-bottom: 4px;
+    }
+
+    .news-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .news-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .news-text {
+      font-size: 13px;
+      color: #c5c9dd;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: 24px;
+    }
+
+    .about-text {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .about-text p + p {
+      margin-top: 10px;
+    }
+
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .social-pill {
+      font-size: 12px;
+      border-radius: 999px;
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(9, 12, 24, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .about-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top, rgba(47, 107, 255, 0.18), rgba(5, 6, 12, 0.96));
+      padding: 16px 18px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .about-card-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #d4ddff;
+    }
+
+    .about-card-stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #c1c7e6;
+    }
+
+    .about-card-stat-row span:last-child {
+      color: #f8f8ff;
+      font-weight: 600;
+    }
+
+    footer {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid #1a1f30;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        align-items: flex-start;
+      }
+
+      .hero-left {
+        flex-direction: row;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero-left {
+        flex-direction: row;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn,
+      .btn-ghost {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        align-items: center;
+      }
+
+      nav {
+        position: absolute;
+        inset-inline: 16px;
+        top: 60px;
+        background: rgba(5, 7, 16, 0.98);
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-soft);
+        padding: 10px 14px 12px;
+        flex-direction: column;
+        gap: 10px;
+        transform-origin: top right;
+        transform: scaleY(0.8);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 160ms ease-out, transform 160ms ease-out;
+        z-index: 20;
+      }
+
+      nav.nav-open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: scaleY(1);
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn,
+      .btn-ghost {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo-group">
+        <div class="logo-mark">Ø</div>
+        <div class="logo-text">
+          <div class="logo-text-main">AVZALØV</div>
+          <div class="logo-text-sub">Рузиль Авзалов</div>
+        </div>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Меню">
+        ☰
+      </button>
+
+      <nav id="mainNav">
+        <a href="#tracks">Релизы</a>
+        <a href="#news">Новости</a>
+        <a href="#about">Биография</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-avatar">
+          <div class="hero-avatar-label">AVZALØV</div>
+        </div>
+        <div class="hero-main">
+          <div class="hero-subtitle">
+            артист • продюсер • <span>Рузиль Авзалов</span>
+          </div>
+          <h1 class="hero-title">AVZALØV</h1>
+          <p class="hero-text">
+            AVZALØV (Рузиль Авзалов) — артист, сочетающий тёмные баллады,
+            экспериментальный поп и эмоциональные истории о вере,
+            молодости и внутренней борьбе.
+          </p>
+
+          <div class="hero-tags">
+            <div class="tag">дарк-поп</div>
+            <div class="tag">альт-рэп</div>
+            <div class="tag">эмоциональный</div>
+            <div class="tag">ru / tt</div>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="document.getElementById('tracks').scrollIntoView({behavior:'smooth'})">
+              Слушать релизы
+            </button>
+            <button class="btn btn-ghost" onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">
+              Связаться
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tracks">
+      <div class="section-header">
+        <h2 class="section-title">Релизы</h2>
+        <p class="section-sub">
+          Синглы и треки AVZALØV, доступные на всех цифровых площадках.
+        </p>
+      </div>
+
+      <div class="tracks-grid">
+        <article class="track-card">
+          <div
+            class="track-cover" style="background-image:url('img/dikaya-kometa.jpg');">
+          </div>
+          <div class="track-info">
+            <div class="track-title">Дикая Комета</div>
+            <div class="track-meta">
+              <span>сингл</span>
+              <span class="dot"></span>
+              <span>15.11.2025</span>
+            </div>
+            <div class="player-controls">
+              <button class="play-button"><i class="fas fa-play"></i></button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn lyrics-btn">Текст</button>
+              <a href="#" target="_blank" class="track-action-btn">Платформы</a>
+            </div>
+          </div>
+          <audio class="track-audio" src="audio/dikaya-kometa.mp3" preload="metadata"></audio>
+          <div class="lyrics-content" style="display: none;">
+Здесь будет текст песни "Дикая Комета".
+Просто впишите его сюда.
+Можно использовать переносы строк.
+Они сохранятся.
+          </div>
+        </article>
+
+        <article class="track-card">
+          <div
+            class="track-cover" style="background-image:url('img/rozy20.jpg');">
+          </div>
+          <div class="track-info">
+            <div class="track-title">Она срывала розы 2.0</div>
+            <div class="track-meta">
+              <span>сингл</span>
+              <span class="dot"></span>
+              <span>28.08.2025</span>
+            </div>
+            <div class="player-controls">
+              <button class="play-button"><i class="fas fa-play"></i></button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn lyrics-btn">Текст</button>
+              <a href="#" target="_blank" class="track-action-btn">Платформы</a>
+            </div>
+          </div>
+          <audio class="track-audio" src="audio/ona-sryvala-rozy-20.mp3" preload="metadata"></audio>
+          <div class="lyrics-content" style="display: none;">Текст песни "Она срывала розы 2.0".</div>
+        </article>
+
+        <article class="track-card">
+          <div
+            class="track-cover" style="background-image:url('img/yashlek.jpg');">
+          </div>
+          <div class="track-info">
+            <div class="track-title">Яшьлек</div>
+            <div class="track-meta">
+              <span>EP</span>
+              <span class="dot"></span>
+              <span>03.05.2025</span>
+            </div>
+            <div class="player-controls">
+              <button class="play-button"><i class="fas fa-play"></i></button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn lyrics-btn">Текст</button>
+              <a href="#" target="_blank" class="track-action-btn">Платформы</a>
+            </div>
+          </div>
+          <audio class="track-audio" src="audio/yashlek.mp3" preload="metadata"></audio>
+          <div class="lyrics-content" style="display: none;">Текст песни "Яшьлек".</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="news">
+      <div class="section-header">
+        <h2 class="section-title">Новости</h2>
+        <p class="section-sub">
+          Свежие анонсы, релизы и важные события.
+        </p>
+      </div>
+
+      <div class="news-list">
+        <article class="news-item">
+          <div class="news-tag" style="color: #2ed58b;">зеленый релиз</div>
+          <div class="news-title">«Дикая Комета» вышла на всех площадках</div>
+          <div class="news-meta">Ноябрь 2025</div>
+          <p class="news-text">
+            Новый трек AVZALØV — о столкновении веры, ярости и судьбы. Слушай, делись и добавляй в свои плейлисты.
+          </p>
+        </article>
+        
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">Готовится новый мини-альбом</div>
+          <div class="news-meta">Дата выхода будет объявлена позже</div>
+          <p class="news-text">
+            В треклист войдут темные баллады на русском и татарском языках, а также совместные работы с другими артистами.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-header">
+        <h2 class="section-title">Обо мне</h2>
+        <p class="section-sub">
+          Немного о том, кто такой AVZALØV (Рузиль Авзалов).
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            AVZALØV (Рузиль Авзалов) — артист и автор песен, который объединяет в своей музыке мрачные атмосферы, искренние тексты и кинематографичный звук. Темы треков — вера, поиск себя, молодость, внутренние раны и надежда.
+          </p>
+          <p>
+            В песнях звучат русский и татарский языки, а звучание балансирует между dark pop, альтернативным рэпом и эмоциональными балладами.
+          </p>
+
+          <div class="socials">
+            <a href="https://vk.com/artist/avzalov" target="_blank" class="social-pill">VK Music</a>
+            <a href="https://music.youtube.com/" target="_blank" class="social-pill">YouTube Music</a>
+            <a href="https://open.spotify.com/artist/" target="_blank" class="social-pill">Spotify</a>
+            <a href="https://t.me/your_nick" target="_blank" class="social-pill">Telegram</a>
+          </div>
+        </div>
+
+        <aside class="about-card">
+          <div class="about-card-title">Цифры и факты</div>
+          <div class="about-card-stat-row">
+            <span>Релизов</span>
+            <span>10+</span>
+          </div>
+          <div class="about-card-stat-row">
+            <span>Прослушиваний</span>
+            <span>100K+</span>
+          </div>
+          <div class="about-card-stat-row">
+            <span>Города слушателей</span>
+            <span>20+</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="contacts">
+      <div class="section-header">
+        <h2 class="section-title">Контакты</h2>
+        <p class="section-sub">
+          Для концертов, коллабораций, плейлистов и других предложений.
+        </p>
+      </div>
+
+      <div class="about-text">
+        <p>
+          По вопросам сотрудничества и выступлений:
+        </p>
+        <p style="margin-top:8px;">
+          Email: <a href="mailto:booking@avzalov.com" style="color: var(--accent);">booking@avzalov.com</a><br />
+          Telegram: <a href="https://t.me/your_nick" target="_blank" style="color: var(--accent);">@your_nick</a>
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <span>© <span id="year"></span> AVZALØV (Рузиль Авзалов).</span>
+      <span>Официальный сайт артиста.</span>
+    </footer>
+  </div>
+
+  <!-- NEW Mini Player -->
+  <div class="mini-player" id="miniPlayer">
+    <div class="mini-player-inner">
+      <div class="mini-player-track">
+        <div class="mini-player-cover" id="miniPlayerCover"></div>
+        <div class="mini-player-info">
+          <div class="mini-player-title" id="miniPlayerTitle">Название трека</div>
+          <div class="mini-player-artist">AVZALØV</div>
+        </div>
+      </div>
+      <div class="mini-player-controls">
+        <div class="mini-player-buttons">
+          <button class="mini-player-play-btn" id="miniPlayerPlayBtn"><i class="fas fa-play"></i></button>
+        </div>
+        <div class="mini-player-progress-wrapper">
+          <span id="miniPlayerCurrentTime">0:00</span>
+          <div class="progress-bar" id="miniPlayerProgressBar"><div class="progress-bar-filled" id="miniPlayerProgressFilled"></div></div>
+          <span id="miniPlayerDuration">0:00</span>
+        </div>
+      </div>
+      <div class="mini-player-actions">
+        <button class="track-action-btn" id="miniPlayerLyricsBtn">Текст</button>
+        <div class="volume-control">
+          <i class="fas fa-volume-down"></i>
+          <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lyrics Modal -->
+  <div class="lyrics-modal-overlay" id="lyricsModalOverlay">
+    <div class="lyrics-modal">
+      <button class="lyrics-close-btn" id="lyricsCloseBtn">&times;</button>
+      <h3 class="lyrics-title" id="lyricsModalTitle"></h3>
+      <p class="lyrics-artist">AVZALØV</p>
+      <div class="lyrics-text" id="lyricsModalText"></div>
+    </div>
+  </div>
+
+  <script>
+    const navToggle = document.getElementById("navToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", () => {
+        mainNav.classList.toggle("nav-open");
+      });
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // --- Custom Audio Player Logic ---
+    const allTrackCards = document.querySelectorAll('.track-card');
+    let currentPlayingAudio = null;
+    let currentPlayingCard = null;
+
+    // --- DOM Elements ---
+    const miniPlayer = document.getElementById('miniPlayer');
+    const miniPlayerCover = document.getElementById('miniPlayerCover');
+    const miniPlayerTitle = document.getElementById('miniPlayerTitle');
+    const miniPlayerPlayBtn = document.getElementById('miniPlayerPlayBtn');
+    const miniPlayerPlayIcon = miniPlayerPlayBtn.querySelector('i');
+    const miniPlayerCurrentTime = document.getElementById('miniPlayerCurrentTime');
+    const miniPlayerDuration = document.getElementById('miniPlayerDuration');
+    const miniPlayerProgressBar = document.getElementById('miniPlayerProgressBar');
+    const miniPlayerProgressFilled = document.getElementById('miniPlayerProgressFilled');
+    const miniPlayerLyricsBtn = document.getElementById('miniPlayerLyricsBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const lyricsModalOverlay = document.getElementById('lyricsModalOverlay');
+    const lyricsCloseBtn = document.getElementById('lyricsCloseBtn');
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function stopAllPlayers(exceptCard) {
+      allTrackCards.forEach(card => {
+        if (card !== exceptCard) {
+          const audio = card.querySelector('.track-audio');
+          const playIcon = card.querySelector('.play-overlay i');
+          audio.pause();
+          playBtn.classList.remove('fa-pause');
+          playBtn.classList.add('fa-play');
+          card.classList.remove('playing');
+        }
+      });
+    }
+    
+    function togglePlay(card, audio) {
+        if (audio.paused) {
+            stopAllPlayers(card);
+            audio.play();
+            card.classList.add('playing');
+            currentPlayingAudio = audio;
+            currentPlayingCard = card;
+            miniPlayer.style.bottom = '0';
+        } else {
+            audio.pause();
+            card.classList.remove('playing');
+            // Don't hide mini-player on pause, just update icon
+        }
+        updateAllPlayIcons(audio.paused);
+        updateMiniPlayerInfo(card);
+    }
+
+    function updateAllPlayIcons(isPaused) {
+        const iconClass = isPaused ? 'fa-play' : 'fa-pause';
+        // Update main card icon
+        if (currentPlayingCard) {
+            const cardIcon = currentPlayingCard.querySelector('.play-overlay i');
+            cardIcon.className = `fas ${iconClass}`;
+        }
+        // Update mini-player icon
+        miniPlayerPlayIcon.className = `fas ${iconClass}`;
+    }
+
+    function updateMiniPlayerInfo(card) {
+        miniPlayerTitle.textContent = card.querySelector('.track-title').textContent;
+        miniPlayerCover.style.backgroundImage = card.querySelector('.track-cover').style.backgroundImage;
+    }
+
+    // --- Event Listeners for each track card ---
+    allTrackCards.forEach(card => {
+      const audio = card.querySelector('.track-audio');
+      const cover = card.querySelector('.track-cover');
+      const progressBar = card.querySelector('.progress-bar');
+      const progressBarFilled = card.querySelector('.progress-bar-filled');
+      const timeDisplay = card.querySelector('.time-display');
+
+      audio.addEventListener('loadedmetadata', () => {
+        timeDisplay.textContent = `0:00 / ${formatTime(audio.duration)}`;
+      });
+
+      cover.addEventListener('click', () => togglePlay(card, audio));
+
+      // Sync progress and time for all players
+      audio.addEventListener('timeupdate', () => {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        // Update in-list player
+        progressBarFilled.style.width = `${progress}%`;
+        timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        // Update mini-player
+        miniPlayerProgressFilled.style.width = `${progress}%`;
+        miniPlayerCurrentTime.textContent = formatTime(audio.currentTime);
+        miniPlayerDuration.textContent = formatTime(audio.duration);
+      });
+
+      audio.addEventListener('ended', () => {
+          card.classList.remove('playing');
+          currentPlayingAudio = null;
+          currentPlayingCard = null;
+          miniPlayer.style.bottom = '-150px';
+          updateAllPlayIcons(true);
+      });
+
+      progressBar.addEventListener('click', (e) => {
+        const barWidth = progressBar.clientWidth;
+        const clickX = e.offsetX;
+        audio.currentTime = (clickX / barWidth) * audio.duration;
+      });
+    });
+
+    // --- Global Player Controls (Mini Player) ---
+    miniPlayerPlayBtn.addEventListener('click', () => {
+        if (currentPlayingAudio) {
+            togglePlay(currentPlayingCard, currentPlayingAudio);
+        }
+    });
+
+    miniPlayerProgressBar.addEventListener('click', (e) => {
+        if (currentPlayingAudio) {
+            const barWidth = miniPlayerProgressBar.clientWidth;
+            const clickX = e.offsetX;
+            currentPlayingAudio.currentTime = (clickX / barWidth) * currentPlayingAudio.duration;
+        }
+    });
+
+    volumeSlider.addEventListener('input', (e) => {
+        if (currentPlayingAudio) {
+            currentPlayingAudio.volume = e.target.value;
+        }
+    });
+
+    // --- Lyrics Modal Logic ---
+    miniPlayerLyricsBtn.addEventListener('click', () => {
+      if (currentPlayingCard) {
+        const lyricsContent = currentPlayingCard.querySelector('.lyrics-content');
+        if (lyricsContent && lyricsContent.textContent.trim()) {
+            const lyricsModalTitle = document.getElementById('lyricsModalTitle');
+            const lyricsModalText = document.getElementById('lyricsModalText');
+            lyricsModalTitle.textContent = currentPlayingCard.querySelector('.track-title').textContent;
+            lyricsModalText.textContent = lyricsContent.textContent.trim();
+            lyricsModalOverlay.classList.add('visible');
+        }
+      }
+    });
+
+    lyricsCloseBtn.addEventListener('click', () => {
+      lyricsModalOverlay.classList.remove('visible');
+    });
+
+    lyricsModalOverlay.addEventListener('click', (e) => {
+      if (e.target === lyricsModalOverlay) {
+        lyricsModalOverlay.classList.remove('visible');
+      }
+    });
+
+    // Hide mini-player if there's no active track
+    document.addEventListener('click', (e) => {
+        // A bit of a hack to hide player if clicked outside of any player controls when paused
+        if (currentPlayingAudio && currentPlayingAudio.paused) {
+            const isPlayerControl = e.target.closest('.track-card, .mini-player');
+            if (!isPlayerControl) {
+                miniPlayer.style.bottom = '-150px';
+                stopAllPlayers(null); // Stop and reset everything
+                currentPlayingAudio = null;
+                currentPlayingCard = null;
+            }
+        }
+    }, true);
+
+  </script>
+</body>
+</html>
+      const lyricsModalTitle = document.getElementById('lyricsModalTitle');
+      const lyricsModalText = document.getElementById('lyricsModalText');
+      const lyricsCloseBtn = document.getElementById('lyricsCloseBtn');
+      const lyricsContent = card.querySelector('.lyrics-content');
+
+      lyricsBtn.addEventListener('click', () => {
+        lyricsModalTitle.textContent = card.querySelector('.track-title').textContent;
+        lyricsModalText.textContent = lyricsContent.textContent.trim();
+        lyricsModalOverlay.classList.add('visible');
+      });
+
+      lyricsCloseBtn.addEventListener('click', () => {
+        lyricsModalOverlay.classList.remove('visible');
+      });
+
+      lyricsModalOverlay.addEventListener('click', (e) => {
+        if (e.target === lyricsModalOverlay) {
+          lyricsModalOverlay.classList.remove('visible');
+        }
+      });
+    });
+
+    // Mini-player visibility logic
+    window.addEventListener('scroll', () => {
+        if (currentPlayingAudio && !currentPlayingAudio.paused) {
+            const tracksSection = document.getElementById('tracks');
+            const tracksSectionBottom = tracksSection.offsetTop + tracksSection.offsetHeight;
+
+            if (window.scrollY > tracksSectionBottom) {
+                miniPlayerContainer.classList.add('visible');
+            } else {
+                miniPlayerContainer.classList.remove('visible');
+            }
+        } else {
+            miniPlayerContainer.classList.remove('visible');
+        }
+    });
+
+  </script>
+</body>
+</html>
