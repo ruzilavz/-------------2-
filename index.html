@@ -212,12 +212,64 @@
       width: 100%;
     }
 
+    .site-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 18px 22px;
+      margin: 24px 0 36px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(74, 100, 189, 0.36);
+      background: linear-gradient(135deg, rgba(12, 16, 30, 0.94), rgba(7, 10, 22, 0.86));
+      box-shadow: 0 22px 48px rgba(6, 8, 16, 0.72);
+      overflow: hidden;
+    }
+
+    .site-header::before {
+      content: "";
+      position: absolute;
+      inset: -30% -20% auto;
+      height: 140%;
+      background: radial-gradient(circle at top right, rgba(82, 126, 255, 0.4), transparent 60%);
+      pointer-events: none;
+    }
+
+    .site-header::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -40% -10%;
+      height: 160%;
+      background: radial-gradient(circle at bottom left, rgba(104, 65, 212, 0.28), transparent 65%);
+      pointer-events: none;
+    }
+
+    .site-header .logo-group,
+    .site-header nav,
+    .site-header .header-actions,
+    .site-header .nav-toggle {
+      position: relative;
+      z-index: 1;
+    }
+
+    .site-header nav {
+      flex: 1 1 320px;
+      display: flex;
+      justify-content: center;
+    }
+
     .header-actions {
+      margin-left: auto;
       display: flex;
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
-      justify-content: flex-end;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(76, 106, 204, 0.32);
+      background: rgba(6, 9, 18, 0.78);
+      box-shadow: 0 18px 38px rgba(5, 7, 16, 0.6);
     }
 
     .search-bar {
@@ -280,12 +332,12 @@
     .ruzcoin-chip {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(47, 107, 255, 0.38);
-      background: rgba(14, 16, 28, 0.95);
-      box-shadow: 0 10px 24px rgba(18, 20, 36, 0.5);
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(122, 150, 255, 0.45);
+      background: linear-gradient(135deg, rgba(20, 28, 60, 0.96), rgba(12, 16, 34, 0.92));
+      box-shadow: 0 20px 38px rgba(28, 44, 120, 0.45);
       cursor: pointer;
       color: inherit;
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
@@ -293,9 +345,9 @@
 
     .ruzcoin-chip:hover,
     .ruzcoin-chip:focus-visible {
-      transform: translateY(-2px);
-      border-color: rgba(47, 107, 255, 0.65);
-      box-shadow: 0 14px 32px rgba(38, 54, 120, 0.55);
+      transform: translateY(-1px);
+      border-color: rgba(148, 178, 255, 0.65);
+      box-shadow: 0 24px 40px rgba(36, 58, 140, 0.5);
       outline: none;
     }
 
@@ -319,43 +371,60 @@
 
     .ruzcoin-icon {
       position: relative;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      background: radial-gradient(circle at 25% 18%, #fff6d6 0%, #f4c35a 48%, #b56f08 100%);
-      border: 1px solid rgba(255, 206, 124, 0.65);
-      color: #060913;
-      font-weight: 700;
-      font-size: 11px;
-      letter-spacing: 0.08em;
+      background: radial-gradient(circle at 28% 18%, #fff6d4 0%, #f3c35d 45%, #a9680d 100%);
+      border: 1px solid rgba(255, 209, 140, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
-      text-transform: uppercase;
-      box-shadow: 0 8px 18px rgba(181, 111, 8, 0.4);
+      box-shadow: 0 16px 28px rgba(180, 122, 40, 0.35);
       overflow: hidden;
     }
 
     .ruzcoin-icon::before {
       content: "";
       position: absolute;
-      inset: 2px;
+      inset: 3px;
       border-radius: 50%;
-      background: radial-gradient(circle at 65% 30%, rgba(255, 255, 255, 0.75), transparent 65%);
-      opacity: 0.85;
+      background: linear-gradient(135deg, rgba(255, 244, 210, 0.85), rgba(255, 205, 120, 0.3));
+      opacity: 0.9;
       pointer-events: none;
+    }
+
+    .ruzcoin-icon::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 232, 190, 0.65);
+      box-shadow: inset 0 0 0 1px rgba(208, 138, 36, 0.35);
+      pointer-events: none;
+    }
+
+    .ruzcoin-glyph {
+      position: relative;
+      font-size: 15px;
+      font-weight: 700;
+      color: rgba(60, 32, 6, 0.9);
+      text-shadow: 0 1px 0 rgba(255, 248, 226, 0.6);
+      letter-spacing: 0.06em;
     }
 
     .ruzcoin-icon.is-inline {
       width: 22px;
       height: 22px;
-      font-size: 10px;
       margin-right: 6px;
-      box-shadow: 0 6px 14px rgba(181, 111, 8, 0.32);
+      box-shadow: 0 10px 20px rgba(180, 122, 40, 0.28);
     }
 
     .ruzcoin-icon.is-inline::before {
-      inset: 1.5px;
+      inset: 2px;
+    }
+
+    .ruzcoin-icon.is-inline::after {
+      inset: 4px;
     }
 
     .header-profile-btn {
@@ -551,6 +620,8 @@
     }
 
     .profile-empty {
+      position: relative;
+      z-index: 1;
       border-radius: var(--radius-lg);
       border: 1px dashed rgba(47, 107, 255, 0.4);
       background: rgba(10, 13, 26, 0.8);
@@ -801,24 +872,41 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
       background: radial-gradient(circle at top, rgba(47, 107, 255, 0.16), rgba(5, 6, 12, 0.98));
-      padding: 18px 18px 20px;
+      padding: 20px 20px 22px;
       box-shadow: var(--shadow-soft);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-wrapper::before {
+      content: "";
+      position: absolute;
+      inset: -40% -10% auto;
+      height: 140%;
+      background: radial-gradient(circle at top right, rgba(86, 121, 255, 0.25), transparent 70%);
+      pointer-events: none;
     }
 
     .profile-panel {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 18px;
     }
 
     .profile-main {
       display: flex;
-      gap: 14px;
+      gap: 16px;
       align-items: center;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(68, 94, 186, 0.28);
+      background: rgba(9, 12, 24, 0.9);
+      box-shadow: 0 18px 32px rgba(6, 8, 16, 0.55);
     }
 
     .profile-avatar {
@@ -869,6 +957,63 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 4px;
+    }
+
+    .profile-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .profile-tab-btn {
+      border-radius: 999px;
+      padding: 8px 18px;
+      border: 1px solid rgba(88, 112, 198, 0.38);
+      background: rgba(12, 15, 30, 0.75);
+      color: rgba(206, 213, 248, 0.82);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition);
+    }
+
+    .profile-tab-btn.is-active,
+    .profile-tab-btn:focus-visible {
+      background: rgba(47, 107, 255, 0.22);
+      border-color: rgba(108, 148, 255, 0.65);
+      color: #f5f7ff;
+      box-shadow: 0 16px 34px rgba(47, 107, 255, 0.35);
+      outline: none;
+    }
+
+    .profile-views {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .profile-view {
+      display: none;
+    }
+
+    .profile-view.is-active {
+      display: block;
+    }
+
+    .profile-overview-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .profile-overview-callout {
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(96, 120, 210, 0.3);
+      background: rgba(12, 16, 34, 0.85);
+      font-size: 13px;
+      color: rgba(211, 217, 255, 0.82);
+      line-height: 1.5;
     }
 
     .profile-achievements h4 {
@@ -1105,6 +1250,153 @@
       font-size: 12px;
       color: rgba(164, 173, 214, 0.75);
       padding: 6px 0;
+    }
+
+    #coins {
+      position: relative;
+    }
+
+    .topup-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(72, 98, 188, 0.32);
+      background: radial-gradient(circle at top, rgba(58, 98, 240, 0.14), rgba(6, 8, 18, 0.95));
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .topup-card::before {
+      content: "";
+      position: absolute;
+      inset: -30% auto auto -20%;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(104, 142, 255, 0.3), transparent 70%);
+      pointer-events: none;
+    }
+
+    .topup-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -40% auto;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(255, 168, 92, 0.25), transparent 70%);
+      pointer-events: none;
+    }
+
+    .topup-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .topup-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .topup-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .topup-amount-btn {
+      flex: 1 1 140px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(86, 112, 204, 0.4);
+      background: rgba(11, 14, 28, 0.92);
+      color: #f4f6ff;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+
+    .topup-amount-btn small {
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: rgba(196, 204, 245, 0.78);
+    }
+
+    .topup-amount-btn:hover,
+    .topup-amount-btn:focus-visible {
+      border-color: rgba(144, 176, 255, 0.6);
+      background: rgba(22, 30, 58, 0.96);
+      box-shadow: 0 18px 32px rgba(48, 72, 166, 0.45);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .topup-amount-btn.active {
+      border-color: rgba(176, 205, 255, 0.7);
+      background: rgba(32, 44, 90, 0.98);
+      box-shadow: 0 20px 38px rgba(60, 90, 180, 0.48);
+    }
+
+    .topup-summary {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(198, 206, 244, 0.85);
+    }
+
+    .topup-summary strong {
+      color: #f5f6ff;
+    }
+
+    .topup-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-disabled {
+      background: rgba(16, 18, 30, 0.92);
+      border: 1px dashed rgba(126, 142, 200, 0.6);
+      color: rgba(182, 190, 232, 0.85);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-disabled:hover,
+    .btn-disabled:focus-visible {
+      transform: none;
+      box-shadow: none;
+      border-color: rgba(152, 168, 226, 0.65);
+    }
+
+    .topup-btn-main,
+    .topup-btn-real {
+      flex: 1 1 220px;
+      justify-content: center;
+    }
+
+    .topup-note {
+      position: relative;
+      z-index: 1;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     .achievement-card::before {
@@ -2260,7 +2552,23 @@
 
     @media (max-width: 720px) {
       .profile-wrapper {
-        grid-template-columns: 1fr;
+        padding: 18px;
+      }
+
+      .profile-main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .profile-actions-row,
+      .profile-tabs,
+      .profile-tab-btn {
+        width: 100%;
+      }
+
+      .profile-tab-btn {
+        text-align: center;
       }
 
       .achievements-grid {
@@ -2444,9 +2752,19 @@
     }
 
     @media (max-width: 720px) {
+      .site-header {
+        padding: 16px;
+        gap: 16px;
+      }
+
       .header-actions {
         width: 100%;
-        justify-content: flex-start;
+        justify-content: center;
+      }
+
+      .header-action-group {
+        flex: 1 1 160px;
+        justify-content: center;
       }
 
       .hero {
@@ -2476,11 +2794,15 @@
     }
 
     @media (max-width: 720px) {
-      header {
+      .site-header {
         align-items: center;
       }
 
-      nav {
+      .site-header nav {
+        flex: 1 1 100%;
+      }
+
+      .site-header nav {
         position: absolute;
         inset-inline: 16px;
         top: 60px;
@@ -2499,7 +2821,7 @@
         z-index: 20;
       }
 
-      nav.nav-open {
+      .site-header nav.nav-open {
         opacity: 1;
         pointer-events: auto;
         transform: scaleY(1);
@@ -2541,7 +2863,7 @@
     <button id="scrollToTopBtn" class="scroll-to-top-btn">
       <i class="fas fa-arrow-up"></i>
     </button>
-    <header>
+    <header class="site-header">
       <div class="logo-group">
         <div class="logo-mark">Ø</div>
         <div class="logo-text">
@@ -2569,7 +2891,9 @@
             aria-haspopup="dialog"
             aria-expanded="false"
           >
-            <div class="ruzcoin-icon" aria-hidden="true">RZ</div>
+            <div class="ruzcoin-icon" aria-hidden="true">
+              <span class="ruzcoin-glyph">Ɍ</span>
+            </div>
             <div class="ruzcoin-info">
               <span class="ruzcoin-label">RUZCOIN</span>
               <span class="ruzcoin-value" id="headerCoinsAmount">0</span>
@@ -2585,8 +2909,8 @@
               монеты напрямую.
             </p>
             <div class="popover-actions">
-              <button class="btn btn-primary btn-xs" type="button" disabled>
-                Пополнить
+              <button class="btn btn-primary btn-xs" type="button" id="headerTopupBtn">
+                Пополнение
                 <span class="chip-soon">Скоро</span>
               </button>
               <button class="btn btn-ghost btn-xs" type="button" id="coinsInfoBtn">
@@ -2639,7 +2963,9 @@
                 <div class="popover-sub">ID: <span id="popoverProfileId">—</span></div>
               </div>
               <div class="popover-balance">
-                <span class="ruzcoin-icon is-inline" aria-hidden="true">RZ</span>
+                <span class="ruzcoin-icon is-inline" aria-hidden="true">
+                  <span class="ruzcoin-glyph">Ɍ</span>
+                </span>
                 <div>
                   <div class="popover-meta">Баланс</div>
                   <div class="popover-balance-value" id="popoverCoinsAmount">0</div>
@@ -2708,7 +3034,9 @@
               <div class="profile-id">ID: <span id="profileId">—</span></div>
               <div class="profile-role">Роль: <span id="profileRole">Слушатель</span></div>
               <div class="profile-coins">
-                <span class="ruzcoin-icon is-inline" aria-hidden="true">RZ</span>
+                <span class="ruzcoin-icon is-inline" aria-hidden="true">
+                  <span class="ruzcoin-glyph">Ɍ</span>
+                </span>
                 Баланс RUZCOIN:
                 <span class="coins-amount" id="coinsAmount">0</span>
               </div>
@@ -2723,86 +3051,209 @@
             </div>
           </div>
 
-          <div class="profile-achievements">
-            <h4>Достижения</h4>
-            <div class="achievements-grid" id="achievementsGrid"></div>
+          <div class="profile-tabs" id="profileTabs" role="tablist" aria-label="Разделы профиля">
+            <button
+              class="profile-tab-btn is-active"
+              type="button"
+              role="tab"
+              id="profileTabOverview"
+              aria-controls="profileViewOverview"
+              aria-selected="true"
+              data-profile-tab="overview"
+            >
+              Обзор
+            </button>
+            <button
+              class="profile-tab-btn"
+              type="button"
+              role="tab"
+              id="profileTabStats"
+              aria-controls="profileViewStats"
+              aria-selected="false"
+              data-profile-tab="stats"
+            >
+              Статистика
+            </button>
+            <button
+              class="profile-tab-btn"
+              type="button"
+              role="tab"
+              id="profileTabHistory"
+              aria-controls="profileViewHistory"
+              aria-selected="false"
+              data-profile-tab="history"
+            >
+              История RUZCOIN
+            </button>
+          </div>
+
+          <div class="profile-views">
+            <div
+              class="profile-view is-active"
+              data-profile-view="overview"
+              id="profileViewOverview"
+              role="tabpanel"
+              aria-labelledby="profileTabOverview"
+            >
+              <div class="profile-overview-grid">
+                <div class="profile-overview-callout">
+                  Переключайся между вкладками, чтобы отслеживать личную статистику прослушиваний и историю операций с RUZCOIN.
+                  За активность и тестовые действия ты получаешь демо-монеты.
+                </div>
+                <div class="profile-achievements">
+                  <h4>Достижения</h4>
+                  <div class="achievements-grid" id="achievementsGrid"></div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="profile-view"
+              data-profile-view="stats"
+              id="profileViewStats"
+              role="tabpanel"
+              aria-labelledby="profileTabStats"
+              hidden
+            >
+              <div class="stats-card" id="listeningStatsCard">
+                <div class="stats-summary">
+                  <div class="stat-block">
+                    <div class="stat-label">Всего прослушиваний</div>
+                    <div class="stat-value" id="statTotalPlays">0</div>
+                    <div class="stat-subvalue">Сохраняется на этом устройстве</div>
+                  </div>
+                  <div class="stat-block">
+                    <div class="stat-label">Уникальные треки</div>
+                    <div class="stat-value" id="statUniqueTracks">0</div>
+                    <div class="stat-subvalue">С учётом открытых релизов</div>
+                  </div>
+                  <div class="stat-block">
+                    <div class="stat-label">Любимый трек</div>
+                    <div class="stat-value" id="statTopTrack">—</div>
+                    <div class="stat-subvalue" id="statTopTrackCount">Прослушиваний: 0</div>
+                  </div>
+                </div>
+
+                <div class="stats-divider"></div>
+
+                <div class="recent-plays">
+                  <div class="recent-plays-header">
+                    <h3>Последние прослушивания</h3>
+                    <span class="recent-plays-note" id="statsNote">Войдите в профиль, чтобы сохранять статистику.</span>
+                  </div>
+                  <ul class="recent-plays-list" id="recentListeningList">
+                    <li class="recent-plays-empty">Начните слушать треки, и список обновится автоматически.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="profile-view"
+              data-profile-view="history"
+              id="profileViewHistory"
+              role="tabpanel"
+              aria-labelledby="profileTabHistory"
+              hidden
+            >
+              <div class="history-card" id="coinHistoryCard">
+                <div class="history-summary">
+                  <div class="history-summary-item">
+                    <span class="summary-label">Получено</span>
+                    <span class="summary-value" id="historyEarned">0 RUZ</span>
+                  </div>
+                  <div class="history-summary-item">
+                    <span class="summary-label">Потрачено</span>
+                    <span class="summary-value" id="historySpent">0 RUZ</span>
+                  </div>
+                  <div class="history-summary-item">
+                    <span class="summary-label">Баланс операций</span>
+                    <span class="summary-value" id="historyNet">0 RUZ</span>
+                  </div>
+                </div>
+
+                <div class="history-list" id="coinHistoryList">
+                  <div class="history-empty" id="coinHistoryEmpty">История появится после операций с RUZCOIN.</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="profile-empty" id="profileEmpty">
           <h3>Войдите через меню в правом верхнем углу</h3>
           <p>
-            После входа здесь появится подробный профиль с балансом RUZCOIN, достижениями и доступом к эксклюзивным трекам.
+            После входа откроется личный кабинет с балансом RUZCOIN, достижениями, статистикой прослушиваний и историей операций.
             Первое подключение подарит 10 RUZCOIN.
           </p>
         </div>
       </div>
     </section>
 
-    <section id="listening-stats">
+    <section id="coins">
       <div class="section-header">
-        <h2 class="section-title">Статистика прослушиваний</h2>
-        <p class="section-sub">Личные данные по прослушиваниям внутри сайта.</p>
+        <h2 class="section-title">RUZCOIN</h2>
+        <p class="section-sub">
+          1 RUZCOIN = 10 ₽. Выбирай количество, смотри ориентировочную цену. Оплаты пока в разработке.
+        </p>
       </div>
 
-      <div class="stats-card" id="listeningStatsCard">
-        <div class="stats-summary">
-          <div class="stat-block">
-            <div class="stat-label">Всего прослушиваний</div>
-            <div class="stat-value" id="statTotalPlays">0</div>
-            <div class="stat-subvalue">Сохраняется на этом устройстве</div>
+      <div class="topup-card">
+        <div class="topup-content">
+          <div class="topup-rows" role="group" aria-label="Выбор количества RUZCOIN">
+            <div class="topup-row">
+              <button class="topup-amount-btn" type="button" data-amount="10" aria-pressed="false">
+                <span>10 RUZ</span>
+                <small>~100 ₽</small>
+              </button>
+              <button class="topup-amount-btn" type="button" data-amount="25" aria-pressed="false">
+                <span>25 RUZ</span>
+                <small>~250 ₽</small>
+              </button>
+              <button class="topup-amount-btn" type="button" data-amount="50" aria-pressed="false">
+                <span>50 RUZ</span>
+                <small>~500 ₽</small>
+              </button>
+            </div>
+            <div class="topup-row">
+              <button class="topup-amount-btn" type="button" data-amount="100" aria-pressed="false">
+                <span>100 RUZ</span>
+                <small>~1000 ₽</small>
+              </button>
+              <button class="topup-amount-btn" type="button" data-amount="250" aria-pressed="false">
+                <span>250 RUZ</span>
+                <small>~2500 ₽</small>
+              </button>
+              <button class="topup-amount-btn active" type="button" data-amount="500" aria-pressed="true">
+                <span>500 RUZ</span>
+                <small>~5000 ₽</small>
+              </button>
+            </div>
           </div>
-          <div class="stat-block">
-            <div class="stat-label">Уникальные треки</div>
-            <div class="stat-value" id="statUniqueTracks">0</div>
-            <div class="stat-subvalue">С учётом открытых релизов</div>
+
+          <div class="topup-summary">
+            <div>
+              Выбрано: <strong><span id="topupAmount">500</span> RUZ</strong>
+            </div>
+            <div>
+              Примерная сумма: <strong><span id="topupPrice">5000</span> ₽</strong>
+            </div>
           </div>
-          <div class="stat-block">
-            <div class="stat-label">Любимый трек</div>
-            <div class="stat-value" id="statTopTrack">—</div>
-            <div class="stat-subvalue" id="statTopTrackCount">Прослушиваний: 0</div>
+
+          <div class="topup-actions">
+            <button class="btn btn-primary topup-btn-main" type="button" id="demoTopupBtn">
+              <i class="fa-solid fa-bolt"></i>
+              Зачислить как демо
+            </button>
+            <button class="btn btn-disabled topup-btn-real" type="button" id="realTopupBtn" aria-disabled="true">
+              <i class="fa-solid fa-credit-card"></i>
+              Пополнить за деньги
+            </button>
           </div>
         </div>
-
-        <div class="stats-divider"></div>
-
-        <div class="recent-plays">
-          <div class="recent-plays-header">
-            <h3>Последние прослушивания</h3>
-            <span class="recent-plays-note" id="statsNote">Войдите в профиль, чтобы сохранять статистику.</span>
-          </div>
-          <ul class="recent-plays-list" id="recentListeningList">
-            <li class="recent-plays-empty">Начните слушать треки, и список обновится автоматически.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="coin-history">
-      <div class="section-header">
-        <h2 class="section-title">История RUZCOIN</h2>
-        <p class="section-sub">Полученные и потраченные монеты внутри сайта.</p>
-      </div>
-
-      <div class="history-card" id="coinHistoryCard">
-        <div class="history-summary">
-          <div class="history-summary-item">
-            <span class="summary-label">Получено</span>
-            <span class="summary-value" id="historyEarned">0 RUZ</span>
-          </div>
-          <div class="history-summary-item">
-            <span class="summary-label">Потрачено</span>
-            <span class="summary-value" id="historySpent">0 RUZ</span>
-          </div>
-          <div class="history-summary-item">
-            <span class="summary-label">Баланс операций</span>
-            <span class="summary-value" id="historyNet">0 RUZ</span>
-          </div>
-        </div>
-
-        <div class="history-list" id="coinHistoryList">
-          <div class="history-empty" id="coinHistoryEmpty">История появится после операций с RUZCOIN.</div>
-        </div>
+        <p class="topup-note">
+          Поддержка реальных оплат (карта, СБП, ЮMoney и т.п.) будет добавлена позже. Пока можно тестировать демо-зачисление.
+        </p>
       </div>
     </section>
 
@@ -2985,6 +3436,14 @@
     const headerCoinsAmountEl = document.getElementById("headerCoinsAmount");
     const headerTopupBtn = document.getElementById("headerTopupBtn");
     const profileTopupBtn = document.getElementById("profileTopupBtn");
+    const coinsSection = document.getElementById("coins");
+    const topupAmountButtons = Array.from(document.querySelectorAll(".topup-amount-btn"));
+    const topupAmountDisplayEl = document.getElementById("topupAmount");
+    const topupPriceDisplayEl = document.getElementById("topupPrice");
+    const demoTopupBtn = document.getElementById("demoTopupBtn");
+    const realTopupBtn = document.getElementById("realTopupBtn");
+    const profileTabButtons = Array.from(document.querySelectorAll("[data-profile-tab]"));
+    const profileViews = Array.from(document.querySelectorAll("[data-profile-view]"));
 
     if (navToggle && mainNav) {
       navToggle.addEventListener("click", () => {
@@ -3001,21 +3460,147 @@
       });
     }
 
-    function notifyTopupInProgress() {
-      alert("Пополнение RUZCOIN находится в разработке.");
+    function scrollToCoinsSection() {
+      if (coinsSection) {
+        coinsSection.scrollIntoView({ behavior: "smooth" });
+        if (demoTopupBtn && typeof demoTopupBtn.focus === "function") {
+          window.setTimeout(() => {
+            try {
+              demoTopupBtn.focus({ preventScroll: true });
+            } catch (error) {
+              demoTopupBtn.focus();
+            }
+          }, 260);
+        }
+      } else {
+        notifyPaymentsInProgress();
+      }
     }
 
-    [headerTopupBtn, profileTopupBtn].forEach(btn => {
-      if (btn) {
-        btn.addEventListener("click", event => {
-          event.preventDefault();
-          notifyTopupInProgress();
-        });
-      }
-    });
+    function notifyPaymentsInProgress() {
+      alert("Реальные оплаты пока в разработке. Мы сообщим, когда появится возможность пополнить баланс за деньги.");
+    }
+
+    if (headerTopupBtn) {
+      headerTopupBtn.addEventListener("click", event => {
+        event.preventDefault();
+        scrollToCoinsSection();
+        closeAllPopovers();
+      });
+    }
+
+    if (profileTopupBtn) {
+      profileTopupBtn.addEventListener("click", event => {
+        event.preventDefault();
+        scrollToCoinsSection();
+      });
+    }
+
+    if (realTopupBtn) {
+      realTopupBtn.addEventListener("click", event => {
+        event.preventDefault();
+        notifyPaymentsInProgress();
+      });
+    }
 
     document.getElementById("year").textContent = new Date().getFullYear();
     const numberFormatter = new Intl.NumberFormat("ru-RU");
+
+    let selectedTopupAmount = 0;
+
+    function updateTopupSelectionFromButton(button) {
+      if (!button) {
+        return;
+      }
+      const amountValue = Number.parseInt(button.dataset.amount || "0", 10);
+      if (!Number.isFinite(amountValue) || amountValue <= 0) {
+        return;
+      }
+      selectedTopupAmount = amountValue;
+      topupAmountButtons.forEach(item => {
+        const isActive = item === button;
+        item.classList.toggle("active", isActive);
+        item.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+      if (topupAmountDisplayEl) {
+        topupAmountDisplayEl.textContent = numberFormatter.format(amountValue);
+      }
+      if (topupPriceDisplayEl) {
+        topupPriceDisplayEl.textContent = numberFormatter.format(amountValue * RUZCOIN_PRICE_RUB);
+      }
+    }
+
+    function initializeTopupSelection() {
+      if (!topupAmountButtons.length) {
+        selectedTopupAmount = 0;
+        return;
+      }
+      const presetButton = topupAmountButtons.find(btn => btn.classList.contains("active"));
+      updateTopupSelectionFromButton(presetButton || topupAmountButtons[0]);
+    }
+
+    function setActiveProfileView(targetView) {
+      if (!profileTabButtons.length || !profileViews.length) {
+        return;
+      }
+      const normalizedView = targetView || (profileTabButtons[0] ? profileTabButtons[0].dataset.profileTab : "");
+      profileTabButtons.forEach(button => {
+        const isActive = button.dataset.profileTab === normalizedView;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-selected", isActive ? "true" : "false");
+        button.setAttribute("tabindex", isActive ? "0" : "-1");
+      });
+      profileViews.forEach(view => {
+        const isActive = view.dataset.profileView === normalizedView;
+        view.classList.toggle("is-active", isActive);
+        view.hidden = !isActive;
+      });
+    }
+
+    if (profileTabButtons.length) {
+      profileTabButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          setActiveProfileView(button.dataset.profileTab);
+        });
+      });
+      const initialView = profileTabButtons.find(btn => btn.classList.contains("is-active"));
+      setActiveProfileView(initialView ? initialView.dataset.profileTab : "overview");
+    }
+
+    if (topupAmountButtons.length) {
+      topupAmountButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          updateTopupSelectionFromButton(button);
+        });
+      });
+      initializeTopupSelection();
+    }
+
+    if (demoTopupBtn) {
+      demoTopupBtn.addEventListener("click", () => {
+        if (!currentUser) {
+          if (profilePopoverController) {
+            profilePopoverController.open();
+          } else {
+            alert("Войди в профиль, чтобы протестировать пополнение.");
+          }
+          return;
+        }
+        if (selectedTopupAmount <= 0) {
+          alert("Выбери количество RUZCOIN для демо-пополнения.");
+          return;
+        }
+        currentUser.coins += selectedTopupAmount;
+        if (coinsAmountEl) {
+          coinsAmountEl.textContent = numberFormatter.format(currentUser.coins);
+        }
+        updateHeaderCoins(currentUser.coins);
+        recordCoinHistory("demo-topup", selectedTopupAmount, `Демо пополнение: +${selectedTopupAmount} RUZCOIN`);
+        saveProfile();
+        updateProfilePopoverState();
+        setActiveProfileView("history");
+      });
+    }
 
     const tracksGrid = document.querySelector("#tracks .tracks-grid");
     const releasedTracksConfig = Array.isArray(window.RELEASED_TRACKS_DATA)
@@ -3231,7 +3816,7 @@
       
       const priceMarkup = isLocked
         ? `<div class="track-price">
-             <span class="ruzcoin-icon is-inline">RZ</span>
+             <span class="ruzcoin-icon is-inline" aria-hidden="true"><span class="ruzcoin-glyph">Ɍ</span></span>
              Цена раннего доступа: ${track.price} RUZCOIN
            </div>`
         : '';
@@ -4609,6 +5194,9 @@
         if (profileEmptyEl) {
           profileEmptyEl.hidden = isLoggedIn;
         }
+        if (!isLoggedIn) {
+          setActiveProfileView("overview");
+        }
         if (isLoggedIn) {
           if (profileNameEl) {
             profileNameEl.textContent = currentUser.name;
@@ -4643,6 +5231,11 @@
         } catch (error) {
           console.warn("Не удалось сохранить профиль:", error);
         }
+      }
+
+      function saveProfile() {
+        persistCurrentUser();
+        updateProfileDisplay();
       }
 
       function loadCurrentUser() {
