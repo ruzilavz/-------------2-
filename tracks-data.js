@@ -3,7 +3,7 @@ window.RELEASED_TRACKS_DATA = [
   { slug: "chernyy-yashchik", title: "Черный ящик", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "zima", title: "Зима", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "pomni", title: "Помни", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены." },
-  { slug: "okean-vnutri", title: "Океан внутри", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены." },
+  { slug: "okean-vnutri", title: "Океан внутри", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены.", coverExt: ".png" },
   { slug: "o-vsevyshniy", title: "О Всевышний", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "kak-yad", title: "Как яд", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "allakh", title: "Аллах", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены." },
