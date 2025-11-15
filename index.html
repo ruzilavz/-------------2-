@@ -6388,20 +6388,8 @@
         saveMixEventStatsRegistry();
       }
 
-      function getMixEventStatsForCurrentUser(eventId) {
-        if (!eventId || !mixEventStats || !mixEventStats.events) {
-          return null;
-        }
-        const entry = mixEventStats.events[eventId];
-        if (!entry) {
-          return null;
-        }
-        return {
-          totalPlays: entry.totalPlays || 0,
-          trackPlays: { ...(entry.trackPlays || {}) },
-          updatedAt: entry.updatedAt || new Date().toISOString()
-        };
-      }
+
+
 
       function ensureMixEventEntry(eventId) {
         if (!mixEventStats.events) {
