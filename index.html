@@ -22,6 +22,7 @@
       --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
       --transition: 200ms ease-out;
+      --active-cover: none;
     }
 
     * {
@@ -36,6 +37,28 @@
       color: var(--text);
       min-height: 100vh;
       line-height: 1.5;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: var(--active-cover);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity var(--transition);
+      pointer-events: none;
+      filter: blur(30px);
+      transform: scale(1.1);
+      z-index: -1;
+    }
+
+    body.has-active-cover::before {
+      opacity: 0.25;
     }
 
     a {
@@ -1402,6 +1425,26 @@
     let currentAudio = null;
     let currentCard = null;
 
+    function clearBodyCover() {
+      document.body.classList.remove("has-active-cover");
+      document.body.style.removeProperty("--active-cover");
+    }
+
+    function setBodyCover(card) {
+      if (!card) {
+        clearBodyCover();
+        return;
+      }
+      const cover = card.querySelector(".track-cover");
+      const backgroundImage = cover ? cover.style.backgroundImage : "";
+      if (backgroundImage) {
+        document.body.style.setProperty("--active-cover", backgroundImage);
+        document.body.classList.add("has-active-cover");
+      } else {
+        clearBodyCover();
+      }
+    }
+
     function formatTime(seconds) {
       if (!Number.isFinite(seconds)) {
         return "0:00";
@@ -1460,6 +1503,7 @@
       miniPlayerProgressFilled.style.width = "0%";
       miniPlayerPlayIcon.className = "fas fa-play";
       updateMiniPlayerLyricsState(null);
+      clearBodyCover();
     }
 
     function updateMiniPlayer(card, audio) {
@@ -1554,6 +1598,7 @@
         card.classList.add("playing");
         setCardIcons(card, true);
         updateMiniPlayer(card, audio);
+        setBodyCover(card);
       });
 
       audio.addEventListener("pause", () => {
@@ -1561,6 +1606,7 @@
         card.classList.remove("playing");
         if (currentAudio === audio) {
           updateMiniPlayer(card, audio);
+          clearBodyCover();
         }
       });
 
