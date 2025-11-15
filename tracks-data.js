@@ -1,3 +1,4 @@
+window.RELEASES_TODAY = "2025-11-15";
 window.RELEASED_TRACKS_DATA = [
   { slug: "chernyy-yashchik", title: "Черный ящик", releaseDate: "скоро" },
   { slug: "zima", title: "Зима", releaseDate: "скоро" },

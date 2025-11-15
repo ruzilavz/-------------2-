@@ -3130,11 +3130,15 @@
       const timeDisplay = card.querySelector(".time-display");
       const lyricsBtn = card.querySelector(".lyrics-btn");
 
+      setupTrackStats(card);
+
+      if (lyricsBtn) {
+        lyricsBtn.addEventListener("click", () => openLyrics(card));
+      }
+
       if (!audio) {
         return;
       }
-
-      setupTrackStats(card);
 
       if (timeDisplay) {
         timeDisplay.textContent = "0:00 / 0:00";
@@ -3227,10 +3231,6 @@
           const ratio = (event.clientX - rect.left) / rect.width;
           audio.currentTime = Math.max(0, Math.min(audio.duration, ratio * audio.duration));
         });
-      }
-
-      if (lyricsBtn) {
-        lyricsBtn.addEventListener("click", () => openLyrics(card));
       }
     });
 
