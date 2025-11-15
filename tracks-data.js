@@ -16,7 +16,7 @@ window.RELEASED_TRACKS_DATA = [
   { slug: "nemnozhko", title: "Немножко", releaseDate: "28.11.2025", audioExt: ".wav" },
   { slug: "pachka-sigaret", title: "Пачка сигарет", releaseDate: "скоро" },
   { slug: "yashlek", title: "Яшьлек", releaseDate: "28.11.2025" },
-  { slug: "eto-vetru-govoril", title: "Это ветер говорил", releaseDate: "29.11.2025" },
+  { slug: "eto-vetru-govoril", title: "Это ветру говорил", releaseDate: "29.11.2025" },
   { slug: "mir-naiznanku", title: "Мир наизнанку", releaseDate: "скоро" },
   { slug: "karusel", title: "Карусель", releaseDate: "скоро" },
   { slug: "dikaya-kometa", title: "Дикая комета", releaseDate: "28.11.2025" },
