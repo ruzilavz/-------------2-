@@ -108,69 +108,77 @@
     }
 
     /* Стили для шапки профиля */
-    .profile-header {
-      position: sticky;
-      top: 0;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 18px;
-      background: rgba(5, 6, 10, 0.35);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid rgba(47, 107, 255, 0.12);
-      transform: translateY(-140%);
-      opacity: 0;
-      pointer-events: none;
-      transition:
-        transform 0.45s ease,
-        opacity 0.35s ease,
-        background 0.35s ease,
-        border-color 0.35s ease,
-        backdrop-filter 0.35s ease;
-      z-index: 120;
-    }
-
-    .profile-header.scrolled {
-      background: rgba(5, 6, 10, 0.82);
-      border-bottom-color: rgba(82, 112, 210, 0.32);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 22px 48px rgba(4, 6, 14, 0.62);
-    }
-
-    .profile-header.is-visible {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .profile-header .profile-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 18px;
-      background-image: url("img/avzalov.jpg");
-      background-size: cover;
-      background-position: center 42%;
-      margin-right: 12px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
-    }
-
-    .profile-header .profile-name {
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-    }
-
-    .profile-tagline {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(204, 210, 240, 0.7);
-    }
-
-    .profile-header .profile-info {
+    .users-popover-list {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 10px;
+    }
+
+    .users-popover-empty {
+      font-size: 12px;
+      color: rgba(198, 206, 244, 0.75);
+    }
+
+    .users-popover-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: rgba(14, 18, 34, 0.92);
+      border: 1px solid rgba(76, 102, 189, 0.32);
+      font-size: 12px;
+      color: rgba(214, 220, 255, 0.88);
+    }
+
+    .users-popover-item-rank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(47, 107, 255, 0.18);
+      color: #adc3ff;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .users-popover-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .users-popover-name {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .users-popover-stats {
+      display: flex;
+      gap: 10px;
+      font-size: 11px;
+      color: rgba(160, 172, 220, 0.82);
+    }
+
+    .users-popover-stats span::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.6;
+    }
+
+    .users-popover-role {
+      font-size: 11px;
+      color: rgba(186, 196, 240, 0.78);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
     .logo-group {
       display: flex;
@@ -3107,14 +3115,6 @@
   </style>
 </head>
 <body>
-    <div class="profile-header">
-      <div class="profile-avatar"></div>
-      <div class="profile-info">
-        <h1 class="profile-name">AVZALØV</h1>
-        <span class="profile-tagline">Официальный сайт AVZALØV</span>
-      </div>
-    </div>
-
     <button id="scrollToTopBtn" class="scroll-to-top-btn">
       <i class="fas fa-arrow-up"></i>
     </button>
@@ -3198,6 +3198,18 @@
             <i class="fas fa-users"></i>
             <span>Пользователи</span>
           </button>
+          <div class="header-popover users-popover" id="headerUsersPopover" role="dialog" aria-hidden="true">
+            <div class="popover-header">
+              <div class="popover-title">Пользователи</div>
+              <div class="popover-sub">Топ слушателей</div>
+            </div>
+            <div class="users-popover-list" id="headerUsersList">
+              <p class="users-popover-empty">Войдите в профиль, чтобы увидеть активность слушателей.</p>
+            </div>
+            <div class="popover-actions">
+              <button class="btn btn-ghost btn-xs" type="button" id="openUsersSectionBtn">Открыть раздел</button>
+            </div>
+          </div>
         </div>
         <div class="header-action-group">
           <button
@@ -3722,16 +3734,10 @@
   <script>
       // Показать/скрыть кнопку "Наверх"
       const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-      const profileHeader = document.querySelector(".profile-header");
       const siteHeader = document.querySelector(".site-header");
 
       function updateStickyChrome() {
         const offset = window.pageYOffset || document.documentElement.scrollTop;
-        const shouldShowHeader = offset > 60;
-        if (profileHeader) {
-          profileHeader.classList.toggle("is-visible", shouldShowHeader);
-          profileHeader.classList.toggle("scrolled", offset > 180);
-        }
         if (siteHeader) {
           const isFloating = offset > 12;
           siteHeader.classList.toggle("is-floating", isFloating);
@@ -3781,24 +3787,6 @@
     if (navToggle && mainNav) {
       navToggle.addEventListener("click", () => {
         mainNav.classList.toggle("nav-open");
-      });
-    }
-
-    if (headerProfileBtn) {
-      headerProfileBtn.addEventListener("click", () => {
-        const profileSection = document.getElementById("profile");
-        if (profileSection) {
-          profileSection.scrollIntoView({ behavior: "smooth" });
-        }
-      });
-    }
-
-    if (headerUsersBtn) {
-      headerUsersBtn.addEventListener("click", () => {
-        hideTopupPanel();
-        if (usersSection) {
-          usersSection.scrollIntoView({ behavior: "smooth" });
-        }
       });
     }
 
@@ -3875,7 +3863,10 @@
       });
     }
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const currentYearEl = document.getElementById("year");
+    if (currentYearEl) {
+      currentYearEl.textContent = new Date().getFullYear();
+    }
     const numberFormatter = new Intl.NumberFormat("ru-RU");
 
     let selectedTopupAmount = 0;
@@ -4742,6 +4733,9 @@
     }
 
     function clearMiniPlayer() {
+      if (!miniPlayer || !miniPlayerCover || !miniPlayerTitle || !miniPlayerCurrentTime || !miniPlayerDuration || !miniPlayerProgressFilled || !miniPlayerPlayIcon) {
+        return;
+      }
       miniPlayer.classList.remove("is-active");
       miniPlayerCover.style.backgroundImage = "";
       miniPlayerTitle.textContent = "Название трека";
@@ -4754,13 +4748,22 @@
     }
 
     function updateMiniPlayer(card, audio) {
+      if (!miniPlayer || !miniPlayerCover || !miniPlayerTitle || !miniPlayerCurrentTime || !miniPlayerDuration || !miniPlayerProgressFilled || !miniPlayerPlayIcon) {
+        return;
+      }
       if (!card || !audio) {
         clearMiniPlayer();
         return;
       }
       miniPlayer.classList.add("is-active");
-      miniPlayerTitle.textContent = card.querySelector(".track-title").textContent;
-      miniPlayerCover.style.backgroundImage = card.querySelector(".track-cover").style.backgroundImage;
+      const titleEl = card.querySelector(".track-title");
+      const coverEl = card.querySelector(".track-cover");
+      if (titleEl) {
+        miniPlayerTitle.textContent = titleEl.textContent;
+      }
+      if (coverEl) {
+        miniPlayerCover.style.backgroundImage = coverEl.style.backgroundImage;
+      }
       miniPlayerCurrentTime.textContent = formatTime(audio.currentTime);
       miniPlayerDuration.textContent = formatTime(audio.duration);
       miniPlayerPlayIcon.className = audio.paused ? "fas fa-play" : "fas fa-pause";
@@ -4922,38 +4925,48 @@
 
     rebindTrackCardEvents();
 
-    miniPlayerPlayBtn.addEventListener("click", () => {
-      if (!currentAudio) return;
-      handleToggle(currentCard, currentAudio);
-    });
+    if (miniPlayerPlayBtn) {
+      miniPlayerPlayBtn.addEventListener("click", () => {
+        if (!currentAudio) return;
+        handleToggle(currentCard, currentAudio);
+      });
+    }
 
-    miniPlayerProgressBar.addEventListener("click", event => {
-      if (!currentAudio || !Number.isFinite(currentAudio.duration) || currentAudio.duration === 0) {
-        return;
-      }
-      const rect = miniPlayerProgressBar.getBoundingClientRect();
-      const ratio = (event.clientX - rect.left) / rect.width;
-      currentAudio.currentTime = Math.max(0, Math.min(currentAudio.duration, ratio * currentAudio.duration));
-    });
+    if (miniPlayerProgressBar) {
+      miniPlayerProgressBar.addEventListener("click", event => {
+        if (!currentAudio || !Number.isFinite(currentAudio.duration) || currentAudio.duration === 0) {
+          return;
+        }
+        const rect = miniPlayerProgressBar.getBoundingClientRect();
+        const ratio = (event.clientX - rect.left) / rect.width;
+        currentAudio.currentTime = Math.max(0, Math.min(currentAudio.duration, ratio * currentAudio.duration));
+      });
+    }
 
-    volumeSlider.addEventListener("input", event => {
-      const volume = parseFloat(event.target.value);
-      if (currentAudio) {
-        currentAudio.volume = volume;
-      }
-    });
+    if (volumeSlider) {
+      volumeSlider.addEventListener("input", event => {
+        const volume = parseFloat(event.target.value);
+        if (currentAudio) {
+          currentAudio.volume = volume;
+        }
+      });
+    }
 
     if (miniPlayerLyricsBtn) {
       miniPlayerLyricsBtn.addEventListener("click", () => openLyrics(currentCard));
     }
 
-    lyricsCloseBtn.addEventListener("click", closeLyricsModal);
+    if (lyricsCloseBtn) {
+      lyricsCloseBtn.addEventListener("click", closeLyricsModal);
+    }
 
-    lyricsModalOverlay.addEventListener("click", event => {
-      if (event.target === lyricsModalOverlay) {
-        closeLyricsModal();
-      }
-    });
+    if (lyricsModalOverlay) {
+      lyricsModalOverlay.addEventListener("click", event => {
+        if (event.target === lyricsModalOverlay) {
+          closeLyricsModal();
+        }
+      });
+    }
 
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") {
@@ -5015,6 +5028,9 @@
       const headerProfileNameEl = document.getElementById("headerProfileName");
       const headerCoinsAmountEl = document.getElementById("headerCoinsAmount");
       const openProfileSectionBtn = document.getElementById("openProfileSectionBtn");
+      const headerUsersPopover = document.getElementById("headerUsersPopover");
+      const headerUsersListEl = document.getElementById("headerUsersList");
+      const openUsersSectionBtn = document.getElementById("openUsersSectionBtn");
       const popoverProfileNameEl = document.getElementById("popoverProfileName");
       const popoverProfileIdEl = document.getElementById("popoverProfileId");
       const popoverCoinsAmountEl = document.getElementById("popoverCoinsAmount");
@@ -5028,6 +5044,7 @@
       const popoverControllers = [];
       let coinsPopoverController = null;
       let profilePopoverController = null;
+      let usersPopoverController = null;
 
       const profilePopoverLoggedOutSection = headerProfilePopover
         ? headerProfilePopover.querySelector('[data-state="logged-out"]')
@@ -5702,6 +5719,34 @@
         return (parts[0][0] + parts[1][0]).toUpperCase();
       }
 
+      function updateUsersPopoverList(usersSummary = []) {
+        if (!headerUsersListEl) {
+          return;
+        }
+        headerUsersListEl.innerHTML = "";
+        if (!usersSummary.length) {
+          headerUsersListEl.innerHTML = '<p class="users-popover-empty">Список появится после входа в профиль.</p>';
+          return;
+        }
+        const topUsers = usersSummary.slice(0, 3);
+        topUsers.forEach((entry, index) => {
+          const item = document.createElement("div");
+          item.className = "users-popover-item";
+          item.innerHTML = `
+            <span class="users-popover-item-rank">${index + 1}</span>
+            <div class="users-popover-meta">
+              <span class="users-popover-name">${entry.name}</span>
+              <div class="users-popover-stats">
+                <span>${numberFormatter.format(entry.coins)} RUZ</span>
+                <span>${numberFormatter.format(entry.totalPlays)} просл.</span>
+              </div>
+            </div>
+            <span class="users-popover-role">${entry.roleLabel}</span>
+          `;
+          headerUsersListEl.appendChild(item);
+        });
+      }
+
       function renderUsersDirectory() {
         if (!usersDirectoryEl) {
           return;
@@ -5712,6 +5757,7 @@
         }
         if (!usersList.length) {
           usersDirectoryEl.innerHTML = '<p class="users-empty">Войдите в профиль или добавьте пользователей, чтобы увидеть список.</p>';
+          updateUsersPopoverList();
           return;
         }
         const enriched = usersList.map(user => {
@@ -5760,6 +5806,7 @@
         });
         usersDirectoryEl.innerHTML = "";
         usersDirectoryEl.appendChild(fragment);
+        updateUsersPopoverList(enriched);
       }
 
       function grantAchievement(achievementId) {
@@ -6090,6 +6137,16 @@
         });
       }
 
+      if (openUsersSectionBtn) {
+        openUsersSectionBtn.addEventListener("click", event => {
+          event.preventDefault();
+          closeAllPopovers();
+          if (usersSection) {
+            usersSection.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      }
+
       if (profileTopupBtn) {
         profileTopupBtn.addEventListener("click", event => {
           event.preventDefault();
@@ -6181,6 +6238,7 @@
 
       coinsPopoverController = attachPopover(headerCoinsBtn, headerCoinsPopover);
       profilePopoverController = attachPopover(headerProfileBtn, headerProfilePopover);
+      usersPopoverController = attachPopover(headerUsersBtn, headerUsersPopover);
 
       [tracksGrid, clipsGrid].forEach(grid => {
         if (grid) {
