@@ -1676,6 +1676,7 @@
 
     .volume-slider {
       -webkit-appearance: none;
+      appearance: none;
       width: 110px;
       height: 4px;
       border-radius: 999px;
@@ -3325,7 +3326,7 @@
       `;
       const lyricsContainer = article.querySelector(".lyrics-content");
       if (lyricsContainer && Array.isArray(track.lyrics) && track.lyrics.length > 0) {
-        lyricsContainer.textContent = track.lyrics.join("\n");
+        lyricsContainer.textContent = track.lyrics.join("\\n");
       }
       return article;
     }
