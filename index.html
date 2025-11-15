@@ -4017,6 +4017,7 @@
     const usersSection = document.getElementById("users");
     const usersDirectoryEl = document.getElementById("usersDirectory");
     const clipsGrid = document.getElementById("clipsGrid");
+    const miniGalleryFilterButtons = Array.from(document.querySelectorAll("[data-gallery-filter]"));
 
     const RUZCOIN_PRICE_RUB = 10;
 
@@ -4244,7 +4245,6 @@
     const tracksGrid = document.querySelector("#tracks .tracks-grid");
     const tracksMiniGallery = document.getElementById("tracksMiniGallery");
     const miniGalleryScroller = document.getElementById("tracksGalleryScroller");
-    const miniGalleryFilterButtons = Array.from(document.querySelectorAll("[data-gallery-filter]"));
     let releasedTracksConfig = Array.isArray(window.RELEASED_TRACKS_DATA)
       ? window.RELEASED_TRACKS_DATA
       : [];
