@@ -1680,6 +1680,11 @@
     }
 
     @media (max-width: 720px) {
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
       .hero {
         align-items: flex-start;
       }
@@ -2565,12 +2570,39 @@
   <script>
     const navToggle = document.getElementById("navToggle");
     const mainNav = document.getElementById("mainNav");
+    const headerProfileBtn = document.getElementById("headerProfileBtn");
+    const headerProfileNameEl = document.getElementById("headerProfileName");
+    const headerCoinsAmountEl = document.getElementById("headerCoinsAmount");
+    const headerTopupBtn = document.getElementById("headerTopupBtn");
+    const profileTopupBtn = document.getElementById("profileTopupBtn");
 
     if (navToggle && mainNav) {
       navToggle.addEventListener("click", () => {
         mainNav.classList.toggle("nav-open");
       });
     }
+
+    if (headerProfileBtn) {
+      headerProfileBtn.addEventListener("click", () => {
+        const profileSection = document.getElementById("profile");
+        if (profileSection) {
+          profileSection.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    }
+
+    function notifyTopupInProgress() {
+      alert("���������� RUZCOIN ���������� � ����������.");
+    }
+
+    [headerTopupBtn, profileTopupBtn].forEach(btn => {
+      if (btn) {
+        btn.addEventListener("click", event => {
+          event.preventDefault();
+          notifyTopupInProgress();
+        });
+      }
+    });
 
     document.getElementById("year").textContent = new Date().getFullYear();
     const numberFormatter = new Intl.NumberFormat("ru-RU");
