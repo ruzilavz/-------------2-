@@ -343,14 +343,63 @@
     }
 
     .tracks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
     }
 
-    @media (min-width: 900px) {
-      .tracks-grid {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    .track-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tracks-carousel {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(118, 146, 238, 0.8) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tracks-carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .tracks-carousel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .tracks-carousel::-webkit-scrollbar-thumb {
+      background: rgba(118, 146, 238, 0.45);
+      border-radius: 999px;
+    }
+
+    .tracks-carousel .track-card {
+      flex: 0 0 calc(82vw - 48px);
+      max-width: 360px;
+      min-width: 260px;
+      scroll-snap-align: start;
+    }
+
+    @media (min-width: 600px) {
+      .tracks-carousel .track-card {
+        flex: 0 0 calc(50vw - 60px);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .tracks-carousel .track-card {
+        flex: 0 0 320px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .tracks-carousel .track-card {
+        flex: 0 0 340px;
       }
     }
 
@@ -511,6 +560,63 @@
       opacity: 0.85;
     }
 
+    .track-stats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .track-like-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(27, 34, 66, 0.8);
+      color: #f6f6ff;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition), color var(--transition), transform 180ms ease;
+    }
+
+    .track-like-btn i {
+      color: rgba(255, 104, 183, 0.8);
+    }
+
+    .track-like-btn.is-liked {
+      background: rgba(255, 104, 183, 0.12);
+      border-color: rgba(255, 104, 183, 0.8);
+      color: #ffd5ea;
+      transform: translateY(-2px);
+    }
+
+    .track-like-btn.is-liked i {
+      color: #ff68b7;
+    }
+
+    .track-plays {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      background: rgba(25, 34, 64, 0.7);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(206, 212, 242, 0.9);
+      border: 1px solid rgba(77, 108, 199, 0.35);
+    }
+
+    .track-plays i {
+      color: rgba(86, 131, 255, 0.9);
+    }
+
     .dot {
       width: 4px;
       height: 4px;
@@ -545,7 +651,6 @@
     }
 
     .track-divider {
-      grid-column: 1 / -1;
       padding: 6px 4px 0;
       font-size: 12px;
       letter-spacing: 0.2em;
@@ -1227,104 +1332,14 @@
       </div>
 
       <div class="tracks-grid">
-        <div class="track-divider">Выпущено</div>
+        <div class="track-group">
+          <div class="track-divider">Выпущено</div>
+          <div class="tracks-carousel" id="releasedCarousel"></div>
+        </div>
 
-        <article class="track-card">
-          <div
-            class="track-cover" style="background-image:url('img/rozy20.jpg');">
-            <div class="play-overlay"><i class="fas fa-play"></i></div>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Она срывала розы2.0</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>28.08.2025</span>
-            </div>
-            <div class="player-controls">
-              <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
-                <i class="fas fa-play"></i>
-              </button>
-              <div class="progress-bar-wrapper">
-                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
-                <span class="time-display">0:00 / 0:00</span>
-              </div>
-            </div>
-            <div class="track-actions">
-              <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
-              <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
-            </div>
-          </div>
-          <audio class="track-audio" src="audio/ona-sryvala-rozy-20.mp3" preload="metadata"></audio>
-          <div class="lyrics-content" style="display: none;">Текст песни "Она срывала розы2.0".</div>
-        </article>
-
-        <article class="track-card">
-          <div
-            class="track-cover" style="background-image:url('img/yashlek.jpg');">
-            <div class="play-overlay"><i class="fas fa-play"></i></div>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Яшьлек</div>
-            <div class="track-meta">
-              <span>EP</span>
-              <span class="dot"></span>
-              <span>03.05.2025</span>
-            </div>
-            <div class="player-controls">
-              <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
-                <i class="fas fa-play"></i>
-              </button>
-              <div class="progress-bar-wrapper">
-                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
-                <span class="time-display">0:00 / 0:00</span>
-              </div>
-            </div>
-            <div class="track-actions">
-              <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
-              <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
-            </div>
-          </div>
-          <audio class="track-audio" src="audio/yashlek.mp3" preload="metadata"></audio>
-          <div class="lyrics-content" style="display: none;">Текст песни "Яшьлек".</div>
-        </article>
-
-        <article class="track-card">
-          <div
-            class="track-cover" style="background-image:url('img/dikaya-kometa.jpg');">
-            <div class="play-overlay"><i class="fas fa-play"></i></div>
-          </div>
-          <div class="track-info">
-            <div class="track-title">ДИКАЯ КОМЕТА</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>15.11.2025</span>
-            </div>
-            <div class="player-controls">
-              <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
-                <i class="fas fa-play"></i>
-              </button>
-              <div class="progress-bar-wrapper">
-                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
-                <span class="time-display">0:00 / 0:00</span>
-              </div>
-            </div>
-            <div class="track-actions">
-              <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
-              <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
-            </div>
-          </div>
-          <audio class="track-audio" src="audio/dikaya-kometa.mp3" preload="metadata"></audio>
-          <div class="lyrics-content" style="display: none;">
-Здесь будет текст песни "ДИКАЯ КОМЕТА".
-Просто впишите его сюда.
-Можно использовать переносы строк.
-Они сохранятся.
-          </div>
-        </article>
-
-        <div class="track-divider">В разработке</div>
+        <div class="track-group">
+          <div class="track-divider">В разработке</div>
+          <div class="tracks-carousel">
 
         <article class="track-card upcoming">
           <div class="track-cover">
@@ -1730,6 +1745,8 @@
             <p class="track-note">Следите за новостями — релиз скоро.</p>
           </div>
         </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1881,6 +1898,141 @@
     }
 
     document.getElementById("year").textContent = new Date().getFullYear();
+    const numberFormatter = new Intl.NumberFormat("ru-RU");
+
+    const releasedCarousel = document.getElementById("releasedCarousel");
+    const releasedTracksConfig = [
+      { file: "chernyy-yashchik", title: "\u0427\u0435\u0440\u043d\u044b\u0439\u0020\u044f\u0449\u0438\u043a" },
+      { file: "zima", title: "\u0417\u0438\u043c\u0430" },
+      { file: "pomni", title: "\u041f\u043e\u043c\u043d\u0438" },
+      { file: "okean-vnutri", title: "\u041e\u043a\u0435\u0430\u043d\u0020\u0432\u043d\u0443\u0442\u0440\u0438" },
+      { file: "o-vsevyshniy", title: "\u041e\u0020\u0412\u0441\u0435\u0432\u044b\u0448\u043d\u0438\u0439" },
+      { file: "kak-yad", title: "\u041a\u0430\u043a\u0020\u044f\u0434" },
+      { file: "allakh", title: "\u0410\u043b\u043b\u0430\u0445" },
+      { file: "peregrev", title: "\u041f\u0435\u0440\u0435\u0433\u0440\u0435\u0432" },
+      { file: "leti-so-mnoy", title: "\u041b\u0435\u0442\u0438\u0020\u0441\u043e\u0020\u043c\u043d\u043e\u0439" },
+      { file: "sirena", title: "\u0421\u0438\u0440\u0435\u043d\u0430" },
+      { file: "ierarkhiya", title: "\u0418\u0435\u0440\u0430\u0440\u0445\u0438\u044f" },
+      { file: "ona-sryvala-rozy-20", title: "\u041e\u043d\u0430\u0020\u0441\u0440\u044b\u0432\u0430\u043b\u0430\u0020\u0440\u043e\u0437\u044b\u0020\u0032\u002e\u0030" },
+      { file: "ona-sryvala-rozy", title: "\u041e\u043d\u0430\u0020\u0441\u0440\u044b\u0432\u0430\u043b\u0430\u0020\u0440\u043e\u0437\u044b" },
+      { file: "nemnozhko", title: "\u041d\u0435\u043c\u043d\u043e\u0436\u043a\u043e" },
+      { file: "pachka-sigaret", title: "\u041f\u0430\u0447\u043a\u0430\u0020\u0441\u0438\u0433\u0430\u0440\u0435\u0442" },
+      { file: "yashlek", title: "\u042f\u0448\u044c\u043b\u0435\u043a" },
+      { file: "eto-vetru-govoril", title: "\u042d\u0442\u043e\u0020\u0432\u0435\u0442\u0440\u0443\u0020\u0433\u043e\u0432\u043e\u0440\u0438\u043b" },
+      { file: "mir-naiznanku", title: "\u041c\u0438\u0440\u0020\u043d\u0430\u0438\u0437\u043d\u0430\u043d\u043a\u0443" },
+      { file: "karusel", title: "\u041a\u0430\u0440\u0443\u0441\u0435\u043b\u044c" },
+      { file: "dikaya-kometa", title: "\u0414\u0438\u043a\u0430\u044f\u0020\u043a\u043e\u043c\u0435\u0442\u0430" },
+      { file: "mamaamakriminal", title: "\u041c\u0430\u043c\u0430\u0430\u043c\u0430\u041a\u0440\u0438\u043c\u0438\u043d\u0430\u043b" },
+      { file: "ekho-shagov", title: "\u042d\u0445\u043e\u0020\u0448\u0430\u0433\u043e\u0432" },
+      { file: "ayforio", title: "\u0410\u0439\u0444\u043e\u0440\u0438\u043e" },
+      { file: "bez-imeni", title: "\u0411\u0435\u0437\u0020\u0438\u043c\u0435\u043d\u0438" },
+      { file: "spichki", title: "\u0421\u043f\u0438\u0447\u043a\u0438" },
+      { file: "poka-dyshu (EP)", title: "EP\u0020\u00ab\u041f\u043e\u043a\u0430\u0020\u0434\u044b\u0448\u0443\u00bb", type: "EP" },
+      { file: "puls", title: "\u041f\u0443\u043b\u044c\u0441" },
+      { file: "ne-veryu", title: "\u041d\u0435\u0020\u0432\u0435\u0440\u044e" },
+      { file: "uliver", title: "\u0423\u043b\u0438\u0432\u0435\u0440" },
+      { file: "sotri-menya", title: "\u0421\u043e\u0442\u0440\u0438\u0020\u043c\u0435\u043d\u044f" }
+    ];
+
+
+
+    function formatDateLabel(date) {
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      return `${day}.${month}.${date.getFullYear()}`;
+    }
+
+    function buildCoverBackgroundValue(fileBase) {
+      const normalized = fileBase.trim();
+      const sources = [".webp", ".jpg", ".jpeg", ".png"].map(ext => {
+        const path = encodeURI(`img/${normalized}${ext}`);
+        return `url('${path}')`;
+      });
+      sources.push("linear-gradient(140deg, rgba(38, 52, 110, 0.85), rgba(12, 16, 32, 0.9))");
+      return sources.join(", ");
+    }
+
+    function buildAudioSource(fileBase, customExt) {
+      const ext = customExt || ".mp3";
+      return encodeURI(`audio/${fileBase.trim()}${ext}`);
+    }
+
+    function buildReleasedTracksData() {
+      const baseDate = new Date(2024, 0, 12);
+      return releasedTracksConfig.map((trackConfig, index) => {
+        const trackDate = new Date(baseDate.getTime());
+        trackDate.setDate(baseDate.getDate() + index * 9);
+        return {
+          file: trackConfig.file,
+          title: trackConfig.title,
+          type: trackConfig.type || "\u0421\u0438\u043d\u0433\u043b",
+          date: formatDateLabel(trackDate),
+          likes: 2100 + index * 47,
+          plays: 130000 + index * 6100,
+          coverStyle: buildCoverBackgroundValue(trackConfig.file),
+          audio: buildAudioSource(trackConfig.file, trackConfig.audioExt)
+        };
+      });
+    }
+
+    function createTrackCard(track) {
+      const article = document.createElement("article");
+      article.className = "track-card";
+      article.dataset.likes = track.likes;
+      article.dataset.plays = track.plays;
+      article.innerHTML = `
+        <div class="track-cover" style="background-image:${track.coverStyle};">
+          <div class="play-overlay"><i class="fas fa-play"></i></div>
+        </div>
+        <div class="track-info">
+          <div class="track-title">${track.title}</div>
+          <div class="track-meta">
+            <span>${track.type}</span>
+            <span class="dot"></span>
+            <span>${track.date}</span>
+          </div>
+          <div class="track-stats">
+            <button class="track-like-btn" type="button" aria-label="Поставить лайк" aria-pressed="false">
+              <i class="fas fa-heart"></i>
+              <span class="track-like-count">${formatCount(track.likes)}</span>
+            </button>
+            <div class="track-plays" aria-label="Количество прослушиваний">
+              <i class="fas fa-chart-line"></i>
+              <span class="track-plays-count">${formatCount(track.plays)}</span>
+            </div>
+          </div>
+          <div class="player-controls">
+            <button class="track-play-toggle" type="button" aria-label="Проиграть или приостановить">
+              <i class="fas fa-play"></i>
+            </button>
+            <div class="progress-bar-wrapper">
+              <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+              <span class="time-display">0:00 / 0:00</span>
+            </div>
+          </div>
+          <div class="track-actions">
+            <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
+            <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Слушать</span></a>
+          </div>
+        </div>
+        <audio class="track-audio" src="${track.audio}" preload="metadata"></audio>
+        <div class="lyrics-content" style="display: none;"></div>
+      `;
+      return article;
+    }
+
+    function renderReleasedTracks() {
+      if (!releasedCarousel) {
+        return;
+      }
+      const fragment = document.createDocumentFragment();
+      buildReleasedTracksData().forEach(track => {
+        fragment.appendChild(createTrackCard(track));
+      });
+      releasedCarousel.appendChild(fragment);
+    }
+
+    renderReleasedTracks();
 
     const trackCards = document.querySelectorAll(".track-card");
     const miniPlayer = document.getElementById("miniPlayer");
@@ -1898,6 +2050,7 @@
     const lyricsModalTitle = document.getElementById("lyricsModalTitle");
     const lyricsModalText = document.getElementById("lyricsModalText");
     const lyricsCloseBtn = document.getElementById("lyricsCloseBtn");
+    const trackRealtimeStats = new Map();
 
     let currentAudio = null;
     let currentCard = null;
@@ -1931,6 +2084,78 @@
       return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
     }
 
+    function formatCount(value) {
+      return numberFormatter.format(Math.max(0, Math.floor(value)));
+    }
+
+    function setupTrackStats(card) {
+      if (trackRealtimeStats.has(card)) {
+        return;
+      }
+      const likeBtn = card.querySelector(".track-like-btn");
+      const likeCountEl = card.querySelector(".track-like-count");
+      const playsCountEl = card.querySelector(".track-plays-count");
+      const baseLikes = Number.parseInt(card.dataset.likes || "0", 10);
+      const basePlays = Number.parseInt(card.dataset.plays || "0", 10);
+      const stats = {
+        baseLikes,
+        likeBtn,
+        likeCountEl,
+        liked: false,
+        basePlays,
+        playsCountEl,
+        elapsedSeconds: 0,
+        lastSecondMark: 0
+      };
+      if (likeCountEl) {
+        likeCountEl.textContent = formatCount(baseLikes);
+      }
+      if (playsCountEl) {
+        playsCountEl.textContent = formatCount(basePlays);
+      }
+      if (likeBtn) {
+        likeBtn.addEventListener("click", () => toggleLike(card));
+      }
+      trackRealtimeStats.set(card, stats);
+    }
+
+    function toggleLike(card) {
+      const stats = trackRealtimeStats.get(card);
+      if (!stats || !stats.likeBtn || !stats.likeCountEl) {
+        return;
+      }
+      stats.liked = !stats.liked;
+      stats.likeBtn.classList.toggle("is-liked", stats.liked);
+      stats.likeBtn.setAttribute("aria-pressed", stats.liked ? "true" : "false");
+      const totalLikes = stats.baseLikes + (stats.liked ? 1 : 0);
+      stats.likeCountEl.textContent = formatCount(totalLikes);
+    }
+
+    function updateTrackPlays(card, audio) {
+      const stats = trackRealtimeStats.get(card);
+      if (!stats || !stats.playsCountEl) {
+        return;
+      }
+      const currentSecond = Math.floor(audio.currentTime || 0);
+      if (currentSecond < stats.lastSecondMark) {
+        stats.lastSecondMark = currentSecond;
+        return;
+      }
+      if (currentSecond > stats.lastSecondMark) {
+        stats.elapsedSeconds += currentSecond - stats.lastSecondMark;
+        stats.lastSecondMark = currentSecond;
+        stats.playsCountEl.textContent = formatCount(stats.basePlays + stats.elapsedSeconds);
+      }
+    }
+
+    function resetRealtimeMarker(card, currentTime = 0) {
+      const stats = trackRealtimeStats.get(card);
+      if (!stats) {
+        return;
+      }
+      stats.lastSecondMark = Math.floor(Math.max(0, currentTime));
+    }
+
     function setCardIcons(card, isPlaying) {
       const overlayIcon = card.querySelector(".play-overlay i");
       const toggleIcon = card.querySelector(".track-play-toggle i");
@@ -1955,6 +2180,7 @@
         const durationText = formatTime(audio.duration);
         timeDisplay.textContent = `0:00 / ${durationText}`;
       }
+      resetRealtimeMarker(card, 0);
     }
 
     function updateMiniPlayerLyricsState(card) {
@@ -2049,6 +2275,8 @@
         return;
       }
 
+      setupTrackStats(card);
+
       if (timeDisplay) {
         timeDisplay.textContent = "0:00 / 0:00";
       }
@@ -2075,12 +2303,14 @@
         card.classList.add("playing");
         setCardIcons(card, true);
         updateMiniPlayer(card, audio);
+        resetRealtimeMarker(card, audio.currentTime);
         setBodyCover(card);
       });
 
       audio.addEventListener("pause", () => {
         setCardIcons(card, false);
         card.classList.remove("playing");
+        resetRealtimeMarker(card, audio.currentTime);
         if (currentAudio === audio) {
           updateMiniPlayer(card, audio);
           clearBodyCover();
@@ -2088,6 +2318,7 @@
       });
 
       audio.addEventListener("timeupdate", () => {
+        updateTrackPlays(card, audio);
         const hasDuration = Number.isFinite(audio.duration) && audio.duration > 0;
         const progress = hasDuration ? (audio.currentTime / audio.duration) * 100 : 0;
         if (progressFilled) {
@@ -2110,6 +2341,10 @@
           currentCard = null;
           clearMiniPlayer();
         }
+      });
+
+      audio.addEventListener("seeked", () => {
+        resetRealtimeMarker(card, audio.currentTime);
       });
 
       if (progressBar) {
