@@ -1781,6 +1781,24 @@
         <a href="#about">Биография</a>
         <a href="#contacts">Контакты</a>
       </nav>
+      <div class="header-actions">
+        <div class="ruzcoin-chip" aria-live="polite">
+          <div class="ruzcoin-icon" aria-hidden="true">RZ</div>
+          <div class="ruzcoin-info">
+            <span class="ruzcoin-label">RUZCOIN</span>
+            <span class="ruzcoin-value" id="headerCoinsAmount">0</span>
+          </div>
+        </div>
+        <button class="header-topup-btn" id="headerTopupBtn" type="button">
+          <i class="fas fa-coins"></i>
+          <span>��������</span>
+          <span class="chip-soon">� �������</span>
+        </button>
+        <button class="header-profile-btn" id="headerProfileBtn" type="button">
+          <i class="fas fa-user"></i>
+          <span id="headerProfileName">������</span>
+        </button>
+      </div>
     </header>
 
     <section class="hero">
@@ -1844,14 +1862,18 @@
               <div class="profile-name" id="profileName">Гость</div>
               <div class="profile-id">ID: <span id="profileId">—</span></div>
               <div class="profile-coins">
+                <span class="ruzcoin-icon is-inline" aria-hidden="true">RZ</span>
                 Баланс RUZCOIN:
                 <span class="coins-amount" id="coinsAmount">0</span>
               </div>
               <div class="profile-actions-row">
                 <button class="btn btn-primary btn-xs" id="earnDemoCoinsBtn">+5 RUZCOIN (демо)</button>
-                <button class="btn btn-ghost btn-xs" id="logoutBtn">Выйти</button>
+                <button class="btn btn-ghost btn-xs" id="profileTopupBtn">
+                  Пополнение
+                  <span class="chip-soon">В разработке</span>
+                </button>
+                <button class="btn btn-ghost btn-xs" id="logoutBtn">Выход</button>
               </div>
-            </div>
           </div>
 
           <div class="profile-achievements">
