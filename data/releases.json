@@ -15,13 +15,13 @@
     { "title": "Она срывала розы", "release_date": "2025-07-22", "status": "released" },
     { "title": "Спички", "release_date": "2025-08-12", "status": "released" },
     { "title": "Сирена", "release_date": "2025-11-25", "status": "announced" },
-    { "title": "ПЕРЕГРЕВ", "release_date": "2025-11-27", "status": "announced" },
-    { "title": "ДИКАЯ КОМЕТА", "release_date": "2025-11-28", "status": "announced" },
+    { "title": "Перегрев", "release_date": "2025-11-27", "status": "announced" },
+    { "title": "Дикая комета", "release_date": "2025-11-28", "status": "announced" },
     { "title": "Немножко", "release_date": "2025-11-28", "status": "announced" },
     { "title": "Яшьлек", "release_date": "2025-11-28", "status": "announced" },
-    { "title": "ЛЕТИ СО МНОЙ", "release_date": "2025-11-29", "status": "announced" },
-    { "title": "Это ветру говорил", "release_date": "2025-11-29", "status": "announced" },
-    { "title": "АЙФОРИО", "release_date": "2025-11-30", "status": "announced" },
-    { "title": "БЕЗ ИМЕНИ", "release_date": "2025-12-01", "status": "announced" }
+    { "title": "Лети со мной", "release_date": "2025-11-29", "status": "announced" },
+    { "title": "Это ветер говорил", "release_date": "2025-11-29", "status": "announced" },
+    { "title": "Айфорио", "release_date": "2025-11-30", "status": "announced" },
+    { "title": "Без имени", "release_date": "2025-12-01", "status": "announced" }
   ]
 }

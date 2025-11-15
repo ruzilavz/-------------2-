@@ -2450,16 +2450,58 @@
     const numberFormatter = new Intl.NumberFormat("ru-RU");
 
     const releasedCarousel = document.getElementById("releasedCarousel");
+    const tracksGrid = document.querySelector("#tracks .tracks-grid");
     const releasedTracksConfig = Array.isArray(window.RELEASED_TRACKS_DATA)
       ? window.RELEASED_TRACKS_DATA
       : [];
+    const releaseReferenceDate = resolveReferenceDate();
 
+    function resolveReferenceDate() {
+      const manual = typeof window.RELEASES_TODAY === "string" ? window.RELEASES_TODAY.trim() : "";
+      if (manual) {
+        const parsed = new Date(manual);
+        if (!Number.isNaN(parsed.getTime())) {
+          return parsed;
+        }
+      }
+      return new Date();
+    }
 
+    function parseReleaseDate(value) {
+      if (typeof value !== "string") {
+        return null;
+      }
+      const trimmed = value.trim();
+      if (!trimmed || trimmed.toLowerCase() === "скоро") {
+        return null;
+      }
+      const segments = trimmed.split(".");
+      if (segments.length === 3) {
+        const [day, month, year] = segments.map(part => Number.parseInt(part, 10));
+        if (!Number.isNaN(day) && !Number.isNaN(month) && !Number.isNaN(year)) {
+          const parsed = new Date(year, month - 1, day);
+          if (!Number.isNaN(parsed.getTime())) {
+            return parsed;
+          }
+        }
+      }
+      const fallback = new Date(trimmed);
+      return Number.isNaN(fallback.getTime()) ? null : fallback;
+    }
 
-    function formatDateLabel(date) {
-      const day = String(date.getDate()).padStart(2, "0");
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      return `${day}.${month}.${date.getFullYear()}`;
+    function determineReleaseState(parsedDate) {
+      if (!parsedDate) {
+        return "soon";
+      }
+      return parsedDate.getTime() <= releaseReferenceDate.getTime() ? "released" : "soon";
+    }
+
+    function determineVisualStatus(typeLabel, releaseState) {
+      const normalizedType = (typeLabel || "").toLowerCase();
+      if (normalizedType.includes("ep") || normalizedType.includes("альбом")) {
+        return "ep";
+      }
+      return releaseState === "soon" ? "soon" : "released";
     }
 
     function buildCoverBackgroundValue(fileBase) {
@@ -2485,25 +2527,44 @@
       return encodeURI(`audio/${normalized}${ext}`);
     }
 
-    function buildReleasedTracksData() {
-      const baseDate = new Date(2024, 0, 12);
+    function buildTrackLibrary() {
       return releasedTracksConfig.map((trackConfig, index) => {
-        const trackDate = new Date(baseDate.getTime());
-        trackDate.setDate(baseDate.getDate() + index * 9);
         const slug = (trackConfig.slug || trackConfig.file || `track-${index}`).trim();
-        const releaseLabel = trackConfig.releaseDate || formatDateLabel(trackDate);
+        const releaseRaw = trackConfig.releaseDate ? String(trackConfig.releaseDate).trim() : "";
+        const parsedDate = parseReleaseDate(releaseRaw);
+        const releaseState = determineReleaseState(parsedDate);
+        const typeLabel = (trackConfig.type || "Сингл").trim() || "Сингл";
+        const visualStatus = determineVisualStatus(typeLabel, releaseState);
+        const coverBase = (trackConfig.cover || slug).trim();
+        const audioBase = (trackConfig.audio || slug).trim();
+        const audioSource = buildAudioSource(audioBase, trackConfig.audioExt);
+        const previewAllowed = trackConfig.preview === true || trackConfig.alwaysPlayable === true;
+        const hasAudio = Boolean(audioSource) && (releaseState === "released" || previewAllowed);
+        const releaseLabel =
+          releaseRaw && releaseRaw.toLowerCase() !== "скоро" ? releaseRaw : "Скоро";
         return {
           slug,
-          title: trackConfig.title,
-          type: trackConfig.type || "\u0421\u0438\u043d\u0433\u043b",
-          date: releaseLabel,
+          title: trackConfig.title || slug,
+          typeLabel,
+          releaseLabel,
+          releaseState,
+          visualStatus,
           likes: 2100 + index * 47,
           plays: 130000 + index * 6100,
-          coverStyle: buildCoverBackgroundValue(slug),
-          audio: buildAudioSource(slug, trackConfig.audioExt),
+          coverStyle: buildCoverBackgroundValue(coverBase),
+          audio: hasAudio ? audioSource : "",
+          hasAudio,
+          streamUrl: trackConfig.streamUrl || (hasAudio ? audioSource : "#"),
           lyrics: trackConfig.lyrics || null
         };
       });
+    }
+
+    function buildTrackDivider(label) {
+      const divider = document.createElement("div");
+      divider.className = "track-divider";
+      divider.textContent = label;
+      return divider;
     }
 
     function createTrackCard(track) {
