@@ -1879,6 +1879,7 @@
                 </button>
                 <button class="btn btn-ghost btn-xs" id="logoutBtn">Выход</button>
               </div>
+            </div>
           </div>
 
           <div class="profile-achievements">
@@ -2592,7 +2593,7 @@
     }
 
     function notifyTopupInProgress() {
-      alert("���������� RUZCOIN ���������� � ����������.");
+      alert("Пополнение RUZCOIN находится в разработке.");
     }
 
     [headerTopupBtn, profileTopupBtn].forEach(btn => {
@@ -3479,6 +3480,18 @@
         return safeUser;
       }
 
+      function updateHeaderCoins(value) {
+        if (headerCoinsAmountEl) {
+          headerCoinsAmountEl.textContent = value;
+        }
+      }
+
+      function updateHeaderProfileNameDisplay(name) {
+        if (headerProfileNameEl) {
+          headerProfileNameEl.textContent = name;
+        }
+      }
+
       function saveProfile() {
         if (!currentUser) {
           return;
@@ -3502,6 +3515,8 @@
         if (coinsAmountEl) {
           coinsAmountEl.textContent = "0";
         }
+        updateHeaderCoins("0");
+        updateHeaderProfileNameDisplay("Войти");
         if (achievementsGridEl) {
           achievementsGridEl.innerHTML = "";
         }
@@ -3632,6 +3647,8 @@
         if (coinsAmountEl) {
           coinsAmountEl.textContent = currentUser.coins;
         }
+        updateHeaderCoins(currentUser.coins);
+        updateHeaderProfileNameDisplay(currentUser.name);
         renderAchievements();
         updateLockedTracksState();
       }
@@ -3689,6 +3706,7 @@
             if (coinsAmountEl) {
               coinsAmountEl.textContent = currentUser.coins;
             }
+            updateHeaderCoins(currentUser.coins);
             if (!currentUser.achievements.first_unlock) {
               currentUser.achievements.first_unlock = true;
             }
@@ -3742,6 +3760,7 @@
           if (coinsAmountEl) {
             coinsAmountEl.textContent = currentUser.coins;
           }
+          updateHeaderCoins(currentUser.coins);
           saveProfile();
         });
       }
