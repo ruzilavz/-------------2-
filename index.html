@@ -142,106 +142,6 @@
       font-size: 14px;
       color: var(--muted);
     }
-  </style>
-</head>
-<body>
-    <div class="profile-header">
-      <div class="profile-avatar"></div>
-      <div class="profile-info">
-        <h1 class="profile-name">AVZALØV</h1>
-        <p class="profile-bio">Музыкальный продюсер и исполнитель. Исследую глубины звука и создаю новые музыкальные миры.</p>
-      </div>
-    </div>
-
-    <button id="scrollToTopBtn" class="scroll-to-top-btn">
-      <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <script>
-      // Показать/скрыть кнопку "Наверх"
-      const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-      const profileHeader = document.querySelector(".profile-header");
-
-      window.addEventListener("scroll", () => {
-        if (window.pageYOffset > 100) {
-          scrollToTopBtn.style.display = "block";
-          profileHeader.classList.add("scrolled");
-        } else {
-          scrollToTopBtn.style.display = "none";
-          profileHeader.classList.remove("scrolled");
-        }
-      });
-
-      // Прокрутка наверх при клике
-      scrollToTopBtn.addEventListener("click", () => {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      });
-    </script>
-  <style>
-    /* Стили для кнопки "Наверх" */
-    .scroll-to-top-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: var(--text);
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      z-index: 100;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .scroll-to-top-btn:hover {
-      opacity: 0.8;
-    }
-
-    /* Стили для шапки профиля */
-    .profile-header {
-      position: sticky;
-      top: 0;
-      display: flex;
-      align-items: center;
-      padding: 16px;
-      background: transparent;
-      transition: background 0.3s ease;
-      z-index: 100;
-    }
-
-    .profile-header.scrolled {
-      background: rgba(5, 6, 10, 0.8);
-      backdrop-filter: blur(10px);
-    }
-
-    .profile-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-image: url("img/avzalov.jpg");
-      background-size: cover;
-      margin-right: 16px;
-    }
-
-    .profile-name {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .profile-bio {
-      font-size: 14px;
-      color: var(--muted);
-    }
-  </style>
-</head>
-<body>
-
     .logo-group {
       display: flex;
       align-items: center;
@@ -552,8 +452,7 @@
       letter-spacing: 0.06em;
     }
 
-    .popover-text,
-    .popover-footnote {
+    .popover-text, .popover-footnote {
       font-size: 12px;
       color: rgba(240, 243, 255, 0.78);
       line-height: 1.45;
@@ -1261,8 +1160,7 @@
       padding: 0 32px;
     }
 
-    .tracks-carousel-shell::before,
-    .tracks-carousel-shell::after {
+    .tracks-carousel-shell::before, .tracks-carousel-shell::after {
       content: "";
       position: absolute;
       top: 0;
@@ -2630,7 +2528,9 @@
       }
     }
   </style>
-<div class="profile-header">
+</head>
+<body>
+    <div class="profile-header">
       <div class="profile-avatar"></div>
       <div class="profile-info">
         <h1 class="profile-name">AVZALØV</h1>
@@ -2641,91 +2541,6 @@
     <button id="scrollToTopBtn" class="scroll-to-top-btn">
       <i class="fas fa-arrow-up"></i>
     </button>
-
-    <script>
-      // Показать/скрыть кнопку "Наверх"
-      const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-      const profileHeader = document.querySelector(".profile-header");
-
-      window.addEventListener("scroll", () => {
-        if (window.pageYOffset > 100) {
-          scrollToTopBtn.style.display = "block";
-          profileHeader.classList.add("scrolled");
-        } else {
-          scrollToTopBtn.style.display = "none";
-          profileHeader.classList.remove("scrolled");
-        }
-      });
-
-      // Прокрутка наверх при клике
-      scrollToTopBtn.addEventListener("click", () => {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      });
-    </script>
-  <style>
-    /* Стили для кнопки "Наверх" */
-    .scroll-to-top-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: var(--text);
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      z-index: 100;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .scroll-to-top-btn:hover {
-      opacity: 0.8;
-    }
-
-    /* Стили для шапки профиля */
-    .profile-header {
-      position: sticky;
-      top: 0;
-      display: flex;
-      align-items: center;
-      padding: 16px;
-      background: transparent;
-      transition: background 0.3s ease;
-      z-index: 100;
-    }
-
-    .profile-header.scrolled {
-      background: rgba(5, 6, 10, 0.8);
-      backdrop-filter: blur(10px);
-    }
-
-    .profile-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-image: url("img/avzalov.jpg");
-      background-size: cover;
-      margin-right: 16px;
-    }
-
-    .profile-name {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .profile-bio {
-      font-size: 14px;
-      color: var(--muted);
-    }
-  </style>
-</head>
-<body>
     <header>
       <div class="logo-group">
         <div class="logo-mark">Ø</div>
@@ -3142,6 +2957,27 @@
 
   <script src="tracks-data.js"></script>
   <script>
+      // Показать/скрыть кнопку "Наверх"
+      const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+      const profileHeader = document.querySelector(".profile-header");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 100) {
+          scrollToTopBtn.style.display = "block";
+          profileHeader.classList.add("scrolled");
+        } else {
+          scrollToTopBtn.style.display = "none";
+          profileHeader.classList.remove("scrolled");
+        }
+      });
+
+      // Прокрутка наверх при клике
+      scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
     const navToggle = document.getElementById("navToggle");
     const mainNav = document.getElementById("mainNav");
     const headerProfileBtn = document.getElementById("headerProfileBtn");
@@ -3456,7 +3292,7 @@
       `;
       const lyricsContainer = article.querySelector(".lyrics-content");
       if (lyricsContainer && Array.isArray(track.lyrics) && track.lyrics.length > 0) {
-        lyricsContainer.textContent = track.lyrics.join("\\n");
+        lyricsContainer.textContent = track.lyrics.join("\n");
       }
       return article;
     }
@@ -4726,78 +4562,166 @@
         }
       });
 
+      function renderAchievements() {
+        if (!achievementsGridEl) {
+          return;
+        }
+        achievementsGridEl.innerHTML = "";
+        const userAchievements = currentUser ? currentUser.achievements : {};
+        baseAchievements.forEach(ach => {
+          const card = document.createElement("div");
+          card.className = "achievement-card";
+          const isUnlocked = Boolean(userAchievements[ach.id]);
+          if (isUnlocked) {
+            card.classList.add("unlocked");
+          }
+          card.innerHTML = `
+            <div class="achievement-title">${ach.title}</div>
+            <div class="achievement-desc">${ach.desc}</div>
+            ${isUnlocked ? '<div class="achievement-badge">✓</div>' : ""}
+          `;
+          achievementsGridEl.appendChild(card);
+        });
+      }
+
+      function grantAchievement(achievementId) {
+        if (!currentUser || !achievementId) {
+          return;
+        }
+        const achievement = baseAchievements.find(a => a.id === achievementId);
+        if (!achievement || currentUser.achievements[achievementId]) {
+          return;
+        }
+        currentUser.achievements[achievementId] = new Date().toISOString();
+        if (achievement.coins > 0) {
+          currentUser.coins += achievement.coins;
+        }
+        persistCurrentUser();
+        renderAchievements();
+        updateProfileDisplay();
+      }
+
+      function updateProfileDisplay() {
+        const isLoggedIn = Boolean(currentUser);
+        if (profilePanelEl) {
+          profilePanelEl.hidden = !isLoggedIn;
+        }
+        if (profileEmptyEl) {
+          profileEmptyEl.hidden = isLoggedIn;
+        }
+        if (isLoggedIn) {
+          if (profileNameEl) {
+            profileNameEl.textContent = currentUser.name;
+          }
+          if (profileIdEl) {
+            profileIdEl.textContent = currentUser.id;
+          }
+          if (profileRoleEl) {
+            profileRoleEl.textContent = formatRoleLabel(currentUser.role);
+          }
+          if (coinsAmountEl) {
+            coinsAmountEl.textContent = numberFormatter.format(currentUser.coins);
+          }
+          renderAchievements();
+        }
+        updateHeaderCoins(isLoggedIn ? currentUser.coins : 0);
+        updateHeaderProfileNameDisplay(isLoggedIn ? currentUser.name : "Войти");
+        updateProfilePopoverState();
+        updateTrackCardsForUser();
+      }
+
+      function persistCurrentUser() {
+        if (!currentUser) {
+          localStorage.removeItem(STORAGE_KEY);
+          return;
+        }
+        try {
+          const userToSave = sanitizeUserForRegistry(currentUser);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(userToSave));
+          usersRegistry.set(userToSave.id, userToSave);
+          persistUsersRegistry();
+        } catch (error) {
+          console.warn("Не удалось сохранить профиль:", error);
+        }
+      }
+
+      function loadCurrentUser() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          return null;
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          return ensureUserShape(parsed);
+        } catch (error) {
+          console.warn("Не удалось загрузить профиль:", error);
+          return null;
+        }
+      }
+
+      function logout() {
+        currentUser = null;
+        persistCurrentUser();
+        updateProfileDisplay();
+        if (profilePopoverController) {
+          profilePopoverController.close();
+        }
+      }
+
       async function fetchJson(url) {
         try {
-          const response = await fetch(url, { cache: "no-store" });
+          const response = await fetch(url);
           if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
           return await response.json();
         } catch (error) {
-          console.warn(`Не удалось загрузить ${url}:`, error);
+          console.error(`Ошибка при загрузке ${url}:`, error);
           return null;
         }
       }
 
-      function findUserByCredentials(name, password) {
+      async function initializeData() {
+        const [usersData, adminCodesData] = await Promise.all([
+          fetchJson(USERS_DATA_ENDPOINT),
+          fetchJson(ADMIN_CODES_ENDPOINT)
+        ]);
+
+        const storedUsers = loadUsersRegistryFromStorage();
+        const combinedUsers = [...(usersData || []), ...storedUsers];
+        bootstrapRegistryFromArray(combinedUsers);
+
+        if (adminCodesData && Array.isArray(adminCodesData)) {
+          adminCodes = new Map(adminCodesData.map(c => [c.code, c]));
+        }
+        usedAdminCodes = loadUsedAdminCodes();
+      }
+
+      function handleLogin(event) {
+        event.preventDefault();
+        const name = (event.target.elements.loginName.value || "").trim();
+        const password = (event.target.elements.loginPassword.value || "").trim();
         if (!name || !password) {
-          return null;
-        }
-        const normalizedName = name.trim().toLowerCase();
-        for (const user of usersRegistry.values()) {
-          if (user.name.trim().toLowerCase() === normalizedName && user.password === password) {
-            return sanitizeUserForRegistry(user);
-          }
-        }
-        return null;
-      }
-
-      function syncUserWithRegistry(user) {
-        if (!user || !user.id) {
-          return null;
-        }
-        const fromRegistry = usersRegistry.get(user.id);
-        if (fromRegistry) {
-          return ensureUserShape(fromRegistry);
-        }
-        return ensureUserShape(user);
-      }
-
-      function upsertUserInRegistry(user) {
-        const cleaned = sanitizeUserForRegistry(user);
-        usersRegistry.set(cleaned.id, cleaned);
-        persistUsersRegistry();
-      }
-
-      function saveProfile() {
-        if (!currentUser) {
+          alert("Введите имя и пароль.");
           return;
         }
-        upsertUserInRegistry(currentUser);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUser));
-      }
-
-      function applyLoggedOutState() {
-        if (profilePanelEl) {
-          profilePanelEl.hidden = true;
+        let foundUser = null;
+        for (const user of usersRegistry.values()) {
+          if (user.name.toLowerCase() === name.toLowerCase() && user.password === password) {
+            foundUser = user;
+            break;
+          }
         }
-        if (profileEmptyEl) {
-          profileEmptyEl.hidden = false;
+        if (foundUser) {
+          currentUser = ensureUserShape(foundUser);
+        } else {
+          currentUser = ensureUserShape({ name, password });
+          grantAchievement("welcome");
         }
-        if (profileNameEl) {
-          profileNameEl.textContent = "Гость";
-        }
-        if (profileIdEl) {
-          profileIdEl.textContent = "—";
-        }
-        if (profileRoleEl) {
-          profileRoleEl.textContent = formatRoleLabel("listener");
-        }
-        if (coinsAmountEl) {
-          coinsAmountEl.textContent = "0";
-        }
-        if (achievementsGridEl) {
-          achievementsGridEl.innerHTML = "";
+        persistCurrentUser();
+        updateProfileDisplay();
+        if (profilePopoverController) {
+          profilePopoverController.close();
         }
         switchUserContext(null);
         updateHeaderCoins(0);
@@ -4806,56 +4730,62 @@
         closeAllPopovers();
       }
 
-      function renderAchievements() {
-        if (!achievementsGridEl) {
+      function handleAdminLogin(event) {
+        event.preventDefault();
+        const code = (adminCodeInput.value || "").trim().toUpperCase();
+        const name = (adminNameInput.value || "").trim();
+        if (!code) {
+          alert("Введите код администратора.");
           return;
         }
-        achievementsGridEl.innerHTML = "";
-        baseAchievements.forEach(achievement => {
-          const unlocked = Boolean(currentUser && currentUser.achievements && currentUser.achievements[achievement.id]);
-          const card = document.createElement("div");
-          card.className = `achievement-card${unlocked ? " unlocked" : ""}`;
-          card.innerHTML = `
-            <div class="achievement-title">${achievement.title}</div>
-            <div class="achievement-desc">${achievement.desc}</div>
-            ${unlocked ? '<div class="achievement-badge">получено</div>' : ""}
-          `;
-          achievementsGridEl.appendChild(card);
+        if (usedAdminCodes[code]) {
+          alert("Этот код уже был использован.");
+          return;
+        }
+        const adminInfo = adminCodes.get(code);
+        if (!adminInfo) {
+          alert("Неверный код администратора.");
+          return;
+        }
+        const displayName = name || adminInfo.name || "Админ";
+        currentUser = ensureUserShape({
+          name: displayName,
+          role: adminInfo.role || "admin",
+          coins: adminInfo.coins || 1000
         });
+        markAdminCodeUsed(code, currentUser.id);
+        persistCurrentUser();
+        updateProfileDisplay();
+        if (profilePopoverController) {
+          profilePopoverController.close();
+        }
+        event.target.reset();
       }
 
-      function updateLockedTracksState() {
+      function updateTrackCardsForUser() {
+        const unlocked = currentUser ? new Set(currentUser.unlockedTracks) : new Set();
         document.querySelectorAll(".track-card[data-track-locked]").forEach(card => {
-          const trackId = card.dataset.trackLocked;
-          const price = Number(card.dataset.trackPrice || 0);
-          const unlockBtn = card.querySelector(".unlock-btn");
-          
-          const isUnlocked = Boolean(
-            currentUser &&
-            Array.isArray(currentUser.unlockedTracks) &&
-            currentUser.unlockedTracks.includes(trackId)
-          );
-
-          if (isUnlocked) {
-             // This state is handled by the initial render in createTrackCard
-             // We just need to make sure the button is disabled if it exists
-            if (unlockBtn) {
-              unlockBtn.textContent = "Открыто";
-              unlockBtn.setAttribute("disabled", "disabled");
-            }
-          } else {
-            if (unlockBtn) {
-              unlockBtn.textContent = `Открыть за ${price} RUZCOIN`;
-              unlockBtn.removeAttribute("disabled");
+          const slug = card.dataset.trackLocked;
+          if (unlocked.has(slug)) {
+            card.classList.remove("track-locked");
+            const trackData = trackLibrary.find(t => t.slug === slug);
+            if (trackData) {
+              const newCard = createTrackCard({ ...trackData, hasAudio: true });
+              card.replaceWith(newCard);
+              rebindTrackCardEvents();
             }
           }
         });
       }
 
-      function showProfile() {
+      function handleUnlockTrack(event) {
+        const button = event.target.closest(".unlock-btn");
+        if (!button) return;
         if (!currentUser) {
-          applyLoggedOutState();
-          updateLockedTracksState();
+          alert("Войдите в профиль, чтобы открывать треки.");
+          if (profilePopoverController) {
+            profilePopoverController.open();
+          }
           return;
         }
         switchUserContext(currentUser);
@@ -4899,20 +4829,15 @@
           updateLockedTracksState();
           return;
         }
-        try {
-          const parsed = JSON.parse(stored);
-          currentUser = syncUserWithRegistry(parsed);
-          if (currentUser) {
-            showProfile();
-          } else {
-            currentUser = null;
-            applyLoggedOutState();
+        if (confirm(`Открыть доступ к треку за ${price} RUZCOIN?`)) {
+          currentUser.coins -= price;
+          currentUser.unlockedTracks.push(slug);
+          grantAchievement("first_unlock");
+          if (currentUser.unlockedTracks.length >= 3) {
+            grantAchievement("collector");
           }
-        } catch (error) {
-          console.warn("Не удалось загрузить профиль AVZALØV:", error);
-          currentUser = null;
-          localStorage.removeItem(STORAGE_KEY);
-          applyLoggedOutState();
+          persistCurrentUser();
+          updateProfileDisplay();
         }
       }
 
@@ -4980,22 +4905,26 @@
           });
       }
 
-      coinsPopoverController = attachPopover(headerCoinsBtn, headerCoinsPopover);
-      profilePopoverController = attachPopover(headerProfileBtn, headerProfilePopover);
+      if (loginForm) {
+        loginForm.addEventListener("submit", handleLogin);
+      }
+      if (adminCodeForm) {
+        adminCodeForm.addEventListener("submit", handleAdminLogin);
+      }
+      logoutButtons.forEach(btn => btn.addEventListener("click", logout));
 
-      if (coinsInfoBtn) {
-        coinsInfoBtn.addEventListener("click", () => {
-          closeAllPopovers();
-          const profileSection = document.getElementById("profile");
-          if (profileSection) {
-            profileSection.scrollIntoView({ behavior: "smooth" });
+      if (earnDemoBtn) {
+        earnDemoBtn.addEventListener("click", () => {
+          if (currentUser) {
+            currentUser.coins += 5;
+            persistCurrentUser();
+            updateProfileDisplay();
           }
         });
       }
 
       if (openProfileSectionBtn) {
         openProfileSectionBtn.addEventListener("click", () => {
-          closeAllPopovers();
           const profileSection = document.getElementById("profile");
           if (profileSection) {
             profileSection.scrollIntoView({ behavior: "smooth" });
@@ -5082,7 +5011,6 @@
           if (profilePopoverController) {
             profilePopoverController.close();
           }
-          showProfile();
         });
       }
 
@@ -5127,35 +5055,11 @@
         });
       }
 
-      async function bootstrapData() {
-        updateRuzcoinPriceDisplay();
-        usedAdminCodes = loadUsedAdminCodes();
-        const storedRegistry = loadUsersRegistryFromStorage();
-        if (storedRegistry.length) {
-          bootstrapRegistryFromArray(storedRegistry);
-        } else {
-          const seedUsers = await fetchJson(USERS_DATA_ENDPOINT);
-          if (seedUsers && Array.isArray(seedUsers.users)) {
-            bootstrapRegistryFromArray(seedUsers.users);
-          }
-        }
-        const codesPayload = await fetchJson(ADMIN_CODES_ENDPOINT);
-        if (codesPayload && Array.isArray(codesPayload.codes)) {
-          adminCodes = new Map(
-            codesPayload.codes
-              .filter(entry => entry && entry.code)
-              .map(entry => [String(entry.code).trim().toUpperCase(), { ...entry }])
-          );
-        }
-      }
+      coinsPopoverController = attachPopover(headerCoinsBtn, headerCoinsPopover);
+      profilePopoverController = attachPopover(headerProfileBtn, headerProfilePopover);
 
-      await bootstrapData();
-      loadProfile();
-      initLockedTracks();
-      updateLockedTracksState();
+      document.querySelector(".tracks-grid").addEventListener("click", handleUnlockTrack);
     })();
-
-    clearMiniPlayer();
   </script>
 </body>
 </html>
