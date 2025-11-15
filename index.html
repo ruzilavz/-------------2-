@@ -5125,23 +5125,23 @@
           if (a.releaseState !== b.releaseState) {
             return a.releaseState === "released" ? -1 : 1;
           }
-          const aTime = typeof a.releaseDateValue === "number"
-            ? a.releaseDateValue
-            : a.releaseState === "released"
-              ? -Infinity
-              : Infinity;
-          const bTime = typeof b.releaseDateValue === "number"
-            ? b.releaseDateValue
-            : b.releaseState === "released"
-              ? -Infinity
-              : Infinity;
-          if (aTime !== bTime) {
-            if (a.releaseState === 'released') {
-              return bTime - aTime;
-            }
+
+          const aTime = a.releaseDateValue;
+          const bTime = b.releaseDateValue;
+
+          if (a.releaseState === "released") {
+            // Released: newest first. Null dates are oldest.
+            if (aTime === null && bTime === null) return a.title.localeCompare(b.title, "ru", { sensitivity: "base" });
+            if (aTime === null) return 1;
+            if (bTime === null) return -1;
+            return bTime - aTime;
+          } else {
+            // Soon: closest first. Null dates are furthest.
+            if (aTime === null && bTime === null) return a.title.localeCompare(b.title, "ru", { sensitivity: "base" });
+            if (aTime === null) return 1;
+            if (bTime === null) return -1;
             return aTime - bTime;
           }
-          return a.title.localeCompare(b.title, "ru", { sensitivity: "base" });
         });
     }
 
