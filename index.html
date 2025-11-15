@@ -3790,6 +3790,24 @@
       });
     }
 
+    if (mainNav) {
+      const navLinks = Array.from(mainNav.querySelectorAll("a[href^=\"#\"]"));
+      navLinks.forEach(link => {
+        link.addEventListener("click", event => {
+          const targetId = link.getAttribute("href");
+          if (!targetId || !targetId.startsWith("#")) {
+            return;
+          }
+          const target = document.querySelector(targetId);
+          if (target) {
+            event.preventDefault();
+            mainNav.classList.remove("nav-open");
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+    }
+
     function scrollToCoinsSection() {
       if (coinsSection) {
         coinsSection.scrollIntoView({ behavior: "smooth" });
@@ -4486,7 +4504,7 @@
     const miniPlayerCover = document.getElementById("miniPlayerCover");
     const miniPlayerTitle = document.getElementById("miniPlayerTitle");
     const miniPlayerPlayBtn = document.getElementById("miniPlayerPlayBtn");
-    const miniPlayerPlayIcon = miniPlayerPlayBtn.querySelector("i");
+    const miniPlayerPlayIcon = miniPlayerPlayBtn ? miniPlayerPlayBtn.querySelector("i") : null;
     const miniPlayerCurrentTime = document.getElementById("miniPlayerCurrentTime");
     const miniPlayerDuration = document.getElementById("miniPlayerDuration");
     const miniPlayerProgressBar = document.getElementById("miniPlayerProgressBar");
