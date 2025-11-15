@@ -3033,8 +3033,7 @@
       `;
       const lyricsContainer = article.querySelector(".lyrics-content");
       if (lyricsContainer && Array.isArray(track.lyrics) && track.lyrics.length > 0) {
-        lyricsContainer.textContent = track.lyrics.join("
-");
+        lyricsContainer.textContent = track.lyrics.join("\n");
       }
       return article;
     }
