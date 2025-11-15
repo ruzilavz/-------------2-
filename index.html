@@ -5522,6 +5522,12 @@
       stopLyricsDesync();
     }
 
+    function renderAllTrackGrids(library) {
+      renderTracksGrid(library);
+      renderTracksMiniGallery(library);
+      renderClipsGrid(library);
+    }
+
     let trackLibrary = sortTrackLibrary(buildTrackLibrary());
     renderAllTrackGrids(trackLibrary);
     initializeMixEventsSchedule();
