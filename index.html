@@ -355,6 +355,11 @@
     }
 
     .track-card {
+      --lift: 0px;
+      --tilt-x: 0deg;
+      --tilt-y: 0deg;
+      --glow-x: 50%;
+      --glow-y: 50%;
       position: relative;
       background: linear-gradient(140deg, rgba(30, 39, 84, 0.8), rgba(12, 15, 30, 0.95));
       border-radius: 20px;
@@ -364,8 +369,11 @@
       gap: 18px;
       align-items: center;
       box-shadow: 0 18px 40px rgba(5, 8, 20, 0.55);
-      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+      transition: transform 160ms ease, box-shadow 220ms ease, border-color 220ms ease, filter 200ms ease;
       overflow: hidden;
+      transform-style: preserve-3d;
+      transform: perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0, var(--lift), 0);
+      will-change: transform;
     }
 
     .track-card::before {
@@ -383,14 +391,18 @@
       content: "";
       position: absolute;
       inset: -40%;
-      background: radial-gradient(circle, rgba(47, 107, 255, 0.2), transparent 65%);
+      background: radial-gradient(
+        circle at var(--glow-x) var(--glow-y),
+        rgba(47, 107, 255, 0.28),
+        transparent 65%
+      );
       opacity: 0;
       transition: opacity 220ms ease;
       pointer-events: none;
     }
 
     .track-card:hover {
-      transform: translateY(-4px);
+      --lift: -12px;
       box-shadow: 0 26px 50px rgba(8, 12, 32, 0.6);
       border-color: rgba(86, 131, 255, 0.45);
     }
@@ -402,15 +414,58 @@
     }
 
     .track-card.playing {
+      --lift: -16px;
       border-color: rgba(61, 208, 156, 0.7);
       box-shadow: 0 28px 60px rgba(30, 215, 160, 0.3);
     }
 
-    .track-card.upcoming {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 16px;
-      padding: 20px;
+    .track-card[data-status="ep"] {
+      border-color: rgba(118, 146, 238, 0.45);
+      box-shadow: 0 22px 48px rgba(32, 42, 92, 0.65);
+    }
+
+    .track-card[data-status="soon"] {
+      border-color: rgba(255, 189, 97, 0.45);
+      box-shadow: 0 22px 46px rgba(255, 168, 72, 0.2);
+    }
+
+    .track-card[data-status="soon"] .track-meta span:last-child {
+      color: rgba(255, 208, 138, 0.9);
+    }
+
+    .track-card[data-has-audio="false"] .track-cover,
+    .track-card[data-has-audio="false"] .track-play-toggle {
+      cursor: default;
+    }
+
+    .track-card[data-has-audio="false"] .play-overlay {
+      display: none;
+    }
+
+    .track-card[data-has-audio="false"] .track-play-toggle:hover,
+    .track-card[data-has-audio="false"] .track-play-toggle:active {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .track-card[data-has-audio="false"] .track-play-toggle {
+      background: linear-gradient(140deg, rgba(90, 96, 140, 0.55), rgba(64, 69, 104, 0.8));
+      box-shadow: none;
+    }
+
+    .track-card[data-has-audio="false"] .time-display {
+      font-size: 11px;
+      color: rgba(200, 205, 235, 0.65);
+    }
+
+    .player-controls.is-disabled {
+      opacity: 0.75;
+      filter: saturate(0.75);
+    }
+
+    .player-controls.is-disabled .track-play-toggle,
+    .player-controls.is-disabled .progress-bar {
+      cursor: not-allowed;
     }
 
     .track-cover {
@@ -426,29 +481,12 @@
       cursor: pointer;
     }
 
-    .track-card.upcoming .track-cover {
-      width: 100%;
-      height: 160px;
-      border-radius: 18px;
-      border: 2px dashed rgba(94, 118, 199, 0.6);
-      background: radial-gradient(circle at top, rgba(74, 94, 178, 0.45), rgba(12, 16, 32, 0.85));
-      cursor: default;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     .track-cover::before {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(160deg, rgba(255, 255, 255, 0.18), transparent 55%);
       mix-blend-mode: screen;
-    }
-
-    .track-card.upcoming .track-cover::before,
-    .track-card.upcoming .track-cover .play-overlay {
-      display: none;
     }
 
     .track-cover .play-overlay {
@@ -491,10 +529,6 @@
       color: #effffc;
     }
 
-    .track-card.upcoming .track-title {
-      font-size: 18px;
-    }
-
     .track-meta {
       font-size: 12px;
       color: rgba(206, 212, 242, 0.8);
@@ -506,11 +540,6 @@
       text-transform: uppercase;
     }
 
-    .track-card.upcoming .track-meta {
-      margin-bottom: 8px;
-      opacity: 0.85;
-    }
-
     .dot {
       width: 4px;
       height: 4px;
@@ -518,39 +547,24 @@
       background: rgba(206, 212, 242, 0.4);
     }
 
-    .placeholder-label {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: rgba(19, 26, 52, 0.8);
-      border: 1px solid rgba(118, 146, 238, 0.4);
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #c7cffb;
-    }
-
-    .track-note {
-      font-size: 13px;
-      color: rgba(202, 208, 238, 0.75);
-      line-height: 1.5;
-      margin: 0;
-    }
-
-    .track-card.upcoming .track-actions,
-    .track-card.upcoming .player-controls {
-      display: none;
-    }
-
     .track-divider {
       grid-column: 1 / -1;
       padding: 6px 4px 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
       font-size: 12px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(166, 173, 215, 0.7);
+      color: rgba(166, 173, 215, 0.78);
+    }
+
+    .track-divider .track-divider-meta {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      color: rgba(199, 204, 236, 0.7);
     }
 
     .player-controls {
@@ -1222,24 +1236,185 @@
       <div class="section-header">
         <h2 class="section-title">Релизы</h2>
         <p class="section-sub">
-          Синглы и треки AVZALØV: доступные релизы и проекты в разработке.
+          Синглы, EP и расписание премьер AVZALØV: актуальные релизы и подтверждённые даты.
         </p>
       </div>
 
       <div class="tracks-grid">
-        <div class="track-divider">Выпущено</div>
+        <div class="track-divider">EP «Пока дышу» <span class="track-divider-meta">релиз 27.07.2025</span></div>
 
-        <article class="track-card">
-          <div
-            class="track-cover" style="background-image:url('img/rozy20.jpg');">
+        <article class="track-card" data-status="ep" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #4f5bd5, #9636ff);">
             <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
-            <div class="track-title">Она срывала розы2.0</div>
+            <div class="track-title">Пока дышу</div>
+            <div class="track-meta">
+              <span>EP</span>
+              <span class="dot"></span>
+              <span>27.07.2025</span>
+            </div>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-lock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Превью скоро</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn lyrics-btn" type="button" disabled>
+                <i class="fas fa-align-left"></i><span>Текст</span>
+              </button>
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
+          </div>
+          <div class="lyrics-content" style="display: none;"></div>
+        </article>
+
+        <article class="track-card" data-status="ep" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #ff6a88, #ff99ac);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="track-info">
+            <div class="track-title">Пульс</div>
+            <div class="track-meta">
+              <span>EP</span>
+              <span class="dot"></span>
+              <span>27.07.2025</span>
+            </div>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-lock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Превью скоро</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn lyrics-btn" type="button" disabled>
+                <i class="fas fa-align-left"></i><span>Текст</span>
+              </button>
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
+          </div>
+          <div class="lyrics-content" style="display: none;"></div>
+        </article>
+
+        <article class="track-card" data-status="ep" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #3a7bd5, #3a6073);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="track-info">
+            <div class="track-title">Не верю</div>
+            <div class="track-meta">
+              <span>EP</span>
+              <span class="dot"></span>
+              <span>27.07.2025</span>
+            </div>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-lock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Превью скоро</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn lyrics-btn" type="button" disabled>
+                <i class="fas fa-align-left"></i><span>Текст</span>
+              </button>
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
+          </div>
+          <div class="lyrics-content" style="display: none;"></div>
+        </article>
+
+        <article class="track-card" data-status="ep" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #11998e, #38ef7d);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="track-info">
+            <div class="track-title">Уливер</div>
+            <div class="track-meta">
+              <span>EP</span>
+              <span class="dot"></span>
+              <span>27.07.2025</span>
+            </div>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-lock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Превью скоро</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn lyrics-btn" type="button" disabled>
+                <i class="fas fa-align-left"></i><span>Текст</span>
+              </button>
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
+          </div>
+          <div class="lyrics-content" style="display: none;"></div>
+        </article>
+
+        <article class="track-card" data-status="ep" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #bd3f32, #f9844a);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="track-info">
+            <div class="track-title">Сотри меня</div>
+            <div class="track-meta">
+              <span>EP</span>
+              <span class="dot"></span>
+              <span>27.07.2025</span>
+            </div>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-lock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Превью скоро</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn lyrics-btn" type="button" disabled>
+                <i class="fas fa-align-left"></i><span>Текст</span>
+              </button>
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
+          </div>
+          <div class="lyrics-content" style="display: none;"></div>
+        </article>
+
+        <div class="track-divider">Синглы — вышли <span class="track-divider-meta">обновлено 15.11.2025</span></div>
+
+        <article class="track-card">
+          <div class="track-cover" style="background-image:url('img/rozy20.jpg');">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="track-info">
+            <div class="track-title">Она срывала розу</div>
             <div class="track-meta">
               <span>сингл</span>
               <span class="dot"></span>
-              <span>28.08.2025</span>
+              <span>22.07.2025</span>
             </div>
             <div class="player-controls">
               <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
@@ -1251,47 +1426,108 @@
               </div>
             </div>
             <div class="track-actions">
-              <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
+              <button class="track-action-btn lyrics-btn" type="button"><i class="fas fa-align-left"></i><span>Текст</span></button>
               <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
             </div>
           </div>
           <audio class="track-audio" src="audio/ona-sryvala-rozy-20.mp3" preload="metadata"></audio>
-          <div class="lyrics-content" style="display: none;">Текст песни "Она срывала розы2.0".</div>
+          <div class="lyrics-content" style="display: none;">Текст песни «Она срывала розу» появится позже.</div>
         </article>
 
-        <article class="track-card">
-          <div
-            class="track-cover" style="background-image:url('img/yashlek.jpg');">
+        <article class="track-card" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #ff512f, #dd2476);">
             <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
-            <div class="track-title">Яшьлек</div>
+            <div class="track-title">Спички</div>
             <div class="track-meta">
-              <span>EP</span>
+              <span>сингл</span>
               <span class="dot"></span>
-              <span>03.05.2025</span>
+              <span>12.08.2025</span>
             </div>
-            <div class="player-controls">
-              <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
-                <i class="fas fa-play"></i>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-lock"></i>
               </button>
               <div class="progress-bar-wrapper">
                 <div class="progress-bar"><div class="progress-bar-filled"></div></div>
-                <span class="time-display">0:00 / 0:00</span>
+                <span class="time-display">Превью скоро</span>
               </div>
             </div>
             <div class="track-actions">
-              <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
-              <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
+              <button class="track-action-btn lyrics-btn" type="button" disabled>
+                <i class="fas fa-align-left"></i><span>Текст</span>
+              </button>
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
             </div>
           </div>
-          <audio class="track-audio" src="audio/yashlek.mp3" preload="metadata"></audio>
-          <div class="lyrics-content" style="display: none;">Текст песни "Яшьлек".</div>
+          <div class="lyrics-content" style="display: none;"></div>
         </article>
 
-        <article class="track-card">
-          <div
-            class="track-cover" style="background-image:url('img/dikaya-kometa.jpg');">
+        <div class="track-divider">Синглы — скоро <span class="track-divider-meta">по состоянию на 15.11.2025</span></div>
+
+        <article class="track-card" data-status="soon" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #654ea3, #eaafc8);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="track-info">
+            <div class="track-title">Сирена</div>
+            <div class="track-meta">
+              <span>сингл</span>
+              <span class="dot"></span>
+              <span>скоро • 25.11.2025</span>
+            </div>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-clock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Скоро премьера</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
+          </div>
+          <div class="lyrics-content" style="display: none;"></div>
+        </article>
+
+        <article class="track-card" data-status="soon" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #f7971e, #ffd200);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="track-info">
+            <div class="track-title">ПЕРЕГРЕВ</div>
+            <div class="track-meta">
+              <span>сингл</span>
+              <span class="dot"></span>
+              <span>скоро • 27.11.2025</span>
+            </div>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-clock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Скоро премьера</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
+          </div>
+          <div class="lyrics-content" style="display: none;"></div>
+        </article>
+
+        <article class="track-card" data-status="soon">
+          <div class="track-cover" style="background-image:url('img/dikaya-kometa.jpg');">
             <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
@@ -1299,7 +1535,7 @@
             <div class="track-meta">
               <span>сингл</span>
               <span class="dot"></span>
-              <span>15.11.2025</span>
+              <span>скоро • 28.11.2025</span>
             </div>
             <div class="player-controls">
               <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
@@ -1311,424 +1547,186 @@
               </div>
             </div>
             <div class="track-actions">
-              <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
+              <button class="track-action-btn lyrics-btn" type="button"><i class="fas fa-align-left"></i><span>Текст</span></button>
               <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
             </div>
           </div>
           <audio class="track-audio" src="audio/dikaya-kometa.mp3" preload="metadata"></audio>
-          <div class="lyrics-content" style="display: none;">
-Здесь будет текст песни "ДИКАЯ КОМЕТА".
-Просто впишите его сюда.
-Можно использовать переносы строк.
-Они сохранятся.
-          </div>
+          <div class="lyrics-content" style="display: none;">Текст песни «ДИКАЯ КОМЕТА» появится ближе к релизу.</div>
         </article>
 
-        <div class="track-divider">В разработке</div>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Черный ящик</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Зима</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Помни</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Окен внутри</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">О Всевышний</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">как яд</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Аллах</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">ПЕРЕГРЕВ</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Лети со мной</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Сирена</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Иерархия</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
+        <article class="track-card" data-status="soon" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #ff9a9e, #fad0c4);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
             <div class="track-title">Немножко</div>
             <div class="track-meta">
               <span>сингл</span>
               <span class="dot"></span>
-              <span>в разработке</span>
+              <span>скоро • 28.11.2025</span>
             </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-clock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Скоро премьера</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
           </div>
+          <div class="lyrics-content" style="display: none;"></div>
         </article>
 
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
+        <article class="track-card" data-status="soon">
+          <div class="track-cover" style="background-image:url('img/yashlek.jpg');">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
-            <div class="track-title">Пачка сигарет</div>
+            <div class="track-title">Яшьлек</div>
             <div class="track-meta">
               <span>сингл</span>
               <span class="dot"></span>
-              <span>в разработке</span>
+              <span>скоро • 28.11.2025</span>
             </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
+            <div class="player-controls">
+              <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
+                <i class="fas fa-play"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn lyrics-btn" type="button"><i class="fas fa-align-left"></i><span>Текст</span></button>
+              <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
+            </div>
           </div>
+          <audio class="track-audio" src="audio/yashlek.mp3" preload="metadata"></audio>
+          <div class="lyrics-content" style="display: none;">Текст песни «Яшьлек» обновится к релизу.</div>
         </article>
 
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
+        <article class="track-card" data-status="soon" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #43cea2, #185a9d);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
-            <div class="track-title">Это ветру говорил</div>
+            <div class="track-title">ЛЕТИ СО МНОЙ</div>
             <div class="track-meta">
               <span>сингл</span>
               <span class="dot"></span>
-              <span>в разработке</span>
+              <span>скоро • 29.11.2025</span>
             </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-clock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Скоро премьера</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
           </div>
+          <div class="lyrics-content" style="display: none;"></div>
         </article>
 
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Мир наизнанку</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Карусель</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">МамаамаКриминал</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Эхо шагов</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
+        <article class="track-card" data-status="soon" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #00c6ff, #0072ff);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
             <div class="track-title">АЙФОРИО</div>
             <div class="track-meta">
               <span>сингл</span>
               <span class="dot"></span>
-              <span>в разработке</span>
+              <span>скоро • 30.11.2025</span>
             </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-clock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Скоро премьера</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
           </div>
+          <div class="lyrics-content" style="display: none;"></div>
         </article>
 
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
+        <article class="track-card" data-status="soon" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #606c88, #3f4c6b);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
             <div class="track-title">БЕЗ ИМЕНИ</div>
             <div class="track-meta">
               <span>сингл</span>
               <span class="dot"></span>
-              <span>в разработке</span>
+              <span>скоро • 01.12.2025</span>
             </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-clock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Скоро премьера</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
+            </div>
           </div>
+          <div class="lyrics-content" style="display: none;"></div>
         </article>
 
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
+        <article class="track-card" data-status="soon" data-has-audio="false">
+          <div class="track-cover" style="background-image: linear-gradient(135deg, #ff6a00, #ee0979);">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
-            <div class="track-title">Она срывала розы</div>
+            <div class="track-title">Это ветру говорил</div>
             <div class="track-meta">
               <span>сингл</span>
               <span class="dot"></span>
-              <span>в разработке</span>
+              <span>скоро • 29.11.2025</span>
             </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Спички</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
+            <div class="player-controls is-disabled">
+              <button class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled>
+                <i class="fas fa-clock"></i>
+              </button>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar"><div class="progress-bar-filled"></div></div>
+                <span class="time-display">Скоро премьера</span>
+              </div>
             </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">EP Пока дышу</div>
-            <div class="track-meta">
-              <span>EP</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
+            <div class="track-actions">
+              <button class="track-action-btn" type="button" disabled>
+                <i class="fas fa-headphones"></i><span>Платформы</span>
+              </button>
             </div>
-            <p class="track-note">Мини-альбом в подготовке. Предзаказ и обложка появятся позже.</p>
           </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Пульс</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Не верю</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Уливер</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Трек в работе. Обложка появится позже.</p>
-          </div>
-        </article>
-
-        <article class="track-card upcoming">
-          <div class="track-cover">
-            <span class="placeholder-label">В разработке</span>
-          </div>
-          <div class="track-info">
-            <div class="track-title">Сотри меня</div>
-            <div class="track-meta">
-              <span>сингл</span>
-              <span class="dot"></span>
-              <span>в разработке</span>
-            </div>
-            <p class="track-note">Следите за новостями — релиз скоро.</p>
-          </div>
+          <div class="lyrics-content" style="display: none;"></div>
         </article>
       </div>
     </section>
@@ -1743,11 +1741,11 @@
 
       <div class="news-list">
         <article class="news-item">
-          <div class="news-tag" style="color: #2ed58b;">зеленый релиз</div>
-          <div class="news-title">«Дикая Комета» вышла на всех площадках</div>
+          <div class="news-tag" style="color: #2ed58b;">анонс</div>
+          <div class="news-title">«ДИКАЯ КОМЕТА» выходит 28 ноября</div>
           <div class="news-meta">Ноябрь 2025</div>
           <p class="news-text">
-            Новый трек AVZALØV — о столкновении веры, ярости и судьбы. Слушай, делись и добавляй в свои плейлисты.
+            Новый сингл AVZALØV уже на подходе — включите уведомления и приготовьтесь к премьерному запуску 28.11.2025.
           </p>
         </article>
         
@@ -1883,6 +1881,10 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     const trackCards = document.querySelectorAll(".track-card");
+    const prefersReducedMotion =
+      typeof window.matchMedia === "function"
+        ? window.matchMedia("(prefers-reduced-motion: reduce)")
+        : { matches: false };
     const miniPlayer = document.getElementById("miniPlayer");
     const miniPlayerCover = document.getElementById("miniPlayerCover");
     const miniPlayerTitle = document.getElementById("miniPlayerTitle");
@@ -1901,6 +1903,78 @@
 
     let currentAudio = null;
     let currentCard = null;
+
+    function setDefaultTilt(card) {
+      if (!card) return;
+      card.style.setProperty("--tilt-x", "0deg");
+      card.style.setProperty("--tilt-y", "0deg");
+      card.style.setProperty("--glow-x", "50%");
+      card.style.setProperty("--glow-y", "50%");
+    }
+
+    function handleCardPointerMove(event) {
+      const card = event.currentTarget;
+      const rect = card.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const rotateX = ((rect.height / 2 - y) / rect.height) * 12;
+      const rotateY = ((x - rect.width / 2) / rect.width) * 16;
+      card.style.setProperty("--tilt-x", `${rotateX.toFixed(2)}deg`);
+      card.style.setProperty("--tilt-y", `${rotateY.toFixed(2)}deg`);
+      card.style.setProperty("--glow-x", `${((x / rect.width) * 100).toFixed(2)}%`);
+      card.style.setProperty("--glow-y", `${((y / rect.height) * 100).toFixed(2)}%`);
+    }
+
+    function handleCardPointerLeave(event) {
+      setDefaultTilt(event.currentTarget);
+    }
+
+    function bindInteractiveMotion() {
+      trackCards.forEach(card => {
+        if (card.dataset.motion === "off" || card.__motionBound) {
+          return;
+        }
+        setDefaultTilt(card);
+        card.addEventListener("pointermove", handleCardPointerMove);
+        card.addEventListener("pointerleave", handleCardPointerLeave);
+        card.addEventListener("pointerup", handleCardPointerLeave);
+        card.__motionBound = true;
+      });
+    }
+
+    function unbindInteractiveMotion() {
+      trackCards.forEach(card => {
+        if (!card.__motionBound) {
+          setDefaultTilt(card);
+          return;
+        }
+        card.removeEventListener("pointermove", handleCardPointerMove);
+        card.removeEventListener("pointerleave", handleCardPointerLeave);
+        card.removeEventListener("pointerup", handleCardPointerLeave);
+        card.__motionBound = false;
+        setDefaultTilt(card);
+      });
+    }
+
+    if (!prefersReducedMotion.matches) {
+      bindInteractiveMotion();
+    } else {
+      trackCards.forEach(setDefaultTilt);
+    }
+
+    const handleMotionPreferenceChange = event => {
+      if (event.matches) {
+        unbindInteractiveMotion();
+      } else {
+        bindInteractiveMotion();
+      }
+    };
+
+    if (typeof prefersReducedMotion.addEventListener === "function") {
+      prefersReducedMotion.addEventListener("change", handleMotionPreferenceChange);
+    } else if (typeof prefersReducedMotion.addListener === "function") {
+      prefersReducedMotion.addListener(handleMotionPreferenceChange);
+    }
 
     function clearBodyCover() {
       document.body.classList.remove("has-active-cover");

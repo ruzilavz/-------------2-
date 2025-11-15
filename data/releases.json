@@ -1,0 +1,27 @@
+{
+  "today": "2025-11-15",
+  "ep": {
+    "title": "Пока дышу",
+    "release_date": "2025-07-27",
+    "tracks": [
+      { "title": "Пока дышу", "status": "released" },
+      { "title": "Пульс", "status": "released" },
+      { "title": "Не верю", "status": "released" },
+      { "title": "Уливер", "status": "released" },
+      { "title": "Сотри меня", "status": "released" }
+    ]
+  },
+  "singles": [
+    { "title": "Она срывала розу", "release_date": "2025-07-22", "status": "released" },
+    { "title": "Спички", "release_date": "2025-08-12", "status": "released" },
+    { "title": "Сирена", "release_date": "2025-11-25", "status": "announced" },
+    { "title": "ПЕРЕГРЕВ", "release_date": "2025-11-27", "status": "announced" },
+    { "title": "ДИКАЯ КОМЕТА", "release_date": "2025-11-28", "status": "announced" },
+    { "title": "Немножко", "release_date": "2025-11-28", "status": "announced" },
+    { "title": "Яшьлек", "release_date": "2025-11-28", "status": "announced" },
+    { "title": "ЛЕТИ СО МНОЙ", "release_date": "2025-11-29", "status": "announced" },
+    { "title": "Это ветру говорил", "release_date": "2025-11-29", "status": "announced" },
+    { "title": "АЙФОРИО", "release_date": "2025-11-30", "status": "announced" },
+    { "title": "БЕЗ ИМЕНИ", "release_date": "2025-12-01", "status": "announced" }
+  ]
+}
