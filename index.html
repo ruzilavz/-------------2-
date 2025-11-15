@@ -4302,6 +4302,10 @@
     const loginQuickButtons = Array.from(document.querySelectorAll("[data-login-quick]"));
     const topupMethodButtons = Array.from(document.querySelectorAll("[data-topup-method]"));
 
+    const tracksGrid = document.querySelector("#tracks .tracks-grid");
+    const tracksMiniGallery = document.getElementById("tracksMiniGallery");
+    const miniGalleryScroller = document.getElementById("tracksGalleryScroller");
+
     const RUZCOIN_PRICE_RUB = 10;
     const TOPUP_METHOD_CONFIG = {
       card: {
