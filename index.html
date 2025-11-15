@@ -319,6 +319,71 @@
       justify-content: center;
     }
 
+    .mix-button-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+    }
+
+    .mix-button {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 10px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(135deg, rgba(255, 99, 71, 0.2), rgba(255, 165, 0, 0.15));
+      color: #fff5ec;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
+    }
+
+    .mix-button:hover,
+    .mix-button:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 36px rgba(255, 140, 0, 0.35);
+      border-color: rgba(255, 176, 126, 0.6);
+      outline: none;
+    }
+
+    .mix-button.is-live {
+      background: linear-gradient(135deg, rgba(255, 76, 41, 0.65), rgba(255, 191, 0, 0.5));
+      border-color: rgba(255, 176, 126, 0.9);
+      box-shadow: 0 26px 46px rgba(255, 120, 72, 0.45);
+    }
+
+    .mix-label {
+      font-size: 13px;
+      letter-spacing: 0.3em;
+    }
+
+    .mix-countdown {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(255, 232, 210, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mix-countdown::before {
+      content: "⏳";
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .mix-button.is-live .mix-countdown::before {
+      content: "🔥";
+    }
+
     .header-actions {
       margin-left: auto;
       display: flex;
@@ -541,10 +606,10 @@
       border-radius: var(--radius-md);
       border: 1px solid rgba(82, 112, 210, 0.32);
       background: rgba(12, 14, 28, 0.88);
-      padding: 12px 14px;
+      padding: 14px;
       display: none;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .topup-methods-panel[aria-hidden="false"] {
@@ -552,29 +617,116 @@
       animation: popoverFade var(--transition) ease;
     }
 
-    .topup-methods-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: rgba(204, 212, 240, 0.9);
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(76, 102, 189, 0.2);
-    }
-
-    .topup-methods-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .topup-methods-status {
+    .topup-methods-note {
       font-size: 11px;
+      color: rgba(198, 206, 244, 0.75);
+      line-height: 1.4;
+    }
+
+    .topup-methods-panel .topup-row {
+      gap: 8px;
+    }
+
+    .topup-methods-panel .topup-amount-btn {
+      flex: 1 1 120px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+
+    .topup-methods-panel .topup-amount-btn small {
+      font-size: 10px;
+    }
+
+    .topup-summary.topup-summary-compact {
+      font-size: 12px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .topup-actions.topup-actions-compact {
+      flex-direction: column;
+    }
+
+    .mix-popover {
+      min-width: 320px;
+      max-width: 380px;
+      padding: 18px;
+    }
+
+    .mix-events-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .mix-event-card {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 173, 110, 0.28);
+      background: rgba(20, 12, 24, 0.9);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mix-event-card[data-status="active"] {
+      border-color: rgba(255, 204, 128, 0.6);
+      box-shadow: 0 18px 34px rgba(255, 158, 92, 0.35);
+    }
+
+    .mix-event-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #ffe7d0;
+    }
+
+    .mix-event-status {
+      font-size: 12px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(47, 107, 255, 0.16);
-      color: #adc3ff;
+      color: rgba(255, 221, 189, 0.85);
+    }
+
+    .mix-event-status span {
+      font-weight: 600;
+      color: #ffd19d;
+    }
+
+    .mix-event-description {
+      font-size: 12px;
+      color: rgba(255, 224, 209, 0.82);
+    }
+
+    .mix-event-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255, 232, 220, 0.9);
+    }
+
+    .mix-event-toplist {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      color: rgba(255, 232, 220, 0.85);
+    }
+
+    .mix-event-toplist span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mix-event-toplist span::before {
+      content: "•";
+      opacity: 0.6;
+    }
+
+    .mix-popover .users-popover-empty {
+      color: rgba(255, 224, 209, 0.72);
     }
 
     .header-popover::before {
@@ -3030,6 +3182,15 @@
         justify-content: center;
       }
 
+      .mix-button-wrapper {
+        width: 100%;
+        order: 4;
+      }
+
+      .mix-button {
+        width: 100%;
+      }
+
       .hero {
         align-items: flex-start;
       }
@@ -3138,6 +3299,21 @@
         <a href="#about">Биография</a>
         <a href="#contacts">Контакты</a>
       </nav>
+      <div class="mix-button-wrapper">
+        <button class="mix-button" id="mixEventsBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
+          <span class="mix-label">MIX</span>
+          <span class="mix-countdown" id="mixCountdownLabel">Загрузка…</span>
+        </button>
+        <div class="header-popover mix-popover" id="mixEventsPopover" role="dialog" aria-hidden="true">
+          <div class="popover-header">
+            <div class="popover-title">MIX события</div>
+            <div class="popover-sub" id="mixPopoverStatus">Расписание обновляется…</div>
+          </div>
+          <div class="mix-events-list" id="mixEventsList">
+            <p class="users-popover-empty">Подготавливаем события…</p>
+          </div>
+        </div>
+      </div>
       <div class="header-actions">
         <div class="header-action-group">
           <button
@@ -3174,17 +3350,53 @@
               </button>
             </div>
             <div class="topup-methods-panel" id="topupMethodsPanel" aria-hidden="true">
-              <div class="topup-methods-item">
-                <span>Банковская карта</span>
-                <span class="topup-methods-status">В разработке</span>
+              <div class="topup-methods-note">
+                Попробуй пополнить баланс в демо-режиме или следи за запуском реальных платежей. Выбор синхронизируется с разделом
+                RUZCOIN.
               </div>
-              <div class="topup-methods-item">
-                <span>СБП</span>
-                <span class="topup-methods-status">В разработке</span>
+              <div class="topup-rows">
+                <div class="topup-row">
+                  <button class="topup-amount-btn" type="button" data-amount="10" aria-pressed="false">
+                    <span>10 RUZ</span>
+                    <small>~100 ₽</small>
+                  </button>
+                  <button class="topup-amount-btn" type="button" data-amount="25" aria-pressed="false">
+                    <span>25 RUZ</span>
+                    <small>~250 ₽</small>
+                  </button>
+                  <button class="topup-amount-btn" type="button" data-amount="50" aria-pressed="false">
+                    <span>50 RUZ</span>
+                    <small>~500 ₽</small>
+                  </button>
+                </div>
+                <div class="topup-row">
+                  <button class="topup-amount-btn" type="button" data-amount="100" aria-pressed="false">
+                    <span>100 RUZ</span>
+                    <small>~1000 ₽</small>
+                  </button>
+                  <button class="topup-amount-btn" type="button" data-amount="250" aria-pressed="false">
+                    <span>250 RUZ</span>
+                    <small>~2500 ₽</small>
+                  </button>
+                  <button class="topup-amount-btn active" type="button" data-amount="500" aria-pressed="true">
+                    <span>500 RUZ</span>
+                    <small>~5000 ₽</small>
+                  </button>
+                </div>
               </div>
-              <div class="topup-methods-item">
-                <span>ЮMoney</span>
-                <span class="topup-methods-status">В разработке</span>
+              <div class="topup-summary topup-summary-compact">
+                <div>Выбрано: <strong><span id="headerTopupAmount">500</span> RUZ</strong></div>
+                <div>Примерная сумма: <strong><span id="headerTopupPrice">5000</span> ₽</strong></div>
+              </div>
+              <div class="topup-actions topup-actions-compact">
+                <button class="btn btn-primary topup-btn-main" type="button" id="headerDemoTopupBtn">
+                  <i class="fa-solid fa-bolt"></i>
+                  Зачислить как демо
+                </button>
+                <button class="btn btn-disabled topup-btn-real" type="button" id="headerRealTopupBtn" aria-disabled="true">
+                  <i class="fa-solid fa-credit-card"></i>
+                  Пополнить за деньги
+                </button>
               </div>
               <button class="btn btn-ghost btn-xs" type="button" id="goToCoinsSectionBtn">Перейти к таблице тарифов</button>
             </div>
@@ -3579,6 +3791,24 @@
         </p>
       </div>
 
+      <div class="tracks-mini-gallery" id="tracksMiniGallery">
+        <div class="mini-gallery-header">
+          <div>
+            <div class="mini-gallery-title">Галерея релизов</div>
+            <p class="section-sub" style="margin: 4px 0 0;">Быстрый доступ к трекам и ближайшим событиям.</p>
+          </div>
+          <div class="mini-gallery-filters" role="group" aria-label="Фильтр релизов">
+            <button type="button" class="mini-gallery-filter is-active" data-gallery-filter="all">Все</button>
+            <button type="button" class="mini-gallery-filter" data-gallery-filter="released">Уже в сети</button>
+            <button type="button" class="mini-gallery-filter" data-gallery-filter="early-access">Ранний доступ</button>
+            <button type="button" class="mini-gallery-filter" data-gallery-filter="upcoming">Скоро</button>
+          </div>
+        </div>
+        <div class="tracks-gallery-scroller" id="tracksGalleryScroller">
+          <p class="mini-gallery-empty">Галерея загружается…</p>
+        </div>
+      </div>
+
       <div class="tracks-grid">
       </div>
     </section>
@@ -3729,7 +3959,7 @@
       <div class="lyrics-text" id="lyricsModalText"></div>
     </div>
   </div>
-
+  <script src="mix-events.js"></script>
   <script src="tracks-data.js"></script>
   <script>
       // Показать/скрыть кнопку "Наверх"
@@ -3767,14 +3997,20 @@
     const headerCoinsAmountEl = document.getElementById("headerCoinsAmount");
     const headerTopupBtn = document.getElementById("headerTopupBtn");
     const topupMethodsPanel = document.getElementById("topupMethodsPanel");
+    const mixEventsBtn = document.getElementById("mixEventsBtn");
+    const mixEventsPopover = document.getElementById("mixEventsPopover");
+    const mixCountdownLabel = document.getElementById("mixCountdownLabel");
+    const mixPopoverStatus = document.getElementById("mixPopoverStatus");
+    const mixEventsListEl = document.getElementById("mixEventsList");
     const goToCoinsSectionBtn = document.getElementById("goToCoinsSectionBtn");
     const profileTopupBtn = document.getElementById("profileTopupBtn");
     const coinsSection = document.getElementById("coins");
     const topupAmountButtons = Array.from(document.querySelectorAll(".topup-amount-btn"));
-    const topupAmountDisplayEl = document.getElementById("topupAmount");
-    const topupPriceDisplayEl = document.getElementById("topupPrice");
-    const demoTopupBtn = document.getElementById("demoTopupBtn");
-    const realTopupBtn = document.getElementById("realTopupBtn");
+    const topupAmountDisplayEls = [document.getElementById("topupAmount"), document.getElementById("headerTopupAmount")].filter(Boolean);
+    const topupPriceDisplayEls = [document.getElementById("topupPrice"), document.getElementById("headerTopupPrice")].filter(Boolean);
+    const demoTopupButtons = [document.getElementById("demoTopupBtn"), document.getElementById("headerDemoTopupBtn")].filter(Boolean);
+    const primaryDemoTopupBtn = demoTopupButtons[0] || null;
+    const realTopupButtons = [document.getElementById("realTopupBtn"), document.getElementById("headerRealTopupBtn")].filter(Boolean);
     const profileTabButtons = Array.from(document.querySelectorAll("[data-profile-tab]"));
     const profileViews = Array.from(document.querySelectorAll("[data-profile-view]"));
     const headerUsersBtn = document.getElementById("headerUsersBtn");
@@ -3811,12 +4047,12 @@
     function scrollToCoinsSection() {
       if (coinsSection) {
         coinsSection.scrollIntoView({ behavior: "smooth" });
-        if (demoTopupBtn && typeof demoTopupBtn.focus === "function") {
+        if (primaryDemoTopupBtn && typeof primaryDemoTopupBtn.focus === "function") {
           window.setTimeout(() => {
             try {
-              demoTopupBtn.focus({ preventScroll: true });
+              primaryDemoTopupBtn.focus({ preventScroll: true });
             } catch (error) {
-              demoTopupBtn.focus();
+              primaryDemoTopupBtn.focus();
             }
           }, 260);
         }
@@ -3874,12 +4110,12 @@
       });
     }
 
-    if (realTopupBtn) {
-      realTopupBtn.addEventListener("click", event => {
+    realTopupButtons.forEach(button => {
+      button.addEventListener("click", event => {
         event.preventDefault();
         notifyPaymentsInProgress();
       });
-    }
+    });
 
     const currentYearEl = document.getElementById("year");
     if (currentYearEl) {
@@ -3899,16 +4135,17 @@
       }
       selectedTopupAmount = amountValue;
       topupAmountButtons.forEach(item => {
-        const isActive = item === button;
+        const itemAmount = Number.parseInt(item.dataset.amount || "0", 10);
+        const isActive = itemAmount === amountValue;
         item.classList.toggle("active", isActive);
         item.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
-      if (topupAmountDisplayEl) {
-        topupAmountDisplayEl.textContent = numberFormatter.format(amountValue);
-      }
-      if (topupPriceDisplayEl) {
-        topupPriceDisplayEl.textContent = numberFormatter.format(amountValue * RUZCOIN_PRICE_RUB);
-      }
+      topupAmountDisplayEls.forEach(el => {
+        el.textContent = numberFormatter.format(amountValue);
+      });
+      topupPriceDisplayEls.forEach(el => {
+        el.textContent = numberFormatter.format(amountValue * RUZCOIN_PRICE_RUB);
+      });
     }
 
     function initializeTopupSelection() {
@@ -3957,8 +4194,29 @@
       initializeTopupSelection();
     }
 
-    if (demoTopupBtn) {
-      demoTopupBtn.addEventListener("click", () => {
+    if (miniGalleryFilterButtons.length) {
+      miniGalleryFilterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          setMiniGalleryFilter(button.dataset.galleryFilter || "all");
+        });
+      });
+    }
+
+    if (miniGalleryScroller) {
+      miniGalleryScroller.addEventListener("click", event => {
+        const card = event.target.closest(".mini-gallery-card");
+        if (!card) {
+          return;
+        }
+        const slug = card.dataset.trackSlug;
+        if (slug) {
+          focusTrackCardBySlug(slug);
+        }
+      });
+    }
+
+    demoTopupButtons.forEach(button => {
+      button.addEventListener("click", () => {
         if (!currentUser) {
           if (profilePopoverController) {
             profilePopoverController.open();
@@ -3981,13 +4239,25 @@
         updateProfilePopoverState();
         setActiveProfileView("history");
       });
-    }
+    });
 
     const tracksGrid = document.querySelector("#tracks .tracks-grid");
+    const tracksMiniGallery = document.getElementById("tracksMiniGallery");
+    const miniGalleryScroller = document.getElementById("tracksGalleryScroller");
+    const miniGalleryFilterButtons = Array.from(document.querySelectorAll("[data-gallery-filter]"));
     let releasedTracksConfig = Array.isArray(window.RELEASED_TRACKS_DATA)
       ? window.RELEASED_TRACKS_DATA
       : [];
     const FALLBACK_RELEASES_ENDPOINT = "data/all-tracks.json";
+    let miniGallerySource = [];
+    let activeMiniGalleryFilter = "all";
+    let mixReferenceDate = null;
+    let mixEventsSchedule = [];
+    let mixCountdownTimer = null;
+    const mixEventsConfig =
+      window.MIX_EVENTS_CONFIG && typeof window.MIX_EVENTS_CONFIG === "object"
+        ? window.MIX_EVENTS_CONFIG
+        : {};
     function slugifyTitleForFallback(title, index = 0) {
       const baseIndex = Number.isInteger(index) ? index : 0;
       const raw = typeof title === "string" ? title.trim() : "";
@@ -4120,6 +4390,243 @@
 
     function formatAvailabilityLabel(value) {
       return availabilityLabelMap[value] || availabilityLabelMap.public;
+    }
+
+    const MIX_EVENT_DAY_MS = 24 * 60 * 60 * 1000;
+    const MIX_EVENT_DEFAULT_DURATION_MS = 7 * MIX_EVENT_DAY_MS;
+
+    function parseMixDate(value) {
+      if (typeof value !== "string") {
+        return null;
+      }
+      const trimmed = value.trim();
+      if (!trimmed) {
+        return null;
+      }
+      const parsed = new Date(trimmed);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    }
+
+    function fallbackMixStart(referenceDate, index) {
+      const base = referenceDate instanceof Date && !Number.isNaN(referenceDate.getTime())
+        ? referenceDate
+        : new Date();
+      return new Date(base.getTime() + index * MIX_EVENT_DEFAULT_DURATION_MS);
+    }
+
+    function sanitizeMixEventsList(list, referenceDate) {
+      if (!Array.isArray(list)) {
+        return [];
+      }
+      return list
+        .map((item, index) => {
+          if (!item || typeof item !== "object") {
+            return null;
+          }
+          const startDate = parseMixDate(item.start) || fallbackMixStart(referenceDate, index);
+          const endCandidate = parseMixDate(item.end);
+          const endDate = endCandidate && endCandidate > startDate
+            ? endCandidate
+            : new Date(startDate.getTime() + MIX_EVENT_DEFAULT_DURATION_MS);
+          const id = item.id ? String(item.id) : `mix-event-${index + 1}`;
+          const title = item.title ? String(item.title) : "MIX событие";
+          const description = item.description
+            ? String(item.description)
+            : "Следите за активностью и слушайте релизы, чтобы участвовать в MIX.";
+          const focus = Array.isArray(item.focus)
+            ? item.focus.filter(Boolean).map(entry => String(entry))
+            : [];
+          return {
+            id,
+            title,
+            description,
+            metric: item.metric ? String(item.metric) : "unique-plays",
+            focus,
+            startDate,
+            endDate,
+            startLabel: startDate.toLocaleString("ru-RU", { day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit" }),
+            endLabel: endDate.toLocaleString("ru-RU", { day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit" })
+          };
+        })
+        .filter(Boolean)
+        .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+    }
+
+    function findActiveMixEvent(now = new Date()) {
+      const currentTime = now.getTime();
+      return mixEventsSchedule.find(event => {
+        return event.startDate.getTime() <= currentTime && event.endDate.getTime() > currentTime;
+      }) || null;
+    }
+
+    function findUpcomingMixEvent(now = new Date()) {
+      const currentTime = now.getTime();
+      return mixEventsSchedule.find(event => event.startDate.getTime() > currentTime) || null;
+    }
+
+    function formatMixCountdown(diffMs) {
+      if (!Number.isFinite(diffMs)) {
+        return "Скоро";
+      }
+      if (diffMs <= 0) {
+        return "00:00";
+      }
+      const totalMinutes = Math.floor(diffMs / 60000);
+      const days = Math.floor(totalMinutes / (60 * 24));
+      const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+      const minutes = totalMinutes % 60;
+      const hoursSegment = String(hours).padStart(2, "0");
+      const minutesSegment = String(minutes).padStart(2, "0");
+      return days > 0 ? `${days}д ${hoursSegment}:${minutesSegment}` : `${hoursSegment}:${minutesSegment}`;
+    }
+
+    function setMixCountdownLabel(text, isLive) {
+      if (mixCountdownLabel) {
+        mixCountdownLabel.textContent = text;
+      }
+      if (mixEventsBtn) {
+        mixEventsBtn.classList.toggle("is-live", Boolean(isLive));
+      }
+    }
+
+    function updateMixCountdown() {
+      const now = new Date();
+      const active = findActiveMixEvent(now);
+      if (active) {
+        const remaining = active.endDate.getTime() - now.getTime();
+        const countdownText = remaining > 0 ? `LIVE · ${formatMixCountdown(remaining)}` : "LIVE";
+        setMixCountdownLabel(countdownText, true);
+        if (mixPopoverStatus) {
+          mixPopoverStatus.textContent = `Идёт событие «${active.title}» до ${active.endLabel}`;
+        }
+        return;
+      }
+      const upcoming = findUpcomingMixEvent(now);
+      if (upcoming) {
+        const untilStart = upcoming.startDate.getTime() - now.getTime();
+        const countdownText = untilStart > 0 ? formatMixCountdown(untilStart) : "Готово к старту";
+        setMixCountdownLabel(countdownText, false);
+        if (mixPopoverStatus) {
+          mixPopoverStatus.textContent = `Старт ${upcoming.startLabel}`;
+        }
+        return;
+      }
+      setMixCountdownLabel("Скоро", false);
+      if (mixPopoverStatus) {
+        mixPopoverStatus.textContent = "События будут объявлены позже.";
+      }
+    }
+
+    function startMixCountdown() {
+      if (mixCountdownTimer) {
+        window.clearInterval(mixCountdownTimer);
+      }
+      mixCountdownTimer = window.setInterval(() => {
+        updateMixCountdown();
+      }, 60000);
+    }
+
+    function stopMixCountdown() {
+      if (mixCountdownTimer) {
+        window.clearInterval(mixCountdownTimer);
+        mixCountdownTimer = null;
+      }
+    }
+
+    function determineMixEventStatus(event, now = new Date()) {
+      const current = now.getTime();
+      const start = event.startDate.getTime();
+      const end = event.endDate.getTime();
+      if (current >= start && current < end) {
+        return { key: "active", countdown: formatMixCountdown(end - current) };
+      }
+      if (current < start) {
+        return { key: "upcoming", countdown: formatMixCountdown(start - current) };
+      }
+      return { key: "finished", countdown: "" };
+    }
+
+    function buildMixEventCard(event, now = new Date()) {
+      const status = determineMixEventStatus(event, now);
+      let statusLabel = "";
+      if (status.key === "active") {
+        statusLabel = `LIVE · до финала ${status.countdown}`;
+      } else if (status.key === "upcoming") {
+        statusLabel = `Старт через ${status.countdown}`;
+      } else {
+        statusLabel = "Событие завершено";
+      }
+      const stats = getMixEventStatsForCurrentUser(event.id);
+      const uniqueTracks = stats && stats.trackPlays
+        ? Object.keys(stats.trackPlays).length
+        : 0;
+      const topTracks = stats && stats.trackPlays
+        ? Object.entries(stats.trackPlays)
+            .sort((a, b) => Number(b[1]) - Number(a[1]))
+            .slice(0, 3)
+        : [];
+      const topTracksMarkup = topTracks.length
+        ? `<div class="mix-event-toplist">${topTracks
+            .map(([slug, count]) => `<span>${resolveTrackTitle(slug)} — ${formatCount(count)}</span>`)
+            .join("")}</div>`
+        : "";
+      const hasStats = stats && (stats.totalPlays > 0 || uniqueTracks > 0);
+      const statsMarkup = hasStats
+        ? `<div class="mix-event-stats">
+            <span>Всего прослушиваний: ${formatCount(stats.totalPlays || 0)}</span>
+            <span>Уникальные треки: ${formatCount(uniqueTracks)}</span>
+          </div>${topTracksMarkup}`
+        : '<div class="mix-event-stats">Слушай релизы, чтобы попасть в подборку MIX.</div>';
+      const focusMarkup = event.focus && event.focus.length
+        ? `<div class="mix-event-description">Фокус недели: ${event.focus
+            .map(slug => resolveTrackTitle(slug))
+            .join(", ")}</div>`
+        : "";
+      return `
+        <article class="mix-event-card" data-status="${status.key}">
+          <div class="mix-event-title">${event.title}</div>
+          <div class="mix-event-status">${statusLabel}<span> · ${event.startLabel} — ${event.endLabel}</span></div>
+          <div class="mix-event-description">${event.description}</div>
+          ${focusMarkup}
+          ${statsMarkup}
+        </article>
+      `;
+    }
+
+    function renderMixEventsList(now = new Date()) {
+      if (!mixEventsListEl) {
+        return;
+      }
+      if (!mixEventsSchedule.length) {
+        mixEventsListEl.innerHTML = '<p class="users-popover-empty">События будут объявлены позже.</p>';
+        return;
+      }
+      mixEventsListEl.innerHTML = mixEventsSchedule.map(event => buildMixEventCard(event, now)).join("");
+    }
+
+    function initializeMixEventsSchedule() {
+      const referenceCandidate = parseMixDate(mixEventsConfig.referenceDate);
+      mixReferenceDate = referenceCandidate || releaseReferenceDate || new Date();
+      mixEventsSchedule = sanitizeMixEventsList(mixEventsConfig.events || [], mixReferenceDate);
+      updateMixCountdown();
+      startMixCountdown();
+      renderMixEventsList();
+    }
+
+    function recordMixEventPlay(slug) {
+      const activeEvent = findActiveMixEvent();
+      if (!activeEvent || !slug) {
+        return;
+      }
+      const entry = ensureMixEventEntry(activeEvent.id);
+      entry.totalPlays += 1;
+      if (!entry.trackPlays[slug]) {
+        entry.trackPlays[slug] = 0;
+      }
+      entry.trackPlays[slug] += 1;
+      entry.updatedAt = new Date().toISOString();
+      saveMixEventStatsForActiveUser();
+      renderMixEventsList();
     }
 
     function buildCoverBackgroundValue(fileBase) {
@@ -4359,6 +4866,122 @@
       });
     }
 
+    function focusTrackCardBySlug(slug) {
+      if (!slug) {
+        return;
+      }
+      const targetCard = document.querySelector(`.track-card[data-track-slug="${slug}"]`);
+      if (!targetCard) {
+        return;
+      }
+      targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+      targetCard.classList.add("is-highlighted");
+      window.setTimeout(() => {
+        targetCard.classList.remove("is-highlighted");
+      }, 1600);
+    }
+
+    function matchesMiniGalleryFilter(track, filter) {
+      if (!track) {
+        return false;
+      }
+      switch ((filter || "all").toLowerCase()) {
+        case "released":
+          return track.releaseState === "released";
+        case "early-access":
+          return track.availability === "early-access";
+        case "upcoming":
+          return track.releaseState === "soon" || track.availability === "upcoming";
+        default:
+          return true;
+      }
+    }
+
+    function createMiniGalleryCard(track) {
+      if (!track) {
+        return "";
+      }
+      const metaParts = [];
+      if (track.typeLabel) {
+        metaParts.push(`<span>${track.typeLabel}</span>`);
+      }
+      if (track.releaseLabel) {
+        metaParts.push(`<span>${track.releaseLabel}</span>`);
+      }
+      const metaMarkup = metaParts.length
+        ? `<div class="mini-gallery-meta">${metaParts.join('<span class="dot"></span>')}</div>`
+        : "";
+      const personalCount = getPersonalPlayCount(track.slug);
+      const personalMarkup = `<div class="mini-gallery-meta" data-mini-personal="${track.slug}"${personalCount > 0 ? "" : " hidden"}>
+          Твоих прослушиваний: <span>${formatCount(personalCount)}</span>
+        </div>`;
+      return `
+        <article class="mini-gallery-card" data-track-slug="${track.slug}">
+          <div class="mini-gallery-cover" style="background-image:${track.coverStyle};"></div>
+          <div class="mini-gallery-body">
+            <div class="mini-gallery-name">${track.title}</div>
+            ${metaMarkup}
+            <div class="mini-gallery-badge ${track.availability}">${track.availabilityLabel}</div>
+            ${personalMarkup}
+          </div>
+        </article>
+      `;
+    }
+
+    function refreshMiniGalleryView() {
+      if (!miniGalleryScroller) {
+        return;
+      }
+      if (!miniGallerySource.length) {
+        miniGalleryScroller.innerHTML = '<p class="mini-gallery-empty">Нет релизов для отображения.</p>';
+        return;
+      }
+      const filtered = miniGallerySource.filter(track => matchesMiniGalleryFilter(track, activeMiniGalleryFilter));
+      if (!filtered.length) {
+        miniGalleryScroller.innerHTML = '<p class="mini-gallery-empty">Нет релизов для выбранного фильтра.</p>';
+        return;
+      }
+      miniGalleryScroller.innerHTML = filtered.map(createMiniGalleryCard).join("");
+      refreshMiniGalleryPersonalDisplays();
+    }
+
+    function renderTracksMiniGallery(tracks) {
+      if (!tracksMiniGallery || !miniGalleryScroller) {
+        miniGallerySource = [];
+        return;
+      }
+      miniGallerySource = Array.isArray(tracks) ? tracks.slice() : [];
+      refreshMiniGalleryView();
+    }
+
+    function setMiniGalleryFilter(filter) {
+      activeMiniGalleryFilter = (filter || "all").toLowerCase();
+      miniGalleryFilterButtons.forEach(button => {
+        const value = (button.dataset.galleryFilter || "all").toLowerCase();
+        button.classList.toggle("is-active", value === activeMiniGalleryFilter);
+      });
+      refreshMiniGalleryView();
+    }
+
+    function refreshMiniGalleryPersonalDisplays() {
+      if (!miniGalleryScroller) {
+        return;
+      }
+      miniGalleryScroller.querySelectorAll("[data-mini-personal]").forEach(element => {
+        const slug = element.dataset.miniPersonal;
+        const count = getPersonalPlayCount(slug);
+        const span = element.querySelector("span");
+        if (count > 0) {
+          if (span) {
+            span.textContent = formatCount(count);
+          }
+          element.hidden = false;
+        } else {
+          element.hidden = true;
+        }
+      });
+    }
+
     function renderClipsGrid(tracks) {
       if (!clipsGrid) {
         return;
@@ -4483,6 +5106,7 @@
 
     let trackLibrary = sortTrackLibrary(buildTrackLibrary());
     renderAllTrackGrids(trackLibrary);
+    initializeMixEventsSchedule();
 
     if (!releasedTracksConfig.length) {
       loadFallbackReleases().then(fallback => {
@@ -5001,13 +5625,16 @@
         const WELCOME_BONUS = 10;
         const LISTENING_STATS_KEY = "avzalov_listening_stats_v1";
         const COIN_HISTORY_KEY = "avzalov_coin_history_v1";
+        const MIX_EVENT_STATS_KEY = "avzalov_mix_event_stats_v1";
         const MAX_HISTORY_ENTRIES = 100;
         const MAX_RECENT_LISTENS = 6;
 
         let listeningStatsRegistry = loadListeningStatsRegistry();
         let coinHistoryRegistry = loadCoinHistoryRegistry();
+        let mixEventStatsRegistry = loadMixEventStatsRegistry();
         let listeningStats = createEmptyListeningStats();
         let coinHistory = [];
+        let mixEventStats = createEmptyMixEventStats();
         let activeUserId = "guest";
 
         const roleLabelMap = {
@@ -5063,6 +5690,7 @@
       let coinsPopoverController = null;
       let profilePopoverController = null;
       let usersPopoverController = null;
+      let mixPopoverController = null;
 
       const profilePopoverLoggedOutSection = headerProfilePopover
         ? headerProfilePopover.querySelector('[data-state="logged-out"]')
@@ -5177,6 +5805,66 @@
         }
       }
 
+      function createEmptyMixEventStats() {
+        return { events: {} };
+      }
+
+      function sanitizeMixEventStats(rawStats) {
+        const base = createEmptyMixEventStats();
+        if (!rawStats || typeof rawStats !== "object") {
+          return base;
+        }
+        if (rawStats.events && typeof rawStats.events === "object") {
+          base.events = {};
+          Object.entries(rawStats.events).forEach(([eventId, entry]) => {
+            if (typeof eventId !== "string") {
+              return;
+            }
+            const total = Number(entry.totalPlays);
+            const sanitized = {
+              totalPlays: Number.isFinite(total) ? Math.max(0, Math.floor(total)) : 0,
+              trackPlays: {},
+              updatedAt: entry && entry.updatedAt ? String(entry.updatedAt) : new Date().toISOString()
+            };
+            if (entry && entry.trackPlays && typeof entry.trackPlays === "object") {
+              Object.entries(entry.trackPlays).forEach(([slug, count]) => {
+                if (typeof slug !== "string") {
+                  return;
+                }
+                const numeric = Number(count);
+                if (Number.isFinite(numeric) && numeric > 0) {
+                  sanitized.trackPlays[slug] = Math.max(0, Math.floor(numeric));
+                }
+              });
+            }
+            base.events[eventId] = sanitized;
+          });
+        }
+        return base;
+      }
+
+      function loadMixEventStatsRegistry() {
+        try {
+          const raw = localStorage.getItem(MIX_EVENT_STATS_KEY);
+          if (!raw) {
+            return {};
+          }
+          const parsed = JSON.parse(raw);
+          return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+        } catch (error) {
+          console.warn("Не удалось загрузить статистику MIX-событий:", error);
+          return {};
+        }
+      }
+
+      function saveMixEventStatsRegistry() {
+        try {
+          localStorage.setItem(MIX_EVENT_STATS_KEY, JSON.stringify(mixEventStatsRegistry));
+        } catch (error) {
+          console.warn("Не удалось сохранить статистику MIX-событий:", error);
+        }
+      }
+
       function sanitizeCoinHistory(rawHistory) {
         if (!Array.isArray(rawHistory)) {
           return [];
@@ -5240,6 +5928,11 @@
         coinHistory = sanitizeCoinHistory(coinHistoryRegistry[key]);
       }
 
+      function loadMixStatsForActiveUser() {
+        const key = getActiveStatsKey();
+        mixEventStats = sanitizeMixEventStats(mixEventStatsRegistry[key]);
+      }
+
       function saveListeningStats() {
         listeningStatsRegistry[getActiveStatsKey()] = sanitizeListeningStats(listeningStats);
         saveListeningStatsRegistry();
@@ -5251,11 +5944,46 @@
         saveCoinHistoryRegistry();
       }
 
+      function saveMixEventStatsForActiveUser() {
+        mixEventStatsRegistry[getActiveStatsKey()] = sanitizeMixEventStats(mixEventStats);
+        saveMixEventStatsRegistry();
+      }
+
+      function getMixEventStatsForCurrentUser(eventId) {
+        if (!eventId || !mixEventStats || !mixEventStats.events) {
+          return null;
+        }
+        const entry = mixEventStats.events[eventId];
+        if (!entry) {
+          return null;
+        }
+        return {
+          totalPlays: entry.totalPlays || 0,
+          trackPlays: { ...(entry.trackPlays || {}) },
+          updatedAt: entry.updatedAt || new Date().toISOString()
+        };
+      }
+
+      function ensureMixEventEntry(eventId) {
+        if (!mixEventStats.events) {
+          mixEventStats.events = {};
+        }
+        if (!mixEventStats.events[eventId]) {
+          mixEventStats.events[eventId] = {
+            totalPlays: 0,
+            trackPlays: {},
+            updatedAt: new Date().toISOString()
+          };
+        }
+        return mixEventStats.events[eventId];
+      }
+
       function refreshAllTrackPersonalDisplays() {
         document
           .querySelectorAll(".track-user-plays[data-track-personal]")
           .forEach(el => updateTrackPersonalPlayDisplay(el.dataset.trackPersonal));
-      }
+        refreshMiniGalleryPersonalDisplays();
+    }
 
       function renderListeningStats() {
         if (statTotalPlaysEl) {
@@ -5378,6 +6106,7 @@
           time: new Date().toLocaleString("ru-RU")
         };
         listeningStats.recent = [entry, ...listeningStats.recent].slice(0, MAX_RECENT_LISTENS);
+        recordMixEventPlay(slug);
         saveListeningStats();
         renderListeningStats();
         updateTrackPersonalPlayDisplay(slug);
@@ -5441,8 +6170,11 @@
       function loadUserHistories() {
         loadListeningStatsForActiveUser();
         loadCoinHistoryForActiveUser();
+        loadMixStatsForActiveUser();
         renderListeningStats();
         renderCoinHistory();
+        renderMixEventsList();
+        updateMixCountdown();
       }
 
       function switchUserContext(user) {
@@ -6068,10 +6800,11 @@
         });
       }
 
-      function renderAllTrackGrids(library) {
-        renderTracksGrid(library);
-        renderClipsGrid(library);
-      }
+    function renderAllTrackGrids(library) {
+      renderTracksGrid(library);
+      renderTracksMiniGallery(library);
+      renderClipsGrid(library);
+    }
 
       function handleUnlockButtonClick(event) {
         const unlockBtn = event.target.closest(".unlock-btn");
@@ -6257,6 +6990,7 @@
       coinsPopoverController = attachPopover(headerCoinsBtn, headerCoinsPopover);
       profilePopoverController = attachPopover(headerProfileBtn, headerProfilePopover);
       usersPopoverController = attachPopover(headerUsersBtn, headerUsersPopover);
+      mixPopoverController = attachPopover(mixEventsBtn, mixEventsPopover);
 
       [tracksGrid, clipsGrid].forEach(grid => {
         if (grid) {
