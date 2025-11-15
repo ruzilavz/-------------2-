@@ -321,103 +321,546 @@
 
     .tracks-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
     }
-    @media (min-width: 721px) {
+
+    @media (min-width: 900px) {
       .tracks-grid {
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       }
     }
 
     .track-card {
-      background: var(--card);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      padding: 12px 13px 11px;
+      position: relative;
+      background: linear-gradient(140deg, rgba(30, 39, 84, 0.8), rgba(12, 15, 30, 0.95));
+      border-radius: 20px;
+      border: 1px solid rgba(68, 95, 189, 0.25);
+      padding: 18px 18px 20px;
       display: flex;
-      gap: 12px;
+      gap: 18px;
       align-items: center;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition), outline-color var(--transition);
-      outline: 2px solid transparent;
-      outline-offset: -2px;
+      box-shadow: 0 18px 40px rgba(5, 8, 20, 0.55);
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+      overflow: hidden;
     }
 
+    .track-card::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, rgba(86, 131, 255, 0.28), transparent 60%);
+      opacity: 0;
+      transition: opacity 220ms ease;
+      pointer-events: none;
+    }
+
+    .track-card::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle, rgba(47, 107, 255, 0.2), transparent 65%);
+      opacity: 0;
+      transition: opacity 220ms ease;
+      pointer-events: none;
+    }
+
+    .track-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 50px rgba(8, 12, 32, 0.6);
+      border-color: rgba(86, 131, 255, 0.45);
+    }
+
+    .track-card:hover::before,
+    .track-card.playing::before,
+    .track-card.playing::after {
+      opacity: 1;
+    }
 
     .track-card.playing {
-      border-color: rgba(46, 213, 139, 0.6);
-      outline-color: rgba(46, 213, 139, 0.5);
+      border-color: rgba(61, 208, 156, 0.7);
+      box-shadow: 0 28px 60px rgba(30, 215, 160, 0.3);
     }
 
     .track-cover {
       position: relative;
-      width: 80px;
-      height: 80px;
-      border-radius: 12px;
+      width: 96px;
+      height: 96px;
+      border-radius: 16px;
       background-size: cover;
       background-position: center;
       background-color: #1b2031;
       flex-shrink: 0;
-      cursor: pointer;
       overflow: hidden;
+      cursor: pointer;
+    }
+
+    .track-cover::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.18), transparent 55%);
+      mix-blend-mode: screen;
     }
 
     .track-cover .play-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(6, 9, 20, 0.6);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      color: #fff;
+      font-size: 26px;
+      color: #eef2ff;
       opacity: 0;
       transition: opacity var(--transition);
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(4px);
     }
 
-    .track-card:hover .track-cover .play-overlay {
-      opacity: 1;
-    }
-
+    .track-card:hover .track-cover .play-overlay,
     .track-card.playing .track-cover .play-overlay {
-      opacity: 1; /* Keep visible when playing */
+      opacity: 1;
     }
 
     .track-info {
       flex: 1;
       min-width: 0;
+      position: relative;
+      z-index: 1;
     }
 
     .track-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 2px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
+    .track-card.playing .track-title {
+      color: #effffc;
+    }
+
     .track-meta {
-      font-size: 11px;
-      color: var(--muted);
+      font-size: 12px;
+      color: rgba(206, 212, 242, 0.8);
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
-      margin-bottom: 4px;
+      margin-bottom: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .dot {
-      width: 3px;
-      height: 3px;
+      width: 4px;
+      height: 4px;
       border-radius: 999px;
-      background: var(--muted);
-      opacity: 0.7;
+      background: rgba(206, 212, 242, 0.4);
     }
-    
-    .track-player-details {
-      display: none; /* Hidden by default */
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .track-play-toggle {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(140deg, #2f6bff, #8aa2ff);
+      box-shadow: 0 18px 30px rgba(47, 107, 255, 0.45);
+      color: #f8f9ff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .track-play-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 40px rgba(47, 107, 255, 0.6);
+    }
+
+    .track-play-toggle:active {
+      transform: translateY(0);
+    }
+
+    .progress-bar-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .progress-bar {
+      position: relative;
+      width: 100%;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(86, 97, 140, 0.35);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .progress-bar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(76, 112, 255, 0.18), transparent);
+    }
+
+    .progress-bar-filled {
+      height: 100%;
+      border-radius: inherit;
+      width: 0;
+      background: linear-gradient(90deg, #2f6bff, #3ed39a);
+      box-shadow: 0 0 16px rgba(47, 107, 255, 0.35);
+    }
+
+    .time-display {
+      font-size: 11px;
+      color: rgba(192, 199, 228, 0.75);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .track-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .track-action-btn {
+      border: 1px solid rgba(95, 124, 220, 0.35);
+      color: #dfe4ff;
+      background: rgba(15, 18, 34, 0.85);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .track-action-btn:hover {
+      background: linear-gradient(120deg, rgba(47, 107, 255, 0.25), rgba(30, 208, 160, 0.25));
+      border-color: rgba(120, 196, 255, 0.6);
+    }
+
+    .track-action-btn[disabled] {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+
+    .mini-player {
+      position: fixed;
+      right: 28px;
+      bottom: 28px;
+      width: min(420px, calc(100% - 32px));
+      border-radius: 24px;
+      background: linear-gradient(140deg, rgba(18, 24, 46, 0.96), rgba(32, 38, 74, 0.96));
+      border: 1px solid rgba(92, 128, 248, 0.35);
+      box-shadow: 0 30px 60px rgba(6, 10, 28, 0.75);
+      padding: 18px 20px;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(40px);
+      transition: opacity 220ms ease, transform 220ms ease;
+      backdrop-filter: blur(14px);
+    }
+
+    .mini-player.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .mini-player-inner {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-areas:
+        "track controls"
+        "actions actions";
+      gap: 16px;
+      align-items: center;
+    }
+
+    .mini-player-track {
+      grid-area: track;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mini-player-cover {
+      width: 66px;
+      height: 66px;
+      border-radius: 16px;
+      background-size: cover;
+      background-position: center;
+      background-color: #1c2238;
+      box-shadow: 0 14px 24px rgba(23, 33, 70, 0.55);
+    }
+
+    .mini-player-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mini-player-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .mini-player-artist {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(198, 204, 238, 0.75);
+    }
+
+    .mini-player-controls {
+      grid-area: controls;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .mini-player-buttons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .mini-player-play-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      border: none;
+      background: linear-gradient(140deg, #2f6bff, #46d5a0);
+      color: #f4f6ff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 24px 40px rgba(32, 178, 170, 0.35);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .mini-player-play-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 26px 50px rgba(72, 178, 255, 0.45);
+    }
+
+    .mini-player-progress-wrapper {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(194, 202, 232, 0.75);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mini-player-progress-wrapper .progress-bar {
+      height: 6px;
+    }
+
+    .mini-player-actions {
+      grid-area: actions;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .mini-player .track-action-btn {
+      font-size: 10px;
+      padding: 6px 12px;
+    }
+
+    .volume-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(198, 204, 238, 0.7);
+      font-size: 14px;
+    }
+
+    .volume-slider {
+      -webkit-appearance: none;
+      width: 110px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(95, 120, 200, 0.35);
+      outline: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(140deg, #2f6bff, #3ed39a);
+      box-shadow: 0 0 12px rgba(63, 163, 255, 0.5);
+      cursor: pointer;
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(140deg, #2f6bff, #3ed39a);
+      box-shadow: 0 0 12px rgba(63, 163, 255, 0.5);
+      border: none;
+      cursor: pointer;
+    }
+
+    .lyrics-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 12, 0.75);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+      z-index: 60;
+    }
+
+    .lyrics-modal-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lyrics-modal {
+      background: linear-gradient(160deg, rgba(17, 22, 38, 0.96), rgba(26, 32, 56, 0.96));
+      border: 1px solid rgba(90, 120, 210, 0.4);
+      border-radius: 22px;
+      padding: 28px;
+      width: min(540px, calc(100% - 48px));
+      box-shadow: 0 40px 70px rgba(5, 8, 20, 0.65);
+      position: relative;
+      color: #e8ebff;
+    }
+
+    .lyrics-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .lyrics-artist {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(198, 204, 238, 0.6);
+      margin-bottom: 18px;
+    }
+
+    .lyrics-text {
+      max-height: 320px;
+      overflow-y: auto;
+      line-height: 1.6;
+      color: rgba(220, 225, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .lyrics-text::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .lyrics-text::-webkit-scrollbar-thumb {
+      background: rgba(95, 120, 200, 0.5);
+      border-radius: 999px;
+    }
+
+    .lyrics-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(16, 20, 38, 0.85);
+      color: #dfe4ff;
+      font-size: 24px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 180ms ease;
+    }
+
+    .lyrics-close-btn:hover {
+      background: rgba(47, 107, 255, 0.4);
+    }
+
+    @media (max-width: 640px) {
+      .track-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .track-cover {
+        width: 100%;
+        height: 200px;
+      }
+
+      .player-controls {
+        width: 100%;
+      }
+
+      .mini-player {
+        right: 16px;
+        left: 16px;
+        bottom: 18px;
+        width: auto;
+      }
+
+      .mini-player-inner {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "track"
+          "controls"
+          "actions";
+      }
+
+      .mini-player-track {
+        justify-content: space-between;
+      }
+
+      .mini-player-actions {
+        justify-content: space-between;
+      }
+
+      .volume-slider {
+        width: 90px;
+      }
     }
 
     .news-list {
@@ -696,6 +1139,7 @@
         <article class="track-card">
           <div
             class="track-cover" style="background-image:url('img/dikaya-kometa.jpg');">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
             <div class="track-title">Дикая Комета</div>
@@ -705,15 +1149,17 @@
               <span>15.11.2025</span>
             </div>
             <div class="player-controls">
-              <button class="play-button"><i class="fas fa-play"></i></button>
+              <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
+                <i class="fas fa-play"></i>
+              </button>
               <div class="progress-bar-wrapper">
                 <div class="progress-bar"><div class="progress-bar-filled"></div></div>
                 <span class="time-display">0:00 / 0:00</span>
               </div>
             </div>
             <div class="track-actions">
-              <button class="track-action-btn lyrics-btn">Текст</button>
-              <a href="#" target="_blank" class="track-action-btn">Платформы</a>
+              <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
+              <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
             </div>
           </div>
           <audio class="track-audio" src="audio/dikaya-kometa.mp3" preload="metadata"></audio>
@@ -728,6 +1174,7 @@
         <article class="track-card">
           <div
             class="track-cover" style="background-image:url('img/rozy20.jpg');">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
             <div class="track-title">Она срывала розы 2.0</div>
@@ -737,15 +1184,17 @@
               <span>28.08.2025</span>
             </div>
             <div class="player-controls">
-              <button class="play-button"><i class="fas fa-play"></i></button>
+              <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
+                <i class="fas fa-play"></i>
+              </button>
               <div class="progress-bar-wrapper">
                 <div class="progress-bar"><div class="progress-bar-filled"></div></div>
                 <span class="time-display">0:00 / 0:00</span>
               </div>
             </div>
             <div class="track-actions">
-              <button class="track-action-btn lyrics-btn">Текст</button>
-              <a href="#" target="_blank" class="track-action-btn">Платформы</a>
+              <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
+              <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
             </div>
           </div>
           <audio class="track-audio" src="audio/ona-sryvala-rozy-20.mp3" preload="metadata"></audio>
@@ -755,6 +1204,7 @@
         <article class="track-card">
           <div
             class="track-cover" style="background-image:url('img/yashlek.jpg');">
+            <div class="play-overlay"><i class="fas fa-play"></i></div>
           </div>
           <div class="track-info">
             <div class="track-title">Яшьлек</div>
@@ -764,15 +1214,17 @@
               <span>03.05.2025</span>
             </div>
             <div class="player-controls">
-              <button class="play-button"><i class="fas fa-play"></i></button>
+              <button class="track-play-toggle" type="button" aria-label="Воспроизвести">
+                <i class="fas fa-play"></i>
+              </button>
               <div class="progress-bar-wrapper">
                 <div class="progress-bar"><div class="progress-bar-filled"></div></div>
                 <span class="time-display">0:00 / 0:00</span>
               </div>
             </div>
             <div class="track-actions">
-              <button class="track-action-btn lyrics-btn">Текст</button>
-              <a href="#" target="_blank" class="track-action-btn">Платформы</a>
+              <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
+              <a href="#" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Платформы</span></a>
             </div>
           </div>
           <audio class="track-audio" src="audio/yashlek.mp3" preload="metadata"></audio>
@@ -930,219 +1382,277 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // --- Custom Audio Player Logic ---
-    const allTrackCards = document.querySelectorAll('.track-card');
-    let currentPlayingAudio = null;
-    let currentPlayingCard = null;
+    const trackCards = document.querySelectorAll(".track-card");
+    const miniPlayer = document.getElementById("miniPlayer");
+    const miniPlayerCover = document.getElementById("miniPlayerCover");
+    const miniPlayerTitle = document.getElementById("miniPlayerTitle");
+    const miniPlayerPlayBtn = document.getElementById("miniPlayerPlayBtn");
+    const miniPlayerPlayIcon = miniPlayerPlayBtn.querySelector("i");
+    const miniPlayerCurrentTime = document.getElementById("miniPlayerCurrentTime");
+    const miniPlayerDuration = document.getElementById("miniPlayerDuration");
+    const miniPlayerProgressBar = document.getElementById("miniPlayerProgressBar");
+    const miniPlayerProgressFilled = document.getElementById("miniPlayerProgressFilled");
+    const miniPlayerLyricsBtn = document.getElementById("miniPlayerLyricsBtn");
+    const volumeSlider = document.getElementById("volumeSlider");
+    const lyricsModalOverlay = document.getElementById("lyricsModalOverlay");
+    const lyricsModalTitle = document.getElementById("lyricsModalTitle");
+    const lyricsModalText = document.getElementById("lyricsModalText");
+    const lyricsCloseBtn = document.getElementById("lyricsCloseBtn");
 
-    // --- DOM Elements ---
-    const miniPlayer = document.getElementById('miniPlayer');
-    const miniPlayerCover = document.getElementById('miniPlayerCover');
-    const miniPlayerTitle = document.getElementById('miniPlayerTitle');
-    const miniPlayerPlayBtn = document.getElementById('miniPlayerPlayBtn');
-    const miniPlayerPlayIcon = miniPlayerPlayBtn.querySelector('i');
-    const miniPlayerCurrentTime = document.getElementById('miniPlayerCurrentTime');
-    const miniPlayerDuration = document.getElementById('miniPlayerDuration');
-    const miniPlayerProgressBar = document.getElementById('miniPlayerProgressBar');
-    const miniPlayerProgressFilled = document.getElementById('miniPlayerProgressFilled');
-    const miniPlayerLyricsBtn = document.getElementById('miniPlayerLyricsBtn');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const lyricsModalOverlay = document.getElementById('lyricsModalOverlay');
-    const lyricsCloseBtn = document.getElementById('lyricsCloseBtn');
+    let currentAudio = null;
+    let currentCard = null;
 
     function formatTime(seconds) {
+      if (!Number.isFinite(seconds)) {
+        return "0:00";
+      }
       const minutes = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60);
-      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+      return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
     }
 
-    function stopAllPlayers(exceptCard) {
-      allTrackCards.forEach(card => {
-        if (card !== exceptCard) {
-          const audio = card.querySelector('.track-audio');
-          const playIcon = card.querySelector('.play-overlay i');
-          audio.pause();
-          playBtn.classList.remove('fa-pause');
-          playBtn.classList.add('fa-play');
-          card.classList.remove('playing');
-        }
-      });
-    }
-    
-    function togglePlay(card, audio) {
-        if (audio.paused) {
-            stopAllPlayers(card);
-            audio.play();
-            card.classList.add('playing');
-            currentPlayingAudio = audio;
-            currentPlayingCard = card;
-            miniPlayer.style.bottom = '0';
-        } else {
-            audio.pause();
-            card.classList.remove('playing');
-            // Don't hide mini-player on pause, just update icon
-        }
-        updateAllPlayIcons(audio.paused);
-        updateMiniPlayerInfo(card);
+    function setCardIcons(card, isPlaying) {
+      const overlayIcon = card.querySelector(".play-overlay i");
+      const toggleIcon = card.querySelector(".track-play-toggle i");
+      const iconClass = isPlaying ? "fa-pause" : "fa-play";
+      if (overlayIcon) {
+        overlayIcon.className = `fas ${iconClass}`;
+      }
+      if (toggleIcon) {
+        toggleIcon.className = `fas ${iconClass}`;
+      }
     }
 
-    function updateAllPlayIcons(isPaused) {
-        const iconClass = isPaused ? 'fa-play' : 'fa-pause';
-        // Update main card icon
-        if (currentPlayingCard) {
-            const cardIcon = currentPlayingCard.querySelector('.play-overlay i');
-            cardIcon.className = `fas ${iconClass}`;
-        }
-        // Update mini-player icon
-        miniPlayerPlayIcon.className = `fas ${iconClass}`;
+    function resetCard(card, audio) {
+      card.classList.remove("playing");
+      setCardIcons(card, false);
+      const progressFilled = card.querySelector(".progress-bar-filled");
+      if (progressFilled) {
+        progressFilled.style.width = "0%";
+      }
+      const timeDisplay = card.querySelector(".time-display");
+      if (timeDisplay) {
+        const durationText = formatTime(audio.duration);
+        timeDisplay.textContent = `0:00 / ${durationText}`;
+      }
     }
 
-    function updateMiniPlayerInfo(card) {
-        miniPlayerTitle.textContent = card.querySelector('.track-title').textContent;
-        miniPlayerCover.style.backgroundImage = card.querySelector('.track-cover').style.backgroundImage;
+    function updateMiniPlayerLyricsState(card) {
+      if (!miniPlayerLyricsBtn) return;
+      const hasLyrics = Boolean(
+        card &&
+        card.querySelector(".lyrics-content") &&
+        card.querySelector(".lyrics-content").textContent.trim()
+      );
+      if (hasLyrics) {
+        miniPlayerLyricsBtn.removeAttribute("disabled");
+      } else {
+        miniPlayerLyricsBtn.setAttribute("disabled", "disabled");
+      }
     }
 
-    // --- Event Listeners for each track card ---
-    allTrackCards.forEach(card => {
-      const audio = card.querySelector('.track-audio');
-      const cover = card.querySelector('.track-cover');
-      const progressBar = card.querySelector('.progress-bar');
-      const progressBarFilled = card.querySelector('.progress-bar-filled');
-      const timeDisplay = card.querySelector('.time-display');
+    function clearMiniPlayer() {
+      miniPlayer.classList.remove("is-active");
+      miniPlayerCover.style.backgroundImage = "";
+      miniPlayerTitle.textContent = "Название трека";
+      miniPlayerCurrentTime.textContent = "0:00";
+      miniPlayerDuration.textContent = "0:00";
+      miniPlayerProgressFilled.style.width = "0%";
+      miniPlayerPlayIcon.className = "fas fa-play";
+      updateMiniPlayerLyricsState(null);
+    }
 
-      audio.addEventListener('loadedmetadata', () => {
-        timeDisplay.textContent = `0:00 / ${formatTime(audio.duration)}`;
+    function updateMiniPlayer(card, audio) {
+      if (!card || !audio) {
+        clearMiniPlayer();
+        return;
+      }
+      miniPlayer.classList.add("is-active");
+      miniPlayerTitle.textContent = card.querySelector(".track-title").textContent;
+      miniPlayerCover.style.backgroundImage = card.querySelector(".track-cover").style.backgroundImage;
+      miniPlayerCurrentTime.textContent = formatTime(audio.currentTime);
+      miniPlayerDuration.textContent = formatTime(audio.duration);
+      miniPlayerPlayIcon.className = audio.paused ? "fas fa-play" : "fas fa-pause";
+      updateMiniPlayerLyricsState(card);
+    }
+
+    function stopAllExcept(cardToKeep) {
+      trackCards.forEach(card => {
+        const audio = card.querySelector(".track-audio");
+        if (!audio || card === cardToKeep) {
+          return;
+        }
+        audio.pause();
+        audio.currentTime = 0;
+        resetCard(card, audio);
+      });
+      if (!cardToKeep) {
+        currentAudio = null;
+        currentCard = null;
+        clearMiniPlayer();
+      }
+    }
+
+    function handleToggle(card, audio) {
+      if (!audio) return;
+      if (audio.paused) {
+        const volumeValue = volumeSlider ? volumeSlider.value : "1";
+        audio.volume = parseFloat(volumeValue);
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    function openLyrics(card) {
+      if (!card) return;
+      const lyricsContent = card.querySelector(".lyrics-content");
+      if (!lyricsContent || !lyricsContent.textContent.trim()) {
+        return;
+      }
+      lyricsModalTitle.textContent = card.querySelector(".track-title").textContent;
+      lyricsModalText.textContent = lyricsContent.textContent.trim();
+      lyricsModalOverlay.classList.add("visible");
+    }
+
+    trackCards.forEach(card => {
+      const audio = card.querySelector(".track-audio");
+      const cover = card.querySelector(".track-cover");
+      const toggle = card.querySelector(".track-play-toggle");
+      const progressBar = card.querySelector(".progress-bar");
+      const progressFilled = card.querySelector(".progress-bar-filled");
+      const timeDisplay = card.querySelector(".time-display");
+      const lyricsBtn = card.querySelector(".lyrics-btn");
+
+      if (!audio) {
+        return;
+      }
+
+      if (timeDisplay) {
+        timeDisplay.textContent = "0:00 / 0:00";
+      }
+
+      audio.addEventListener("loadedmetadata", () => {
+        if (timeDisplay) {
+          timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        }
+        if (audio === currentAudio) {
+          miniPlayerDuration.textContent = formatTime(audio.duration);
+        }
       });
 
-      cover.addEventListener('click', () => togglePlay(card, audio));
-
-      // Sync progress and time for all players
-      audio.addEventListener('timeupdate', () => {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        // Update in-list player
-        progressBarFilled.style.width = `${progress}%`;
-        timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-        // Update mini-player
-        miniPlayerProgressFilled.style.width = `${progress}%`;
-        miniPlayerCurrentTime.textContent = formatTime(audio.currentTime);
-        miniPlayerDuration.textContent = formatTime(audio.duration);
+      [cover, toggle].forEach(control => {
+        if (control) {
+          control.addEventListener("click", () => handleToggle(card, audio));
+        }
       });
 
-      audio.addEventListener('ended', () => {
-          card.classList.remove('playing');
-          currentPlayingAudio = null;
-          currentPlayingCard = null;
-          miniPlayer.style.bottom = '-150px';
-          updateAllPlayIcons(true);
+      audio.addEventListener("play", () => {
+        stopAllExcept(card);
+        currentAudio = audio;
+        currentCard = card;
+        card.classList.add("playing");
+        setCardIcons(card, true);
+        updateMiniPlayer(card, audio);
       });
 
-      progressBar.addEventListener('click', (e) => {
-        const barWidth = progressBar.clientWidth;
-        const clickX = e.offsetX;
-        audio.currentTime = (clickX / barWidth) * audio.duration;
+      audio.addEventListener("pause", () => {
+        setCardIcons(card, false);
+        card.classList.remove("playing");
+        if (currentAudio === audio) {
+          updateMiniPlayer(card, audio);
+        }
       });
-    });
 
-    // --- Global Player Controls (Mini Player) ---
-    miniPlayerPlayBtn.addEventListener('click', () => {
-        if (currentPlayingAudio) {
-            togglePlay(currentPlayingCard, currentPlayingAudio);
+      audio.addEventListener("timeupdate", () => {
+        const hasDuration = Number.isFinite(audio.duration) && audio.duration > 0;
+        const progress = hasDuration ? (audio.currentTime / audio.duration) * 100 : 0;
+        if (progressFilled) {
+          progressFilled.style.width = `${progress}%`;
         }
-    });
+        if (timeDisplay) {
+          timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        }
+        if (currentAudio === audio) {
+          miniPlayerProgressFilled.style.width = `${progress}%`;
+          miniPlayerCurrentTime.textContent = formatTime(audio.currentTime);
+          miniPlayerDuration.textContent = formatTime(audio.duration);
+        }
+      });
 
-    miniPlayerProgressBar.addEventListener('click', (e) => {
-        if (currentPlayingAudio) {
-            const barWidth = miniPlayerProgressBar.clientWidth;
-            const clickX = e.offsetX;
-            currentPlayingAudio.currentTime = (clickX / barWidth) * currentPlayingAudio.duration;
+      audio.addEventListener("ended", () => {
+        resetCard(card, audio);
+        if (currentAudio === audio) {
+          currentAudio = null;
+          currentCard = null;
+          clearMiniPlayer();
         }
-    });
+      });
 
-    volumeSlider.addEventListener('input', (e) => {
-        if (currentPlayingAudio) {
-            currentPlayingAudio.volume = e.target.value;
-        }
-    });
+      if (progressBar) {
+        progressBar.addEventListener("click", event => {
+          if (!Number.isFinite(audio.duration) || audio.duration === 0) {
+            return;
+          }
+          const rect = progressBar.getBoundingClientRect();
+          const ratio = (event.clientX - rect.left) / rect.width;
+          audio.currentTime = Math.max(0, Math.min(audio.duration, ratio * audio.duration));
+        });
+      }
 
-    // --- Lyrics Modal Logic ---
-    miniPlayerLyricsBtn.addEventListener('click', () => {
-      if (currentPlayingCard) {
-        const lyricsContent = currentPlayingCard.querySelector('.lyrics-content');
-        if (lyricsContent && lyricsContent.textContent.trim()) {
-            const lyricsModalTitle = document.getElementById('lyricsModalTitle');
-            const lyricsModalText = document.getElementById('lyricsModalText');
-            lyricsModalTitle.textContent = currentPlayingCard.querySelector('.track-title').textContent;
-            lyricsModalText.textContent = lyricsContent.textContent.trim();
-            lyricsModalOverlay.classList.add('visible');
-        }
+      if (lyricsBtn) {
+        lyricsBtn.addEventListener("click", () => openLyrics(card));
       }
     });
 
-    lyricsCloseBtn.addEventListener('click', () => {
-      lyricsModalOverlay.classList.remove('visible');
-    });
-
-    lyricsModalOverlay.addEventListener('click', (e) => {
-      if (e.target === lyricsModalOverlay) {
-        lyricsModalOverlay.classList.remove('visible');
+    miniPlayerPlayBtn.addEventListener("click", () => {
+      if (!currentAudio) {
+        return;
+      }
+      if (currentAudio.paused) {
+        currentAudio.play();
+      } else {
+        currentAudio.pause();
       }
     });
 
-    // Hide mini-player if there's no active track
-    document.addEventListener('click', (e) => {
-        // A bit of a hack to hide player if clicked outside of any player controls when paused
-        if (currentPlayingAudio && currentPlayingAudio.paused) {
-            const isPlayerControl = e.target.closest('.track-card, .mini-player');
-            if (!isPlayerControl) {
-                miniPlayer.style.bottom = '-150px';
-                stopAllPlayers(null); // Stop and reset everything
-                currentPlayingAudio = null;
-                currentPlayingCard = null;
-            }
-        }
-    }, true);
-
-  </script>
-</body>
-</html>
-      const lyricsModalTitle = document.getElementById('lyricsModalTitle');
-      const lyricsModalText = document.getElementById('lyricsModalText');
-      const lyricsCloseBtn = document.getElementById('lyricsCloseBtn');
-      const lyricsContent = card.querySelector('.lyrics-content');
-
-      lyricsBtn.addEventListener('click', () => {
-        lyricsModalTitle.textContent = card.querySelector('.track-title').textContent;
-        lyricsModalText.textContent = lyricsContent.textContent.trim();
-        lyricsModalOverlay.classList.add('visible');
-      });
-
-      lyricsCloseBtn.addEventListener('click', () => {
-        lyricsModalOverlay.classList.remove('visible');
-      });
-
-      lyricsModalOverlay.addEventListener('click', (e) => {
-        if (e.target === lyricsModalOverlay) {
-          lyricsModalOverlay.classList.remove('visible');
-        }
-      });
+    miniPlayerProgressBar.addEventListener("click", event => {
+      if (!currentAudio || !Number.isFinite(currentAudio.duration) || currentAudio.duration === 0) {
+        return;
+      }
+      const rect = miniPlayerProgressBar.getBoundingClientRect();
+      const ratio = (event.clientX - rect.left) / rect.width;
+      currentAudio.currentTime = Math.max(0, Math.min(currentAudio.duration, ratio * currentAudio.duration));
     });
 
-    // Mini-player visibility logic
-    window.addEventListener('scroll', () => {
-        if (currentPlayingAudio && !currentPlayingAudio.paused) {
-            const tracksSection = document.getElementById('tracks');
-            const tracksSectionBottom = tracksSection.offsetTop + tracksSection.offsetHeight;
-
-            if (window.scrollY > tracksSectionBottom) {
-                miniPlayerContainer.classList.add('visible');
-            } else {
-                miniPlayerContainer.classList.remove('visible');
-            }
-        } else {
-            miniPlayerContainer.classList.remove('visible');
-        }
+    volumeSlider.addEventListener("input", event => {
+      const volume = parseFloat(event.target.value);
+      if (currentAudio) {
+        currentAudio.volume = volume;
+      }
     });
 
+    if (miniPlayerLyricsBtn) {
+      miniPlayerLyricsBtn.addEventListener("click", () => openLyrics(currentCard));
+    }
+
+    lyricsCloseBtn.addEventListener("click", () => {
+      lyricsModalOverlay.classList.remove("visible");
+    });
+
+    lyricsModalOverlay.addEventListener("click", event => {
+      if (event.target === lyricsModalOverlay) {
+        lyricsModalOverlay.classList.remove("visible");
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        lyricsModalOverlay.classList.remove("visible");
+      }
+    });
+
+    clearMiniPlayer();
   </script>
 </body>
 </html>
