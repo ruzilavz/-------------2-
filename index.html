@@ -113,34 +113,64 @@
       top: 0;
       display: flex;
       align-items: center;
-      padding: 16px;
-      background: transparent;
-      transition: background 0.3s ease;
-      z-index: 100;
+      gap: 14px;
+      padding: 14px 18px;
+      background: rgba(5, 6, 10, 0.35);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(47, 107, 255, 0.12);
+      transform: translateY(-140%);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        transform 0.45s ease,
+        opacity 0.35s ease,
+        background 0.35s ease,
+        border-color 0.35s ease,
+        backdrop-filter 0.35s ease;
+      z-index: 120;
     }
 
     .profile-header.scrolled {
-      background: rgba(5, 6, 10, 0.8);
-      backdrop-filter: blur(10px);
+      background: rgba(5, 6, 10, 0.82);
+      border-bottom-color: rgba(82, 112, 210, 0.32);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 22px 48px rgba(4, 6, 14, 0.62);
     }
 
-    .profile-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+    .profile-header.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .profile-header .profile-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
       background-image: url("img/avzalov.jpg");
       background-size: cover;
-      margin-right: 16px;
+      background-position: center 42%;
+      margin-right: 12px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
     }
 
-    .profile-name {
-      font-size: 18px;
+    .profile-header .profile-name {
+      font-size: 16px;
       font-weight: 700;
+      letter-spacing: 0.08em;
     }
 
-    .profile-bio {
-      font-size: 14px;
-      color: var(--muted);
+    .profile-tagline {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(204, 210, 240, 0.7);
+    }
+
+    .profile-header .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
     .logo-group {
       display: flex;
@@ -213,18 +243,40 @@
     }
 
     .site-header {
-      position: relative;
+      position: sticky;
+      top: 18px;
+      z-index: 80;
       display: flex;
       align-items: center;
       gap: 20px;
       flex-wrap: wrap;
       padding: 18px 22px;
-      margin: 24px 0 36px;
+      margin: 24px 0 48px;
       border-radius: var(--radius-lg);
       border: 1px solid rgba(74, 100, 189, 0.36);
       background: linear-gradient(135deg, rgba(12, 16, 30, 0.94), rgba(7, 10, 22, 0.86));
       box-shadow: 0 22px 48px rgba(6, 8, 16, 0.72);
       overflow: hidden;
+      transform: translateY(18px);
+      transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        background 0.35s ease,
+        border-color 0.35s ease,
+        backdrop-filter 0.35s ease;
+      will-change: transform, box-shadow, background;
+    }
+
+    .site-header.is-floating {
+      transform: translateY(0);
+      box-shadow: 0 26px 52px rgba(5, 8, 20, 0.78);
+      border-color: rgba(74, 100, 189, 0.48);
+      background: linear-gradient(135deg, rgba(12, 16, 30, 0.98), rgba(7, 10, 22, 0.94));
+      backdrop-filter: blur(16px);
+    }
+
+    .site-header.is-condensed {
+      padding: 14px 20px;
     }
 
     .site-header::before {
@@ -469,6 +521,52 @@
       flex-direction: column;
       gap: 14px;
       z-index: 30;
+    }
+
+    .header-popover-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .topup-methods-panel {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(82, 112, 210, 0.32);
+      background: rgba(12, 14, 28, 0.88);
+      padding: 12px 14px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .topup-methods-panel[aria-hidden="false"] {
+      display: flex;
+      animation: popoverFade var(--transition) ease;
+    }
+
+    .topup-methods-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(204, 212, 240, 0.9);
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(76, 102, 189, 0.2);
+    }
+
+    .topup-methods-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .topup-methods-status {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(47, 107, 255, 0.16);
+      color: #adc3ff;
     }
 
     .header-popover::before {
@@ -867,6 +965,85 @@
       color: var(--muted);
     }
 
+    .users-directory {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .user-card {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(68, 94, 186, 0.28);
+      background: rgba(10, 12, 24, 0.88);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 16px 30px rgba(8, 10, 22, 0.55);
+    }
+
+    .user-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(140deg, rgba(47, 107, 255, 0.28), rgba(18, 22, 40, 0.9));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #dfe4ff;
+      letter-spacing: 0.04em;
+    }
+
+    .user-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .user-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .user-id {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .user-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(198, 204, 238, 0.78);
+    }
+
+    .user-stat-badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(47, 107, 255, 0.12);
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .user-stat-badge i {
+      font-size: 12px;
+    }
+
+    .users-empty {
+      font-size: 13px;
+      color: rgba(160, 168, 210, 0.8);
+    }
+
     /* Профиль / личный кабинет */
     .profile-wrapper {
       border-radius: var(--radius-lg);
@@ -896,6 +1073,60 @@
       display: flex;
       flex-direction: column;
       gap: 18px;
+    }
+
+    .admin-tools {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(88, 118, 214, 0.32);
+      background: rgba(12, 14, 26, 0.92);
+      padding: 16px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .admin-tools.is-visible {
+      display: flex;
+    }
+
+    .admin-tools h4 {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #d4ddff;
+    }
+
+    .admin-gift-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .admin-gift-form input {
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(70, 96, 190, 0.32);
+      background: rgba(8, 10, 20, 0.9);
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .admin-gift-form button {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(86, 118, 224, 0.4);
+      background: linear-gradient(140deg, rgba(47, 107, 255, 0.6), rgba(68, 198, 180, 0.6));
+      color: #f5f6ff;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .admin-gift-form button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px rgba(58, 122, 240, 0.35);
     }
 
     .profile-main {
@@ -2070,6 +2301,28 @@
       text-transform: uppercase;
     }
 
+    .track-clip-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(47, 107, 255, 0.12);
+      color: rgba(186, 201, 255, 0.9);
+    }
+
+    .track-clip-indicator.is-missing {
+      background: rgba(120, 126, 160, 0.14);
+      color: rgba(160, 170, 210, 0.7);
+    }
+
+    .track-clip-indicator i {
+      font-size: 12px;
+    }
+
     .track-card.upcoming .track-meta {
       margin-bottom: 8px;
       opacity: 0.85;
@@ -2755,6 +3008,8 @@
       .site-header {
         padding: 16px;
         gap: 16px;
+        top: 12px;
+        transform: translateY(12px);
       }
 
       .header-actions {
@@ -2856,7 +3111,7 @@
       <div class="profile-avatar"></div>
       <div class="profile-info">
         <h1 class="profile-name">AVZALØV</h1>
-        <p class="profile-bio">Музыкальный продюсер и исполнитель. Исследую глубины звука и создаю новые музыкальные миры.</p>
+        <span class="profile-tagline">Официальный сайт AVZALØV</span>
       </div>
     </div>
 
@@ -2878,6 +3133,7 @@
 
       <nav id="mainNav">
         <a href="#tracks">Релизы</a>
+        <a href="#clips">Клипы</a>
         <a href="#news">Новости</a>
         <a href="#about">Биография</a>
         <a href="#contacts">Контакты</a>
@@ -2909,7 +3165,7 @@
               монеты напрямую.
             </p>
             <div class="popover-actions">
-              <button class="btn btn-primary btn-xs" type="button" id="headerTopupBtn">
+              <button class="btn btn-primary btn-xs" type="button" id="headerTopupBtn" aria-controls="topupMethodsPanel" aria-expanded="false">
                 Пополнение
                 <span class="chip-soon">Скоро</span>
               </button>
@@ -2917,10 +3173,31 @@
                 Узнать подробнее
               </button>
             </div>
+            <div class="topup-methods-panel" id="topupMethodsPanel" aria-hidden="true">
+              <div class="topup-methods-item">
+                <span>Банковская карта</span>
+                <span class="topup-methods-status">В разработке</span>
+              </div>
+              <div class="topup-methods-item">
+                <span>СБП</span>
+                <span class="topup-methods-status">В разработке</span>
+              </div>
+              <div class="topup-methods-item">
+                <span>ЮMoney</span>
+                <span class="topup-methods-status">В разработке</span>
+              </div>
+              <button class="btn btn-ghost btn-xs" type="button" id="goToCoinsSectionBtn">Перейти к таблице тарифов</button>
+            </div>
             <div class="popover-footnote">
               В профиле ты увидишь историю начислений RUZCOIN и бонусы за активность.
             </div>
           </div>
+        </div>
+        <div class="header-action-group">
+          <button class="header-profile-btn" id="headerUsersBtn" type="button">
+            <i class="fas fa-users"></i>
+            <span>Пользователи</span>
+          </button>
         </div>
         <div class="header-action-group">
           <button
@@ -3049,6 +3326,19 @@
                 <button class="btn btn-ghost btn-xs" id="logoutBtn" type="button" data-action="logout">Выход</button>
               </div>
             </div>
+          </div>
+
+          <div class="admin-tools" id="adminTools">
+            <h4>Панель администратора</h4>
+            <p class="section-sub">
+              Дарите RUZCOIN пользователям по их ID. Данные сохраняются в локальном реестре и файле пользователей.
+            </p>
+            <form class="admin-gift-form" id="adminGiftForm">
+              <input type="text" id="giftUserId" placeholder="ID пользователя" autocomplete="off" required />
+              <input type="number" id="giftAmount" placeholder="RUZ" min="1" step="1" required />
+              <button type="submit">Подарить RUZCOIN</button>
+            </form>
+            <div class="section-sub" id="adminGiftStatus" role="status" aria-live="polite"></div>
           </div>
 
           <div class="profile-tabs" id="profileTabs" role="tablist" aria-label="Разделы профиля">
@@ -3190,6 +3480,18 @@
       </div>
     </section>
 
+    <section id="users">
+      <div class="section-header">
+        <h2 class="section-title">Пользователи</h2>
+        <p class="section-sub">
+          Топ слушателей по количеству RUZCOIN и активности. Данные обновляются после входа.
+        </p>
+      </div>
+      <div class="users-directory" id="usersDirectory">
+        <p class="users-empty">Войдите в профиль или добавьте пользователей, чтобы увидеть список.</p>
+      </div>
+    </section>
+
     <section id="coins">
       <div class="section-header">
         <h2 class="section-title">RUZCOIN</h2>
@@ -3266,6 +3568,16 @@
       </div>
 
       <div class="tracks-grid">
+      </div>
+    </section>
+
+    <section id="clips">
+      <div class="section-header">
+        <h2 class="section-title">Клипы</h2>
+        <p class="section-sub">Выбор треков, для которых есть клип или визуализация.</p>
+      </div>
+      <div class="tracks-grid" id="clipsGrid">
+        <p class="users-empty">Скоро здесь появятся клипы. Открой треки, чтобы увидеть больше.</p>
       </div>
     </section>
 
@@ -3411,30 +3723,45 @@
       // Показать/скрыть кнопку "Наверх"
       const scrollToTopBtn = document.getElementById("scrollToTopBtn");
       const profileHeader = document.querySelector(".profile-header");
+      const siteHeader = document.querySelector(".site-header");
 
-      window.addEventListener("scroll", () => {
-        if (window.pageYOffset > 100) {
-          scrollToTopBtn.style.display = "block";
-          profileHeader.classList.add("scrolled");
-        } else {
-          scrollToTopBtn.style.display = "none";
-          profileHeader.classList.remove("scrolled");
+      function updateStickyChrome() {
+        const offset = window.pageYOffset || document.documentElement.scrollTop;
+        const shouldShowHeader = offset > 60;
+        if (profileHeader) {
+          profileHeader.classList.toggle("is-visible", shouldShowHeader);
+          profileHeader.classList.toggle("scrolled", offset > 180);
         }
-      });
+        if (siteHeader) {
+          const isFloating = offset > 12;
+          siteHeader.classList.toggle("is-floating", isFloating);
+          siteHeader.classList.toggle("is-condensed", offset > 220);
+        }
+        if (scrollToTopBtn) {
+          scrollToTopBtn.style.display = offset > 160 ? "block" : "none";
+        }
+      }
 
-      // Прокрутка наверх при клике
-      scrollToTopBtn.addEventListener("click", () => {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
+      window.addEventListener("scroll", updateStickyChrome, { passive: true });
+
+      if (scrollToTopBtn) {
+        scrollToTopBtn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
         });
-      });
+      }
+
+      updateStickyChrome();
     const navToggle = document.getElementById("navToggle");
     const mainNav = document.getElementById("mainNav");
     const headerProfileBtn = document.getElementById("headerProfileBtn");
     const headerProfileNameEl = document.getElementById("headerProfileName");
     const headerCoinsAmountEl = document.getElementById("headerCoinsAmount");
     const headerTopupBtn = document.getElementById("headerTopupBtn");
+    const topupMethodsPanel = document.getElementById("topupMethodsPanel");
+    const goToCoinsSectionBtn = document.getElementById("goToCoinsSectionBtn");
     const profileTopupBtn = document.getElementById("profileTopupBtn");
     const coinsSection = document.getElementById("coins");
     const topupAmountButtons = Array.from(document.querySelectorAll(".topup-amount-btn"));
@@ -3444,6 +3771,12 @@
     const realTopupBtn = document.getElementById("realTopupBtn");
     const profileTabButtons = Array.from(document.querySelectorAll("[data-profile-tab]"));
     const profileViews = Array.from(document.querySelectorAll("[data-profile-view]"));
+    const headerUsersBtn = document.getElementById("headerUsersBtn");
+    const usersSection = document.getElementById("users");
+    const usersDirectoryEl = document.getElementById("usersDirectory");
+    const clipsGrid = document.getElementById("clipsGrid");
+
+    const RUZCOIN_PRICE_RUB = 10;
 
     if (navToggle && mainNav) {
       navToggle.addEventListener("click", () => {
@@ -3456,6 +3789,15 @@
         const profileSection = document.getElementById("profile");
         if (profileSection) {
           profileSection.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    }
+
+    if (headerUsersBtn) {
+      headerUsersBtn.addEventListener("click", () => {
+        hideTopupPanel();
+        if (usersSection) {
+          usersSection.scrollIntoView({ behavior: "smooth" });
         }
       });
     }
@@ -3481,17 +3823,47 @@
       alert("Реальные оплаты пока в разработке. Мы сообщим, когда появится возможность пополнить баланс за деньги.");
     }
 
+    function setTopupPanelVisibility(shouldShow) {
+      if (!topupMethodsPanel || !headerTopupBtn) {
+        return;
+      }
+      const isVisible = Boolean(shouldShow);
+      topupMethodsPanel.setAttribute("aria-hidden", isVisible ? "false" : "true");
+      headerTopupBtn.setAttribute("aria-expanded", isVisible ? "true" : "false");
+      if (isVisible) {
+        topupMethodsPanel.scrollTop = 0;
+      }
+    }
+
+    function toggleTopupPanel() {
+      if (!topupMethodsPanel) {
+        notifyPaymentsInProgress();
+        return;
+      }
+      const isOpen = topupMethodsPanel.getAttribute("aria-hidden") === "false";
+      setTopupPanelVisibility(!isOpen);
+    }
+
+    function hideTopupPanel() {
+      if (topupMethodsPanel) {
+        setTopupPanelVisibility(false);
+      }
+    }
+
     if (headerTopupBtn) {
       headerTopupBtn.addEventListener("click", event => {
         event.preventDefault();
-        scrollToCoinsSection();
-        closeAllPopovers();
+        if (coinsPopoverController && !coinsPopoverController.isOpen()) {
+          coinsPopoverController.open();
+        }
+        toggleTopupPanel();
       });
     }
 
-    if (profileTopupBtn) {
-      profileTopupBtn.addEventListener("click", event => {
+    if (goToCoinsSectionBtn) {
+      goToCoinsSectionBtn.addEventListener("click", event => {
         event.preventDefault();
+        hideTopupPanel();
         scrollToCoinsSection();
       });
     }
@@ -3603,9 +3975,71 @@
     }
 
     const tracksGrid = document.querySelector("#tracks .tracks-grid");
-    const releasedTracksConfig = Array.isArray(window.RELEASED_TRACKS_DATA)
+    let releasedTracksConfig = Array.isArray(window.RELEASED_TRACKS_DATA)
       ? window.RELEASED_TRACKS_DATA
       : [];
+    const FALLBACK_RELEASES_ENDPOINT = "data/all-tracks.json";
+    function slugifyTitleForFallback(title, index = 0) {
+      const baseIndex = Number.isInteger(index) ? index : 0;
+      const raw = typeof title === "string" ? title.trim() : "";
+      if (!raw) {
+        return `track-${baseIndex + 1}`;
+      }
+      const lower = raw.toLowerCase();
+      const normalized = typeof lower.normalize === "function" ? lower.normalize("NFD") : lower;
+      const stripped = normalized.replace(/[\u0300-\u036f]/g, "");
+      const compact = stripped.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      return compact || `track-${baseIndex + 1}`;
+    }
+
+    async function loadFallbackReleases() {
+      try {
+        const response = await fetch(FALLBACK_RELEASES_ENDPOINT, { cache: "no-cache" });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const payload = await response.json();
+        if (!Array.isArray(payload)) {
+          return [];
+        }
+        const usedSlugs = new Set();
+        return payload.map((item, index) => {
+          const title = item && item.title ? String(item.title).trim() : `Трек ${index + 1}`;
+          let slug = slugifyTitleForFallback(title, index);
+          while (usedSlugs.has(slug)) {
+            slug = `${slug}-${index + 1}`;
+          }
+          usedSlugs.add(slug);
+          const release = item && item.release ? String(item.release).trim() : "скоро";
+          const normalized = {
+            slug,
+            title,
+            releaseDate: release
+          };
+          if (item && item.type) {
+            normalized.type = String(item.type).trim();
+          }
+          if (item && Object.prototype.hasOwnProperty.call(item, "price")) {
+            const priceValue = Number.parseInt(item.price, 10);
+            normalized.price = Number.isFinite(priceValue) ? priceValue : 0;
+          }
+          if (item && item.access) {
+            normalized.access = String(item.access).trim();
+          }
+          if (item && item.hasClip === true) {
+            normalized.hasClip = true;
+            if (item.clipUrl) {
+              normalized.clipUrl = String(item.clipUrl);
+            }
+          }
+          return normalized;
+        });
+      } catch (error) {
+        console.error("Не удалось загрузить резервный список релизов:", error);
+        return [];
+      }
+    }
+
     const releaseReferenceDate = resolveReferenceDate();
     const availabilityLabelMap = {
       public: "Открыто",
@@ -3743,6 +4177,8 @@
           coverStyle: buildCoverBackgroundValue(coverBase),
           audio: hasAudio ? audioSource : "",
           hasAudio,
+          hasClip: trackConfig.hasClip === true,
+          clipUrl: trackConfig.clipUrl || "",
           streamUrl: trackConfig.streamUrl || (hasAudio ? audioSource : "#"),
           lyrics: trackConfig.lyrics || null,
           price: trackConfig.price || 0,
@@ -3790,6 +4226,7 @@
       article.dataset.status = track.visualStatus;
       article.dataset.availability = track.availability;
       article.dataset.hasAudio = track.hasAudio ? "true" : "false";
+      article.dataset.hasClip = track.hasClip ? "true" : "false";
 
       const isLocked = !track.hasAudio && track.price > 0;
       if (isLocked) {
@@ -3831,6 +4268,14 @@
         ? `<audio class="track-audio" src="${track.audio}" preload="metadata"></audio>`
         : '';
 
+      const clipIndicatorMarkup = track.hasClip
+        ? `<a class="track-clip-indicator" href="${track.clipUrl || '#'}" target="_blank" rel="noopener" title="Открыть клип"><i class="fas fa-video"></i>Клип</a>`
+        : '<span class="track-clip-indicator is-missing" title="Клип пока недоступен"><i class="fas fa-video-slash"></i>Нет клипа</span>';
+
+      const clipActionMarkup = track.hasClip
+        ? `<a class="track-action-btn" href="${track.clipUrl || '#'}" target="_blank" rel="noopener"><i class="fas fa-video"></i><span>Клип</span></a>`
+        : '<button class="track-action-btn" type="button" disabled><i class="fas fa-video-slash"></i><span>Клип</span></button>';
+
       article.innerHTML = `
         <div class="track-cover" style="background-image:${track.coverStyle};">
           <div class="play-overlay"><i class="fas ${isLocked ? 'fa-lock' : 'fa-play'}"></i></div>
@@ -3844,6 +4289,7 @@
             <span>${track.typeLabel}</span>
             <span class="dot"></span>
             <span>${track.releaseLabel}</span>
+            ${clipIndicatorMarkup}
           </div>
           <div class="track-stats">
             <button class="track-like-btn" type="button" aria-label="Понравилось" aria-pressed="false">
@@ -3869,6 +4315,7 @@
           <div class="track-actions">
             <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
             ${listenAction}
+            ${clipActionMarkup}
           </div>
           <div class="track-copyright">${track.copyright}</div>
         </div>
@@ -3897,6 +4344,29 @@
       tracks.forEach(track => {
         const card = createTrackCard(track);
         tracksGrid.appendChild(card);
+        if (track && track.slug) {
+          updateTrackPersonalPlayDisplay(track.slug);
+        }
+      });
+    }
+
+    function renderClipsGrid(tracks) {
+      if (!clipsGrid) {
+        return;
+      }
+      clipsGrid.innerHTML = '';
+      if (!tracks || !tracks.length) {
+        clipsGrid.innerHTML = '<p class="users-empty">Нет релизов для отображения.</p>';
+        return;
+      }
+      const clips = tracks.filter(track => track.hasClip);
+      if (!clips.length) {
+        clipsGrid.innerHTML = '<p class="users-empty">Клипы появятся позже — следите за обновлениями.</p>';
+        return;
+      }
+      clips.forEach(track => {
+        const card = createTrackCard(track);
+        clipsGrid.appendChild(card);
         if (track && track.slug) {
           updateTrackPersonalPlayDisplay(track.slug);
         }
@@ -4002,10 +4472,20 @@
       stopLyricsDesync();
     }
 
-    const trackLibrary = sortTrackLibrary(buildTrackLibrary());
-    renderTracksGrid(trackLibrary);
+    let trackLibrary = sortTrackLibrary(buildTrackLibrary());
+    renderAllTrackGrids(trackLibrary);
 
-    const trackCards = document.querySelectorAll(".track-card");
+    if (!releasedTracksConfig.length) {
+      loadFallbackReleases().then(fallback => {
+        if (Array.isArray(fallback) && fallback.length) {
+          releasedTracksConfig = fallback;
+          trackLibrary = sortTrackLibrary(buildTrackLibrary());
+          renderAllTrackGrids(trackLibrary);
+          rebindTrackCardEvents();
+        }
+      });
+    }
+
     const lyricsModal = document.querySelector(".lyrics-modal");
     const prefersReducedMotion =
       typeof window.matchMedia === "function"
@@ -4488,7 +4968,6 @@
         const USERS_DATA_ENDPOINT = "data/users.json";
         const ADMIN_CODES_ENDPOINT = "data/admin-codes.json";
         const WELCOME_BONUS = 10;
-        const RUZCOIN_PRICE_RUB = 10;
         const LISTENING_STATS_KEY = "avzalov_listening_stats_v1";
         const COIN_HISTORY_KEY = "avzalov_coin_history_v1";
         const MAX_HISTORY_ENTRIES = 100;
@@ -4522,6 +5001,11 @@
       const earnDemoBtn = document.getElementById("earnDemoCoinsBtn");
       const profileTopupBtn = document.getElementById("profileTopupBtn");
       const logoutButtons = Array.from(document.querySelectorAll('[data-action="logout"]'));
+      const adminToolsEl = document.getElementById("adminTools");
+      const adminGiftForm = document.getElementById("adminGiftForm");
+      const giftUserIdInput = document.getElementById("giftUserId");
+      const giftAmountInput = document.getElementById("giftAmount");
+      const adminGiftStatusEl = document.getElementById("adminGiftStatus");
 
       const headerCoinsBtn = document.getElementById("headerCoinsBtn");
       const headerCoinsPopover = document.getElementById("headerCoinsPopover");
@@ -4880,6 +5364,25 @@
         renderCoinHistory();
       }
 
+      function appendCoinHistoryForUser(userId, delta, description) {
+        if (!userId) {
+          return;
+        }
+        const numericDelta = Number(delta);
+        if (!Number.isFinite(numericDelta) || numericDelta === 0) {
+          return;
+        }
+        const entry = {
+          type: numericDelta > 0 ? "gift" : "gift",
+          description: description || "Операция с RUZCOIN",
+          delta: numericDelta,
+          time: new Date().toLocaleString("ru-RU")
+        };
+        const existing = sanitizeCoinHistory(coinHistoryRegistry[userId]);
+        coinHistoryRegistry[userId] = [entry, ...existing].slice(0, MAX_HISTORY_ENTRIES);
+        saveCoinHistoryRegistry();
+      }
+
       function handleListeningStatIncrement(card, audio) {
         if (!card || !audio) {
           return;
@@ -4983,6 +5486,7 @@
           usersRegistry.set(cleaned.id, cleaned);
         });
         persistUsersRegistry();
+        renderUsersDirectory();
       }
 
       function loadUsedAdminCodes() {
@@ -5085,6 +5589,7 @@
       }
 
       function closeAllPopovers(exceptController) {
+        hideTopupPanel();
         popoverControllers.forEach(controller => {
           if (controller !== exceptController) {
             controller.close();
@@ -5169,6 +5674,94 @@
         });
       }
 
+      function getListeningSnapshotForUser(userId) {
+        const stats = sanitizeListeningStats(listeningStatsRegistry[userId]);
+        const totalPlays = stats.totalPlays || 0;
+        const uniqueTracks = Object.values(stats.trackPlays || {}).filter(value => Number(value) > 0).length;
+        return {
+          totalPlays,
+          uniqueTracks
+        };
+      }
+
+      function getAchievementCount(user) {
+        if (!user || !user.achievements) {
+          return 0;
+        }
+        return Object.keys(user.achievements).length;
+      }
+
+      function formatAvatarLabel(name) {
+        if (!name) {
+          return "RU";
+        }
+        const parts = name.trim().split(/\s+/);
+        if (parts.length === 1) {
+          return parts[0].slice(0, 2).toUpperCase();
+        }
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+      }
+
+      function renderUsersDirectory() {
+        if (!usersDirectoryEl) {
+          return;
+        }
+        const usersList = Array.from(usersRegistry.values());
+        if (currentUser && !usersRegistry.has(currentUser.id)) {
+          usersList.push(sanitizeUserForRegistry(currentUser));
+        }
+        if (!usersList.length) {
+          usersDirectoryEl.innerHTML = '<p class="users-empty">Войдите в профиль или добавьте пользователей, чтобы увидеть список.</p>';
+          return;
+        }
+        const enriched = usersList.map(user => {
+          const stats = getListeningSnapshotForUser(user.id);
+          return {
+            id: user.id,
+            name: user.name,
+            coins: Number(user.coins) || 0,
+            roleLabel: formatRoleLabel(user.role),
+            totalPlays: stats.totalPlays,
+            uniqueTracks: stats.uniqueTracks,
+            achievements: getAchievementCount(user)
+          };
+        });
+        enriched.sort((a, b) => {
+          if (b.coins !== a.coins) {
+            return b.coins - a.coins;
+          }
+          if (b.totalPlays !== a.totalPlays) {
+            return b.totalPlays - a.totalPlays;
+          }
+          return a.name.localeCompare(b.name, "ru", { sensitivity: "base" });
+        });
+        const fragment = document.createDocumentFragment();
+        enriched.forEach((entry, index) => {
+          const card = document.createElement("div");
+          card.className = "user-card";
+          card.innerHTML = `
+            <div class="user-card-header">
+              <div class="user-avatar">${formatAvatarLabel(entry.name)}</div>
+              <div class="user-meta">
+                <div class="user-name">${entry.name}</div>
+                <div class="user-id">ID: ${entry.id}</div>
+              </div>
+            </div>
+            <div class="user-stats">
+              <span class="user-stat-badge"><i class="fas fa-coins"></i>${numberFormatter.format(entry.coins)} RUZ</span>
+              <span class="user-stat-badge"><i class="fas fa-chart-line"></i>${numberFormatter.format(entry.totalPlays)} прослушиваний</span>
+              <span class="user-stat-badge"><i class="fas fa-music"></i>${numberFormatter.format(entry.uniqueTracks)} треков</span>
+              <span class="user-stat-badge"><i class="fas fa-medal"></i>${entry.achievements} достиж.</span>
+              <span class="user-stat-badge"><i class="fas fa-user-shield"></i>${entry.roleLabel}</span>
+            </div>
+          `;
+          card.dataset.rank = index + 1;
+          fragment.appendChild(card);
+        });
+        usersDirectoryEl.innerHTML = "";
+        usersDirectoryEl.appendChild(fragment);
+      }
+
       function grantAchievement(achievementId) {
         if (!currentUser || !achievementId) {
           return;
@@ -5196,6 +5789,9 @@
         }
         if (!isLoggedIn) {
           setActiveProfileView("overview");
+          if (achievementsGridEl) {
+            achievementsGridEl.innerHTML = "";
+          }
         }
         if (isLoggedIn) {
           if (profileNameEl) {
@@ -5211,6 +5807,13 @@
             coinsAmountEl.textContent = numberFormatter.format(currentUser.coins);
           }
           renderAchievements();
+        }
+        if (adminToolsEl) {
+          const canGift = isLoggedIn && ["admin", "moderator"].includes((currentUser.role || "").toLowerCase());
+          adminToolsEl.classList.toggle("is-visible", canGift);
+          if (!canGift && adminGiftStatusEl) {
+            adminGiftStatusEl.textContent = "";
+          }
         }
         updateHeaderCoins(isLoggedIn ? currentUser.coins : 0);
         updateHeaderProfileNameDisplay(isLoggedIn ? currentUser.name : "Войти");
@@ -5236,6 +5839,7 @@
       function saveProfile() {
         persistCurrentUser();
         updateProfileDisplay();
+        renderUsersDirectory();
       }
 
       function loadCurrentUser() {
@@ -5252,13 +5856,14 @@
         }
       }
 
-      function logout() {
-        currentUser = null;
-        persistCurrentUser();
-        updateProfileDisplay();
-        if (profilePopoverController) {
-          profilePopoverController.close();
+      function logout(event) {
+        if (event && typeof event.preventDefault === "function") {
+          event.preventDefault();
         }
+        currentUser = null;
+        switchUserContext(null);
+        saveProfile();
+        closeAllPopovers();
       }
 
       async function fetchJson(url) {
@@ -5281,11 +5886,21 @@
         ]);
 
         const storedUsers = loadUsersRegistryFromStorage();
-        const combinedUsers = [...(usersData || []), ...storedUsers];
+        const usersArray = Array.isArray(usersData)
+          ? usersData
+          : usersData && Array.isArray(usersData.users)
+            ? usersData.users
+            : [];
+        const combinedUsers = [...usersArray, ...storedUsers];
         bootstrapRegistryFromArray(combinedUsers);
 
-        if (adminCodesData && Array.isArray(adminCodesData)) {
-          adminCodes = new Map(adminCodesData.map(c => [c.code, c]));
+        const adminCodesArray = Array.isArray(adminCodesData)
+          ? adminCodesData
+          : adminCodesData && Array.isArray(adminCodesData.codes)
+            ? adminCodesData.codes
+            : [];
+        if (adminCodesArray.length) {
+          adminCodes = new Map(adminCodesArray.map(c => [c.code, c]));
         }
         usedAdminCodes = loadUsedAdminCodes();
       }
@@ -5308,19 +5923,26 @@
         if (foundUser) {
           currentUser = ensureUserShape(foundUser);
         } else {
-          currentUser = ensureUserShape({ name, password });
-          grantAchievement("welcome");
+          currentUser = ensureUserShape({
+            id: generateUserId(),
+            name,
+            coins: WELCOME_BONUS,
+            role: "listener",
+            password,
+            achievements: { welcome: true },
+            unlockedTracks: []
+          });
+          recordCoinHistory("bonus", WELCOME_BONUS, "Приветственный бонус");
         }
-        persistCurrentUser();
-        updateProfileDisplay();
+        switchUserContext(currentUser);
+        saveProfile();
+        if (loginForm) {
+          loginForm.reset();
+        }
         if (profilePopoverController) {
           profilePopoverController.close();
         }
-        switchUserContext(null);
-        updateHeaderCoins(0);
-        updateHeaderProfileNameDisplay("Войти");
-        updateProfilePopoverState();
-        closeAllPopovers();
+        renderUsersDirectory();
       }
 
       function handleAdminLogin(event) {
@@ -5340,19 +5962,29 @@
           alert("Неверный код администратора.");
           return;
         }
-        const displayName = name || adminInfo.name || "Админ";
+        const role = (adminInfo.role || "admin").toLowerCase();
+        const displayName = name || adminInfo.label || adminInfo.name || "Администратор";
+        const startingCoins = Number.isFinite(adminInfo.coins) ? Math.max(adminInfo.coins, WELCOME_BONUS) : WELCOME_BONUS;
         currentUser = ensureUserShape({
+          id: generateUserId(),
           name: displayName,
-          role: adminInfo.role || "admin",
-          coins: adminInfo.coins || 1000
+          role,
+          coins: startingCoins,
+          password: code,
+          achievements: { welcome: true },
+          unlockedTracks: []
         });
+        switchUserContext(currentUser);
+        recordCoinHistory("bonus", WELCOME_BONUS, "Активирован код администратора");
         markAdminCodeUsed(code, currentUser.id);
-        persistCurrentUser();
-        updateProfileDisplay();
+        saveProfile();
+        if (adminCodeForm) {
+          adminCodeForm.reset();
+        }
         if (profilePopoverController) {
           profilePopoverController.close();
         }
-        event.target.reset();
+        renderUsersDirectory();
       }
 
       function updateTrackCardsForUser() {
@@ -5371,9 +6003,17 @@
         });
       }
 
-      function handleUnlockTrack(event) {
-        const button = event.target.closest(".unlock-btn");
-        if (!button) return;
+      function renderAllTrackGrids(library) {
+        renderTracksGrid(library);
+        renderClipsGrid(library);
+      }
+
+      function handleUnlockButtonClick(event) {
+        const unlockBtn = event.target.closest(".unlock-btn");
+        if (!unlockBtn) {
+          return;
+        }
+        event.preventDefault();
         if (!currentUser) {
           alert("Войдите в профиль, чтобы открывать треки.");
           if (profilePopoverController) {
@@ -5381,121 +6021,39 @@
           }
           return;
         }
-        switchUserContext(currentUser);
-        if (profileEmptyEl) {
-          profileEmptyEl.hidden = true;
-        }
-        if (profilePanelEl) {
-          profilePanelEl.hidden = false;
-        }
-        if (profileNameEl) {
-          profileNameEl.textContent = currentUser.name;
-        }
-        if (profileIdEl) {
-          profileIdEl.textContent = currentUser.id;
-        }
-        if (profileRoleEl) {
-          profileRoleEl.textContent = formatRoleLabel(currentUser.role);
-        }
-        if (coinsAmountEl) {
-          coinsAmountEl.textContent = currentUser.coins;
-        }
-        updateHeaderCoins(currentUser.coins);
-        updateHeaderProfileNameDisplay(currentUser.name);
-        updateProfilePopoverState();
-        renderAchievements();
-        updateLockedTracksState();
-      }
-
-      function logout() {
-        currentUser = null;
-        localStorage.removeItem(STORAGE_KEY);
-        applyLoggedOutState();
-        updateLockedTracksState();
-      }
-
-      function loadProfile() {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (!stored) {
-          currentUser = null;
-          applyLoggedOutState();
-          updateLockedTracksState();
+        const trackId = unlockBtn.dataset.trackId;
+        const price = Number(unlockBtn.dataset.unlockPrice || 0);
+        if (!trackId || !(price > 0)) {
           return;
         }
-        if (confirm(`Открыть доступ к треку за ${price} RUZCOIN?`)) {
-          currentUser.coins -= price;
-          currentUser.unlockedTracks.push(slug);
-          grantAchievement("first_unlock");
-          if (currentUser.unlockedTracks.length >= 3) {
-            grantAchievement("collector");
-          }
-          persistCurrentUser();
-          updateProfileDisplay();
+        if (currentUser.unlockedTracks.includes(trackId)) {
+          alert("Этот трек уже открыт.");
+          return;
         }
-      }
-
-      function initLockedTracks() {
-        document.body.addEventListener("click", (event) => {
-            const unlockBtn = event.target.closest('.unlock-btn');
-            if (!unlockBtn) return;
-
-            const trackId = unlockBtn.dataset.trackId;
-            if (!trackId) return;
-
-            if (!currentUser) {
-              if (profilePopoverController) {
-                profilePopoverController.open();
-              } else {
-                alert("Сначала войди в профиль, чтобы использовать RUZCOIN.");
-              }
-              return;
-            }
-            const price = Number(unlockBtn.dataset.unlockPrice || 0);
-            
-            if (currentUser.unlockedTracks.includes(trackId)) {
-              alert("Этот трек уже открыт.");
-              return;
-            }
-            if (currentUser.coins < price) {
-              alert("Не хватает RUZCOIN. Заработай или купи ещё.");
-              if (coinsPopoverController) {
-                coinsPopoverController.open();
-              }
-              if (headerCoinsBtn && typeof headerCoinsBtn.focus === "function") {
-                try {
-                  headerCoinsBtn.focus({ preventScroll: true });
-                } catch (error) {
-                  headerCoinsBtn.focus();
-                }
-              }
-              return;
-            }
-            currentUser.coins -= price;
-            currentUser.unlockedTracks.push(trackId);
-            if (coinsAmountEl) {
-              coinsAmountEl.textContent = currentUser.coins;
-            }
-            updateHeaderCoins(currentUser.coins);
-            const unlockedTitle = resolveTrackTitle(trackId);
-            recordCoinHistory("spend", -price, `Открыт трек «${unlockedTitle}»`);
-            if (!currentUser.achievements.first_unlock) {
-              currentUser.achievements.first_unlock = true;
-            }
-            if (currentUser.unlockedTracks.length >= 3) {
-              currentUser.achievements.collector = true;
-            }
-            saveProfile();
-            renderAchievements();
-            updateProfilePopoverState();
-            
-            // Re-render the grid to update the unlocked track
-            const newTrackLibrary = sortTrackLibrary(buildTrackLibrary());
-            renderTracksGrid(newTrackLibrary);
-            rebindTrackCardEvents();
-            updateLockedTracksState();
-
-            alert("Трек открыт! Спасибо за поддержку AVZALØV.");
-          });
+        if (currentUser.coins < price) {
+          alert("Не хватает RUZCOIN. Попробуйте пополнить баланс.");
+          if (coinsPopoverController) {
+            coinsPopoverController.open();
+          }
+          setTopupPanelVisibility(true);
+          return;
+        }
+        currentUser.coins -= price;
+        currentUser.unlockedTracks.push(trackId);
+        const unlockedTitle = resolveTrackTitle(trackId);
+        recordCoinHistory("spend", -price, `Открыт трек «${unlockedTitle}»`);
+        if (!currentUser.achievements.first_unlock) {
+          currentUser.achievements.first_unlock = true;
+        }
+        if (currentUser.unlockedTracks.length >= 3) {
+          currentUser.achievements.collector = true;
+        }
+        saveProfile();
+        renderAchievements();
+        trackLibrary = sortTrackLibrary(buildTrackLibrary());
+        renderAllTrackGrids(trackLibrary);
+        rebindTrackCardEvents();
+        alert("Трек открыт! Спасибо за поддержку AVZALØV.");
       }
 
       if (loginForm) {
@@ -5508,11 +6066,18 @@
 
       if (earnDemoBtn) {
         earnDemoBtn.addEventListener("click", () => {
-          if (currentUser) {
-            currentUser.coins += 5;
-            persistCurrentUser();
-            updateProfileDisplay();
+          if (!currentUser) {
+            if (profilePopoverController) {
+              profilePopoverController.open();
+            } else {
+              alert("Войдите в профиль, чтобы получить демо RUZCOIN.");
+            }
+            return;
           }
+          currentUser.coins += 5;
+          persistCurrentUser();
+          updateProfileDisplay();
+          recordCoinHistory("bonus", 5, "Демо бонус: +5 RUZCOIN");
         });
       }
 
@@ -5526,8 +6091,12 @@
       }
 
       if (profileTopupBtn) {
-        profileTopupBtn.addEventListener("click", () => {
+        profileTopupBtn.addEventListener("click", event => {
+          event.preventDefault();
           closeAllPopovers();
+          if (coinsPopoverController) {
+            coinsPopoverController.open();
+          }
           if (headerCoinsBtn && typeof headerCoinsBtn.focus === "function") {
             try {
               headerCoinsBtn.focus({ preventScroll: true });
@@ -5535,123 +6104,89 @@
               headerCoinsBtn.focus();
             }
           }
-          if (coinsPopoverController) {
-            coinsPopoverController.open();
-          }
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          setTopupPanelVisibility(true);
         });
       }
 
-      logoutButtons.forEach(button => {
-        button.addEventListener("click", () => {
-          logout();
+      if (coinsInfoBtn) {
+        coinsInfoBtn.addEventListener("click", event => {
+          event.preventDefault();
+          closeAllPopovers();
+          hideTopupPanel();
+          scrollToCoinsSection();
         });
-      });
+      }
 
-      if (earnDemoBtn) {
-        earnDemoBtn.addEventListener("click", () => {
-          if (!currentUser) {
-            if (profilePopoverController) {
-              profilePopoverController.open();
-            } else {
-              alert("Войди в профиль, чтобы получить бонусные RUZCOIN.");
+      if (adminGiftForm) {
+        adminGiftForm.addEventListener("submit", event => {
+          event.preventDefault();
+          if (!currentUser || !["admin", "moderator"].includes((currentUser.role || "").toLowerCase())) {
+            if (adminGiftStatusEl) {
+              adminGiftStatusEl.textContent = "Дарить RUZCOIN могут только администраторы и модераторы.";
             }
             return;
           }
-          currentUser.coins += 5;
-          if (coinsAmountEl) {
-            coinsAmountEl.textContent = currentUser.coins;
-          }
-          updateHeaderCoins(currentUser.coins);
-          recordCoinHistory("bonus", 5, "Демо бонус: +5 RUZCOIN");
-          saveProfile();
-          updateProfilePopoverState();
-        });
-      }
-
-      if (loginForm) {
-        loginForm.addEventListener("submit", event => {
-          event.preventDefault();
-          const nameInput = document.getElementById("loginName");
-          const passInput = document.getElementById("loginPassword");
-          const nameValue = nameInput ? nameInput.value.trim() : "";
-          const passValue = passInput ? passInput.value.trim() : "";
-          if (!nameValue || !passValue) {
-            alert("Нужно указать ник и пароль.");
+          const targetId = giftUserIdInput ? giftUserIdInput.value.trim() : "";
+          const amountValue = giftAmountInput ? Number.parseInt(giftAmountInput.value, 10) : NaN;
+          if (!targetId || !Number.isFinite(amountValue) || amountValue <= 0) {
+            if (adminGiftStatusEl) {
+              adminGiftStatusEl.textContent = "Укажите корректный ID и количество монет.";
+            }
             return;
           }
-          const existingUser = findUserByCredentials(nameValue, passValue);
-          if (existingUser) {
-            currentUser = ensureUserShape(existingUser);
-            switchUserContext(currentUser);
+          const normalizedId = targetId.trim().toUpperCase();
+          let targetUser = usersRegistry.get(normalizedId);
+          const giftingToSelf = currentUser.id.toUpperCase() === normalizedId;
+          if (!targetUser && giftingToSelf) {
+            targetUser = sanitizeUserForRegistry(currentUser);
+          }
+          if (!targetUser) {
+            if (adminGiftStatusEl) {
+              adminGiftStatusEl.textContent = `Пользователь с ID ${normalizedId} не найден.`;
+            }
+            return;
+          }
+          const updatedCoins = (Number(targetUser.coins) || 0) + amountValue;
+          targetUser.coins = updatedCoins;
+          usersRegistry.set(targetUser.id, sanitizeUserForRegistry(targetUser));
+          persistUsersRegistry();
+          appendCoinHistoryForUser(targetUser.id, amountValue, `Подарок от ${currentUser.name}`);
+          if (giftingToSelf) {
+            currentUser.coins = updatedCoins;
+            saveProfile();
           } else {
-            currentUser = ensureUserShape({
-              id: generateUserId(),
-              name: nameValue,
-              coins: WELCOME_BONUS,
-              role: "listener",
-              password: passValue,
-              achievements: { welcome: true },
-              unlockedTracks: []
-            });
-            switchUserContext(currentUser);
-            recordCoinHistory("bonus", WELCOME_BONUS, "Приветственный бонус");
+            renderUsersDirectory();
           }
-          saveProfile();
-          if (loginForm) {
-            loginForm.reset();
+          if (adminGiftStatusEl) {
+            adminGiftStatusEl.textContent = `+${numberFormatter.format(amountValue)} RUZ начислено пользователю ${targetUser.name}.`;
           }
-          if (profilePopoverController) {
-            profilePopoverController.close();
-          }
+          adminGiftForm.reset();
         });
       }
 
-      if (adminCodeForm) {
-        adminCodeForm.addEventListener("submit", event => {
-          event.preventDefault();
-          const codeValue = adminCodeInput ? adminCodeInput.value.trim().toUpperCase() : "";
-          const displayName = adminNameInput ? adminNameInput.value.trim() : "";
-          if (!codeValue) {
-            alert("Нужно указать уникальный код администратора.");
-            return;
-          }
-          const codeEntry = adminCodes.get(codeValue);
-          if (!codeEntry) {
-            alert("Код не найден. Проверь правильность ввода.");
-            return;
-          }
-          if (usedAdminCodes[codeValue]) {
-            alert("Этот код уже был активирован.");
-            return;
-          }
-          const role = codeEntry.role ? String(codeEntry.role).trim().toLowerCase() : "admin";
-          const name = displayName || codeEntry.label || "Администратор";
-          currentUser = ensureUserShape({
-            id: generateUserId(),
-            name,
-            coins: WELCOME_BONUS,
-            role,
-            password: codeValue,
-            achievements: { welcome: true },
-            unlockedTracks: []
-          });
-          switchUserContext(currentUser);
-          recordCoinHistory("bonus", WELCOME_BONUS, "Активирован код администратора");
-          markAdminCodeUsed(codeValue, currentUser.id);
-          saveProfile();
-          adminCodeForm.reset();
-          if (profilePopoverController) {
-            profilePopoverController.close();
-          }
-          showProfile();
-        });
+      await initializeData();
+
+      const storedUser = loadCurrentUser();
+      if (storedUser) {
+        currentUser = ensureUserShape(storedUser);
+        usersRegistry.set(currentUser.id, sanitizeUserForRegistry(currentUser));
+        persistUsersRegistry();
+        switchUserContext(currentUser);
+      } else {
+        currentUser = null;
+        switchUserContext(null);
       }
+      updateProfileDisplay();
+      renderUsersDirectory();
 
       coinsPopoverController = attachPopover(headerCoinsBtn, headerCoinsPopover);
       profilePopoverController = attachPopover(headerProfileBtn, headerProfilePopover);
 
-      document.querySelector(".tracks-grid").addEventListener("click", handleUnlockTrack);
+      [tracksGrid, clipsGrid].forEach(grid => {
+        if (grid) {
+          grid.addEventListener("click", handleUnlockButtonClick);
+        }
+      });
     })();
   </script>
 </body>
