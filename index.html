@@ -5047,16 +5047,20 @@
       renderMixEventsList();
     }
 
-    function buildCoverBackgroundValue(fileBase) {
+    function buildCoverBackgroundValue(fileBase, coverExt) {
       const normalized = (fileBase || "").trim();
       const gradientFallback = "linear-gradient(140deg, rgba(38, 52, 110, 0.85), rgba(12, 16, 32, 0.9))";
       if (!normalized) {
         return gradientFallback;
       }
-      const sources = [".webp", ".jpg", ".jpeg", ".png"].map(ext => {
+      const sources = [];
+      if (coverExt) {
+        sources.push(`url('${encodeURI(`img/${normalized}${coverExt}`)}')`);
+      }
+      sources.push(...[".webp", ".jpg", ".jpeg", ".png"].map(ext => {
         const path = encodeURI(`img/${normalized}${ext}`);
         return `url('${path}')`;
-      });
+      }));
       sources.push(gradientFallback);
       return sources.join(", ");
     }
@@ -5108,7 +5112,7 @@
           releaseDateValue,
           likes: 2100 + index * 47,
           plays: 130000 + index * 6100,
-          coverStyle: buildCoverBackgroundValue(coverBase),
+          coverStyle: buildCoverBackgroundValue(coverBase, trackConfig.coverExt),
           audio: hasAudio ? audioSource : "",
           hasAudio,
           hasClip: trackConfig.hasClip === true,

@@ -13,7 +13,7 @@ window.RELEASED_TRACKS_DATA = [
   { slug: "ierarkhiya", title: "Иерархия", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "ona-sryvala-rozy-20", title: "Она срывала розы 2.0", releaseDate: "скоро", access: "early-access", price: 20, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "ona-sryvala-rozy", title: "Она срывала розы", releaseDate: "22.07.2025", price: 0, hasClip: true, clipUrl: "https://youtu.be/avzalov-rosy", copyright: "© 2025 AVZALØV. Все права защищены." },
-  { slug: "nemnozhko", title: "Немножко", releaseDate: "28.11.2025", audioExt: ".wav", access: "early-access", price: 15, hasClip: true, clipUrl: "https://youtu.be/avzalov-nemnozhko", copyright: "© 2025 AVZALØV. Все права защищены." },
+  { slug: "nemnozhko", title: "Немножко", releaseDate: "28.11.2025", audioExt: ".wav", access: "early-access", price: 15, hasClip: true, clipUrl: "https://youtu.be/avzalov-nemnozhko", copyright: "© 2025 AVZALØV. Все права защищены.", coverExt: ".png" },
   { slug: "pachka-sigaret", title: "Пачка сигарет", releaseDate: "скоро", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "yashlek", title: "Яшьлек", releaseDate: "28.11.2025", access: "early-access", price: 15, hasClip: true, clipUrl: "https://youtu.be/avzalov-yashlek", copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "eto-vetru-govoril", title: "Это ветру говорил", releaseDate: "29.11.2025", access: "early-access", price: 15, copyright: "© 2025 AVZALØV. Все права защищены.", coverExt: ".png" },
