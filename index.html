@@ -398,6 +398,80 @@
       display: none;
     }
 
+    /* Мини-галерея обложек треков */
+    .tracks-mini-gallery {
+      margin: 0 0 28px;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .tracks-honeycomb {
+      display: grid;
+      grid-template-columns: repeat(4, 60px);
+      gap: 10px;
+      position: relative;
+    }
+
+    /* «Соты» с обложками */
+    .tracks-honeycomb-item {
+      position: relative;
+      width: 60px;
+      aspect-ratio: calc(1 * 1.1);
+      border-radius: 50% / 32%;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+      filter: grayscale(0.25);
+      opacity: 0.9;
+      animation: tracksFloat 6s ease-in-out infinite alternate;
+      transition: filter 200ms ease, transform 200ms ease, opacity 200ms ease;
+    }
+
+    /* лёгкий «каркас» вокруг */
+    .tracks-honeycomb-item::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      pointer-events: none;
+    }
+
+    /* немного смещаем ряды, чтобы выглядело живее */
+    .tracks-honeycomb-item:nth-child(odd) {
+      transform: translateY(6px);
+    }
+
+    /* ховер по обложке */
+    .tracks-honeycomb-item:hover {
+      filter: grayscale(0);
+      opacity: 1;
+      transform: translateY(0) scale(1.03);
+    }
+
+    /* анимация лёгкого «дыхания» влево/к центру */
+    @keyframes tracksFloat {
+      0% {
+        transform: translateX(0) translateY(0) scale(0.96);
+      }
+      50% {
+        transform: translateX(var(--float-offset, 10px))
+                   translateY(-4px)
+                   scale(1.02);
+      }
+      100% {
+        transform: translateX(0) translateY(2px) scale(0.98);
+      }
+    }
+
+    /* адаптив для мобилы */
+    @media (max-width: 640px) {
+      .tracks-honeycomb {
+        grid-template-columns: repeat(3, 60px);
+      }
+    }
+
     .carousel-arrow {
       width: 46px;
       height: 100%;
@@ -1333,8 +1407,13 @@
       <div class="section-header">
         <h2 class="section-title">Релизы</h2>
         <p class="section-sub">
-          Синглы, EP и расписание премьер AVZALØV: актуальные релизы и подтверждённые даты.
+          Синглы и треки AVZALØV: доступные релизы и проекты в разработке.
         </p>
+      </div>
+
+      <!-- Мини-галерея обложек -->
+      <div class="tracks-mini-gallery">
+        <div class="tracks-honeycomb" id="tracksHoneycomb"></div>
       </div>
 
       <div class="tracks-grid">
@@ -2093,20 +2172,6 @@
     }
 
     renderReleasedTracks();
-
-    const carouselButtons = document.querySelectorAll("[data-carousel-target]");
-    carouselButtons.forEach(button => {
-      const targetId = button.dataset.carouselTarget;
-      const direction = button.dataset.carouselDirection === "next" ? 1 : -1;
-      button.addEventListener("click", () => {
-        const carousel = document.getElementById(targetId);
-        if (!carousel) {
-          return;
-        }
-        const step = carousel.clientWidth ? carousel.clientWidth * 0.85 : 320;
-        carousel.scrollBy({ left: step * direction, behavior: "smooth" });
-      });
-    });
 
     const trackCards = document.querySelectorAll(".track-card");
     const prefersReducedMotion =
