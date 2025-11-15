@@ -354,28 +354,72 @@
       gap: 12px;
     }
 
+    .tracks-carousel-shell {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      padding: 0 32px;
+    }
+
+    .tracks-carousel-shell::before,
+    .tracks-carousel-shell::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 42px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .tracks-carousel-shell::before {
+      left: 32px;
+      background: linear-gradient(90deg, rgba(5, 6, 10, 0.85), transparent);
+    }
+
+    .tracks-carousel-shell::after {
+      right: 32px;
+      background: linear-gradient(270deg, rgba(5, 6, 10, 0.85), transparent);
+    }
+
     .tracks-carousel {
       display: flex;
-      gap: 18px;
+      gap: 20px;
       overflow-x: auto;
-      padding-bottom: 12px;
+      padding: 12px 4px 24px;
       scroll-snap-type: x mandatory;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(118, 146, 238, 0.8) transparent;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
     }
 
     .tracks-carousel::-webkit-scrollbar {
-      height: 6px;
+      display: none;
     }
 
-    .tracks-carousel::-webkit-scrollbar-track {
-      background: transparent;
+    .carousel-arrow {
+      width: 46px;
+      height: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(85, 108, 203, 0.45);
+      background: rgba(18, 24, 46, 0.8);
+      color: #f9f9ff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background var(--transition), transform 200ms ease;
+      z-index: 2;
     }
 
-    .tracks-carousel::-webkit-scrollbar-thumb {
-      background: rgba(118, 146, 238, 0.45);
-      border-radius: 999px;
+    .carousel-arrow i {
+      font-size: 18px;
+    }
+
+    .carousel-arrow:hover {
+      background: rgba(53, 72, 141, 0.95);
+      transform: translateY(-2px);
     }
 
     .tracks-carousel .track-card {
@@ -1334,12 +1378,27 @@
       <div class="tracks-grid">
         <div class="track-group">
           <div class="track-divider">Выпущено</div>
-          <div class="tracks-carousel" id="releasedCarousel"></div>
+          <div class="tracks-carousel-shell">
+            <button class="carousel-arrow" type="button" aria-label="Предыдущие треки"
+              data-carousel-target="releasedCarousel" data-carousel-direction="prev">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="tracks-carousel" id="releasedCarousel"></div>
+            <button class="carousel-arrow" type="button" aria-label="Следующие треки"
+              data-carousel-target="releasedCarousel" data-carousel-direction="next">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
         </div>
 
         <div class="track-group">
           <div class="track-divider">В разработке</div>
-          <div class="tracks-carousel">
+          <div class="tracks-carousel-shell">
+            <button class="carousel-arrow" type="button" aria-label="Предыдущие треки"
+              data-carousel-target="upcomingCarousel" data-carousel-direction="prev">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="tracks-carousel" id="upcomingCarousel">
 
         <article class="track-card upcoming">
           <div class="track-cover">
