@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": "RUZ-DEMO01",
+      "name": "Demo Listener",
+      "coins": 25,
+      "role": "listener",
+      "password": "demo",
+      "unlockedTracks": [],
+      "achievements": {
+        "welcome": true
+      }
+    }
+  ]
+}

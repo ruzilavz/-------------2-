@@ -1,0 +1,14 @@
+{
+  "codes": [
+    {
+      "code": "AVZ-ADMIN-001",
+      "label": "Главный админ",
+      "role": "admin"
+    },
+    {
+      "code": "AVZ-MOD-777",
+      "label": "Команда поддержки",
+      "role": "moderator"
+    }
+  ]
+}

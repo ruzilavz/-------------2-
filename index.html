@@ -174,6 +174,12 @@
       justify-content: flex-end;
     }
 
+    .header-action-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
     .ruzcoin-chip {
       display: flex;
       align-items: center;
@@ -183,6 +189,17 @@
       border: 1px solid rgba(47, 107, 255, 0.38);
       background: rgba(14, 16, 28, 0.95);
       box-shadow: 0 10px 24px rgba(18, 20, 36, 0.5);
+      cursor: pointer;
+      color: inherit;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .ruzcoin-chip:hover,
+    .ruzcoin-chip:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(47, 107, 255, 0.65);
+      box-shadow: 0 14px 32px rgba(38, 54, 120, 0.55);
+      outline: none;
     }
 
     .ruzcoin-info {
@@ -227,8 +244,7 @@
       box-shadow: none;
     }
 
-    .header-profile-btn,
-    .header-topup-btn {
+    .header-profile-btn {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -245,15 +261,220 @@
     }
 
     .header-profile-btn:hover,
-    .header-topup-btn:hover {
+    .header-profile-btn:focus-visible {
       background: rgba(26, 36, 74, 0.95);
       border-color: rgba(47, 107, 255, 0.7);
       transform: translateY(-2px);
+      outline: none;
     }
 
-    .header-profile-btn i,
-    .header-topup-btn i {
+    .header-profile-btn i {
       font-size: 14px;
+    }
+
+    .header-popover {
+      position: absolute;
+      top: calc(100% + 14px);
+      right: 0;
+      width: min(320px, 80vw);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(47, 107, 255, 0.28);
+      background: rgba(10, 12, 24, 0.98);
+      box-shadow: var(--shadow-soft);
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      z-index: 30;
+    }
+
+    .header-popover::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      right: 18px;
+      width: 16px;
+      height: 16px;
+      transform: rotate(45deg);
+      background: inherit;
+      border-left: 1px solid rgba(47, 107, 255, 0.28);
+      border-top: 1px solid rgba(47, 107, 255, 0.28);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .header-popover[data-open="true"] {
+      display: flex;
+      animation: popoverFade var(--transition) ease;
+    }
+
+    @keyframes popoverFade {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .popover-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .popover-title {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .popover-sub {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .popover-text,
+    .popover-footnote {
+      font-size: 12px;
+      color: rgba(240, 243, 255, 0.78);
+      line-height: 1.45;
+    }
+
+    .popover-footnote {
+      border-top: 1px solid rgba(47, 107, 255, 0.12);
+      padding-top: 10px;
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .popover-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .popover-actions .btn {
+      flex: 1 1 auto;
+      min-width: 120px;
+      justify-content: center;
+    }
+
+    .popover-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .popover-form input {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(47, 107, 255, 0.3);
+      background: rgba(7, 9, 18, 0.9);
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .popover-form input:focus-visible {
+      outline: 2px solid rgba(47, 107, 255, 0.6);
+      outline-offset: 1px;
+    }
+
+    .admin-login {
+      border-radius: 12px;
+      border: 1px solid rgba(47, 107, 255, 0.24);
+      padding: 10px 12px;
+      background: rgba(8, 10, 22, 0.92);
+    }
+
+    .admin-login summary {
+      cursor: pointer;
+      font-size: 12px;
+      color: rgba(195, 204, 255, 0.86);
+      letter-spacing: 0.06em;
+    }
+
+    .admin-login[open] summary {
+      margin-bottom: 8px;
+      color: #f0f3ff;
+    }
+
+    .profile-popover-section {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .profile-popover-section.is-visible {
+      display: flex;
+    }
+
+    .popover-balance {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(47, 107, 255, 0.18);
+      background: rgba(15, 18, 32, 0.9);
+    }
+
+    .popover-meta {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .popover-balance-value {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .profile-empty {
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(47, 107, 255, 0.4);
+      background: rgba(10, 13, 26, 0.8);
+      padding: 24px;
+      color: rgba(220, 225, 255, 0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .profile-empty h3 {
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #dce2ff;
+    }
+
+    .profile-empty p {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .profile-role {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .chip-soon {
@@ -470,41 +691,9 @@
       padding: 18px 18px 20px;
       box-shadow: var(--shadow-soft);
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
-    }
-
-    .profile-auth h3 {
-      font-size: 16px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-    }
-
-    .profile-note {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
-    #loginForm {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    #loginForm input {
-      font-family: var(--font-main);
-      font-size: 13px;
-      padding: 9px 11px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(7, 9, 18, 0.9);
-      color: var(--text);
-    }
-
-    #loginForm input::placeholder {
-      color: rgba(154, 159, 180, 0.8);
+      align-items: start;
     }
 
     .profile-panel {
@@ -742,8 +931,11 @@
     }
 
     .tracks-gallery-scroller {
-      display: flex;
-      gap: 12px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      grid-auto-columns: minmax(220px, 1fr);
+      gap: 14px;
       overflow-x: auto;
       padding: 4px 2px 10px;
       scroll-snap-type: x proximity;
@@ -760,9 +952,10 @@
     }
 
     .mini-gallery-card {
-      flex: 0 0 220px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
       gap: 12px;
       padding: 12px;
       border-radius: var(--radius-md);
@@ -773,6 +966,7 @@
       cursor: pointer;
       transition: border-color var(--transition), transform var(--transition), background var(--transition);
       scroll-snap-align: start;
+      min-height: 200px;
     }
 
     .mini-gallery-card:hover,
@@ -784,8 +978,8 @@
     }
 
     .mini-gallery-cover {
-      width: 56px;
-      height: 56px;
+      width: 100%;
+      padding-top: 56%;
       border-radius: 16px;
       background-size: cover;
       background-position: center;
@@ -797,16 +991,15 @@
     .mini-gallery-body {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
       min-width: 0;
     }
 
     .mini-gallery-name {
       font-size: 14px;
       font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1.3;
+      word-break: break-word;
     }
 
     .mini-gallery-meta {
@@ -1684,6 +1877,13 @@
       .achievements-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .tracks-gallery-scroller {
+        grid-auto-flow: row;
+        grid-template-rows: none;
+        grid-auto-rows: minmax(0, 1fr);
+        grid-auto-columns: minmax(0, 1fr);
+      }
     }
 
     @media (max-width: 640px) {
@@ -1962,22 +2162,98 @@
         <a href="#contacts">Контакты</a>
       </nav>
       <div class="header-actions">
-        <div class="ruzcoin-chip" aria-live="polite">
-          <div class="ruzcoin-icon" aria-hidden="true">RZ</div>
-          <div class="ruzcoin-info">
-            <span class="ruzcoin-label">RUZCOIN</span>
-            <span class="ruzcoin-value" id="headerCoinsAmount">0</span>
+        <div class="header-action-group">
+          <button
+            class="ruzcoin-chip"
+            id="headerCoinsBtn"
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+          >
+            <div class="ruzcoin-icon" aria-hidden="true">RZ</div>
+            <div class="ruzcoin-info">
+              <span class="ruzcoin-label">RUZCOIN</span>
+              <span class="ruzcoin-value" id="headerCoinsAmount">0</span>
+            </div>
+          </button>
+          <div class="header-popover coins-popover" id="headerCoinsPopover" role="dialog" aria-hidden="true">
+            <div class="popover-header">
+              <div class="popover-title">RUZCOIN</div>
+              <div class="popover-sub">1 RUZCOIN = <span id="ruzcoinPriceValue">10 ₽</span></div>
+            </div>
+            <p class="popover-text">
+              Пополнение и способы оплаты находятся в разработке. Мы уведомим тебя, когда появится возможность купить
+              монеты напрямую.
+            </p>
+            <div class="popover-actions">
+              <button class="btn btn-primary btn-xs" type="button" disabled>
+                Пополнить
+                <span class="chip-soon">Скоро</span>
+              </button>
+              <button class="btn btn-ghost btn-xs" type="button" id="coinsInfoBtn">
+                Узнать подробнее
+              </button>
+            </div>
+            <div class="popover-footnote">
+              В профиле ты увидишь историю начислений RUZCOIN и бонусы за активность.
+            </div>
           </div>
         </div>
-        <button class="header-topup-btn" id="headerTopupBtn" type="button">
-          <i class="fas fa-coins"></i>
-          <span>��������</span>
-          <span class="chip-soon">� �������</span>
-        </button>
-        <button class="header-profile-btn" id="headerProfileBtn" type="button">
-          <i class="fas fa-user"></i>
-          <span id="headerProfileName">������</span>
-        </button>
+        <div class="header-action-group">
+          <button
+            class="header-profile-btn"
+            id="headerProfileBtn"
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user"></i>
+            <span id="headerProfileName">Войти</span>
+          </button>
+          <div class="header-popover profile-popover" id="headerProfilePopover" role="dialog" aria-hidden="true">
+            <div class="profile-popover-section" data-state="logged-out">
+              <div class="popover-header">
+                <div class="popover-title">Вход в профиль</div>
+                <div class="popover-sub">Получи 10 RUZCOIN за первое подключение</div>
+              </div>
+              <form id="loginForm" class="popover-form">
+                <label for="loginName" class="sr-only">Никнейм</label>
+                <input type="text" id="loginName" placeholder="Твой ник" autocomplete="nickname" required />
+                <label for="loginPassword" class="sr-only">Пароль</label>
+                <input type="password" id="loginPassword" placeholder="Пароль" autocomplete="new-password" required />
+                <button type="submit" class="btn btn-primary btn-sm">Войти</button>
+              </form>
+              <details class="admin-login" id="adminLoginToggle">
+                <summary>Войти по коду администратора</summary>
+                <form id="adminCodeForm" class="popover-form">
+                  <label for="adminCodeInput" class="sr-only">Уникальный код</label>
+                  <input type="text" id="adminCodeInput" placeholder="AVZ-ADMIN-000" autocomplete="one-time-code" required />
+                  <label for="adminNameInput" class="sr-only">Имя</label>
+                  <input type="text" id="adminNameInput" placeholder="Отображаемое имя" autocomplete="nickname" />
+                  <button type="submit" class="btn btn-primary btn-sm">Активировать код</button>
+                </form>
+              </details>
+            </div>
+            <div class="profile-popover-section" data-state="logged-in">
+              <div class="popover-header">
+                <div class="popover-title" id="popoverProfileName">Гость</div>
+                <div class="popover-sub">ID: <span id="popoverProfileId">—</span></div>
+              </div>
+              <div class="popover-balance">
+                <span class="ruzcoin-icon is-inline" aria-hidden="true">RZ</span>
+                <div>
+                  <div class="popover-meta">Баланс</div>
+                  <div class="popover-balance-value" id="popoverCoinsAmount">0</div>
+                </div>
+              </div>
+              <div class="popover-meta">Роль: <span id="popoverProfileRole">Слушатель</span></div>
+              <div class="popover-actions">
+                <button class="btn btn-primary btn-xs" type="button" id="openProfileSectionBtn">Профиль</button>
+                <button class="btn btn-ghost btn-xs" type="button" data-action="logout">Выход</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -2025,22 +2301,13 @@
       </div>
 
       <div class="profile-wrapper">
-        <div class="profile-auth" id="profileAuth">
-          <h3>Вход в аккаунт</h3>
-          <p class="profile-note">Введи ник, мы создадим тебе локальный аккаунт.</p>
-          <form id="loginForm">
-            <input type="text" id="loginName" placeholder="Твой ник" required />
-            <input type="password" id="loginPassword" placeholder="Пароль" required />
-            <button type="submit" class="btn btn-primary btn-sm">Войти</button>
-          </form>
-        </div>
-
-        <div class="profile-panel" id="profilePanel" style="display:none;">
+        <div class="profile-panel" id="profilePanel" hidden>
           <div class="profile-main">
             <div class="profile-avatar"></div>
             <div class="profile-info">
               <div class="profile-name" id="profileName">Гость</div>
               <div class="profile-id">ID: <span id="profileId">—</span></div>
+              <div class="profile-role">Роль: <span id="profileRole">Слушатель</span></div>
               <div class="profile-coins">
                 <span class="ruzcoin-icon is-inline" aria-hidden="true">RZ</span>
                 Баланс RUZCOIN:
@@ -2048,11 +2315,11 @@
               </div>
               <div class="profile-actions-row">
                 <button class="btn btn-primary btn-xs" id="earnDemoCoinsBtn">+5 RUZCOIN (демо)</button>
-                <button class="btn btn-ghost btn-xs" id="profileTopupBtn">
+                <button class="btn btn-ghost btn-xs" id="profileTopupBtn" type="button">
                   Пополнение
                   <span class="chip-soon">В разработке</span>
                 </button>
-                <button class="btn btn-ghost btn-xs" id="logoutBtn">Выход</button>
+                <button class="btn btn-ghost btn-xs" id="logoutBtn" type="button" data-action="logout">Выход</button>
               </div>
             </div>
           </div>
@@ -2061,6 +2328,14 @@
             <h4>Достижения</h4>
             <div class="achievements-grid" id="achievementsGrid"></div>
           </div>
+        </div>
+
+        <div class="profile-empty" id="profileEmpty">
+          <h3>Войдите через меню в правом верхнем углу</h3>
+          <p>
+            После входа здесь появится подробный профиль с балансом RUZCOIN, достижениями и доступом к эксклюзивным трекам.
+            Первое подключение подарит 10 RUZCOIN.
+          </p>
         </div>
       </div>
     </section>
@@ -2905,6 +3180,12 @@
         const audioSource = buildAudioSource(audioBase, trackConfig.audioExt);
         const previewAllowed = trackConfig.preview === true || trackConfig.alwaysPlayable === true;
         const hasAudio = Boolean(audioSource) && (releaseState === "released" || previewAllowed);
+        const hasExactReleaseDate = Boolean(parsedDate);
+        const releaseTimeline = releaseState === "released"
+          ? "released"
+          : hasExactReleaseDate
+            ? "scheduled"
+            : "no-date";
         const releaseLabel = (() => {
           if (releaseRaw && releaseRaw.toLowerCase() !== "скоро") {
             return releaseState === "soon" ? `Скоро • ${releaseRaw}` : releaseRaw;
@@ -2920,6 +3201,8 @@
           releaseState,
           visualStatus,
           availability,
+          releaseTimeline,
+          hasExactReleaseDate,
           availabilityLabel,
           releaseDateValue,
           releaseRaw,
@@ -3052,36 +3335,56 @@
         return;
       }
       tracksGrid.innerHTML = '';
+      const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
       const groups = [
-        { key: 'released', label: 'Доступно сейчас', meta: 'в сети' },
-        { key: 'soon', label: 'Скоро', meta: 'ранний доступ и предзаказ' }
+        {
+          label: 'Доступно сейчас',
+          filter: track => track.releaseTimeline === 'released',
+          buildMeta: matches => matches.length ? `в сети • всего: ${matches.length}` : ''
+        },
+        {
+          label: 'Ранний доступ',
+          filter: track => track.releaseTimeline === 'no-date',
+          buildMeta: matches => matches.length ? `без даты • всего: ${matches.length}` : ''
+        },
+        {
+          label: 'Ожидаются',
+          filter: track => track.releaseTimeline === 'scheduled',
+          buildMeta: matches => {
+            if (!matches.length) {
+              return '';
+            }
+            const metaParts = [];
+            const scheduled = matches
+              .filter(track => Number.isFinite(track.releaseDateValue))
+              .sort((a, b) => a.releaseDateValue - b.releaseDateValue);
+            if (scheduled.length) {
+              const firstDate = dateFormatter.format(new Date(scheduled[0].releaseDateValue));
+              metaParts.push(`ближайшая: ${firstDate}`);
+            }
+            metaParts.push(`всего: ${matches.length}`);
+            return metaParts.join(' • ');
+          }
+        }
       ];
+      let renderedAny = false;
       groups.forEach(group => {
-        const matches = tracks.filter(track => track.releaseState === group.key);
+        const matches = tracks.filter(group.filter);
         if (!matches.length) {
           return;
         }
-        const metaParts = [];
-        if (group.meta) {
-          metaParts.push(group.meta);
-        }
-        if (group.key === 'soon') {
-          const earlyAccessCount = matches.filter(track => track.availability === 'early-access').length;
-          const upcomingCount = matches.length - earlyAccessCount;
-          if (earlyAccessCount > 0) {
-            metaParts.push(`ранний доступ: ${earlyAccessCount}`);
-          }
-          if (upcomingCount > 0) {
-            metaParts.push(`ожидается: ${upcomingCount}`);
-          }
-        }
-        metaParts.push(`всего: ${matches.length}`);
-        tracksGrid.appendChild(buildTrackDivider(group.label, metaParts.join(' • ')));
+        renderedAny = true;
+        const metaText = typeof group.buildMeta === 'function' ? group.buildMeta(matches) : '';
+        tracksGrid.appendChild(buildTrackDivider(group.label, metaText));
         matches.forEach(track => {
           tracksGrid.appendChild(createTrackCard(track));
         });
       });
-      if (!tracksGrid.children.length) {
+      if (!renderedAny) {
         const placeholder = document.createElement('p');
         placeholder.className = 'section-sub';
         placeholder.textContent = 'Нет релизов для отображения.';
@@ -3161,11 +3464,14 @@
     function filterTracksForGallery(tracks, filterKey) {
       switch (filterKey) {
         case 'released':
-          return tracks.filter(track => track.releaseState === 'released');
+          return tracks.filter(track => track.releaseTimeline === 'released');
         case 'early-access':
-          return tracks.filter(track => track.availability === 'early-access');
+          return tracks.filter(track =>
+            track.releaseTimeline === 'no-date' ||
+            (track.availability === 'early-access' && track.releaseTimeline !== 'released')
+          );
         case 'upcoming':
-          return tracks.filter(track => track.availability === 'upcoming');
+          return tracks.filter(track => track.releaseTimeline === 'scheduled');
         default:
           return tracks;
       }
@@ -3835,21 +4141,65 @@
       }
     });
 
-    (function () {
+    (async function () {
       const STORAGE_KEY = "avzalov_profile_v1";
+      const USERS_REGISTRY_KEY = "avzalov_users_registry_v1";
+      const USED_CODES_KEY = "avzalov_used_admin_codes_v1";
+      const USERS_DATA_ENDPOINT = "data/users.json";
+      const ADMIN_CODES_ENDPOINT = "data/admin-codes.json";
+      const WELCOME_BONUS = 10;
+      const RUZCOIN_PRICE_RUB = 10;
+      const roleLabelMap = {
+        admin: "Администратор",
+        listener: "Слушатель",
+        moderator: "Модератор"
+      };
 
-      const profileAuthEl = document.getElementById("profileAuth");
       const profilePanelEl = document.getElementById("profilePanel");
+      const profileEmptyEl = document.getElementById("profileEmpty");
       const profileNameEl = document.getElementById("profileName");
       const profileIdEl = document.getElementById("profileId");
+      const profileRoleEl = document.getElementById("profileRole");
       const coinsAmountEl = document.getElementById("coinsAmount");
       const achievementsGridEl = document.getElementById("achievementsGrid");
 
       const loginForm = document.getElementById("loginForm");
+      const adminCodeForm = document.getElementById("adminCodeForm");
+      const adminCodeInput = document.getElementById("adminCodeInput");
+      const adminNameInput = document.getElementById("adminNameInput");
+      const adminLoginToggle = document.getElementById("adminLoginToggle");
       const earnDemoBtn = document.getElementById("earnDemoCoinsBtn");
-      const logoutBtn = document.getElementById("logoutBtn");
+      const profileTopupBtn = document.getElementById("profileTopupBtn");
+      const logoutButtons = Array.from(document.querySelectorAll('[data-action="logout"]'));
+
+      const headerCoinsBtn = document.getElementById("headerCoinsBtn");
+      const headerCoinsPopover = document.getElementById("headerCoinsPopover");
+      const coinsInfoBtn = document.getElementById("coinsInfoBtn");
+      const headerProfileBtn = document.getElementById("headerProfileBtn");
+      const headerProfilePopover = document.getElementById("headerProfilePopover");
+      const headerProfileNameEl = document.getElementById("headerProfileName");
+      const headerCoinsAmountEl = document.getElementById("headerCoinsAmount");
+      const openProfileSectionBtn = document.getElementById("openProfileSectionBtn");
+      const popoverProfileNameEl = document.getElementById("popoverProfileName");
+      const popoverProfileIdEl = document.getElementById("popoverProfileId");
+      const popoverCoinsAmountEl = document.getElementById("popoverCoinsAmount");
+      const popoverProfileRoleEl = document.getElementById("popoverProfileRole");
+      const ruzcoinPriceValueEl = document.getElementById("ruzcoinPriceValue");
 
       let currentUser = null;
+      let usersRegistry = new Map();
+      let adminCodes = new Map();
+      let usedAdminCodes = {};
+      const popoverControllers = [];
+      let coinsPopoverController = null;
+      let profilePopoverController = null;
+
+      const profilePopoverLoggedOutSection = headerProfilePopover
+        ? headerProfilePopover.querySelector('[data-state="logged-out"]')
+        : null;
+      const profilePopoverLoggedInSection = headerProfilePopover
+        ? headerProfilePopover.querySelector('[data-state="logged-in"]')
+        : null;
 
       const baseAchievements = [
         { id: "welcome", title: "Новый слушатель", desc: "Вошёл в профиль впервые.", coins: 10 },
@@ -3857,16 +4207,24 @@
         { id: "collector", title: "Коллекционер", desc: "Открыл 3 закрытых трека.", coins: 0 }
       ];
 
+      function generateUserId() {
+        return `RUZ-${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
+      }
+
       function ensureUserShape(rawUser = {}) {
         const safeUser = { ...rawUser };
         safeUser.id = typeof safeUser.id === "string" && safeUser.id.trim()
           ? safeUser.id.trim()
-          : `RUZ-${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
+          : generateUserId();
         safeUser.name = typeof safeUser.name === "string" && safeUser.name.trim()
           ? safeUser.name.trim()
           : "Гость";
         const coinsValue = Number.parseInt(safeUser.coins, 10);
         safeUser.coins = Number.isFinite(coinsValue) ? Math.max(0, coinsValue) : 0;
+        safeUser.role = typeof safeUser.role === "string" && safeUser.role.trim()
+          ? safeUser.role.trim().toLowerCase()
+          : "listener";
+        safeUser.password = typeof safeUser.password === "string" ? safeUser.password : "";
         if (!Array.isArray(safeUser.unlockedTracks)) {
           safeUser.unlockedTracks = [];
         }
@@ -3877,31 +4235,270 @@
         return safeUser;
       }
 
+      function sanitizeUserForRegistry(user) {
+        const shaped = ensureUserShape(user);
+        return {
+          id: shaped.id,
+          name: shaped.name,
+          coins: shaped.coins,
+          role: shaped.role,
+          password: shaped.password,
+          unlockedTracks: Array.from(new Set(shaped.unlockedTracks)),
+          achievements: { ...shaped.achievements }
+        };
+      }
+
+      function persistUsersRegistry() {
+        try {
+          const payload = JSON.stringify(Array.from(usersRegistry.values()));
+          localStorage.setItem(USERS_REGISTRY_KEY, payload);
+        } catch (error) {
+          console.warn("Не удалось сохранить список пользователей:", error);
+        }
+      }
+
+      function loadUsersRegistryFromStorage() {
+        const raw = localStorage.getItem(USERS_REGISTRY_KEY);
+        if (!raw) {
+          return [];
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          console.warn("Не удалось разобрать сохранённых пользователей:", error);
+          return [];
+        }
+      }
+
+      function bootstrapRegistryFromArray(list = []) {
+        usersRegistry = new Map();
+        list.forEach(entry => {
+          const cleaned = sanitizeUserForRegistry(entry);
+          usersRegistry.set(cleaned.id, cleaned);
+        });
+        persistUsersRegistry();
+      }
+
+      function loadUsedAdminCodes() {
+        const raw = localStorage.getItem(USED_CODES_KEY);
+        if (!raw) {
+          return {};
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          return parsed && typeof parsed === "object" ? parsed : {};
+        } catch (error) {
+          console.warn("Не удалось загрузить использованные коды:", error);
+          return {};
+        }
+      }
+
+      function persistUsedAdminCodes() {
+        try {
+          localStorage.setItem(USED_CODES_KEY, JSON.stringify(usedAdminCodes));
+        } catch (error) {
+          console.warn("Не удалось сохранить использованные коды:", error);
+        }
+      }
+
+      function markAdminCodeUsed(code, userId) {
+        if (!code) {
+          return;
+        }
+        usedAdminCodes[code] = userId;
+        persistUsedAdminCodes();
+      }
+
+      function formatRoleLabel(role) {
+        const normalized = (role || "").toLowerCase();
+        if (roleLabelMap[normalized]) {
+          return roleLabelMap[normalized];
+        }
+        if (!normalized) {
+          return roleLabelMap.listener;
+        }
+        return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+      }
+
+      function updateRuzcoinPriceDisplay() {
+        if (ruzcoinPriceValueEl) {
+          const formattedPrice = `${RUZCOIN_PRICE_RUB.toLocaleString("ru-RU")} ₽`;
+          ruzcoinPriceValueEl.textContent = formattedPrice;
+        }
+      }
+
       function updateHeaderCoins(value) {
+        const numericValue = Number.isFinite(Number(value)) ? Number(value) : 0;
+        const formatted = numberFormatter.format(numericValue);
         if (headerCoinsAmountEl) {
-          headerCoinsAmountEl.textContent = value;
+          headerCoinsAmountEl.textContent = formatted;
+        }
+        if (popoverCoinsAmountEl) {
+          popoverCoinsAmountEl.textContent = formatted;
         }
       }
 
       function updateHeaderProfileNameDisplay(name) {
         if (headerProfileNameEl) {
-          headerProfileNameEl.textContent = name;
+          headerProfileNameEl.textContent = name || "Войти";
         }
+      }
+
+      function updateProfilePopoverState() {
+        const isLoggedIn = Boolean(currentUser);
+        if (profilePopoverLoggedOutSection) {
+          profilePopoverLoggedOutSection.classList.toggle("is-visible", !isLoggedIn);
+        }
+        if (profilePopoverLoggedInSection) {
+          profilePopoverLoggedInSection.classList.toggle("is-visible", isLoggedIn);
+        }
+        if (isLoggedIn) {
+          if (popoverProfileNameEl) {
+            popoverProfileNameEl.textContent = currentUser.name;
+          }
+          if (popoverProfileIdEl) {
+            popoverProfileIdEl.textContent = currentUser.id;
+          }
+          if (popoverProfileRoleEl) {
+            popoverProfileRoleEl.textContent = formatRoleLabel(currentUser.role);
+          }
+        } else {
+          if (popoverProfileNameEl) {
+            popoverProfileNameEl.textContent = "Гость";
+          }
+          if (popoverProfileIdEl) {
+            popoverProfileIdEl.textContent = "—";
+          }
+          if (popoverProfileRoleEl) {
+            popoverProfileRoleEl.textContent = formatRoleLabel("listener");
+          }
+          if (adminLoginToggle) {
+            adminLoginToggle.open = false;
+          }
+        }
+      }
+
+      function closeAllPopovers(exceptController) {
+        popoverControllers.forEach(controller => {
+          if (controller !== exceptController) {
+            controller.close();
+          }
+        });
+      }
+
+      function attachPopover(button, popover) {
+        if (!button || !popover) {
+          return null;
+        }
+        popover.dataset.open = "false";
+        popover.setAttribute("aria-hidden", "true");
+        const controller = {
+          button,
+          popover,
+          isOpen() {
+            return popover.dataset.open === "true";
+          },
+          open() {
+            closeAllPopovers(controller);
+            popover.dataset.open = "true";
+            popover.setAttribute("aria-hidden", "false");
+            button.setAttribute("aria-expanded", "true");
+          },
+          close() {
+            popover.dataset.open = "false";
+            popover.setAttribute("aria-hidden", "true");
+            button.setAttribute("aria-expanded", "false");
+          },
+          toggle() {
+            if (this.isOpen()) {
+              this.close();
+            } else {
+              this.open();
+            }
+          }
+        };
+        button.addEventListener("click", event => {
+          event.preventDefault();
+          controller.toggle();
+        });
+        popoverControllers.push(controller);
+        return controller;
+      }
+
+      document.addEventListener("click", event => {
+        const target = event.target;
+        const shouldIgnore = popoverControllers.some(controller => {
+          return controller.button.contains(target) || controller.popover.contains(target);
+        });
+        if (!shouldIgnore) {
+          closeAllPopovers();
+        }
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+          closeAllPopovers();
+        }
+      });
+
+      async function fetchJson(url) {
+        try {
+          const response = await fetch(url, { cache: "no-store" });
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+          return await response.json();
+        } catch (error) {
+          console.warn(`Не удалось загрузить ${url}:`, error);
+          return null;
+        }
+      }
+
+      function findUserByCredentials(name, password) {
+        if (!name || !password) {
+          return null;
+        }
+        const normalizedName = name.trim().toLowerCase();
+        for (const user of usersRegistry.values()) {
+          if (user.name.trim().toLowerCase() === normalizedName && user.password === password) {
+            return sanitizeUserForRegistry(user);
+          }
+        }
+        return null;
+      }
+
+      function syncUserWithRegistry(user) {
+        if (!user || !user.id) {
+          return null;
+        }
+        const fromRegistry = usersRegistry.get(user.id);
+        if (fromRegistry) {
+          return ensureUserShape(fromRegistry);
+        }
+        return ensureUserShape(user);
+      }
+
+      function upsertUserInRegistry(user) {
+        const cleaned = sanitizeUserForRegistry(user);
+        usersRegistry.set(cleaned.id, cleaned);
+        persistUsersRegistry();
       }
 
       function saveProfile() {
         if (!currentUser) {
           return;
         }
+        upsertUserInRegistry(currentUser);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUser));
       }
 
       function applyLoggedOutState() {
-        if (profileAuthEl) {
-          profileAuthEl.style.display = "block";
-        }
         if (profilePanelEl) {
-          profilePanelEl.style.display = "none";
+          profilePanelEl.hidden = true;
+        }
+        if (profileEmptyEl) {
+          profileEmptyEl.hidden = false;
         }
         if (profileNameEl) {
           profileNameEl.textContent = "Гость";
@@ -3909,14 +4506,19 @@
         if (profileIdEl) {
           profileIdEl.textContent = "—";
         }
+        if (profileRoleEl) {
+          profileRoleEl.textContent = formatRoleLabel("listener");
+        }
         if (coinsAmountEl) {
           coinsAmountEl.textContent = "0";
         }
-        updateHeaderCoins("0");
-        updateHeaderProfileNameDisplay("Войти");
         if (achievementsGridEl) {
           achievementsGridEl.innerHTML = "";
         }
+        updateHeaderCoins(0);
+        updateHeaderProfileNameDisplay("Войти");
+        updateProfilePopoverState();
+        closeAllPopovers();
       }
 
       function renderAchievements() {
@@ -4029,11 +4631,11 @@
           updateLockedTracksState();
           return;
         }
-        if (profileAuthEl) {
-          profileAuthEl.style.display = "none";
+        if (profileEmptyEl) {
+          profileEmptyEl.hidden = true;
         }
         if (profilePanelEl) {
-          profilePanelEl.style.display = "flex";
+          profilePanelEl.hidden = false;
         }
         if (profileNameEl) {
           profileNameEl.textContent = currentUser.name;
@@ -4041,11 +4643,15 @@
         if (profileIdEl) {
           profileIdEl.textContent = currentUser.id;
         }
+        if (profileRoleEl) {
+          profileRoleEl.textContent = formatRoleLabel(currentUser.role);
+        }
         if (coinsAmountEl) {
           coinsAmountEl.textContent = currentUser.coins;
         }
         updateHeaderCoins(currentUser.coins);
         updateHeaderProfileNameDisplay(currentUser.name);
+        updateProfilePopoverState();
         renderAchievements();
         updateLockedTracksState();
       }
@@ -4066,14 +4672,19 @@
           return;
         }
         try {
-          currentUser = ensureUserShape(JSON.parse(stored));
-          showProfile();
+          const parsed = JSON.parse(stored);
+          currentUser = syncUserWithRegistry(parsed);
+          if (currentUser) {
+            showProfile();
+          } else {
+            currentUser = null;
+            applyLoggedOutState();
+          }
         } catch (error) {
           console.warn("Не удалось загрузить профиль AVZALØV:", error);
           currentUser = null;
           localStorage.removeItem(STORAGE_KEY);
           applyLoggedOutState();
-          updateLockedTracksState();
         }
       }
 
@@ -4085,7 +4696,11 @@
               return;
             }
             if (!currentUser) {
-              alert("Сначала войди в профиль, чтобы использовать RUZCOIN.");
+              if (profilePopoverController) {
+                profilePopoverController.open();
+              } else {
+                alert("Сначала войди в профиль, чтобы использовать RUZCOIN.");
+              }
               return;
             }
             const price = Number(btn.dataset.unlockPrice || 0);
@@ -4096,6 +4711,16 @@
             }
             if (currentUser.coins < price) {
               alert("Не хватает RUZCOIN. Заработай или купи ещё.");
+              if (coinsPopoverController) {
+                coinsPopoverController.open();
+              }
+              if (headerCoinsBtn && typeof headerCoinsBtn.focus === "function") {
+                try {
+                  headerCoinsBtn.focus({ preventScroll: true });
+                } catch (error) {
+                  headerCoinsBtn.focus();
+                }
+              }
               return;
             }
             currentUser.coins -= price;
@@ -4112,9 +4737,76 @@
             }
             saveProfile();
             renderAchievements();
+            updateProfilePopoverState();
             updateLockedTracksState();
             alert("Трек открыт! Спасибо за поддержку AVZALØV.");
           });
+        });
+      }
+
+      coinsPopoverController = attachPopover(headerCoinsBtn, headerCoinsPopover);
+      profilePopoverController = attachPopover(headerProfileBtn, headerProfilePopover);
+
+      if (coinsInfoBtn) {
+        coinsInfoBtn.addEventListener("click", () => {
+          closeAllPopovers();
+          const profileSection = document.getElementById("profile");
+          if (profileSection) {
+            profileSection.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      }
+
+      if (openProfileSectionBtn) {
+        openProfileSectionBtn.addEventListener("click", () => {
+          closeAllPopovers();
+          const profileSection = document.getElementById("profile");
+          if (profileSection) {
+            profileSection.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      }
+
+      if (profileTopupBtn) {
+        profileTopupBtn.addEventListener("click", () => {
+          closeAllPopovers();
+          if (headerCoinsBtn && typeof headerCoinsBtn.focus === "function") {
+            try {
+              headerCoinsBtn.focus({ preventScroll: true });
+            } catch (error) {
+              headerCoinsBtn.focus();
+            }
+          }
+          if (coinsPopoverController) {
+            coinsPopoverController.open();
+          }
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      logoutButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          logout();
+        });
+      });
+
+      if (earnDemoBtn) {
+        earnDemoBtn.addEventListener("click", () => {
+          if (!currentUser) {
+            if (profilePopoverController) {
+              profilePopoverController.open();
+            } else {
+              alert("Войди в профиль, чтобы получить бонусные RUZCOIN.");
+            }
+            return;
+          }
+          currentUser.coins += 5;
+          if (coinsAmountEl) {
+            coinsAmountEl.textContent = currentUser.coins;
+          }
+          updateHeaderCoins(currentUser.coins);
+          saveProfile();
+          updateProfilePopoverState();
         });
       }
 
@@ -4125,49 +4817,97 @@
           const passInput = document.getElementById("loginPassword");
           const nameValue = nameInput ? nameInput.value.trim() : "";
           const passValue = passInput ? passInput.value.trim() : "";
-
           if (!nameValue || !passValue) {
             alert("Нужно указать ник и пароль.");
             return;
           }
-
-          const id = `RUZ-${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
-          currentUser = ensureUserShape({
-            id,
-            name: nameValue,
-            coins: 20,
-            achievements: { welcome: true },
-            unlockedTracks: []
-          });
+          const existingUser = findUserByCredentials(nameValue, passValue);
+          if (existingUser) {
+            currentUser = ensureUserShape(existingUser);
+          } else {
+            currentUser = ensureUserShape({
+              id: generateUserId(),
+              name: nameValue,
+              coins: WELCOME_BONUS,
+              role: "listener",
+              password: passValue,
+              achievements: { welcome: true },
+              unlockedTracks: []
+            });
+          }
           saveProfile();
           if (loginForm) {
             loginForm.reset();
+          }
+          if (profilePopoverController) {
+            profilePopoverController.close();
           }
           showProfile();
         });
       }
 
-      if (earnDemoBtn) {
-        earnDemoBtn.addEventListener("click", () => {
-          if (!currentUser) {
-            alert("Войди в профиль, чтобы получить бонусные RUZCOIN.");
+      if (adminCodeForm) {
+        adminCodeForm.addEventListener("submit", event => {
+          event.preventDefault();
+          const codeValue = adminCodeInput ? adminCodeInput.value.trim().toUpperCase() : "";
+          const displayName = adminNameInput ? adminNameInput.value.trim() : "";
+          if (!codeValue) {
+            alert("Нужно указать уникальный код администратора.");
             return;
           }
-          currentUser.coins += 5;
-          if (coinsAmountEl) {
-            coinsAmountEl.textContent = currentUser.coins;
+          const codeEntry = adminCodes.get(codeValue);
+          if (!codeEntry) {
+            alert("Код не найден. Проверь правильность ввода.");
+            return;
           }
-          updateHeaderCoins(currentUser.coins);
+          if (usedAdminCodes[codeValue]) {
+            alert("Этот код уже был активирован.");
+            return;
+          }
+          const role = codeEntry.role ? String(codeEntry.role).trim().toLowerCase() : "admin";
+          const name = displayName || codeEntry.label || "Администратор";
+          currentUser = ensureUserShape({
+            id: generateUserId(),
+            name,
+            coins: WELCOME_BONUS,
+            role,
+            password: codeValue,
+            achievements: { welcome: true },
+            unlockedTracks: []
+          });
+          markAdminCodeUsed(codeValue, currentUser.id);
           saveProfile();
+          adminCodeForm.reset();
+          if (profilePopoverController) {
+            profilePopoverController.close();
+          }
+          showProfile();
         });
       }
 
-      if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => {
-          logout();
-        });
+      async function bootstrapData() {
+        updateRuzcoinPriceDisplay();
+        usedAdminCodes = loadUsedAdminCodes();
+        const storedRegistry = loadUsersRegistryFromStorage();
+        if (storedRegistry.length) {
+          bootstrapRegistryFromArray(storedRegistry);
+        } else {
+          const seedUsers = await fetchJson(USERS_DATA_ENDPOINT);
+          if (seedUsers && Array.isArray(seedUsers.users)) {
+            bootstrapRegistryFromArray(seedUsers.users);
+          }
+        }
+        const codesPayload = await fetchJson(ADMIN_CODES_ENDPOINT);
+        if (codesPayload && Array.isArray(codesPayload.codes)) {
+          adminCodes = new Map(
+            codesPayload.codes
+              .filter(entry => entry && entry.code)
+              .map(entry => [String(entry.code).trim().toUpperCase(), { ...entry }])
+          );
+        }
       }
 
+      await bootstrapData();
       loadProfile();
       initLockedTracks();
       updateLockedTracksState();
