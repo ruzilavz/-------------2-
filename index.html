@@ -418,11 +418,13 @@
     }
 
     .ruzcoin-icon {
+      position: relative;
       width: 28px;
       height: 28px;
-      border-radius: 12px;
-      background: linear-gradient(130deg, #ffe066, #ffb347);
-      color: #0c0f1c;
+      border-radius: 50%;
+      background: radial-gradient(circle at 25% 18%, #fff6d6 0%, #f4c35a 48%, #b56f08 100%);
+      border: 1px solid rgba(255, 206, 124, 0.65);
+      color: #060913;
       font-weight: 700;
       font-size: 11px;
       letter-spacing: 0.08em;
@@ -430,7 +432,18 @@
       align-items: center;
       justify-content: center;
       text-transform: uppercase;
-      box-shadow: 0 6px 18px rgba(255, 179, 71, 0.4);
+      box-shadow: 0 8px 18px rgba(181, 111, 8, 0.4);
+      overflow: hidden;
+    }
+
+    .ruzcoin-icon::before {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 65% 30%, rgba(255, 255, 255, 0.75), transparent 65%);
+      opacity: 0.85;
+      pointer-events: none;
     }
 
     .ruzcoin-icon.is-inline {
@@ -438,7 +451,11 @@
       height: 22px;
       font-size: 10px;
       margin-right: 6px;
-      box-shadow: none;
+      box-shadow: 0 6px 14px rgba(181, 111, 8, 0.32);
+    }
+
+    .ruzcoin-icon.is-inline::before {
+      inset: 1.5px;
     }
 
     .header-profile-btn {
@@ -978,6 +995,217 @@
       color: #c4c8e4;
       position: relative;
       overflow: hidden;
+    }
+
+    .stats-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: rgba(9, 11, 21, 0.95);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .stats-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(18, 22, 38, 0.9);
+      border: 1px solid rgba(92, 118, 210, 0.35);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(189, 196, 235, 0.75);
+    }
+
+    .stat-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f4f5ff;
+    }
+
+    .stat-subvalue {
+      font-size: 12px;
+      color: rgba(198, 205, 245, 0.7);
+    }
+
+    .stats-divider {
+      height: 1px;
+      background: rgba(82, 96, 150, 0.4);
+      border-radius: 999px;
+    }
+
+    .recent-plays {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .recent-plays-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .recent-plays-header h3 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #d9defb;
+    }
+
+    .recent-plays-note {
+      font-size: 11px;
+      color: rgba(154, 160, 196, 0.75);
+    }
+
+    .recent-plays-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .recent-plays-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      font-size: 12px;
+      color: rgba(206, 212, 242, 0.88);
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: rgba(16, 20, 36, 0.9);
+      border: 1px solid rgba(76, 102, 189, 0.28);
+    }
+
+    .recent-track {
+      font-weight: 600;
+      color: #eef1ff;
+    }
+
+    .recent-time {
+      font-size: 11px;
+      color: rgba(165, 174, 220, 0.8);
+      white-space: nowrap;
+    }
+
+    .recent-plays-empty {
+      font-size: 12px;
+      color: rgba(165, 174, 220, 0.75);
+      padding: 6px 0;
+    }
+
+    .history-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: rgba(9, 11, 21, 0.95);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .history-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .history-summary-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      background: rgba(16, 18, 30, 0.9);
+      border: 1px solid rgba(82, 110, 198, 0.3);
+    }
+
+    .summary-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(164, 173, 214, 0.7);
+    }
+
+    .summary-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f5f6ff;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .history-entry {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      background: rgba(14, 16, 28, 0.9);
+      border: 1px solid rgba(70, 92, 180, 0.25);
+      font-size: 12px;
+      color: rgba(204, 210, 240, 0.85);
+    }
+
+    .history-entry-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .history-entry-title {
+      font-weight: 600;
+      color: #eef1ff;
+    }
+
+    .history-entry-delta {
+      font-weight: 600;
+    }
+
+    .history-entry-delta.is-positive {
+      color: #3ce39a;
+    }
+
+    .history-entry-delta.is-negative {
+      color: #ff9d6f;
+    }
+
+    .history-entry-time {
+      font-size: 11px;
+      color: rgba(170, 178, 220, 0.75);
+    }
+
+    .history-empty {
+      font-size: 12px;
+      color: rgba(164, 173, 214, 0.75);
+      padding: 6px 0;
     }
 
     .achievement-card::before {
@@ -1552,6 +1780,27 @@
       font-size: 12px;
       color: var(--muted);
       margin-bottom: 12px;
+    }
+
+    .track-user-plays {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(30, 40, 78, 0.55);
+      border: 1px solid rgba(90, 118, 204, 0.35);
+      color: rgba(218, 224, 255, 0.9);
+    }
+
+    .track-user-plays span {
+      font-weight: 700;
+      color: #f2f4ff;
+      letter-spacing: 0.04em;
     }
     .track-like-btn, .track-plays {
         display: flex;
@@ -2675,6 +2924,73 @@
       </div>
     </section>
 
+    <section id="listening-stats">
+      <div class="section-header">
+        <h2 class="section-title">Статистика прослушиваний</h2>
+        <p class="section-sub">Личные данные по прослушиваниям внутри сайта.</p>
+      </div>
+
+      <div class="stats-card" id="listeningStatsCard">
+        <div class="stats-summary">
+          <div class="stat-block">
+            <div class="stat-label">Всего прослушиваний</div>
+            <div class="stat-value" id="statTotalPlays">0</div>
+            <div class="stat-subvalue">Сохраняется на этом устройстве</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-label">Уникальные треки</div>
+            <div class="stat-value" id="statUniqueTracks">0</div>
+            <div class="stat-subvalue">С учётом открытых релизов</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-label">Любимый трек</div>
+            <div class="stat-value" id="statTopTrack">—</div>
+            <div class="stat-subvalue" id="statTopTrackCount">Прослушиваний: 0</div>
+          </div>
+        </div>
+
+        <div class="stats-divider"></div>
+
+        <div class="recent-plays">
+          <div class="recent-plays-header">
+            <h3>Последние прослушивания</h3>
+            <span class="recent-plays-note" id="statsNote">Войдите в профиль, чтобы сохранять статистику.</span>
+          </div>
+          <ul class="recent-plays-list" id="recentListeningList">
+            <li class="recent-plays-empty">Начните слушать треки, и список обновится автоматически.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="coin-history">
+      <div class="section-header">
+        <h2 class="section-title">История RUZCOIN</h2>
+        <p class="section-sub">Полученные и потраченные монеты внутри сайта.</p>
+      </div>
+
+      <div class="history-card" id="coinHistoryCard">
+        <div class="history-summary">
+          <div class="history-summary-item">
+            <span class="summary-label">Получено</span>
+            <span class="summary-value" id="historyEarned">0 RUZ</span>
+          </div>
+          <div class="history-summary-item">
+            <span class="summary-label">Потрачено</span>
+            <span class="summary-value" id="historySpent">0 RUZ</span>
+          </div>
+          <div class="history-summary-item">
+            <span class="summary-label">Баланс операций</span>
+            <span class="summary-value" id="historyNet">0 RUZ</span>
+          </div>
+        </div>
+
+        <div class="history-list" id="coinHistoryList">
+          <div class="history-empty" id="coinHistoryEmpty">История появится после операций с RUZCOIN.</div>
+        </div>
+      </div>
+    </section>
+
     <section id="tracks">
       <div class="section-header">
         <h2 class="section-title">Релизы</h2>
@@ -2965,6 +3281,10 @@
       return encodeURI(`audio/${normalized}${ext}`);
     }
 
+    const trackTitleCache = new Map();
+    let getPersonalPlayCount = () => 0;
+    let updateTrackPersonalPlayDisplay = () => {};
+
     function buildTrackLibrary() {
       return releasedTracksConfig.map((trackConfig, index) => {
         const slug = (trackConfig.slug || trackConfig.file || `track-${index}`).trim();
@@ -3057,6 +3377,17 @@
         article.dataset.trackPrice = track.price;
       }
 
+      if (track.slug) {
+        trackTitleCache.set(track.slug, track.title);
+      }
+
+      const personalPlayCount = getPersonalPlayCount(track.slug);
+      const personalMarkup = `
+          <div class="track-user-plays" data-track-personal="${track.slug}"${personalPlayCount > 0 ? "" : " hidden"}>
+            Твоих прослушиваний: <span>${formatCount(personalPlayCount)}</span>
+          </div>
+        `;
+
       const playerControlsClass = track.hasAudio ? "player-controls" : "player-controls is-disabled";
       const playButtonAttributes = track.hasAudio
         ? 'class="track-play-toggle" type="button" aria-label="Воспроизвести трек"'
@@ -3103,6 +3434,7 @@
               <span class="track-plays-count">${formatCount(track.plays)}</span>
             </div>
           </div>
+          ${personalMarkup}
           ${priceMarkup}
           <div class="${playerControlsClass}">
             <button ${playButtonAttributes}>
@@ -3142,7 +3474,11 @@
         return;
       }
       tracks.forEach(track => {
-        tracksGrid.appendChild(createTrackCard(track));
+        const card = createTrackCard(track);
+        tracksGrid.appendChild(card);
+        if (track && track.slug) {
+          updateTrackPersonalPlayDisplay(track.slug);
+        }
       });
     }
 
@@ -3269,6 +3605,18 @@
     const lyricsModalTitle = document.getElementById("lyricsModalTitle");
     const lyricsModalText = document.getElementById("lyricsModalText");
     const lyricsCloseBtn = document.getElementById("lyricsCloseBtn");
+    const statsCardEl = document.getElementById("listeningStatsCard");
+    const statTotalPlaysEl = document.getElementById("statTotalPlays");
+    const statUniqueTracksEl = document.getElementById("statUniqueTracks");
+    const statTopTrackEl = document.getElementById("statTopTrack");
+    const statTopTrackCountEl = document.getElementById("statTopTrackCount");
+    const statsNoteEl = document.getElementById("statsNote");
+    const recentListeningListEl = document.getElementById("recentListeningList");
+    const historyEarnedEl = document.getElementById("historyEarned");
+    const historySpentEl = document.getElementById("historySpent");
+    const historyNetEl = document.getElementById("historyNet");
+    const coinHistoryListEl = document.getElementById("coinHistoryList");
+    const coinHistoryEmptyEl = document.getElementById("coinHistoryEmpty");
     const trackRealtimeStats = new Map();
     const LYRICS_DESYNC_SLUG = "yashlek";
 
@@ -3526,6 +3874,7 @@
         }
         audio.pause();
         audio.currentTime = 0;
+        audio.__countedPlay = false;
         resetCard(card, audio);
         if (lyricsActiveCard === card) {
           updateLyricsDesyncState();
@@ -3604,6 +3953,7 @@
             });
 
             audio.addEventListener("play", () => {
+                handleListeningStatIncrement(card, audio);
                 stopAllExcept(card);
                 currentAudio = audio;
                 currentCard = card;
@@ -3639,6 +3989,7 @@
             });
 
             audio.addEventListener("ended", () => {
+                audio.__countedPlay = false;
                 resetCard(card, audio);
                 if (currentAudio === audio) {
                     currentAudio = null;
@@ -3650,6 +4001,9 @@
 
             audio.addEventListener("seeked", () => {
                 resetRealtimeMarker(card, audio.currentTime);
+                if (audio.currentTime <= 0.5) {
+                    audio.__countedPlay = false;
+                }
                 if (lyricsActiveCard === card) updateLyricsDesyncState();
             });
 
@@ -3710,15 +4064,26 @@
       const STORAGE_KEY = "avzalov_profile_v1";
       const USERS_REGISTRY_KEY = "avzalov_users_registry_v1";
       const USED_CODES_KEY = "avzalov_used_admin_codes_v1";
-      const USERS_DATA_ENDPOINT = "data/users.json";
-      const ADMIN_CODES_ENDPOINT = "data/admin-codes.json";
-      const WELCOME_BONUS = 10;
-      const RUZCOIN_PRICE_RUB = 10;
-      const roleLabelMap = {
-        admin: "Администратор",
-        listener: "Слушатель",
-        moderator: "Модератор"
-      };
+        const USERS_DATA_ENDPOINT = "data/users.json";
+        const ADMIN_CODES_ENDPOINT = "data/admin-codes.json";
+        const WELCOME_BONUS = 10;
+        const RUZCOIN_PRICE_RUB = 10;
+        const LISTENING_STATS_KEY = "avzalov_listening_stats_v1";
+        const COIN_HISTORY_KEY = "avzalov_coin_history_v1";
+        const MAX_HISTORY_ENTRIES = 100;
+        const MAX_RECENT_LISTENS = 6;
+
+        let listeningStatsRegistry = loadListeningStatsRegistry();
+        let coinHistoryRegistry = loadCoinHistoryRegistry();
+        let listeningStats = createEmptyListeningStats();
+        let coinHistory = [];
+        let activeUserId = "guest";
+
+        const roleLabelMap = {
+          admin: "Администратор",
+          listener: "Слушатель",
+          moderator: "Модератор"
+        };
 
       const profilePanelEl = document.getElementById("profilePanel");
       const profileEmptyEl = document.getElementById("profileEmpty");
@@ -3771,6 +4136,360 @@
         { id: "first_unlock", title: "Первый доступ", desc: "Открыл закрытый трек.", coins: 0 },
         { id: "collector", title: "Коллекционер", desc: "Открыл 3 закрытых трека.", coins: 0 }
       ];
+
+      function resolveTrackTitle(slug) {
+        if (!slug) {
+          return "Неизвестный трек";
+        }
+        if (trackTitleCache.has(slug)) {
+          return trackTitleCache.get(slug);
+        }
+        const trackFromLibrary = buildTrackLibrary().find(item => item.slug === slug);
+        if (trackFromLibrary && trackFromLibrary.title) {
+          trackTitleCache.set(slug, trackFromLibrary.title);
+          return trackFromLibrary.title;
+        }
+        return slug;
+      }
+
+      function createEmptyListeningStats() {
+        return {
+          totalPlays: 0,
+          trackPlays: {},
+          recent: []
+        };
+      }
+
+      function sanitizeListeningStats(rawStats) {
+        const base = createEmptyListeningStats();
+        if (!rawStats || typeof rawStats !== "object") {
+          return base;
+        }
+        const total = Number(rawStats.totalPlays);
+        if (Number.isFinite(total)) {
+          base.totalPlays = Math.max(0, Math.floor(total));
+        }
+        if (rawStats.trackPlays && typeof rawStats.trackPlays === "object") {
+          base.trackPlays = {};
+          Object.entries(rawStats.trackPlays).forEach(([slug, count]) => {
+            if (typeof slug === "string") {
+              const numericCount = Number(count);
+              if (Number.isFinite(numericCount) && numericCount > 0) {
+                base.trackPlays[slug] = Math.max(0, Math.floor(numericCount));
+              }
+            }
+          });
+        }
+        if (Array.isArray(rawStats.recent)) {
+          base.recent = rawStats.recent
+            .filter(entry => entry && typeof entry === "object")
+            .slice(0, MAX_RECENT_LISTENS)
+            .map(entry => ({
+              slug: typeof entry.slug === "string" ? entry.slug : "",
+              title: entry.title ? String(entry.title) : resolveTrackTitle(entry.slug || ""),
+              time: entry.time ? String(entry.time) : new Date().toLocaleString("ru-RU")
+            }));
+        }
+        return base;
+      }
+
+      function loadListeningStatsRegistry() {
+        try {
+          const raw = localStorage.getItem(LISTENING_STATS_KEY);
+          if (!raw) {
+            return {};
+          }
+          const parsed = JSON.parse(raw);
+          return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+        } catch (error) {
+          console.warn("Не удалось загрузить статистику прослушиваний:", error);
+          return {};
+        }
+      }
+
+      function saveListeningStatsRegistry() {
+        try {
+          localStorage.setItem(LISTENING_STATS_KEY, JSON.stringify(listeningStatsRegistry));
+        } catch (error) {
+          console.warn("Не удалось сохранить статистику прослушиваний:", error);
+        }
+      }
+
+      function loadCoinHistoryRegistry() {
+        try {
+          const raw = localStorage.getItem(COIN_HISTORY_KEY);
+          if (!raw) {
+            return {};
+          }
+          const parsed = JSON.parse(raw);
+          return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+        } catch (error) {
+          console.warn("Не удалось загрузить историю RUZCOIN:", error);
+          return {};
+        }
+      }
+
+      function saveCoinHistoryRegistry() {
+        try {
+          localStorage.setItem(COIN_HISTORY_KEY, JSON.stringify(coinHistoryRegistry));
+        } catch (error) {
+          console.warn("Не удалось сохранить историю RUZCOIN:", error);
+        }
+      }
+
+      function sanitizeCoinHistory(rawHistory) {
+        if (!Array.isArray(rawHistory)) {
+          return [];
+        }
+        return rawHistory
+          .filter(entry => entry && typeof entry === "object")
+          .slice(0, MAX_HISTORY_ENTRIES)
+          .map(entry => {
+            const deltaValue = Number(entry.delta);
+            return {
+              type: entry.type ? String(entry.type) : (deltaValue >= 0 ? "earn" : "spend"),
+              description: entry.description ? String(entry.description) : "Операция с RUZCOIN",
+              delta: Number.isFinite(deltaValue) ? deltaValue : 0,
+              time: entry.time ? String(entry.time) : new Date().toLocaleString("ru-RU")
+            };
+          });
+      }
+
+      function getActiveStatsKey() {
+        return activeUserId || "guest";
+      }
+
+      function loadListeningStatsForActiveUser() {
+        const key = getActiveStatsKey();
+        listeningStats = sanitizeListeningStats(listeningStatsRegistry[key]);
+        getPersonalPlayCount = slug => {
+          if (!slug) {
+            return 0;
+          }
+          const numeric = listeningStats.trackPlays && listeningStats.trackPlays[slug];
+          const count = Number(numeric);
+          return Number.isFinite(count) ? Math.max(0, Math.floor(count)) : 0;
+        };
+        updateTrackPersonalPlayDisplay = slug => {
+          if (!slug) {
+            return;
+          }
+          const count = getPersonalPlayCount(slug);
+          document.querySelectorAll(`.track-user-plays[data-track-personal="${slug}"]`).forEach(el => {
+            const span = el.querySelector("span");
+            if (count > 0) {
+              if (span) {
+                span.textContent = formatCount(count);
+              } else {
+                el.textContent = `Твоих прослушиваний: ${formatCount(count)}`;
+              }
+              el.hidden = false;
+            } else {
+              if (span) {
+                span.textContent = formatCount(0);
+              }
+              el.hidden = true;
+            }
+          });
+        };
+        window.__avzalovListeningStats = listeningStats;
+      }
+
+      function loadCoinHistoryForActiveUser() {
+        const key = getActiveStatsKey();
+        coinHistory = sanitizeCoinHistory(coinHistoryRegistry[key]);
+      }
+
+      function saveListeningStats() {
+        listeningStatsRegistry[getActiveStatsKey()] = sanitizeListeningStats(listeningStats);
+        saveListeningStatsRegistry();
+        window.__avzalovListeningStats = listeningStats;
+      }
+
+      function saveCoinHistory() {
+        coinHistoryRegistry[getActiveStatsKey()] = sanitizeCoinHistory(coinHistory);
+        saveCoinHistoryRegistry();
+      }
+
+      function refreshAllTrackPersonalDisplays() {
+        document
+          .querySelectorAll(".track-user-plays[data-track-personal]")
+          .forEach(el => updateTrackPersonalPlayDisplay(el.dataset.trackPersonal));
+      }
+
+      function renderListeningStats() {
+        if (statTotalPlaysEl) {
+          statTotalPlaysEl.textContent = formatCount(listeningStats.totalPlays || 0);
+        }
+        const trackPlaysMap = listeningStats.trackPlays || {};
+        const uniqueCount = Object.values(trackPlaysMap).filter(value => Number(value) > 0).length;
+        if (statUniqueTracksEl) {
+          statUniqueTracksEl.textContent = formatCount(uniqueCount);
+        }
+        const topEntry = Object.entries(trackPlaysMap).reduce(
+          (best, [slug, count]) => {
+            const numeric = Number(count);
+            if (!Number.isFinite(numeric) || numeric <= best.count) {
+              return best;
+            }
+            return { slug, count: Math.floor(numeric) };
+          },
+          { slug: "", count: 0 }
+        );
+        if (statTopTrackEl) {
+          statTopTrackEl.textContent = topEntry.count > 0 ? resolveTrackTitle(topEntry.slug) : "—";
+        }
+        if (statTopTrackCountEl) {
+          statTopTrackCountEl.textContent =
+            topEntry.count > 0 ? `Прослушиваний: ${formatCount(topEntry.count)}` : "Прослушиваний: 0";
+        }
+        if (statsNoteEl) {
+          statsNoteEl.textContent = currentUser
+            ? "Данные сохраняются только в твоём браузере."
+            : "Войдите в профиль, чтобы сохранять статистику.";
+        }
+        if (recentListeningListEl) {
+          if (!listeningStats.recent || listeningStats.recent.length === 0) {
+            recentListeningListEl.innerHTML =
+              '<li class="recent-plays-empty">Начните слушать треки, и список обновится автоматически.</li>';
+          } else {
+            recentListeningListEl.innerHTML = listeningStats.recent
+              .map(
+                entry => `
+                <li class="recent-plays-item">
+                  <span class="recent-track">${entry.title || resolveTrackTitle(entry.slug)}</span>
+                  <span class="recent-time">${entry.time}</span>
+                </li>`
+              )
+              .join("");
+          }
+        }
+        refreshAllTrackPersonalDisplays();
+      }
+
+      function renderCoinHistory() {
+        let earned = 0;
+        let spent = 0;
+        coinHistory.forEach(entry => {
+          const delta = Number(entry.delta);
+          if (delta > 0) {
+            earned += delta;
+          } else if (delta < 0) {
+            spent += Math.abs(delta);
+          }
+        });
+        if (historyEarnedEl) {
+          historyEarnedEl.textContent = `${formatCount(earned)} RUZ`;
+        }
+        if (historySpentEl) {
+          historySpentEl.textContent = `${formatCount(spent)} RUZ`;
+        }
+        if (historyNetEl) {
+          const net = earned - spent;
+          if (net === 0) {
+            historyNetEl.textContent = "0 RUZ";
+          } else {
+            const netSign = net > 0 ? "+" : "−";
+            historyNetEl.textContent = `${netSign}${formatCount(Math.abs(net))} RUZ`;
+          }
+        }
+        if (!coinHistoryListEl) {
+          return;
+        }
+        if (!coinHistory.length) {
+          coinHistoryListEl.innerHTML = `<div class="history-empty">${
+            currentUser
+              ? "История появится после операций с RUZCOIN."
+              : "Войдите в профиль, чтобы видеть историю операций."
+          }</div>`;
+          return;
+        }
+        coinHistoryListEl.innerHTML = coinHistory
+          .map(entry => {
+            const delta = Number(entry.delta);
+            const absolute = Math.abs(delta);
+            const sign = delta > 0 ? "+" : "−";
+            const deltaClass = delta >= 0 ? "history-entry-delta is-positive" : "history-entry-delta is-negative";
+            return `
+              <div class="history-entry">
+                <div class="history-entry-header">
+                  <span class="history-entry-title">${entry.description}</span>
+                  <span class="${deltaClass}">${sign}${formatCount(absolute)} RUZ</span>
+                </div>
+                <div class="history-entry-time">${entry.time}</div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function recordListeningEvent(slug, title) {
+        if (!slug) {
+          return;
+        }
+        if (!listeningStats.trackPlays[slug]) {
+          listeningStats.trackPlays[slug] = 0;
+        }
+        listeningStats.trackPlays[slug] += 1;
+        listeningStats.totalPlays = (listeningStats.totalPlays || 0) + 1;
+        const entry = {
+          slug,
+          title: title || resolveTrackTitle(slug),
+          time: new Date().toLocaleString("ru-RU")
+        };
+        listeningStats.recent = [entry, ...listeningStats.recent].slice(0, MAX_RECENT_LISTENS);
+        saveListeningStats();
+        renderListeningStats();
+        updateTrackPersonalPlayDisplay(slug);
+      }
+
+      function recordCoinHistory(type, delta, description) {
+        const numericDelta = Number(delta);
+        if (!Number.isFinite(numericDelta) || numericDelta === 0) {
+          return;
+        }
+        const entry = {
+          type: type || (numericDelta > 0 ? "earn" : "spend"),
+          description: description || "Операция с RUZCOIN",
+          delta: numericDelta,
+          time: new Date().toLocaleString("ru-RU")
+        };
+        coinHistory = [entry, ...coinHistory].slice(0, MAX_HISTORY_ENTRIES);
+        saveCoinHistory();
+        renderCoinHistory();
+      }
+
+      function handleListeningStatIncrement(card, audio) {
+        if (!card || !audio) {
+          return;
+        }
+        const slug = card.dataset.trackSlug;
+        if (!slug) {
+          return;
+        }
+        if (audio.__countedPlay && audio.currentTime > 0.5) {
+          return;
+        }
+        if (audio.currentTime > 1) {
+          return;
+        }
+        audio.__countedPlay = true;
+        const titleEl = card.querySelector(".track-title");
+        const title = titleEl ? titleEl.textContent.trim() : resolveTrackTitle(slug);
+        recordListeningEvent(slug, title);
+      }
+
+      function loadUserHistories() {
+        loadListeningStatsForActiveUser();
+        loadCoinHistoryForActiveUser();
+        renderListeningStats();
+        renderCoinHistory();
+      }
+
+      function switchUserContext(user) {
+        activeUserId = user && user.id ? String(user.id) : "guest";
+        loadUserHistories();
+      }
 
       function generateUserId() {
         return `RUZ-${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
@@ -4080,6 +4799,7 @@
         if (achievementsGridEl) {
           achievementsGridEl.innerHTML = "";
         }
+        switchUserContext(null);
         updateHeaderCoins(0);
         updateHeaderProfileNameDisplay("Войти");
         updateProfilePopoverState();
@@ -4138,6 +4858,7 @@
           updateLockedTracksState();
           return;
         }
+        switchUserContext(currentUser);
         if (profileEmptyEl) {
           profileEmptyEl.hidden = true;
         }
@@ -4237,6 +4958,8 @@
               coinsAmountEl.textContent = currentUser.coins;
             }
             updateHeaderCoins(currentUser.coins);
+            const unlockedTitle = resolveTrackTitle(trackId);
+            recordCoinHistory("spend", -price, `Открыт трек «${unlockedTitle}»`);
             if (!currentUser.achievements.first_unlock) {
               currentUser.achievements.first_unlock = true;
             }
@@ -4318,6 +5041,7 @@
             coinsAmountEl.textContent = currentUser.coins;
           }
           updateHeaderCoins(currentUser.coins);
+          recordCoinHistory("bonus", 5, "Демо бонус: +5 RUZCOIN");
           saveProfile();
           updateProfilePopoverState();
         });
@@ -4337,6 +5061,7 @@
           const existingUser = findUserByCredentials(nameValue, passValue);
           if (existingUser) {
             currentUser = ensureUserShape(existingUser);
+            switchUserContext(currentUser);
           } else {
             currentUser = ensureUserShape({
               id: generateUserId(),
@@ -4347,6 +5072,8 @@
               achievements: { welcome: true },
               unlockedTracks: []
             });
+            switchUserContext(currentUser);
+            recordCoinHistory("bonus", WELCOME_BONUS, "Приветственный бонус");
           }
           saveProfile();
           if (loginForm) {
@@ -4388,6 +5115,8 @@
             achievements: { welcome: true },
             unlockedTracks: []
           });
+          switchUserContext(currentUser);
+          recordCoinHistory("bonus", WELCOME_BONUS, "Активирован код администратора");
           markAdminCodeUsed(codeValue, currentUser.id);
           saveProfile();
           adminCodeForm.reset();
