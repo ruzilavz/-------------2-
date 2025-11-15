@@ -1973,6 +1973,7 @@
     </div>
   </div>
 
+  <script src="tracks-data.js"></script>
   <script>
     const navToggle = document.getElementById("navToggle");
     const mainNav = document.getElementById("mainNav");
@@ -1987,38 +1988,9 @@
     const numberFormatter = new Intl.NumberFormat("ru-RU");
 
     const releasedCarousel = document.getElementById("releasedCarousel");
-    const releasedTracksConfig = [
-      { file: "chernyy-yashchik", title: "\u0427\u0435\u0440\u043d\u044b\u0439\u0020\u044f\u0449\u0438\u043a" },
-      { file: "zima", title: "\u0417\u0438\u043c\u0430" },
-      { file: "pomni", title: "\u041f\u043e\u043c\u043d\u0438" },
-      { file: "okean-vnutri", title: "\u041e\u043a\u0435\u0430\u043d\u0020\u0432\u043d\u0443\u0442\u0440\u0438" },
-      { file: "o-vsevyshniy", title: "\u041e\u0020\u0412\u0441\u0435\u0432\u044b\u0448\u043d\u0438\u0439" },
-      { file: "kak-yad", title: "\u041a\u0430\u043a\u0020\u044f\u0434" },
-      { file: "allakh", title: "\u0410\u043b\u043b\u0430\u0445" },
-      { file: "peregrev", title: "\u041f\u0435\u0440\u0435\u0433\u0440\u0435\u0432" },
-      { file: "leti-so-mnoy", title: "\u041b\u0435\u0442\u0438\u0020\u0441\u043e\u0020\u043c\u043d\u043e\u0439" },
-      { file: "sirena", title: "\u0421\u0438\u0440\u0435\u043d\u0430" },
-      { file: "ierarkhiya", title: "\u0418\u0435\u0440\u0430\u0440\u0445\u0438\u044f" },
-      { file: "ona-sryvala-rozy-20", title: "\u041e\u043d\u0430\u0020\u0441\u0440\u044b\u0432\u0430\u043b\u0430\u0020\u0440\u043e\u0437\u044b\u0020\u0032\u002e\u0030" },
-      { file: "ona-sryvala-rozy", title: "\u041e\u043d\u0430\u0020\u0441\u0440\u044b\u0432\u0430\u043b\u0430\u0020\u0440\u043e\u0437\u044b" },
-      { file: "nemnozhko", title: "\u041d\u0435\u043c\u043d\u043e\u0436\u043a\u043e", audioExt: ".wav" },
-      { file: "pachka-sigaret", title: "\u041f\u0430\u0447\u043a\u0430\u0020\u0441\u0438\u0433\u0430\u0440\u0435\u0442" },
-      { file: "yashlek", title: "\u042f\u0448\u044c\u043b\u0435\u043a" },
-      { file: "eto-vetru-govoril", title: "\u042d\u0442\u043e\u0020\u0432\u0435\u0442\u0440\u0443\u0020\u0433\u043e\u0432\u043e\u0440\u0438\u043b" },
-      { file: "mir-naiznanku", title: "\u041c\u0438\u0440\u0020\u043d\u0430\u0438\u0437\u043d\u0430\u043d\u043a\u0443" },
-      { file: "karusel", title: "\u041a\u0430\u0440\u0443\u0441\u0435\u043b\u044c" },
-      { file: "dikaya-kometa", title: "\u0414\u0438\u043a\u0430\u044f\u0020\u043a\u043e\u043c\u0435\u0442\u0430" },
-      { file: "mamaamakriminal", title: "\u041c\u0430\u043c\u0430\u0430\u043c\u0430\u041a\u0440\u0438\u043c\u0438\u043d\u0430\u043b" },
-      { file: "ekho-shagov", title: "\u042d\u0445\u043e\u0020\u0448\u0430\u0433\u043e\u0432" },
-      { file: "ayforio", title: "\u0410\u0439\u0444\u043e\u0440\u0438\u043e" },
-      { file: "bez-imeni", title: "\u0411\u0435\u0437\u0020\u0438\u043c\u0435\u043d\u0438" },
-      { file: "spichki", title: "\u0421\u043f\u0438\u0447\u043a\u0438" },
-      { file: "poka-dyshu", title: "EP\u0020\u00ab\u041f\u043e\u043a\u0430\u0020\u0434\u044b\u0448\u0443\u00bb", type: "EP" },
-      { file: "puls", title: "\u041f\u0443\u043b\u044c\u0441" },
-      { file: "ne-veryu", title: "\u041d\u0435\u0020\u0432\u0435\u0440\u044e" },
-      { file: "uliver", title: "\u0423\u043b\u0438\u0432\u0435\u0440" },
-      { file: "sotri-menya", title: "\u0421\u043e\u0442\u0440\u0438\u0020\u043c\u0435\u043d\u044f" }
-    ];
+    const releasedTracksConfig = Array.isArray(window.RELEASED_TRACKS_DATA)
+      ? window.RELEASED_TRACKS_DATA
+      : [];
 
 
 
@@ -2048,15 +2020,16 @@
       return releasedTracksConfig.map((trackConfig, index) => {
         const trackDate = new Date(baseDate.getTime());
         trackDate.setDate(baseDate.getDate() + index * 9);
+        const releaseLabel = trackConfig.releaseDate || formatDateLabel(trackDate);
         return {
-          file: trackConfig.file,
+          slug: trackConfig.slug,
           title: trackConfig.title,
           type: trackConfig.type || "\u0421\u0438\u043d\u0433\u043b",
-          date: formatDateLabel(trackDate),
+          date: releaseLabel,
           likes: 2100 + index * 47,
           plays: 130000 + index * 6100,
-          coverStyle: buildCoverBackgroundValue(trackConfig.file),
-          audio: buildAudioSource(trackConfig.file, trackConfig.audioExt)
+          coverStyle: buildCoverBackgroundValue(trackConfig.slug),
+          audio: buildAudioSource(trackConfig.slug, trackConfig.audioExt)
         };
       });
     }
@@ -2064,6 +2037,7 @@
     function createTrackCard(track) {
       const article = document.createElement("article");
       article.className = "track-card";
+      article.dataset.trackSlug = track.slug;
       article.dataset.likes = track.likes;
       article.dataset.plays = track.plays;
       article.innerHTML = `
@@ -2119,6 +2093,20 @@
     }
 
     renderReleasedTracks();
+
+    const carouselButtons = document.querySelectorAll("[data-carousel-target]");
+    carouselButtons.forEach(button => {
+      const targetId = button.dataset.carouselTarget;
+      const direction = button.dataset.carouselDirection === "next" ? 1 : -1;
+      button.addEventListener("click", () => {
+        const carousel = document.getElementById(targetId);
+        if (!carousel) {
+          return;
+        }
+        const step = carousel.clientWidth ? carousel.clientWidth * 0.85 : 320;
+        carousel.scrollBy({ left: step * direction, behavior: "smooth" });
+      });
+    });
 
     const trackCards = document.querySelectorAll(".track-card");
     const prefersReducedMotion =
