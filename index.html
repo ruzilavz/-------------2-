@@ -2575,14 +2575,11 @@
     document.getElementById("year").textContent = new Date().getFullYear();
     const numberFormatter = new Intl.NumberFormat("ru-RU");
 
-    const releasedCarousel = document.getElementById("releasedCarousel");
     const tracksGrid = document.querySelector("#tracks .tracks-grid");
     const releasedTracksConfig = Array.isArray(window.RELEASED_TRACKS_DATA)
       ? window.RELEASED_TRACKS_DATA
       : [];
     const releaseReferenceDate = resolveReferenceDate();
-    const tracksGalleryScroller = document.getElementById("tracksGalleryScroller");
-    const tracksGalleryFilters = document.getElementById("tracksGalleryFilters");
     const availabilityLabelMap = {
       public: "Открыто",
       "early-access": "Ранний доступ",
@@ -2693,12 +2690,6 @@
         const audioSource = buildAudioSource(audioBase, trackConfig.audioExt);
         const previewAllowed = trackConfig.preview === true || trackConfig.alwaysPlayable === true;
         const hasAudio = Boolean(audioSource) && (releaseState === "released" || previewAllowed);
-        const hasExactReleaseDate = Boolean(parsedDate);
-        const releaseTimeline = releaseState === "released"
-          ? "released"
-          : hasExactReleaseDate
-            ? "scheduled"
-            : "no-date";
         const releaseLabel = (() => {
           if (releaseRaw && releaseRaw.toLowerCase() !== "скоро") {
             return releaseState === "soon" ? `Скоро • ${releaseRaw}` : releaseRaw;
@@ -2714,18 +2705,17 @@
           releaseState,
           visualStatus,
           availability,
-          releaseTimeline,
-          hasExactReleaseDate,
           availabilityLabel,
           releaseDateValue,
-          releaseRaw,
           likes: 2100 + index * 47,
           plays: 130000 + index * 6100,
           coverStyle: buildCoverBackgroundValue(coverBase),
           audio: hasAudio ? audioSource : "",
           hasAudio,
           streamUrl: trackConfig.streamUrl || (hasAudio ? audioSource : "#"),
-          lyrics: trackConfig.lyrics || null
+          lyrics: trackConfig.lyrics || null,
+          price: trackConfig.price || 0,
+          copyright: trackConfig.copyright || `© ${new Date().getFullYear()} AVZALØV. Все права защищены.`
         };
       });
     }
@@ -2757,17 +2747,6 @@
         });
     }
 
-    function buildTrackDivider(label, metaText) {
-      const divider = document.createElement("div");
-      divider.className = "track-divider";
-      if (metaText) {
-        divider.innerHTML = `${label} <span class="track-divider-meta">${metaText}</span>`;
-      } else {
-        divider.textContent = label;
-      }
-      return divider;
-    }
-
     function createTrackCard(track) {
       const article = document.createElement("article");
       article.className = "track-card";
@@ -2780,24 +2759,39 @@
       article.dataset.status = track.visualStatus;
       article.dataset.availability = track.availability;
       article.dataset.hasAudio = track.hasAudio ? "true" : "false";
-      if (!track.hasAudio) {
+
+      const isLocked = !track.hasAudio && track.price > 0;
+      if (isLocked) {
         article.classList.add("track-locked");
+        article.dataset.trackLocked = track.slug;
+        article.dataset.trackPrice = track.price;
       }
+
       const playerControlsClass = track.hasAudio ? "player-controls" : "player-controls is-disabled";
       const playButtonAttributes = track.hasAudio
         ? 'class="track-play-toggle" type="button" aria-label="Воспроизвести трек"'
         : 'class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled';
+      
+      const priceMarkup = isLocked
+        ? `<div class="track-price">
+             <span class="ruzcoin-icon is-inline">RZ</span>
+             Цена раннего доступа: ${track.price} RUZCOIN
+           </div>`
+        : '';
+
       const listenAction = track.hasAudio
         ? `<a href="${track.streamUrl}" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Слушать</span></a>`
-        : track.availability === "early-access"
-          ? '<button class="track-action-btn" type="button" disabled><i class="fas fa-lock"></i><span>Оформить доступ</span></button>'
+        : isLocked
+          ? `<button class="track-action-btn unlock-btn" type="button" data-track-id="${track.slug}" data-unlock-price="${track.price}"><i class="fas fa-lock"></i><span>Открыть за ${track.price} RUZCOIN</span></button>`
           : '<button class="track-action-btn" type="button" disabled><i class="fas fa-headphones"></i><span>Скоро</span></button>';
+
       const audioMarkup = track.hasAudio
         ? `<audio class="track-audio" src="${track.audio}" preload="metadata"></audio>`
         : '';
+
       article.innerHTML = `
         <div class="track-cover" style="background-image:${track.coverStyle};">
-          <div class="play-overlay"><i class="fas fa-play"></i></div>
+          <div class="play-overlay"><i class="fas ${isLocked ? 'fa-lock' : 'fa-play'}"></i></div>
         </div>
         <div class="track-info">
           <div class="track-title-row">
@@ -2819,22 +2813,24 @@
               <span class="track-plays-count">${formatCount(track.plays)}</span>
             </div>
           </div>
+          ${priceMarkup}
           <div class="${playerControlsClass}">
             <button ${playButtonAttributes}>
-              <i class="fas fa-play"></i>
+              <i class="fas ${isLocked ? 'fa-lock' : 'fa-play'}"></i>
             </button>
             <div class="progress-bar-wrapper">
               <div class="progress-bar"><div class="progress-bar-filled"></div></div>
               <span class="time-display">${track.hasAudio ? '0:00 / 0:00' : 'Скоро'}</span>
             </div>
           </div>
-        <div class="track-actions">
-          <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
-          ${listenAction}
+          <div class="track-actions">
+            <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
+            ${listenAction}
+          </div>
+          <div class="track-copyright">${track.copyright}</div>
         </div>
-      </div>
-      ${audioMarkup}
-      <div class="lyrics-content" style="display: none;"></div>
+        ${audioMarkup}
+        <div class="lyrics-content" style="display: none;"></div>
       `;
       const lyricsContainer = article.querySelector(".lyrics-content");
       if (lyricsContainer && Array.isArray(track.lyrics) && track.lyrics.length > 0) {
@@ -2848,207 +2844,16 @@
         return;
       }
       tracksGrid.innerHTML = '';
-      const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
-      const groups = [
-        {
-          label: 'Доступно сейчас',
-          filter: track => track.releaseTimeline === 'released',
-          buildMeta: matches => matches.length ? `в сети • всего: ${matches.length}` : ''
-        },
-        {
-          label: 'Ранний доступ',
-          filter: track => track.releaseTimeline === 'no-date',
-          buildMeta: matches => matches.length ? `без даты • всего: ${matches.length}` : ''
-        },
-        {
-          label: 'Ожидаются',
-          filter: track => track.releaseTimeline === 'scheduled',
-          buildMeta: matches => {
-            if (!matches.length) {
-              return '';
-            }
-            const metaParts = [];
-            const scheduled = matches
-              .filter(track => Number.isFinite(track.releaseDateValue))
-              .sort((a, b) => a.releaseDateValue - b.releaseDateValue);
-            if (scheduled.length) {
-              const firstDate = dateFormatter.format(new Date(scheduled[0].releaseDateValue));
-              metaParts.push(`ближайшая: ${firstDate}`);
-            }
-            metaParts.push(`всего: ${matches.length}`);
-            return metaParts.join(' • ');
-          }
-        }
-      ];
-      let renderedAny = false;
-      groups.forEach(group => {
-        const matches = tracks.filter(group.filter);
-        if (!matches.length) {
-          return;
-        }
-        renderedAny = true;
-        const metaText = typeof group.buildMeta === 'function' ? group.buildMeta(matches) : '';
-        tracksGrid.appendChild(buildTrackDivider(group.label, metaText));
-        matches.forEach(track => {
-          tracksGrid.appendChild(createTrackCard(track));
-        });
-      });
-      if (!renderedAny) {
+      if (!tracks || tracks.length === 0) {
         const placeholder = document.createElement('p');
         placeholder.className = 'section-sub';
         placeholder.textContent = 'Нет релизов для отображения.';
         tracksGrid.appendChild(placeholder);
-      }
-    }
-
-    function renderReleasedTracks(tracks) {
-      if (!releasedCarousel) {
         return;
       }
-      releasedCarousel.innerHTML = '';
-      const fragment = document.createDocumentFragment();
-      tracks
-        .filter(track => track.releaseState === 'released')
-        .forEach(track => {
-          fragment.appendChild(createTrackCard(track));
-        });
-      releasedCarousel.appendChild(fragment);
-    }
-    function escapeSlugForSelector(value) {
-      if (!value) {
-        return "";
-      }
-      if (typeof CSS !== "undefined" && typeof CSS.escape === "function") {
-        return CSS.escape(value);
-      }
-      return value.replace(/(["'\\])/g, "\\$1");
-    }
-
-    function focusTrackCard(slug) {
-      if (!slug) {
-        return;
-      }
-      const selector = `.track-card[data-track-slug="${escapeSlugForSelector(slug)}"]`;
-      const target = document.querySelector(selector);
-      if (!target) {
-        return;
-      }
-      document
-        .querySelectorAll('.track-card.is-highlighted')
-        .forEach(card => {
-          if (card !== target) {
-            card.classList.remove('is-highlighted');
-          }
-        });
-      target.classList.add('is-highlighted');
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      window.setTimeout(() => {
-        target.classList.remove('is-highlighted');
-      }, 1800);
-    }
-
-    function createGalleryCard(track) {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'mini-gallery-card';
-      if (track.slug) {
-        button.dataset.trackSlug = track.slug;
-      }
-      button.innerHTML = `
-        <div class="mini-gallery-cover" style="background-image:${track.coverStyle};"></div>
-        <div class="mini-gallery-body">
-          <div class="mini-gallery-name">${track.title}</div>
-          <div class="mini-gallery-meta">
-            <span>${track.typeLabel}</span>
-            <span class="dot"></span>
-            <span>${track.releaseLabel}</span>
-          </div>
-          <span class="mini-gallery-badge ${track.availability}">${track.availabilityLabel}</span>
-        </div>
-      `;
-      button.addEventListener('click', () => focusTrackCard(track.slug));
-      return button;
-    }
-
-    function filterTracksForGallery(tracks, filterKey) {
-      switch (filterKey) {
-        case 'released':
-          return tracks.filter(track => track.releaseTimeline === 'released');
-        case 'early-access':
-          return tracks.filter(track =>
-            track.releaseTimeline === 'no-date' ||
-            (track.availability === 'early-access' && track.releaseTimeline !== 'released')
-          );
-        case 'upcoming':
-          return tracks.filter(track => track.releaseTimeline === 'scheduled');
-        default:
-          return tracks;
-      }
-    }
-
-    function setupTracksGallery(tracks) {
-      if (!tracksGalleryScroller) {
-        return;
-      }
-      const filters = [
-        { key: 'all', label: 'Все' },
-        { key: 'released', label: 'Вышли' },
-        { key: 'early-access', label: 'Ранний доступ' },
-        { key: 'upcoming', label: 'Ожидаются' }
-      ];
-      let activeFilter = 'all';
-
-      function renderFilters() {
-        if (!tracksGalleryFilters) {
-          return;
-        }
-        tracksGalleryFilters.innerHTML = '';
-        filters.forEach(filter => {
-          const button = document.createElement('button');
-          button.type = 'button';
-          button.className = 'mini-gallery-filter';
-          button.textContent = filter.label;
-          if (filter.key === activeFilter) {
-            button.classList.add('is-active');
-          }
-          button.addEventListener('click', () => {
-            if (activeFilter === filter.key) {
-              return;
-            }
-            activeFilter = filter.key;
-            renderFilters();
-            renderItems();
-          });
-          tracksGalleryFilters.appendChild(button);
-        });
-      }
-
-      function renderItems() {
-        tracksGalleryScroller.innerHTML = '';
-        const filtered = filterTracksForGallery(tracks, activeFilter);
-        if (!filtered.length) {
-          const placeholder = document.createElement('div');
-          placeholder.className = 'mini-gallery-empty';
-          placeholder.textContent = 'Нет треков для отображения.';
-          tracksGalleryScroller.appendChild(placeholder);
-          return;
-        }
-        filtered.forEach(track => {
-          tracksGalleryScroller.appendChild(createGalleryCard(track));
-        });
-        if (typeof tracksGalleryScroller.scrollTo === 'function') {
-          tracksGalleryScroller.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          tracksGalleryScroller.scrollLeft = 0;
-        }
-      }
-
-      renderFilters();
-      renderItems();
+      tracks.forEach(track => {
+        tracksGrid.appendChild(createTrackCard(track));
+      });
     }
 
     function updateLyricsModalTheme(slug) {
@@ -3152,22 +2957,6 @@
 
     const trackLibrary = sortTrackLibrary(buildTrackLibrary());
     renderTracksGrid(trackLibrary);
-    renderReleasedTracks(trackLibrary);
-    setupTracksGallery(trackLibrary);
-
-    const carouselButtons = document.querySelectorAll("[data-carousel-target]");
-    carouselButtons.forEach(button => {
-      const targetId = button.dataset.carouselTarget;
-      const direction = button.dataset.carouselDirection === "next" ? 1 : -1;
-      button.addEventListener("click", () => {
-        const carousel = document.getElementById(targetId);
-        if (!carousel) {
-          return;
-        }
-        const step = carousel.clientWidth ? carousel.clientWidth * 0.85 : 320;
-        carousel.scrollBy({ left: step * direction, behavior: "smooth" });
-      });
-    });
 
     const trackCards = document.querySelectorAll(".track-card");
     const lyricsModal = document.querySelector(".lyrics-modal");
@@ -3225,7 +3014,7 @@
     }
 
     function bindInteractiveMotion() {
-      trackCards.forEach(card => {
+      document.querySelectorAll(".track-card").forEach(card => {
         if (card.dataset.motion === "off" || card.__motionBound) {
           return;
         }
@@ -3238,7 +3027,7 @@
     }
 
     function unbindInteractiveMotion() {
-      trackCards.forEach(card => {
+      document.querySelectorAll(".track-card").forEach(card => {
         if (!card.__motionBound) {
           setDefaultTilt(card);
           return;
@@ -3254,7 +3043,7 @@
     if (!prefersReducedMotion.matches) {
       bindInteractiveMotion();
     } else {
-      trackCards.forEach(setDefaultTilt);
+      document.querySelectorAll(".track-card").forEach(setDefaultTilt);
     }
 
     const handleMotionPreferenceChange = event => {
@@ -3440,7 +3229,7 @@
     }
 
     function stopAllExcept(cardToKeep) {
-      trackCards.forEach(card => {
+      document.querySelectorAll(".track-card").forEach(card => {
         const audio = card.querySelector(".track-audio");
         if (!audio || card === cardToKeep) {
           return;
@@ -3495,129 +3284,102 @@
       }
       updateLyricsDesyncState();
     }
+    
+    function rebindTrackCardEvents() {
+        document.querySelectorAll(".track-card").forEach(card => {
+            const audio = card.querySelector(".track-audio");
+            const cover = card.querySelector(".track-cover");
+            const toggle = card.querySelector(".track-play-toggle");
+            const progressBar = card.querySelector(".progress-bar");
+            const lyricsBtn = card.querySelector(".lyrics-btn");
 
-    trackCards.forEach(card => {
-      const audio = card.querySelector(".track-audio");
-      const cover = card.querySelector(".track-cover");
-      const toggle = card.querySelector(".track-play-toggle");
-      const progressBar = card.querySelector(".progress-bar");
-      const progressFilled = card.querySelector(".progress-bar-filled");
-      const timeDisplay = card.querySelector(".time-display");
-      const lyricsBtn = card.querySelector(".lyrics-btn");
+            setupTrackStats(card);
 
-      setupTrackStats(card);
+            if (lyricsBtn) {
+                lyricsBtn.addEventListener("click", () => openLyrics(card));
+            }
 
-      if (lyricsBtn) {
-        lyricsBtn.addEventListener("click", () => openLyrics(card));
-      }
+            if (!audio) return;
 
-      if (!audio) {
-        return;
-      }
+            const timeDisplay = card.querySelector(".time-display");
+            if (timeDisplay) timeDisplay.textContent = "0:00 / 0:00";
 
-      if (timeDisplay) {
-        timeDisplay.textContent = "0:00 / 0:00";
-      }
+            audio.addEventListener("loadedmetadata", () => {
+                if (timeDisplay) timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+                if (audio === currentAudio) miniPlayerDuration.textContent = formatTime(audio.duration);
+            });
 
-      audio.addEventListener("loadedmetadata", () => {
-        if (timeDisplay) {
-          timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-        }
-        if (audio === currentAudio) {
-          miniPlayerDuration.textContent = formatTime(audio.duration);
-        }
-      });
+            [cover, toggle].forEach(control => {
+                if (control) control.addEventListener("click", () => handleToggle(card, audio));
+            });
 
-      [cover, toggle].forEach(control => {
-        if (control) {
-          control.addEventListener("click", () => handleToggle(card, audio));
-        }
-      });
+            audio.addEventListener("play", () => {
+                stopAllExcept(card);
+                currentAudio = audio;
+                currentCard = card;
+                card.classList.add("playing");
+                setCardIcons(card, true);
+                updateMiniPlayer(card, audio);
+                resetRealtimeMarker(card, audio.currentTime);
+                setBodyCover(card);
+                if (lyricsActiveCard === card) updateLyricsDesyncState();
+            });
 
-      audio.addEventListener("play", () => {
-        stopAllExcept(card);
-        currentAudio = audio;
-        currentCard = card;
-        card.classList.add("playing");
-        setCardIcons(card, true);
-        updateMiniPlayer(card, audio);
-        resetRealtimeMarker(card, audio.currentTime);
-        setBodyCover(card);
-        if (lyricsActiveCard === card) {
-          updateLyricsDesyncState();
-        }
-      });
+            audio.addEventListener("pause", () => {
+                setCardIcons(card, false);
+                card.classList.remove("playing");
+                resetRealtimeMarker(card, audio.currentTime);
+                if (currentAudio === audio) updateMiniPlayer(card, audio);
+                clearBodyCover();
+                if (lyricsActiveCard === card) updateLyricsDesyncState();
+            });
 
-      audio.addEventListener("pause", () => {
-        setCardIcons(card, false);
-        card.classList.remove("playing");
-        resetRealtimeMarker(card, audio.currentTime);
-        if (currentAudio === audio) {
-          updateMiniPlayer(card, audio);
-          clearBodyCover();
-        }
-        if (lyricsActiveCard === card) {
-          updateLyricsDesyncState();
-        }
-      });
+            audio.addEventListener("timeupdate", () => {
+                updateTrackPlays(card, audio);
+                const hasDuration = Number.isFinite(audio.duration) && audio.duration > 0;
+                const progress = hasDuration ? (audio.currentTime / audio.duration) * 100 : 0;
+                const progressFilled = card.querySelector(".progress-bar-filled");
+                if (progressFilled) progressFilled.style.width = `${progress}%`;
+                if (timeDisplay) timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+                if (currentAudio === audio) {
+                    miniPlayerProgressFilled.style.width = `${progress}%`;
+                    miniPlayerCurrentTime.textContent = formatTime(audio.currentTime);
+                    miniPlayerDuration.textContent = formatTime(audio.duration);
+                }
+            });
 
-      audio.addEventListener("timeupdate", () => {
-        updateTrackPlays(card, audio);
-        const hasDuration = Number.isFinite(audio.duration) && audio.duration > 0;
-        const progress = hasDuration ? (audio.currentTime / audio.duration) * 100 : 0;
-        if (progressFilled) {
-          progressFilled.style.width = `${progress}%`;
-        }
-        if (timeDisplay) {
-          timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-        }
-        if (currentAudio === audio) {
-          miniPlayerProgressFilled.style.width = `${progress}%`;
-          miniPlayerCurrentTime.textContent = formatTime(audio.currentTime);
-          miniPlayerDuration.textContent = formatTime(audio.duration);
-        }
-      });
+            audio.addEventListener("ended", () => {
+                resetCard(card, audio);
+                if (currentAudio === audio) {
+                    currentAudio = null;
+                    currentCard = null;
+                    clearMiniPlayer();
+                }
+                if (lyricsActiveCard === card) updateLyricsDesyncState();
+            });
 
-      audio.addEventListener("ended", () => {
-        resetCard(card, audio);
-        if (currentAudio === audio) {
-          currentAudio = null;
-          currentCard = null;
-          clearMiniPlayer();
-        }
-        if (lyricsActiveCard === card) {
-          updateLyricsDesyncState();
-        }
-      });
+            audio.addEventListener("seeked", () => {
+                resetRealtimeMarker(card, audio.currentTime);
+                if (lyricsActiveCard === card) updateLyricsDesyncState();
+            });
 
-      audio.addEventListener("seeked", () => {
-        resetRealtimeMarker(card, audio.currentTime);
-        if (lyricsActiveCard === card) {
-          updateLyricsDesyncState();
-        }
-      });
-
-      if (progressBar) {
-        progressBar.addEventListener("click", event => {
-          if (!Number.isFinite(audio.duration) || audio.duration === 0) {
-            return;
-          }
-          const rect = progressBar.getBoundingClientRect();
-          const ratio = (event.clientX - rect.left) / rect.width;
-          audio.currentTime = Math.max(0, Math.min(audio.duration, ratio * audio.duration));
+            if (progressBar) {
+                progressBar.addEventListener("click", event => {
+                    if (!Number.isFinite(audio.duration) || audio.duration === 0) return;
+                    const rect = progressBar.getBoundingClientRect();
+                    const ratio = (event.clientX - rect.left) / rect.width;
+                    audio.currentTime = Math.max(0, Math.min(audio.duration, ratio * audio.duration));
+                });
+            }
         });
-      }
-    });
+        bindInteractiveMotion();
+    }
+
+    rebindTrackCardEvents();
 
     miniPlayerPlayBtn.addEventListener("click", () => {
-      if (!currentAudio) {
-        return;
-      }
-      if (currentAudio.paused) {
-        currentAudio.play();
-      } else {
-        currentAudio.pause();
-      }
+      if (!currentAudio) return;
+      handleToggle(currentCard, currentAudio);
     });
 
     miniPlayerProgressBar.addEventListener("click", event => {
@@ -4053,18 +3815,11 @@
       }
 
       function updateLockedTracksState() {
-        const cards = document.querySelectorAll("[data-track-locked]");
-        cards.forEach(card => {
+        document.querySelectorAll(".track-card[data-track-locked]").forEach(card => {
           const trackId = card.dataset.trackLocked;
           const price = Number(card.dataset.trackPrice || 0);
           const unlockBtn = card.querySelector(".unlock-btn");
-          const note = card.querySelector(".track-locked-note");
-          const controls = card.querySelector(".player-controls");
-          const playButton = card.querySelector(".track-play-toggle");
-          const toggleIcon = playButton ? playButton.querySelector("i") : null;
-          const overlayIcon = card.querySelector(".track-cover .play-overlay i");
-          const audioEl = card.querySelector(".track-audio");
-
+          
           const isUnlocked = Boolean(
             currentUser &&
             Array.isArray(currentUser.unlockedTracks) &&
@@ -4072,67 +3827,16 @@
           );
 
           if (isUnlocked) {
-            card.classList.remove("track-locked");
+             // This state is handled by the initial render in createTrackCard
+             // We just need to make sure the button is disabled if it exists
             if (unlockBtn) {
               unlockBtn.textContent = "Открыто";
               unlockBtn.setAttribute("disabled", "disabled");
             }
-            if (note) {
-              const unlockedText = note.dataset.unlockedText;
-              if (unlockedText) {
-                note.textContent = unlockedText;
-              }
-              note.classList.remove("is-hidden");
-            }
-            const hasAudio = Boolean(audioEl);
-            if (controls) {
-              if (hasAudio) {
-                controls.classList.remove("is-disabled");
-              } else {
-                controls.classList.add("is-disabled");
-              }
-            }
-            if (playButton) {
-              if (hasAudio) {
-                playButton.removeAttribute("disabled");
-                playButton.setAttribute("aria-label", "Воспроизвести превью");
-              } else {
-                playButton.setAttribute("disabled", "disabled");
-                playButton.setAttribute("aria-label", "Превью появится скоро");
-              }
-            }
-            if (overlayIcon) {
-              overlayIcon.className = "fas fa-play";
-            }
-            if (toggleIcon) {
-              toggleIcon.className = "fas fa-play";
-            }
-            setCardIcons(card, false);
           } else {
-            card.classList.add("track-locked");
             if (unlockBtn) {
               unlockBtn.textContent = `Открыть за ${price} RUZCOIN`;
               unlockBtn.removeAttribute("disabled");
-            }
-            if (note) {
-              const lockedText = note.dataset.lockedText;
-              if (lockedText) {
-                note.textContent = lockedText;
-              }
-              note.classList.remove("is-hidden");
-            }
-            if (controls && !controls.classList.contains("is-disabled")) {
-              controls.classList.add("is-disabled");
-            }
-            if (playButton) {
-              playButton.setAttribute("disabled", "disabled");
-              playButton.setAttribute("aria-label", "Предпрослушивание недоступно");
-            }
-            if (overlayIcon) {
-              overlayIcon.className = "fas fa-lock";
-            }
-            if (toggleIcon) {
-              toggleIcon.className = "fas fa-lock";
             }
           }
         });
@@ -4202,12 +3906,13 @@
       }
 
       function initLockedTracks() {
-        const lockedButtons = document.querySelectorAll("[data-unlock-price]");
-        lockedButtons.forEach(btn => {
-          btn.addEventListener("click", () => {
-            if (!btn.dataset.trackId) {
-              return;
-            }
+        document.body.addEventListener("click", (event) => {
+            const unlockBtn = event.target.closest('.unlock-btn');
+            if (!unlockBtn) return;
+
+            const trackId = unlockBtn.dataset.trackId;
+            if (!trackId) return;
+
             if (!currentUser) {
               if (profilePopoverController) {
                 profilePopoverController.open();
@@ -4216,8 +3921,8 @@
               }
               return;
             }
-            const price = Number(btn.dataset.unlockPrice || 0);
-            const trackId = btn.dataset.trackId;
+            const price = Number(unlockBtn.dataset.unlockPrice || 0);
+            
             if (currentUser.unlockedTracks.includes(trackId)) {
               alert("Этот трек уже открыт.");
               return;
@@ -4251,10 +3956,15 @@
             saveProfile();
             renderAchievements();
             updateProfilePopoverState();
+            
+            // Re-render the grid to update the unlocked track
+            const newTrackLibrary = sortTrackLibrary(buildTrackLibrary());
+            renderTracksGrid(newTrackLibrary);
+            rebindTrackCardEvents();
             updateLockedTracksState();
+
             alert("Трек открыт! Спасибо за поддержку AVZALØV.");
           });
-        });
       }
 
       coinsPopoverController = attachPopover(headerCoinsBtn, headerCoinsPopover);
