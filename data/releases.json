@@ -1,27 +1,281 @@
 {
   "today": "2025-11-15",
-  "ep": {
-    "title": "Пока дышу",
-    "release_date": "2025-07-27",
-    "tracks": [
-      { "title": "Пока дышу", "status": "released" },
-      { "title": "Пульс", "status": "released" },
-      { "title": "Не верю", "status": "released" },
-      { "title": "Уливер", "status": "released" },
-      { "title": "Сотри меня", "status": "released" }
-    ]
-  },
-  "singles": [
-    { "title": "Она срывала розы", "release_date": "2025-07-22", "status": "released" },
-    { "title": "Спички", "release_date": "2025-08-12", "status": "released" },
-    { "title": "Сирена", "release_date": "2025-11-25", "status": "announced" },
-    { "title": "Перегрев", "release_date": "2025-11-27", "status": "announced" },
-    { "title": "Дикая комета", "release_date": "2025-11-28", "status": "announced" },
-    { "title": "Немножко", "release_date": "2025-11-28", "status": "announced" },
-    { "title": "Яшьлек", "release_date": "2025-11-28", "status": "announced" },
-    { "title": "Лети со мной", "release_date": "2025-11-29", "status": "announced" },
-    { "title": "Это ветру говорил", "release_date": "2025-11-29", "status": "announced" },
-    { "title": "Айфорио", "release_date": "2025-11-30", "status": "announced" },
-    { "title": "Без имени", "release_date": "2025-12-01", "status": "announced" }
+  "releases": [
+    {
+      "slug": "chernyy-yashchik",
+      "title": "Черный ящик",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "zima",
+      "title": "Зима",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "pomni",
+      "title": "Помни",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "okean-vnutri",
+      "title": "Океан внутри",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "o-vsevyshniy",
+      "title": "О Всевышний",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "kak-yad",
+      "title": "Как яд",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "allakh",
+      "title": "Аллах",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "peregrev",
+      "title": "Перегрев",
+      "type": "single",
+      "release_date": "2025-11-27",
+      "display_date": "27.11.2025",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "leti-so-mnoy",
+      "title": "Лети со мной",
+      "type": "single",
+      "release_date": "2025-11-29",
+      "display_date": "29.11.2025",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "sirena",
+      "title": "Сирена",
+      "type": "single",
+      "release_date": "2025-11-25",
+      "display_date": "25.11.2025",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "ierarkhiya",
+      "title": "Иерархия",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "ona-sryvala-rozy-20",
+      "title": "Она срывала розы 2.0",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "ona-sryvala-rozy",
+      "title": "Она срывала розы",
+      "type": "single",
+      "release_date": "2025-07-22",
+      "display_date": "22.07.2025",
+      "release_state": "released",
+      "availability": "public"
+    },
+    {
+      "slug": "nemnozhko",
+      "title": "Немножко",
+      "type": "single",
+      "release_date": "2025-11-28",
+      "display_date": "28.11.2025",
+      "release_state": "soon",
+      "availability": "early-access",
+      "notes": "audio/.wav preview"
+    },
+    {
+      "slug": "pachka-sigaret",
+      "title": "Пачка сигарет",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "yashlek",
+      "title": "Яшьлек",
+      "type": "single",
+      "release_date": "2025-11-28",
+      "display_date": "28.11.2025",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "eto-vetru-govoril",
+      "title": "Это ветру говорил",
+      "type": "single",
+      "release_date": "2025-11-29",
+      "display_date": "29.11.2025",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "mir-naiznanku",
+      "title": "Мир наизнанку",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "karusel",
+      "title": "Карусель",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "dikaya-kometa",
+      "title": "Дикая комета",
+      "type": "single",
+      "release_date": "2025-11-28",
+      "display_date": "28.11.2025",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "mamaamakriminal",
+      "title": "МамаамаКриминал",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "ekho-shagov",
+      "title": "Эхо шагов",
+      "type": "single",
+      "release_date": null,
+      "display_date": "скоро",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "ayforio",
+      "title": "Айфорио",
+      "type": "single",
+      "release_date": "2025-11-30",
+      "display_date": "30.11.2025",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "bez-imeni",
+      "title": "Без имени",
+      "type": "single",
+      "release_date": "2025-12-01",
+      "display_date": "01.12.2025",
+      "release_state": "soon",
+      "availability": "early-access"
+    },
+    {
+      "slug": "spichki",
+      "title": "Спички",
+      "type": "single",
+      "release_date": "2025-08-12",
+      "display_date": "12.08.2025",
+      "release_state": "released",
+      "availability": "public"
+    },
+    {
+      "slug": "poka-dyshu",
+      "title": "Пока дышу",
+      "type": "ep-track",
+      "project": "Пока дышу (EP)",
+      "release_date": "2025-07-27",
+      "display_date": "27.07.2025",
+      "release_state": "released",
+      "availability": "public"
+    },
+    {
+      "slug": "puls",
+      "title": "Пульс",
+      "type": "ep-track",
+      "project": "Пока дышу (EP)",
+      "release_date": "2025-07-27",
+      "display_date": "27.07.2025",
+      "release_state": "released",
+      "availability": "public"
+    },
+    {
+      "slug": "ne-veryu",
+      "title": "Не верю",
+      "type": "ep-track",
+      "project": "Пока дышу (EP)",
+      "release_date": "2025-07-27",
+      "display_date": "27.07.2025",
+      "release_state": "released",
+      "availability": "public"
+    },
+    {
+      "slug": "uliver",
+      "title": "Уливер",
+      "type": "ep-track",
+      "project": "Пока дышу (EP)",
+      "release_date": "2025-07-27",
+      "display_date": "27.07.2025",
+      "release_state": "released",
+      "availability": "public"
+    },
+    {
+      "slug": "sotri-menya",
+      "title": "Сотри меня",
+      "type": "ep-track",
+      "project": "Пока дышу (EP)",
+      "release_date": "2025-07-27",
+      "display_date": "27.07.2025",
+      "release_state": "released",
+      "availability": "public"
+    }
   ]
 }

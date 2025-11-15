@@ -674,77 +674,196 @@
       display: none;
     }
 
-    /* Мини-галерея обложек треков */
+    /* Мини-галерея треков */
     .tracks-mini-gallery {
-      margin: 0 0 28px;
+      margin: 0 0 32px;
       display: flex;
-      justify-content: flex-start;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .tracks-honeycomb {
-      display: grid;
-      grid-template-columns: repeat(4, 60px);
-      gap: 10px;
-      position: relative;
+    .mini-gallery-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    /* «Соты» с обложками */
-    .tracks-honeycomb-item {
-      position: relative;
-      width: 60px;
-      aspect-ratio: calc(1 * 1.1);
-      border-radius: 50% / 32%;
-      overflow: hidden;
+    .mini-gallery-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .mini-gallery-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .mini-gallery-filter {
+      border: 1px solid var(--border);
+      background: rgba(12, 14, 24, 0.7);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .mini-gallery-filter:hover,
+    .mini-gallery-filter:focus-visible {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.18);
+      outline: none;
+    }
+
+    .mini-gallery-filter.is-active {
+      background: var(--accent);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 24px rgba(47, 107, 255, 0.35);
+    }
+
+    .tracks-gallery-scroller {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 2px 10px;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
+    }
+
+    .tracks-gallery-scroller::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .tracks-gallery-scroller::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+    }
+
+    .mini-gallery-card {
+      flex: 0 0 220px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: rgba(12, 14, 24, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition), background var(--transition);
+      scroll-snap-align: start;
+    }
+
+    .mini-gallery-card:hover,
+    .mini-gallery-card:focus-visible {
+      border-color: var(--accent);
+      background: rgba(19, 24, 42, 0.95);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .mini-gallery-cover {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
       background-size: cover;
       background-position: center;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
-      filter: grayscale(0.25);
-      opacity: 0.9;
-      animation: tracksFloat 6s ease-in-out infinite alternate;
-      transition: filter 200ms ease, transform 200ms ease, opacity 200ms ease;
+      background-image: linear-gradient(140deg, rgba(38, 52, 110, 0.85), rgba(12, 16, 32, 0.9));
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+      flex-shrink: 0;
     }
 
-    /* лёгкий «каркас» вокруг */
-    .tracks-honeycomb-item::after {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border-radius: inherit;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      pointer-events: none;
+    .mini-gallery-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
     }
 
-    /* немного смещаем ряды, чтобы выглядело живее */
-    .tracks-honeycomb-item:nth-child(odd) {
-      transform: translateY(6px);
+    .mini-gallery-name {
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* ховер по обложке */
-    .tracks-honeycomb-item:hover {
-      filter: grayscale(0);
-      opacity: 1;
-      transform: translateY(0) scale(1.03);
+    .mini-gallery-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    /* анимация лёгкого «дыхания» влево/к центру */
-    @keyframes tracksFloat {
-      0% {
-        transform: translateX(0) translateY(0) scale(0.96);
-      }
-      50% {
-        transform: translateX(var(--float-offset, 10px))
-                   translateY(-4px)
-                   scale(1.02);
-      }
-      100% {
-        transform: translateX(0) translateY(2px) scale(0.98);
-      }
+    .mini-gallery-badge {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--muted);
     }
 
-    /* адаптив для мобилы */
+    .mini-gallery-badge.public {
+      background: rgba(65, 193, 120, 0.18);
+      color: #b6f7d5;
+    }
+
+    .mini-gallery-badge.early-access {
+      background: rgba(47, 107, 255, 0.16);
+      color: #adc3ff;
+    }
+
+    .mini-gallery-badge.upcoming {
+      background: rgba(255, 166, 0, 0.18);
+      color: #ffe0a3;
+    }
+
+    .mini-gallery-empty {
+      padding: 12px 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .mini-gallery-meta .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.6;
+    }
+
     @media (max-width: 640px) {
-      .tracks-honeycomb {
-        grid-template-columns: repeat(3, 60px);
+      .mini-gallery-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .mini-gallery-filters {
+        justify-content: flex-start;
+      }
+
+      .mini-gallery-card {
+        flex: 0 0 180px;
       }
     }
 
@@ -848,6 +967,11 @@
       --lift: -12px;
       box-shadow: 0 26px 50px rgba(8, 12, 32, 0.6);
       border-color: rgba(86, 131, 255, 0.45);
+    }
+
+    .track-card.is-highlighted {
+      border-color: rgba(86, 131, 255, 0.85);
+      box-shadow: 0 28px 56px rgba(47, 107, 255, 0.35);
     }
 
     .track-card:hover::before,
@@ -1005,11 +1129,18 @@
       z-index: 1;
     }
 
+    .track-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
     .track-title {
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 0.02em;
-      margin-bottom: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1017,6 +1148,33 @@
 
     .track-card.playing .track-title {
       color: #effffc;
+    }
+
+    .track-badge {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .track-badge.public {
+      background: rgba(65, 193, 120, 0.18);
+      color: #b6f7d5;
+    }
+
+    .track-badge.early-access {
+      background: rgba(47, 107, 255, 0.18);
+      color: #adc3ff;
+    }
+
+    .track-badge.upcoming {
+      background: rgba(255, 166, 0, 0.2);
+      color: #ffe0a3;
     }
 
     .track-meta {
@@ -1049,10 +1207,18 @@
       align-items: center;
       gap: 10px;
       font-size: 12px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: rgba(166, 173, 215, 0.78);
     }
+
+    .track-divider-meta {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
 
     .track-divider .track-divider-meta {
       font-size: 11px;
@@ -1900,7 +2066,11 @@
 
       <!-- Мини-галерея обложек -->
       <div class="tracks-mini-gallery">
-        <div class="tracks-honeycomb" id="tracksHoneycomb"></div>
+        <div class="mini-gallery-header">
+          <div class="mini-gallery-title">Быстрый переход по релизам</div>
+          <div class="mini-gallery-filters" id="tracksGalleryFilters"></div>
+        </div>
+        <div class="tracks-gallery-scroller" id="tracksGalleryScroller"></div>
       </div>
 
       <div class="tracks-grid">
@@ -2614,6 +2784,13 @@
       ? window.RELEASED_TRACKS_DATA
       : [];
     const releaseReferenceDate = resolveReferenceDate();
+    const tracksGalleryScroller = document.getElementById("tracksGalleryScroller");
+    const tracksGalleryFilters = document.getElementById("tracksGalleryFilters");
+    const availabilityLabelMap = {
+      public: "Открыто",
+      "early-access": "Ранний доступ",
+      upcoming: "Ожидается"
+    };
 
     function resolveReferenceDate() {
       const manual = typeof window.RELEASES_TODAY === "string" ? window.RELEASES_TODAY.trim() : "";
@@ -2663,6 +2840,24 @@
       return releaseState === "soon" ? "soon" : "released";
     }
 
+    function resolveAvailability(accessValue, releaseState, trackConfig = {}) {
+      const normalized = typeof accessValue === "string" ? accessValue.trim().toLowerCase() : "";
+      if (normalized && Object.prototype.hasOwnProperty.call(availabilityLabelMap, normalized)) {
+        return normalized;
+      }
+      if (releaseState === "released") {
+        return "public";
+      }
+      if (trackConfig && trackConfig.unlockable === false) {
+        return "upcoming";
+      }
+      return "early-access";
+    }
+
+    function formatAvailabilityLabel(value) {
+      return availabilityLabelMap[value] || availabilityLabelMap.public;
+    }
+
     function buildCoverBackgroundValue(fileBase) {
       const normalized = (fileBase || "").trim();
       const gradientFallback = "linear-gradient(140deg, rgba(38, 52, 110, 0.85), rgba(12, 16, 32, 0.9))";
@@ -2694,13 +2889,20 @@
         const releaseState = determineReleaseState(parsedDate);
         const typeLabel = (trackConfig.type || "Сингл").trim() || "Сингл";
         const visualStatus = determineVisualStatus(typeLabel, releaseState);
+        const availability = resolveAvailability(trackConfig.access, releaseState, trackConfig);
+        const availabilityLabel = formatAvailabilityLabel(availability);
         const coverBase = (trackConfig.cover || slug).trim();
         const audioBase = (trackConfig.audio || slug).trim();
         const audioSource = buildAudioSource(audioBase, trackConfig.audioExt);
         const previewAllowed = trackConfig.preview === true || trackConfig.alwaysPlayable === true;
         const hasAudio = Boolean(audioSource) && (releaseState === "released" || previewAllowed);
-        const releaseLabel =
-          releaseRaw && releaseRaw.toLowerCase() !== "скоро" ? releaseRaw : "Скоро";
+        const releaseLabel = (() => {
+          if (releaseRaw && releaseRaw.toLowerCase() !== "скоро") {
+            return releaseState === "soon" ? `Скоро • ${releaseRaw}` : releaseRaw;
+          }
+          return releaseState === "released" ? "Уже в сети" : "Скоро";
+        })();
+        const releaseDateValue = parsedDate ? parsedDate.getTime() : null;
         return {
           slug,
           title: trackConfig.title || slug,
@@ -2708,6 +2910,10 @@
           releaseLabel,
           releaseState,
           visualStatus,
+          availability,
+          availabilityLabel,
+          releaseDateValue,
+          releaseRaw,
           likes: 2100 + index * 47,
           plays: 130000 + index * 6100,
           coverStyle: buildCoverBackgroundValue(coverBase),
@@ -2719,10 +2925,41 @@
       });
     }
 
-    function buildTrackDivider(label) {
+    function sortTrackLibrary(tracks) {
+      return tracks
+        .slice()
+        .sort((a, b) => {
+          if (a.releaseState !== b.releaseState) {
+            return a.releaseState === "released" ? -1 : 1;
+          }
+          const aTime = typeof a.releaseDateValue === "number"
+            ? a.releaseDateValue
+            : a.releaseState === "released"
+              ? -Infinity
+              : Infinity;
+          const bTime = typeof b.releaseDateValue === "number"
+            ? b.releaseDateValue
+            : b.releaseState === "released"
+              ? -Infinity
+              : Infinity;
+          if (aTime !== bTime) {
+            if (a.releaseState === 'released') {
+              return bTime - aTime;
+            }
+            return aTime - bTime;
+          }
+          return a.title.localeCompare(b.title, "ru", { sensitivity: "base" });
+        });
+    }
+
+    function buildTrackDivider(label, metaText) {
       const divider = document.createElement("div");
       divider.className = "track-divider";
-      divider.textContent = label;
+      if (metaText) {
+        divider.innerHTML = `${label} <span class="track-divider-meta">${metaText}</span>`;
+      } else {
+        divider.textContent = label;
+      }
       return divider;
     }
 
@@ -2736,6 +2973,7 @@
       article.dataset.plays = track.plays;
       article.dataset.releaseState = track.releaseState;
       article.dataset.status = track.visualStatus;
+      article.dataset.availability = track.availability;
       article.dataset.hasAudio = track.hasAudio ? "true" : "false";
       if (!track.hasAudio) {
         article.classList.add("track-locked");
@@ -2746,7 +2984,9 @@
         : 'class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled';
       const listenAction = track.hasAudio
         ? `<a href="${track.streamUrl}" target="_blank" class="track-action-btn"><i class="fas fa-headphones"></i><span>Слушать</span></a>`
-        : '<button class="track-action-btn" type="button" disabled><i class="fas fa-headphones"></i><span>Скоро</span></button>';
+        : track.availability === "early-access"
+          ? '<button class="track-action-btn" type="button" disabled><i class="fas fa-lock"></i><span>Оформить доступ</span></button>'
+          : '<button class="track-action-btn" type="button" disabled><i class="fas fa-headphones"></i><span>Скоро</span></button>';
       const audioMarkup = track.hasAudio
         ? `<audio class="track-audio" src="${track.audio}" preload="metadata"></audio>`
         : '';
@@ -2755,7 +2995,10 @@
           <div class="play-overlay"><i class="fas fa-play"></i></div>
         </div>
         <div class="track-info">
-          <div class="track-title">${track.title}</div>
+          <div class="track-title-row">
+            <div class="track-title">${track.title}</div>
+            <span class="track-badge ${track.availability}">${track.availabilityLabel}</span>
+          </div>
           <div class="track-meta">
             <span>${track.typeLabel}</span>
             <span class="dot"></span>
@@ -2802,15 +3045,30 @@
       }
       tracksGrid.innerHTML = '';
       const groups = [
-        { key: 'released', label: 'Релизы' },
-        { key: 'soon', label: 'Скоро' }
+        { key: 'released', label: 'Доступно сейчас', meta: 'в сети' },
+        { key: 'soon', label: 'Скоро', meta: 'ранний доступ и предзаказ' }
       ];
       groups.forEach(group => {
         const matches = tracks.filter(track => track.releaseState === group.key);
         if (!matches.length) {
           return;
         }
-        tracksGrid.appendChild(buildTrackDivider(group.label));
+        const metaParts = [];
+        if (group.meta) {
+          metaParts.push(group.meta);
+        }
+        if (group.key === 'soon') {
+          const earlyAccessCount = matches.filter(track => track.availability === 'early-access').length;
+          const upcomingCount = matches.length - earlyAccessCount;
+          if (earlyAccessCount > 0) {
+            metaParts.push(`ранний доступ: ${earlyAccessCount}`);
+          }
+          if (upcomingCount > 0) {
+            metaParts.push(`ожидается: ${upcomingCount}`);
+          }
+        }
+        metaParts.push(`всего: ${matches.length}`);
+        tracksGrid.appendChild(buildTrackDivider(group.label, metaParts.join(' • ')));
         matches.forEach(track => {
           tracksGrid.appendChild(createTrackCard(track));
         });
@@ -2836,6 +3094,136 @@
         });
       releasedCarousel.appendChild(fragment);
     }
+    function escapeSlugForSelector(value) {
+      if (!value) {
+        return "";
+      }
+      if (typeof CSS !== "undefined" && typeof CSS.escape === "function") {
+        return CSS.escape(value);
+      }
+      return value.replace(/(["'\\])/g, "\\$1");
+    }
+
+    function focusTrackCard(slug) {
+      if (!slug) {
+        return;
+      }
+      const selector = `.track-card[data-track-slug="${escapeSlugForSelector(slug)}"]`;
+      const target = document.querySelector(selector);
+      if (!target) {
+        return;
+      }
+      document
+        .querySelectorAll('.track-card.is-highlighted')
+        .forEach(card => {
+          if (card !== target) {
+            card.classList.remove('is-highlighted');
+          }
+        });
+      target.classList.add('is-highlighted');
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      window.setTimeout(() => {
+        target.classList.remove('is-highlighted');
+      }, 1800);
+    }
+
+    function createGalleryCard(track) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'mini-gallery-card';
+      if (track.slug) {
+        button.dataset.trackSlug = track.slug;
+      }
+      button.innerHTML = `
+        <div class="mini-gallery-cover" style="background-image:${track.coverStyle};"></div>
+        <div class="mini-gallery-body">
+          <div class="mini-gallery-name">${track.title}</div>
+          <div class="mini-gallery-meta">
+            <span>${track.typeLabel}</span>
+            <span class="dot"></span>
+            <span>${track.releaseLabel}</span>
+          </div>
+          <span class="mini-gallery-badge ${track.availability}">${track.availabilityLabel}</span>
+        </div>
+      `;
+      button.addEventListener('click', () => focusTrackCard(track.slug));
+      return button;
+    }
+
+    function filterTracksForGallery(tracks, filterKey) {
+      switch (filterKey) {
+        case 'released':
+          return tracks.filter(track => track.releaseState === 'released');
+        case 'early-access':
+          return tracks.filter(track => track.availability === 'early-access');
+        case 'upcoming':
+          return tracks.filter(track => track.availability === 'upcoming');
+        default:
+          return tracks;
+      }
+    }
+
+    function setupTracksGallery(tracks) {
+      if (!tracksGalleryScroller) {
+        return;
+      }
+      const filters = [
+        { key: 'all', label: 'Все' },
+        { key: 'released', label: 'Вышли' },
+        { key: 'early-access', label: 'Ранний доступ' },
+        { key: 'upcoming', label: 'Ожидаются' }
+      ];
+      let activeFilter = 'all';
+
+      function renderFilters() {
+        if (!tracksGalleryFilters) {
+          return;
+        }
+        tracksGalleryFilters.innerHTML = '';
+        filters.forEach(filter => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'mini-gallery-filter';
+          button.textContent = filter.label;
+          if (filter.key === activeFilter) {
+            button.classList.add('is-active');
+          }
+          button.addEventListener('click', () => {
+            if (activeFilter === filter.key) {
+              return;
+            }
+            activeFilter = filter.key;
+            renderFilters();
+            renderItems();
+          });
+          tracksGalleryFilters.appendChild(button);
+        });
+      }
+
+      function renderItems() {
+        tracksGalleryScroller.innerHTML = '';
+        const filtered = filterTracksForGallery(tracks, activeFilter);
+        if (!filtered.length) {
+          const placeholder = document.createElement('div');
+          placeholder.className = 'mini-gallery-empty';
+          placeholder.textContent = 'Нет треков для отображения.';
+          tracksGalleryScroller.appendChild(placeholder);
+          return;
+        }
+        filtered.forEach(track => {
+          tracksGalleryScroller.appendChild(createGalleryCard(track));
+        });
+        if (typeof tracksGalleryScroller.scrollTo === 'function') {
+          tracksGalleryScroller.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          tracksGalleryScroller.scrollLeft = 0;
+        }
+      }
+
+      renderFilters();
+      renderItems();
+    }
+
     function updateLyricsModalTheme(slug) {
       const isYashlek = slug === LYRICS_DESYNC_SLUG;
       if (lyricsModal) {
@@ -2935,9 +3323,10 @@
       stopLyricsDesync();
     }
 
-    const trackLibrary = buildTrackLibrary();
+    const trackLibrary = sortTrackLibrary(buildTrackLibrary());
     renderTracksGrid(trackLibrary);
     renderReleasedTracks(trackLibrary);
+    setupTracksGallery(trackLibrary);
 
     const carouselButtons = document.querySelectorAll("[data-carousel-target]");
     carouselButtons.forEach(button => {
