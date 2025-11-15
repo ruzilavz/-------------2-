@@ -157,6 +157,107 @@
       width: 100%;
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .ruzcoin-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(47, 107, 255, 0.38);
+      background: rgba(14, 16, 28, 0.95);
+      box-shadow: 0 10px 24px rgba(18, 20, 36, 0.5);
+    }
+
+    .ruzcoin-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .ruzcoin-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .ruzcoin-value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .ruzcoin-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 12px;
+      background: linear-gradient(130deg, #ffe066, #ffb347);
+      color: #0c0f1c;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      box-shadow: 0 6px 18px rgba(255, 179, 71, 0.4);
+    }
+
+    .ruzcoin-icon.is-inline {
+      width: 22px;
+      height: 22px;
+      font-size: 10px;
+      margin-right: 6px;
+      box-shadow: none;
+    }
+
+    .header-profile-btn,
+    .header-topup-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: rgba(9, 12, 24, 0.9);
+      color: var(--text);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+
+    .header-profile-btn:hover,
+    .header-topup-btn:hover {
+      background: rgba(26, 36, 74, 0.95);
+      border-color: rgba(47, 107, 255, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .header-profile-btn i,
+    .header-topup-btn i {
+      font-size: 14px;
+    }
+
+    .chip-soon {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 205, 150, 0.4);
+      background: rgba(255, 195, 120, 0.15);
+      color: #ffd08a;
+    }
+
     .nav-toggle {
       display: none;
       width: 32px;
@@ -442,6 +543,9 @@
     .profile-coins {
       font-size: 13px;
       margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .coins-amount {
