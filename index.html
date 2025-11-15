@@ -568,6 +568,29 @@
       transition: background var(--transition), border-color var(--transition), transform var(--transition);
     }
 
+    .header-profile-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-image: var(--header-avatar-image, linear-gradient(140deg, rgba(47, 107, 255, 0.36), rgba(18, 22, 40, 0.9)));
+      background-size: cover;
+      background-position: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #e4e9ff;
+      transition: opacity var(--transition);
+      overflow: hidden;
+    }
+
+    .header-profile-avatar.has-image {
+      color: transparent;
+      box-shadow: 0 8px 18px rgba(12, 18, 38, 0.55);
+    }
+
     .header-profile-btn:hover,
     .header-profile-btn:focus-visible {
       background: rgba(26, 36, 74, 0.95);
@@ -621,6 +644,63 @@
       font-size: 11px;
       color: rgba(198, 206, 244, 0.75);
       line-height: 1.4;
+    }
+
+    .topup-methods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .topup-method-card {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(64, 96, 202, 0.35);
+      background: rgba(14, 17, 32, 0.92);
+      color: rgba(218, 224, 255, 0.9);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .topup-method-card:hover,
+    .topup-method-card:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(108, 148, 255, 0.85);
+      box-shadow: 0 16px 30px rgba(36, 52, 118, 0.45);
+      outline: none;
+    }
+
+    .topup-method-card.is-active {
+      border-color: rgba(140, 172, 255, 0.9);
+      box-shadow: 0 18px 34px rgba(54, 78, 180, 0.5);
+    }
+
+    .topup-method-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: rgba(47, 107, 255, 0.18);
+      display: grid;
+      place-items: center;
+      color: #b8c8ff;
+      font-size: 14px;
+    }
+
+    .topup-method-name {
+      font-weight: 600;
+      color: #e5eaff;
+    }
+
+    .topup-method-note {
+      font-size: 11px;
+      color: rgba(198, 206, 244, 0.75);
     }
 
     .topup-methods-panel .topup-row {
@@ -845,6 +925,61 @@
       color: #f0f3ff;
     }
 
+    .login-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .login-method-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(64, 92, 196, 0.32);
+      background: rgba(12, 14, 26, 0.9);
+      color: #e4e9ff;
+      font-size: 12px;
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .login-method-btn:hover,
+    .login-method-btn:focus-visible {
+      border-color: rgba(114, 148, 255, 0.72);
+      box-shadow: 0 12px 26px rgba(32, 46, 108, 0.45);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .login-method-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: rgba(47, 107, 255, 0.2);
+      display: grid;
+      place-items: center;
+      color: #b9c8ff;
+      font-size: 14px;
+    }
+
+    .login-method-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: flex-start;
+    }
+
+    .login-method-name {
+      font-weight: 600;
+    }
+
+    .login-method-note {
+      font-size: 11px;
+      color: rgba(198, 206, 244, 0.75);
+    }
+
     .profile-popover-section {
       display: none;
       flex-direction: column;
@@ -853,6 +988,28 @@
 
     .profile-popover-section.is-visible {
       display: flex;
+    }
+
+    .popover-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background-image: var(--popover-avatar-image, linear-gradient(140deg, rgba(47, 107, 255, 0.32), rgba(18, 22, 40, 0.9)));
+      background-size: cover;
+      background-position: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #e4e9ff;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+      overflow: hidden;
+    }
+
+    .popover-avatar.has-image {
+      color: transparent;
+      box-shadow: 0 12px 28px rgba(12, 18, 34, 0.55);
     }
 
     .popover-balance {
@@ -917,17 +1074,6 @@
       clip: rect(0, 0, 0, 0);
       white-space: nowrap;
       border: 0;
-    }
-
-    .chip-soon {
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 2px 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 205, 150, 0.4);
-      background: rgba(255, 195, 120, 0.15);
-      color: #ffd08a;
     }
 
     .nav-toggle {
@@ -1152,13 +1298,22 @@
       width: 44px;
       height: 44px;
       border-radius: 14px;
-      background: linear-gradient(140deg, rgba(47, 107, 255, 0.28), rgba(18, 22, 40, 0.9));
+      background-image: var(--user-avatar-image, linear-gradient(140deg, rgba(47, 107, 255, 0.28), rgba(18, 22, 40, 0.9)));
+      background-size: cover;
+      background-position: center;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
       color: #dfe4ff;
       letter-spacing: 0.04em;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .user-avatar.has-image {
+      color: transparent;
+      box-shadow: 0 10px 24px rgba(12, 16, 32, 0.55);
     }
 
     .user-meta {
@@ -1291,8 +1446,8 @@
 
     .profile-main {
       display: flex;
-      gap: 16px;
-      align-items: center;
+      gap: 20px;
+      align-items: flex-start;
       padding: 14px 16px;
       border-radius: var(--radius-md);
       border: 1px solid rgba(68, 94, 186, 0.28);
@@ -1300,15 +1455,71 @@
       box-shadow: 0 18px 32px rgba(6, 8, 16, 0.55);
     }
 
+    .profile-avatar-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
     .profile-avatar {
-      width: 70px;
-      height: 70px;
-      border-radius: 24px;
-      background-image: url("img/avzalov.jpg");
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 28px;
+      background-image: var(--profile-avatar-image, linear-gradient(140deg, rgba(47, 107, 255, 0.45), rgba(34, 20, 69, 0.8)));
       background-size: cover;
-      background-position: center 40%;
+      background-position: center;
       box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .profile-avatar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 55%);
+      opacity: 0.6;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+
+    .profile-avatar.has-image::after {
+      opacity: 0;
+    }
+
+    .profile-avatar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(15, 22, 48, 0.7);
+    }
+
+    .profile-avatar-initials {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: rgba(229, 235, 255, 0.92);
+      text-transform: uppercase;
+      transition: opacity var(--transition);
+    }
+
+    .profile-avatar.has-image .profile-avatar-initials {
+      opacity: 0;
+    }
+
+    .profile-avatar-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .profile-avatar-actions .btn-xs {
+      padding-inline: 10px;
     }
 
     .profile-info {
@@ -1632,6 +1843,11 @@
       color: #ff9d6f;
     }
 
+    .history-entry-delta.is-pending {
+      color: rgba(198, 206, 244, 0.75);
+      font-style: italic;
+    }
+
     .history-entry-time {
       font-size: 11px;
       color: rgba(170, 178, 220, 0.75);
@@ -1937,14 +2153,12 @@
     }
 
     .tracks-gallery-scroller {
-      display: grid;
-      grid-auto-flow: column;
-      grid-template-rows: repeat(2, minmax(0, 1fr));
-      grid-auto-columns: minmax(220px, 1fr);
+      display: flex;
+      flex-wrap: nowrap;
       gap: 14px;
       overflow-x: auto;
-      padding: 4px 2px 10px;
-      scroll-snap-type: x proximity;
+      padding: 4px 2px 14px;
+      scroll-snap-type: x mandatory;
       scrollbar-width: thin;
     }
 
@@ -1955,6 +2169,11 @@
     .tracks-gallery-scroller::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.18);
       border-radius: 999px;
+    }
+
+    .tracks-gallery-scroller::after {
+      content: "";
+      flex: 0 0 4px;
     }
 
     .mini-gallery-card {
@@ -1973,6 +2192,8 @@
       transition: border-color var(--transition), transform var(--transition), background var(--transition);
       scroll-snap-align: start;
       min-height: 200px;
+      min-width: 200px;
+      flex: 0 0 220px;
     }
 
     .mini-gallery-card:hover,
@@ -3337,22 +3558,19 @@
               <div class="popover-sub">1 RUZCOIN = <span id="ruzcoinPriceValue">10 ₽</span></div>
             </div>
             <p class="popover-text">
-              Пополнение и способы оплаты находятся в разработке. Мы уведомим тебя, когда появится возможность купить
-              монеты напрямую.
+              Выбирай количество монет и отправляй заявку на пополнение. Доступны платежи картой, через СБП или кошелёк ЮMoney.
             </p>
             <div class="popover-actions">
               <button class="btn btn-primary btn-xs" type="button" id="headerTopupBtn" aria-controls="topupMethodsPanel" aria-expanded="false">
-                Пополнение
-                <span class="chip-soon">Скоро</span>
+                Пополнить баланс
               </button>
               <button class="btn btn-ghost btn-xs" type="button" id="coinsInfoBtn">
                 Узнать подробнее
               </button>
             </div>
-            <div class="topup-methods-panel" id="topupMethodsPanel" aria-hidden="true">
+            <div class="topup-methods-panel" id="topupMethodsPanel" aria-hidden="true" hidden>
               <div class="topup-methods-note">
-                Попробуй пополнить баланс в демо-режиме или следи за запуском реальных платежей. Выбор синхронизируется с разделом
-                RUZCOIN.
+                Шаг 1 — выбери подходящую сумму. Шаг 2 — нажми на способ оплаты. Заявка прилетит нам автоматически.
               </div>
               <div class="topup-rows">
                 <div class="topup-row">
@@ -3384,6 +3602,23 @@
                   </button>
                 </div>
               </div>
+              <div class="topup-methods-grid">
+                <button class="topup-method-card" type="button" data-topup-method="card">
+                  <div class="topup-method-icon"><i class="fa-solid fa-credit-card"></i></div>
+                  <div class="topup-method-name">Банковская карта</div>
+                  <div class="topup-method-note">Visa, Mastercard, МИР</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="sbp">
+                  <div class="topup-method-icon"><i class="fa-solid fa-building-columns"></i></div>
+                  <div class="topup-method-name">Система быстрых платежей</div>
+                  <div class="topup-method-note">Перевод по номеру телефона</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="yoomoney">
+                  <div class="topup-method-icon"><i class="fa-solid fa-wallet"></i></div>
+                  <div class="topup-method-name">ЮMoney</div>
+                  <div class="topup-method-note">Оплата кошельком или номером карты</div>
+                </button>
+              </div>
               <div class="topup-summary topup-summary-compact">
                 <div>Выбрано: <strong><span id="headerTopupAmount">500</span> RUZ</strong></div>
                 <div>Примерная сумма: <strong><span id="headerTopupPrice">5000</span> ₽</strong></div>
@@ -3393,9 +3628,9 @@
                   <i class="fa-solid fa-bolt"></i>
                   Зачислить как демо
                 </button>
-                <button class="btn btn-disabled topup-btn-real" type="button" id="headerRealTopupBtn" aria-disabled="true">
-                  <i class="fa-solid fa-credit-card"></i>
-                  Пополнить за деньги
+                <button class="btn btn-ghost topup-btn-real" type="button" id="headerRealTopupBtn">
+                  <i class="fa-solid fa-circle-check"></i>
+                  Подтвердить заявку
                 </button>
               </div>
               <button class="btn btn-ghost btn-xs" type="button" id="goToCoinsSectionBtn">Перейти к таблице тарифов</button>
@@ -3431,7 +3666,7 @@
             aria-haspopup="dialog"
             aria-expanded="false"
           >
-            <i class="fas fa-user"></i>
+            <div class="header-profile-avatar" id="headerProfileAvatar" aria-hidden="true">RU</div>
             <span id="headerProfileName">Войти</span>
           </button>
           <div class="header-popover profile-popover" id="headerProfilePopover" role="dialog" aria-hidden="true">
@@ -3440,6 +3675,25 @@
                 <div class="popover-title">Вход в профиль</div>
                 <div class="popover-sub">Получи 10 RUZCOIN за первое подключение</div>
               </div>
+              <div class="login-methods" role="group" aria-label="Способы входа">
+                <button class="login-method-btn" type="button" data-login-quick="demo">
+                  <span class="login-method-icon"><i class="fa-solid fa-bolt"></i></span>
+                  <span class="login-method-body">
+                    <span class="login-method-name">Демо-вход</span>
+                    <span class="login-method-note">Готовый аккаунт Demo Listener</span>
+                  </span>
+                </button>
+                <button class="login-method-btn" type="button" data-login-quick="guest">
+                  <span class="login-method-icon"><i class="fa-solid fa-user"></i></span>
+                  <span class="login-method-body">
+                    <span class="login-method-name">Остаться гостем</span>
+                    <span class="login-method-note">Посмотреть профиль без регистрации</span>
+                  </span>
+                </button>
+              </div>
+              <p class="popover-text">
+                Хочешь свой профиль? Введи ник и придумай пароль — мы создадим аккаунт и начислим приветственный бонус.
+              </p>
               <form id="loginForm" class="popover-form">
                 <label for="loginName" class="sr-only">Никнейм</label>
                 <input type="text" id="loginName" placeholder="Твой ник" autocomplete="nickname" required />
@@ -3459,6 +3713,7 @@
               </details>
             </div>
             <div class="profile-popover-section" data-state="logged-in">
+              <div class="popover-avatar" id="popoverAvatar">RU</div>
               <div class="popover-header">
                 <div class="popover-title" id="popoverProfileName">Гость</div>
                 <div class="popover-sub">ID: <span id="popoverProfileId">—</span></div>
@@ -3529,7 +3784,16 @@
       <div class="profile-wrapper">
         <div class="profile-panel" id="profilePanel" hidden>
           <div class="profile-main">
-            <div class="profile-avatar"></div>
+            <div class="profile-avatar-wrapper">
+              <div class="profile-avatar" id="profileAvatar" role="img" aria-label="Аватар пользователя">
+                <span class="profile-avatar-initials" id="profileAvatarInitials">RU</span>
+              </div>
+              <div class="profile-avatar-actions">
+                <input type="file" id="profileAvatarInput" accept="image/*" hidden />
+                <button class="btn btn-primary btn-xs" type="button" id="profileAvatarUploadBtn">Загрузить</button>
+                <button class="btn btn-ghost btn-xs" type="button" id="profileAvatarResetBtn">Сбросить</button>
+              </div>
+            </div>
             <div class="profile-info">
               <div class="profile-name" id="profileName">Гость</div>
               <div class="profile-id">ID: <span id="profileId">—</span></div>
@@ -3544,8 +3808,7 @@
               <div class="profile-actions-row">
                 <button class="btn btn-primary btn-xs" id="earnDemoCoinsBtn">+5 RUZCOIN (демо)</button>
                 <button class="btn btn-ghost btn-xs" id="profileTopupBtn" type="button">
-                  Пополнение
-                  <span class="chip-soon">В разработке</span>
+                  Пополнить баланс
                 </button>
                 <button class="btn btn-ghost btn-xs" id="logoutBtn" type="button" data-action="logout">Выход</button>
               </div>
@@ -3695,10 +3958,10 @@
         </div>
 
         <div class="profile-empty" id="profileEmpty">
-          <h3>Войдите через меню в правом верхнем углу</h3>
+          <h3>Открой свой профиль AVZALØV</h3>
           <p>
-            После входа откроется личный кабинет с балансом RUZCOIN, достижениями, статистикой прослушиваний и историей операций.
-            Первое подключение подарит 10 RUZCOIN.
+            Нажми «Войти» в правом верхнем углу — выбери демо-аккаунт, останься гостем или создай собственный профиль с бонусом
+            +10 RUZCOIN. В кабинете ждут баланс, достижения, статистика прослушиваний и история операций.
           </p>
         </div>
       </div>
@@ -3720,7 +3983,7 @@
       <div class="section-header">
         <h2 class="section-title">RUZCOIN</h2>
         <p class="section-sub">
-          1 RUZCOIN = 10 ₽. Выбирай количество, смотри ориентировочную цену. Оплаты пока в разработке.
+          1 RUZCOIN = 10 ₽. Выбирай количество, смотри ориентировочную цену и отправляй заявку на пополнение.
         </p>
       </div>
 
@@ -3771,14 +4034,32 @@
               <i class="fa-solid fa-bolt"></i>
               Зачислить как демо
             </button>
-            <button class="btn btn-disabled topup-btn-real" type="button" id="realTopupBtn" aria-disabled="true">
-              <i class="fa-solid fa-credit-card"></i>
-              Пополнить за деньги
+            <button class="btn btn-ghost topup-btn-real" type="button" id="realTopupBtn">
+              <i class="fa-solid fa-circle-check"></i>
+              Отправить заявку
+            </button>
+          </div>
+          <div class="topup-methods-grid">
+            <button class="topup-method-card" type="button" data-topup-method="card">
+              <div class="topup-method-icon"><i class="fa-solid fa-credit-card"></i></div>
+              <div class="topup-method-name">Банковская карта</div>
+              <div class="topup-method-note">Visa, Mastercard, МИР</div>
+            </button>
+            <button class="topup-method-card" type="button" data-topup-method="sbp">
+              <div class="topup-method-icon"><i class="fa-solid fa-building-columns"></i></div>
+              <div class="topup-method-name">Система быстрых платежей</div>
+              <div class="topup-method-note">Перевод по номеру телефона</div>
+            </button>
+            <button class="topup-method-card" type="button" data-topup-method="yoomoney">
+              <div class="topup-method-icon"><i class="fa-solid fa-wallet"></i></div>
+              <div class="topup-method-name">ЮMoney</div>
+              <div class="topup-method-note">Оплата кошельком или номером карты</div>
             </button>
           </div>
         </div>
         <p class="topup-note">
-          Поддержка реальных оплат (карта, СБП, ЮMoney и т.п.) будет добавлена позже. Пока можно тестировать демо-зачисление.
+          После заявки мы пришлём реквизиты выбранного способа и подтвердим пополнение вручную. Пока ждёшь ответ, можно
+          протестировать демо-зачисления.
         </p>
       </div>
     </section>
@@ -4019,7 +4300,21 @@
     const clipsGrid = document.getElementById("clipsGrid");
     const miniGalleryFilterButtons = Array.from(document.querySelectorAll("[data-gallery-filter]"));
 
-    const RUZCOIN_PRICE_RUB = 15;
+    const RUZCOIN_PRICE_RUB = 10;
+    const TOPUP_METHOD_CONFIG = {
+      card: {
+        label: "Банковская карта",
+        description: "Оплата банковской картой Visa, Mastercard или МИР"
+      },
+      sbp: {
+        label: "Система быстрых платежей",
+        description: "Перевод по номеру телефона через СБП"
+      },
+      yoomoney: {
+        label: "ЮMoney",
+        description: "Платёж через кошелёк или привязанную карту"
+      }
+    };
 
     if (navToggle && mainNav) {
       navToggle.addEventListener("click", () => {
@@ -4063,16 +4358,17 @@
     }
 
     function notifyPaymentsInProgress() {
-      alert("Реальные оплаты пока в разработке. Мы сообщим, когда появится возможность пополнить баланс за деньги.");
+      alert("Выберите сумму и один из способов оплаты, чтобы отправить заявку на пополнение RUZCOIN.");
     }
 
-    function setTopupPanelVisibility(shouldShow) {
-      if (!topupMethodsPanel || !headerTopupBtn) {
-        return;
-      }
-      const isVisible = Boolean(shouldShow);
-      topupMethodsPanel.setAttribute("aria-hidden", isVisible ? "false" : "true");
-      headerTopupBtn.setAttribute("aria-expanded", isVisible ? "true" : "false");
+      function setTopupPanelVisibility(shouldShow) {
+        if (!topupMethodsPanel || !headerTopupBtn) {
+          return;
+        }
+        const isVisible = Boolean(shouldShow);
+        topupMethodsPanel.setAttribute("aria-hidden", isVisible ? "false" : "true");
+        topupMethodsPanel.hidden = !isVisible;
+        headerTopupBtn.setAttribute("aria-expanded", isVisible ? "true" : "false");
       if (isVisible) {
         topupMethodsPanel.scrollTop = 0;
       }
@@ -4114,7 +4410,11 @@
     realTopupButtons.forEach(button => {
       button.addEventListener("click", event => {
         event.preventDefault();
-        notifyPaymentsInProgress();
+        if (!selectedTopupMethod) {
+          notifyPaymentsInProgress();
+          return;
+        }
+        handleRealTopup(selectedTopupMethod);
       });
     });
 
@@ -4125,6 +4425,7 @@
     const numberFormatter = new Intl.NumberFormat("ru-RU");
 
     let selectedTopupAmount = 0;
+    let selectedTopupMethod = "";
 
     function updateTopupSelectionFromButton(button) {
       if (!button) {
@@ -4156,6 +4457,68 @@
       }
       const presetButton = topupAmountButtons.find(btn => btn.classList.contains("active"));
       updateTopupSelectionFromButton(presetButton || topupAmountButtons[0]);
+    }
+
+    function getTopupMethodInfo(methodKey) {
+      const normalized = (methodKey || "").toLowerCase();
+      return TOPUP_METHOD_CONFIG[normalized] || null;
+    }
+
+    function setActiveTopupMethod(methodKey) {
+      selectedTopupMethod = (methodKey || "").toLowerCase();
+      topupMethodButtons.forEach(button => {
+        const value = (button.dataset.topupMethod || "").toLowerCase();
+        button.classList.toggle("is-active", value === selectedTopupMethod);
+      });
+    }
+
+    function recordTopupRequest(methodKey, amount) {
+      const method = getTopupMethodInfo(methodKey);
+      if (!currentUser || !method) {
+        return;
+      }
+      const numericAmount = Number(amount);
+      const safeAmount = Number.isFinite(numericAmount) && numericAmount > 0 ? Math.floor(numericAmount) : 0;
+      const description = `Заявка на пополнение (${method.label}) — ${numberFormatter.format(safeAmount)} RUZ`;
+      const entry = {
+        type: "request",
+        description,
+        delta: 0,
+        status: "pending",
+        time: new Date().toLocaleString("ru-RU")
+      };
+      coinHistory = [entry, ...coinHistory].slice(0, MAX_HISTORY_ENTRIES);
+      saveCoinHistory();
+      renderCoinHistory();
+    }
+
+    function handleRealTopup(methodKey) {
+      if (!currentUser) {
+        if (profilePopoverController) {
+          profilePopoverController.open();
+        } else {
+          alert("Войдите в профиль, чтобы отправить заявку на пополнение.");
+        }
+        return;
+      }
+      const method = getTopupMethodInfo(methodKey);
+      if (!method) {
+        alert("Выберите способ оплаты: карта, СБП или ЮMoney.");
+        return;
+      }
+      if (selectedTopupAmount <= 0) {
+        alert("Выберите количество RUZCOIN для пополнения.");
+        return;
+      }
+      recordTopupRequest(methodKey, selectedTopupAmount);
+      alert(
+        `Заявка отправлена!\nСумма: ${numberFormatter.format(selectedTopupAmount)} RUZ\nСпособ: ${method.label}.\n` +
+          "Мы пришлём реквизиты и подтвердим пополнение вручную."
+      );
+      saveProfile();
+      updateProfilePopoverState();
+      setActiveProfileView("history");
+      hideTopupPanel();
     }
 
     function setActiveProfileView(targetView) {
@@ -4193,6 +4556,58 @@
         });
       });
       initializeTopupSelection();
+    }
+
+    if (topupMethodButtons.length) {
+      topupMethodButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          const methodKey = button.dataset.topupMethod || "";
+          setActiveTopupMethod(methodKey);
+          handleRealTopup(methodKey);
+        });
+      });
+    }
+
+    if (loginQuickButtons.length) {
+      loginQuickButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          handleQuickLogin(button.dataset.loginQuick || "");
+        });
+      });
+    }
+
+    if (profileAvatarUploadBtn && profileAvatarInput) {
+      profileAvatarUploadBtn.addEventListener("click", () => {
+        if (!currentUser) {
+          if (profilePopoverController) {
+            profilePopoverController.open();
+          }
+          alert("Войдите в профиль, чтобы загрузить аватар.");
+          return;
+        }
+        profileAvatarInput.click();
+      });
+      profileAvatarInput.addEventListener("change", event => {
+        const files = event.target && event.target.files ? Array.from(event.target.files) : [];
+        handleAvatarSelection(files[0]);
+        profileAvatarInput.value = "";
+      });
+    }
+
+    if (profileAvatarResetBtn) {
+      profileAvatarResetBtn.addEventListener("click", () => {
+        if (!currentUser) {
+          if (profilePopoverController) {
+            profilePopoverController.open();
+          }
+          alert("Войдите в профиль, чтобы управлять аватаром.");
+          return;
+        }
+        currentUser.avatar = "";
+        saveProfile();
+        updateProfilePopoverState();
+        alert("Аватар сброшен до стандартного вида.");
+      });
     }
 
     if (miniGalleryFilterButtons.length) {
@@ -5671,6 +6086,7 @@
       const headerProfileBtn = document.getElementById("headerProfileBtn");
       const headerProfilePopover = document.getElementById("headerProfilePopover");
       const headerProfileNameEl = document.getElementById("headerProfileName");
+      const headerProfileAvatarEl = document.getElementById("headerProfileAvatar");
       const headerCoinsAmountEl = document.getElementById("headerCoinsAmount");
       const openProfileSectionBtn = document.getElementById("openProfileSectionBtn");
       const headerUsersPopover = document.getElementById("headerUsersPopover");
@@ -5680,7 +6096,15 @@
       const popoverProfileIdEl = document.getElementById("popoverProfileId");
       const popoverCoinsAmountEl = document.getElementById("popoverCoinsAmount");
       const popoverProfileRoleEl = document.getElementById("popoverProfileRole");
+      const popoverAvatarEl = document.getElementById("popoverAvatar");
       const ruzcoinPriceValueEl = document.getElementById("ruzcoinPriceValue");
+      const profileAvatarEl = document.getElementById("profileAvatar");
+      const profileAvatarInitialsEl = document.getElementById("profileAvatarInitials");
+      const profileAvatarInput = document.getElementById("profileAvatarInput");
+      const profileAvatarUploadBtn = document.getElementById("profileAvatarUploadBtn");
+      const profileAvatarResetBtn = document.getElementById("profileAvatarResetBtn");
+      const loginQuickButtons = Array.from(document.querySelectorAll("[data-login-quick]"));
+      const topupMethodButtons = Array.from(document.querySelectorAll("[data-topup-method]"));
 
       let currentUser = null;
       let usersRegistry = new Map();
@@ -5874,10 +6298,14 @@
           .slice(0, MAX_HISTORY_ENTRIES)
           .map(entry => {
             const deltaValue = Number(entry.delta);
+            const normalizedDelta = Number.isFinite(deltaValue) ? deltaValue : 0;
+            const type = entry.type ? String(entry.type) : normalizedDelta >= 0 ? "earn" : "spend";
+            const status = entry.status ? String(entry.status) : type === "request" ? "pending" : "completed";
             return {
-              type: entry.type ? String(entry.type) : (deltaValue >= 0 ? "earn" : "spend"),
+              type,
               description: entry.description ? String(entry.description) : "Операция с RUZCOIN",
-              delta: Number.isFinite(deltaValue) ? deltaValue : 0,
+              delta: normalizedDelta,
+              status,
               time: entry.time ? String(entry.time) : new Date().toLocaleString("ru-RU")
             };
           });
@@ -6074,17 +6502,24 @@
         }
         coinHistoryListEl.innerHTML = coinHistory
           .map(entry => {
-            const delta = Number(entry.delta);
+            const delta = Number(entry.delta) || 0;
             const absolute = Math.abs(delta);
-            const sign = delta > 0 ? "+" : "−";
-            const deltaClass = delta >= 0 ? "history-entry-delta is-positive" : "history-entry-delta is-negative";
+            const isPending = entry.status === "pending" || (delta === 0 && entry.type === "request");
+            const sign = delta > 0 ? "+" : delta < 0 ? "−" : "";
+            const deltaClass = isPending
+              ? "history-entry-delta is-pending"
+              : delta >= 0
+                ? "history-entry-delta is-positive"
+                : "history-entry-delta is-negative";
+            const valueLabel = isPending ? "Ожидает" : `${sign}${formatCount(absolute)} RUZ`;
+            const timeLabel = isPending ? `Ожидает подтверждения · ${entry.time}` : entry.time;
             return `
               <div class="history-entry">
                 <div class="history-entry-header">
                   <span class="history-entry-title">${entry.description}</span>
-                  <span class="${deltaClass}">${sign}${formatCount(absolute)} RUZ</span>
+                  <span class="${deltaClass}">${valueLabel}</span>
                 </div>
-                <div class="history-entry-time">${entry.time}</div>
+                <div class="history-entry-time">${timeLabel}</div>
               </div>
             `;
           })
@@ -6207,6 +6642,7 @@
         if (!safeUser.achievements || typeof safeUser.achievements !== "object") {
           safeUser.achievements = {};
         }
+        safeUser.avatar = typeof safeUser.avatar === "string" ? safeUser.avatar.trim() : "";
         return safeUser;
       }
 
@@ -6218,6 +6654,7 @@
           coins: shaped.coins,
           role: shaped.role,
           password: shaped.password,
+          avatar: shaped.avatar,
           unlockedTracks: Array.from(new Set(shaped.unlockedTracks)),
           achievements: { ...shaped.achievements }
         };
@@ -6254,6 +6691,7 @@
         });
         persistUsersRegistry();
         renderUsersDirectory();
+        alert(`Код подтверждён. Добро пожаловать, ${currentUser.name}!`);
       }
 
       function loadUsedAdminCodes() {
@@ -6319,6 +6757,7 @@
         if (headerProfileNameEl) {
           headerProfileNameEl.textContent = name || "Войти";
         }
+        applyHeaderAvatar(currentUser);
       }
 
       function updateProfilePopoverState() {
@@ -6330,6 +6769,7 @@
           profilePopoverLoggedInSection.classList.toggle("is-visible", isLoggedIn);
         }
         if (isLoggedIn) {
+          applyPopoverAvatar(currentUser);
           if (popoverProfileNameEl) {
             popoverProfileNameEl.textContent = currentUser.name;
           }
@@ -6352,6 +6792,7 @@
           if (adminLoginToggle) {
             adminLoginToggle.open = false;
           }
+          applyPopoverAvatar(null);
         }
       }
 
@@ -6370,6 +6811,7 @@
         }
         popover.dataset.open = "false";
         popover.setAttribute("aria-hidden", "true");
+        popover.hidden = true;
         const controller = {
           button,
           popover,
@@ -6380,11 +6822,13 @@
             closeAllPopovers(controller);
             popover.dataset.open = "true";
             popover.setAttribute("aria-hidden", "false");
+            popover.hidden = false;
             button.setAttribute("aria-expanded", "true");
           },
           close() {
             popover.dataset.open = "false";
             popover.setAttribute("aria-hidden", "true");
+            popover.hidden = true;
             button.setAttribute("aria-expanded", "false");
           },
           toggle() {
@@ -6469,6 +6913,81 @@
         return (parts[0][0] + parts[1][0]).toUpperCase();
       }
 
+      function resolveAvatarSource(user) {
+        if (!user) {
+          return "";
+        }
+        const rawValue = typeof user === "string" ? user : user.avatar;
+        if (typeof rawValue !== "string") {
+          return "";
+        }
+        const trimmed = rawValue.trim();
+        if (!trimmed) {
+          return "";
+        }
+        if (trimmed.startsWith("data:") || trimmed.startsWith("blob:")) {
+          return trimmed;
+        }
+        if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith("img/") || trimmed.startsWith("/")) {
+          return trimmed;
+        }
+        return `img/${trimmed}`;
+      }
+
+      function setAvatarBackground(element, cssVariable, source) {
+        if (!element) {
+          return;
+        }
+        if (source) {
+          element.style.setProperty(cssVariable, `url('${source.replace(/'/g, "\\'")}')`);
+          element.classList.add("has-image");
+        } else {
+          element.style.removeProperty(cssVariable);
+          element.classList.remove("has-image");
+        }
+      }
+
+      function applyProfileAvatar(user) {
+        if (!profileAvatarEl) {
+          return;
+        }
+        const initials = formatAvatarLabel(user ? user.name : "");
+        if (profileAvatarInitialsEl) {
+          profileAvatarInitialsEl.textContent = initials;
+        }
+        const source = resolveAvatarSource(user);
+        setAvatarBackground(profileAvatarEl, "--profile-avatar-image", source);
+        if (user && user.name) {
+          profileAvatarEl.setAttribute("aria-label", `Аватар ${user.name}`);
+        } else {
+          profileAvatarEl.setAttribute("aria-label", "Аватар пользователя");
+        }
+      }
+
+      function applyHeaderAvatar(user) {
+        if (!headerProfileAvatarEl) {
+          return;
+        }
+        headerProfileAvatarEl.textContent = formatAvatarLabel(user ? user.name : "");
+        setAvatarBackground(headerProfileAvatarEl, "--header-avatar-image", resolveAvatarSource(user));
+      }
+
+      function applyPopoverAvatar(user) {
+        if (!popoverAvatarEl) {
+          return;
+        }
+        popoverAvatarEl.textContent = formatAvatarLabel(user ? user.name : "");
+        setAvatarBackground(popoverAvatarEl, "--popover-avatar-image", resolveAvatarSource(user));
+      }
+
+      function applyUserCardAvatar(avatarEl, user) {
+        if (!avatarEl) {
+          return;
+        }
+        avatarEl.textContent = formatAvatarLabel(user ? user.name : "");
+        setAvatarBackground(avatarEl, "--user-avatar-image", resolveAvatarSource(user));
+      }
+
       function updateUsersPopoverList(usersSummary = []) {
         if (!headerUsersListEl) {
           return;
@@ -6519,7 +7038,8 @@
             roleLabel: formatRoleLabel(user.role),
             totalPlays: stats.totalPlays,
             uniqueTracks: stats.uniqueTracks,
-            achievements: getAchievementCount(user)
+            achievements: getAchievementCount(user),
+            avatar: user.avatar
           };
         });
         enriched.sort((a, b) => {
@@ -6552,6 +7072,8 @@
             </div>
           `;
           card.dataset.rank = index + 1;
+          const avatarEl = card.querySelector(".user-avatar");
+          applyUserCardAvatar(avatarEl, entry);
           fragment.appendChild(card);
         });
         usersDirectoryEl.innerHTML = "";
@@ -6590,6 +7112,7 @@
             achievementsGridEl.innerHTML = "";
           }
         }
+        applyProfileAvatar(isLoggedIn ? currentUser : null);
         if (isLoggedIn) {
           if (profileNameEl) {
             profileNameEl.textContent = currentUser.name;
@@ -6660,7 +7183,9 @@
         currentUser = null;
         switchUserContext(null);
         saveProfile();
+        setActiveTopupMethod("");
         closeAllPopovers();
+        alert("Вы вышли из профиля. До встречи!");
       }
 
       async function fetchJson(url) {
@@ -6702,6 +7227,88 @@
         usedAdminCodes = loadUsedAdminCodes();
       }
 
+      function handleQuickLogin(methodKey) {
+        const normalized = (methodKey || "").toLowerCase();
+        if (normalized === "demo") {
+          let demoUser = null;
+          for (const user of usersRegistry.values()) {
+            if (user && typeof user.name === "string" && user.name.toLowerCase() === "demo listener") {
+              demoUser = user;
+              break;
+            }
+          }
+          if (!demoUser) {
+            demoUser = {
+              id: "RUZ-DEMO01",
+              name: "Demo Listener",
+              coins: 25,
+              role: "listener",
+              password: "demo",
+              achievements: { welcome: true },
+              unlockedTracks: []
+            };
+          }
+          currentUser = ensureUserShape(demoUser);
+          switchUserContext(currentUser);
+          saveProfile();
+          if (profilePopoverController) {
+            profilePopoverController.close();
+          }
+          setActiveProfileView("overview");
+          alert("Ты вошёл в демо-профиль Demo Listener. Протестируй функции и пополнения без риска.");
+          return;
+        }
+        if (normalized === "guest") {
+          if (profilePopoverController) {
+            profilePopoverController.close();
+          }
+          const profileSection = document.getElementById("profile");
+          if (profileSection) {
+            profileSection.scrollIntoView({ behavior: "smooth" });
+          }
+          setActiveProfileView("overview");
+          alert("Гостевой режим активен. Войди или создай профиль, чтобы сохранять прогресс.");
+        }
+      }
+
+      function handleAvatarSelection(file) {
+        if (!currentUser) {
+          if (profilePopoverController) {
+            profilePopoverController.open();
+          }
+          alert("Войдите в профиль, чтобы менять аватар.");
+          return;
+        }
+        if (!file) {
+          return;
+        }
+        if (!file.type || !file.type.startsWith("image/")) {
+          alert("Выберите файл изображения (PNG, JPG, WebP).");
+          return;
+        }
+        const maxSize = 1024 * 1024 * 2;
+        if (file.size > maxSize) {
+          alert("Размер файла слишком большой. Допустимо до 2 МБ.");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = event => {
+          const result = event.target && typeof event.target.result === "string" ? event.target.result : "";
+          if (!result) {
+            alert("Не удалось загрузить изображение. Попробуйте снова.");
+            return;
+          }
+          currentUser.avatar = result;
+          saveProfile();
+          updateProfilePopoverState();
+          alert("Аватар обновлён!");
+        };
+        reader.onerror = () => {
+          alert("Не удалось прочитать файл. Попробуйте снова.");
+        };
+        reader.readAsDataURL(file);
+      }
+
       function handleLogin(event) {
         event.preventDefault();
         const name = (event.target.elements.loginName.value || "").trim();
@@ -6740,6 +7347,7 @@
           profilePopoverController.close();
         }
         renderUsersDirectory();
+        alert(`С возвращением, ${currentUser.name}! Профиль активирован.`);
       }
 
       function handleAdminLogin(event) {
