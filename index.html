@@ -4055,6 +4055,7 @@
     const tracksGrid = document.querySelector("#tracks .tracks-grid");
 
     const RUZCOIN_PRICE_RUB = 25;
+    const VOLUME_STORAGE_KEY = "avzalov-volume";
     const TOPUP_METHOD_CONFIG = {
       card: {
         label: "Банковская карта",
@@ -5258,6 +5259,43 @@
     let lyricsActiveSlug = "";
     let lyricsDesyncTimer = null;
 
+    function getStoredVolume() {
+      try {
+        const storedValue = localStorage.getItem(VOLUME_STORAGE_KEY);
+        const parsedValue = parseFloat(storedValue);
+        if (Number.isFinite(parsedValue) && parsedValue >= 0 && parsedValue <= 1) {
+          return parsedValue;
+        }
+      } catch (error) {}
+      return null;
+    }
+
+    function persistVolume(value) {
+      if (!Number.isFinite(value)) return;
+      try {
+        localStorage.setItem(VOLUME_STORAGE_KEY, String(value));
+      } catch (error) {}
+    }
+
+    function applyVolumeToAll(volume) {
+      if (!Number.isFinite(volume)) return;
+      document.querySelectorAll(".track-audio").forEach(audio => {
+        audio.volume = volume;
+      });
+      if (currentAudio) {
+        currentAudio.volume = volume;
+      }
+    }
+
+    const storedVolume = getStoredVolume();
+    const initialVolume = Number.isFinite(storedVolume)
+      ? storedVolume
+      : parseFloat(volumeSlider ? volumeSlider.value : "1");
+    if (volumeSlider && Number.isFinite(initialVolume)) {
+      volumeSlider.value = initialVolume.toString();
+    }
+    applyVolumeToAll(Number.isFinite(initialVolume) ? initialVolume : 1);
+
     function setDefaultTilt(card) {
       if (!card) return;
       card.style.setProperty("--tilt-x", "0deg");
@@ -5738,9 +5776,8 @@
     if (volumeSlider) {
       volumeSlider.addEventListener("input", event => {
         const volume = parseFloat(event.target.value);
-        if (currentAudio) {
-          currentAudio.volume = volume;
-        }
+        applyVolumeToAll(volume);
+        persistVolume(volume);
       });
     }
 
