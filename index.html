@@ -6131,32 +6131,23 @@
 
     function buildCoverBackgroundValue(fileBase, coverExt) {
       const normalized = (fileBase || "").trim();
-      const gradientFallback = "linear-gradient(135deg, rgba(10, 12, 30, 0.95), rgba(12, 16, 32, 0.9))";
+      const gradientFallback =
+        "linear-gradient(140deg, rgba(38, 52, 110, 0.85), rgba(12, 16, 32, 0.9))";
 
+      // если не указано имя файла — просто градиент
       if (!normalized) {
         return gradientFallback;
       }
 
-      const sources = [];
+      // 🔥 по умолчанию всегда .jpg
+      const ext = coverExt || ".jpg";
 
-      // если в tracks-data.js указан coverExt (например .png / .jpg)
-      if (coverExt) {
-        const path = encodeURI(`img/${normalized}${coverExt}`);
-        sources.push(`url('${path}')`);
-      }
+      const path = encodeURI(`img/${normalized}${ext}`);
 
-      // пробуем стандартные форматы по имени slug
-      [".webp", ".jpg", ".jpeg", ".png"].forEach(ext => {
-        // если coverExt уже такой — можно пропустить, но не обязательно
-        const path = encodeURI(`img/${normalized}${ext}`);
-        sources.push(`url('${path}')`);
-      });
-
-      // fallback, если ничего не загрузилось
-      sources.push(gradientFallback);
-
-      return sources.join(", ");
+      // фон = картинка + градиент на всякий случай
+      return `url('${path}'), ${gradientFallback}`;
     }
+
 
 
     function buildAudioSource(fileBase, customExt) {
