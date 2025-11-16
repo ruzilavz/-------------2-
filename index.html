@@ -717,6 +717,100 @@
       font-size: 12px;
     }
 
+    .topup-overlay {
+      position: absolute;
+      inset: 12px;
+      border-radius: var(--radius-lg);
+      background: rgba(4, 6, 14, 0.92);
+      border: 1px solid rgba(88, 122, 228, 0.45);
+      box-shadow: 0 18px 42px rgba(8, 12, 28, 0.75);
+      display: none;
+      z-index: 3;
+      overflow: hidden;
+    }
+
+    .topup-overlay.is-visible {
+      display: block;
+      animation: popoverFade var(--transition) ease;
+    }
+
+    .topup-overlay::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(120, 154, 255, 0.18), transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 189, 122, 0.2), transparent 50%);
+      pointer-events: none;
+    }
+
+    .topup-overlay-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 18px;
+      height: 100%;
+    }
+
+    .topup-overlay-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .topup-overlay-title {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #e5eaff;
+    }
+
+    .topup-overlay-close {
+      border: none;
+      background: rgba(255, 255, 255, 0.06);
+      color: #dfe5ff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .topup-overlay-close:hover,
+    .topup-overlay-close:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .topup-overlay-body {
+      display: grid;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(224, 230, 255, 0.9);
+    }
+
+    .topup-overlay-summary {
+      display: grid;
+      gap: 6px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: rgba(20, 24, 42, 0.9);
+      border: 1px solid rgba(102, 132, 238, 0.4);
+    }
+
+    .topup-overlay-summary strong {
+      color: #ffffff;
+    }
+
+    .topup-overlay-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .topup-methods-panel .topup-amount-btn small {
       font-size: 10px;
     }
@@ -3981,6 +4075,32 @@
             </button>
           </div>
         </div>
+        <div class="topup-overlay" id="topupOverlay" aria-hidden="true">
+          <div class="topup-overlay-inner">
+            <div class="topup-overlay-header">
+              <div class="topup-overlay-title">Оформление оплаты</div>
+              <button class="topup-overlay-close" type="button" aria-label="Закрыть оплату" data-topup-close>
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="topup-overlay-body">
+              <div class="topup-overlay-summary">
+                <div>Сумма: <strong><span id="overlayTopupAmount">0</span> RUZ</strong></div>
+                <div>Способ: <strong id="overlayTopupMethod">—</strong></div>
+              </div>
+              <p>
+                Проверь сумму и способ оплаты. После подтверждения мы отправим реквизиты на указанный контакт и зафиксируем заявку в истории RUZCOIN.
+              </p>
+            </div>
+            <div class="topup-overlay-actions">
+              <button class="btn btn-primary" type="button" id="confirmTopupBtn">
+                <i class="fa-solid fa-paper-plane"></i>
+                Подтвердить заявку
+              </button>
+              <button class="btn btn-ghost" type="button" data-topup-close>Закрыть</button>
+            </div>
+          </div>
+        </div>
         <p class="topup-note">
           После заявки мы пришлём реквизиты выбранного способа и подтвердим пополнение вручную. Пока ждёшь ответ, можно
           протестировать демо-зачисления.
@@ -4203,6 +4323,11 @@
     const demoTopupButtons = [document.getElementById("demoTopupBtn")].filter(Boolean);
     const primaryDemoTopupBtn = demoTopupButtons[0] || null;
     const realTopupButtons = [document.getElementById("realTopupBtn")].filter(Boolean);
+    const topupOverlay = document.getElementById("topupOverlay");
+    const topupOverlayAmountEl = document.getElementById("overlayTopupAmount");
+    const topupOverlayMethodEl = document.getElementById("overlayTopupMethod");
+    const topupOverlayCloseButtons = Array.from(document.querySelectorAll("[data-topup-close]"));
+    const confirmTopupBtn = document.getElementById("confirmTopupBtn");
     const profileTabButtons = Array.from(document.querySelectorAll("[data-profile-tab]"));
     const profileViews = Array.from(document.querySelectorAll("[data-profile-view]"));
     const headerUsersBtn = document.getElementById("headerUsersBtn");
@@ -4311,11 +4436,7 @@
     realTopupButtons.forEach(button => {
       button.addEventListener("click", event => {
         event.preventDefault();
-        if (!selectedTopupMethod) {
-          notifyPaymentsInProgress();
-          return;
-        }
-        handleRealTopup(selectedTopupMethod);
+        openTopupOverlay(selectedTopupMethod);
       });
     });
 
@@ -4373,6 +4494,7 @@
       topupPriceDisplayEls.forEach(el => {
         el.textContent = numberFormatter.format(amountValue * RUZCOIN_PRICE_RUB);
       });
+      updateTopupOverlaySummary();
     }
 
     function initializeTopupSelection() {
@@ -4395,6 +4517,70 @@
         const value = (button.dataset.topupMethod || "").toLowerCase();
         button.classList.toggle("is-active", value === selectedTopupMethod);
       });
+      updateTopupOverlaySummary();
+    }
+
+    function updateTopupOverlaySummary() {
+      if (topupOverlayAmountEl) {
+        topupOverlayAmountEl.textContent = numberFormatter.format(Math.max(0, selectedTopupAmount));
+      }
+      if (topupOverlayMethodEl) {
+        const method = getTopupMethodInfo(selectedTopupMethod);
+        topupOverlayMethodEl.textContent = method ? method.label : "—";
+      }
+    }
+
+    function isTopupOverlayOpen() {
+      return topupOverlay && topupOverlay.classList.contains("is-visible");
+    }
+
+    function openTopupOverlay(methodKey) {
+      const normalized = (methodKey || "").toLowerCase();
+      if (normalized) {
+        setActiveTopupMethod(normalized);
+      } else if (!selectedTopupMethod && topupMethodButtons[0]) {
+        setActiveTopupMethod(topupMethodButtons[0].dataset.topupMethod || "");
+      }
+
+      if (topupOverlay && isTopupOverlayOpen() && (!methodKey || normalized === selectedTopupMethod)) {
+        closeTopupOverlay();
+        return;
+      }
+
+      if (selectedTopupAmount <= 0) {
+        alert("Выберите количество RUZCOIN для пополнения.");
+        return;
+      }
+
+      if (!selectedTopupMethod) {
+        alert("Выберите способ оплаты: карта, СБП или ЮMoney.");
+        return;
+      }
+
+      if (!topupOverlay) {
+        handleRealTopup(selectedTopupMethod);
+        return;
+      }
+
+      updateTopupOverlaySummary();
+      topupOverlay.classList.add("is-visible");
+      topupOverlay.setAttribute("aria-hidden", "false");
+    }
+
+    function closeTopupOverlay() {
+      if (!topupOverlay) {
+        return;
+      }
+      topupOverlay.classList.remove("is-visible");
+      topupOverlay.setAttribute("aria-hidden", "true");
+    }
+
+    function initializeTopupMethod() {
+      if (!topupMethodButtons.length) {
+        return;
+      }
+      const preset = topupMethodButtons.find(btn => btn.classList.contains("is-active"));
+      setActiveTopupMethod((preset || topupMethodButtons[0]).dataset.topupMethod || "");
     }
 
     function recordTopupRequest(methodKey, amount) {
@@ -4424,16 +4610,16 @@
         } else {
           alert("Войдите в профиль, чтобы отправить заявку на пополнение.");
         }
-        return;
+        return false;
       }
       const method = getTopupMethodInfo(methodKey);
       if (!method) {
         alert("Выберите способ оплаты: карта, СБП или ЮMoney.");
-        return;
+        return false;
       }
       if (selectedTopupAmount <= 0) {
         alert("Выберите количество RUZCOIN для пополнения.");
-        return;
+        return false;
       }
       recordTopupRequest(methodKey, selectedTopupAmount);
       alert(
@@ -4443,6 +4629,7 @@
       saveProfile();
       updateProfilePopoverState();
       setActiveProfileView("history");
+      return true;
     }
 
     function setActiveProfileView(targetView) {
@@ -4487,10 +4674,48 @@
         button.addEventListener("click", () => {
           const methodKey = button.dataset.topupMethod || "";
           setActiveTopupMethod(methodKey);
-          handleRealTopup(methodKey);
+          openTopupOverlay(methodKey);
+        });
+      });
+      initializeTopupMethod();
+    }
+
+    if (topupOverlayCloseButtons.length) {
+      topupOverlayCloseButtons.forEach(button => {
+        button.addEventListener("click", event => {
+          event.preventDefault();
+          closeTopupOverlay();
         });
       });
     }
+
+    if (topupOverlay) {
+      topupOverlay.addEventListener("click", event => {
+        if (event.target === topupOverlay) {
+          closeTopupOverlay();
+        }
+      });
+    }
+
+    if (confirmTopupBtn) {
+      confirmTopupBtn.addEventListener("click", () => {
+        if (handleRealTopup(selectedTopupMethod)) {
+          closeTopupOverlay();
+        }
+      });
+    }
+
+    document.addEventListener("click", event => {
+      if (!isTopupOverlayOpen() || !topupOverlay) {
+        return;
+      }
+      const target = event.target;
+      const interactedWithControls = target.closest &&
+        (target.closest(".topup-overlay") || target.closest(".topup-method-card") || target.closest("#realTopupBtn"));
+      if (!interactedWithControls) {
+        closeTopupOverlay();
+      }
+    });
 
     if (loginQuickButtons.length) {
       loginQuickButtons.forEach(button => {
@@ -5744,6 +5969,7 @@
     function handleToggle(card, audio) {
       if (!audio) return;
       if (audio.paused) {
+        stopAllExcept(card);
         const volumeValue = volumeSlider ? volumeSlider.value : "1";
         audio.volume = parseFloat(volumeValue);
         audio.play();
@@ -6005,6 +6231,7 @@
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") {
         closeLyricsModal();
+        closeTopupOverlay();
       }
     });
 
