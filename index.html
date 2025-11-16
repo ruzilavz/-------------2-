@@ -1871,8 +1871,12 @@
       padding: 6px 0;
     }
 
-    #coins {
+    #payments {
       position: relative;
+    }
+
+    .section-hidden {
+      display: none;
     }
 
     .topup-card {
@@ -3339,6 +3343,8 @@
       <nav id="mainNav">
         <a href="#tracks">Релизы</a>
         <a href="#clips">Клипы</a>
+        <a href="#users">Пользователи</a>
+        <a href="#payments" data-nav-target="payments">Оплата</a>
         <a href="#news">Новости</a>
         <a href="#about">Биография</a>
         <a href="#contacts">Контакты</a>
@@ -3382,81 +3388,15 @@
             </div>
             <p class="popover-text">
               Выбирай количество монет и отправляй заявку на пополнение. Доступны платежи картой, через СБП или кошелёк ЮMoney.
+              Все операции собраны в отдельном разделе «Оплата» — открой его, чтобы быстро оформить заявку.
             </p>
             <div class="popover-actions">
-              <button class="btn btn-primary btn-xs" type="button" id="headerTopupBtn" aria-controls="topupMethodsPanel" aria-expanded="false">
-                Пополнить баланс
+              <button class="btn btn-primary btn-xs" type="button" id="openPaymentsFromPopoverBtn">
+                Открыть раздел оплаты
               </button>
               <button class="btn btn-ghost btn-xs" type="button" id="coinsInfoBtn">
-                Узнать подробнее
+                Как пополнить RUZCOIN
               </button>
-            </div>
-            <div class="topup-methods-panel" id="topupMethodsPanel" aria-hidden="true" hidden>
-              <div class="topup-methods-note">
-                Шаг 1 — выбери подходящую сумму. Шаг 2 — нажми на способ оплаты. Заявка прилетит нам автоматически.
-              </div>
-              <div class="topup-rows">
-                <div class="topup-row">
-                  <button class="topup-amount-btn" type="button" data-amount="1" aria-pressed="false">
-                    <span>1 RUZ</span>
-                    <small>~25 ₽</small>
-                  </button>
-                  <button class="topup-amount-btn" type="button" data-amount="5" aria-pressed="false">
-                    <span>5 RUZ</span>
-                    <small>~125 ₽</small>
-                  </button>
-                  <button class="topup-amount-btn" type="button" data-amount="10" aria-pressed="false">
-                    <span>10 RUZ</span>
-                    <small>~250 ₽</small>
-                  </button>
-                </div>
-                <div class="topup-row">
-                  <button class="topup-amount-btn" type="button" data-amount="15" aria-pressed="false">
-                    <span>15 RUZ</span>
-                    <small>~375 ₽</small>
-                  </button>
-                  <button class="topup-amount-btn" type="button" data-amount="25" aria-pressed="false">
-                    <span>25 RUZ</span>
-                    <small>~625 ₽</small>
-                  </button>
-                  <button class="topup-amount-btn active" type="button" data-amount="50" aria-pressed="true">
-                    <span>50 RUZ</span>
-                    <small>~1250 ₽</small>
-                  </button>
-                </div>
-              </div>
-              <div class="topup-methods-grid">
-                <button class="topup-method-card" type="button" data-topup-method="card">
-                  <div class="topup-method-icon"><i class="fa-solid fa-credit-card"></i></div>
-                  <div class="topup-method-name">Банковская карта</div>
-                  <div class="topup-method-note">Visa, Mastercard, МИР</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="sbp">
-                  <div class="topup-method-icon"><i class="fa-solid fa-building-columns"></i></div>
-                  <div class="topup-method-name">Система быстрых платежей</div>
-                  <div class="topup-method-note">Перевод по номеру телефона</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="yoomoney">
-                  <div class="topup-method-icon"><i class="fa-solid fa-wallet"></i></div>
-                  <div class="topup-method-name">ЮMoney</div>
-                  <div class="topup-method-note">Оплата кошельком или номером карты</div>
-                </button>
-              </div>
-              <div class="topup-summary topup-summary-compact">
-                <div>Выбрано: <strong><span id="headerTopupAmount">50</span> RUZ</strong></div>
-                <div>Примерная сумма: <strong><span id="headerTopupPrice">1250</span> ₽</strong></div>
-              </div>
-              <div class="topup-actions topup-actions-compact">
-                <button class="btn btn-primary topup-btn-main" type="button" id="headerDemoTopupBtn">
-                  <i class="fa-solid fa-bolt"></i>
-                  Зачислить как демо
-                </button>
-                <button class="btn btn-ghost topup-btn-real" type="button" id="headerRealTopupBtn">
-                  <i class="fa-solid fa-circle-check"></i>
-                  Подтвердить заявку
-                </button>
-              </div>
-              <button class="btn btn-ghost btn-xs" type="button" id="goToCoinsSectionBtn">Перейти к таблице тарифов</button>
             </div>
             <div class="popover-footnote">
               В профиле ты увидишь историю начислений RUZCOIN и бонусы за активность.
@@ -3525,7 +3465,7 @@
                 <input type="password" id="loginPassword" placeholder="Пароль" autocomplete="new-password" required />
                 <button type="submit" class="btn btn-primary btn-sm">Войти</button>
               </form>
-              <details class="admin-login" id="adminLoginToggle">
+              <details class="admin-login" id="adminLoginToggle" open>
                 <summary>Войти по коду администратора</summary>
                 <form id="adminCodeForm" class="popover-form">
                   <label for="adminCodeInput" class="sr-only">Уникальный код</label>
@@ -3803,9 +3743,9 @@
       </div>
     </section>
 
-    <section id="coins">
+    <section id="payments" class="section-hidden">
       <div class="section-header">
-        <h2 class="section-title">RUZCOIN</h2>
+        <h2 class="section-title">Оплата и RUZCOIN</h2>
         <p class="section-sub">
           1 RUZCOIN = 25 ₽. Выбирай количество, смотри ориентировочную цену и отправляй заявку на пополнение.
         </p>
@@ -4089,22 +4029,20 @@
     const headerProfileBtn = document.getElementById("headerProfileBtn");
     const headerProfileNameEl = document.getElementById("headerProfileName");
     const headerCoinsAmountEl = document.getElementById("headerCoinsAmount");
-    const headerTopupBtn = document.getElementById("headerTopupBtn");
-    const topupMethodsPanel = document.getElementById("topupMethodsPanel");
     const mixEventsBtn = document.getElementById("mixEventsBtn");
     const mixEventsPopover = document.getElementById("mixEventsPopover");
     const mixCountdownLabel = document.getElementById("mixCountdownLabel");
     const mixPopoverStatus = document.getElementById("mixPopoverStatus");
     const mixEventsListEl = document.getElementById("mixEventsList");
-    const goToCoinsSectionBtn = document.getElementById("goToCoinsSectionBtn");
+    const openPaymentsFromPopoverBtn = document.getElementById("openPaymentsFromPopoverBtn");
     const profileTopupBtn = document.getElementById("profileTopupBtn");
-    const coinsSection = document.getElementById("coins");
+    const paymentsSection = document.getElementById("payments");
     const topupAmountButtons = Array.from(document.querySelectorAll(".topup-amount-btn"));
-    const topupAmountDisplayEls = [document.getElementById("topupAmount"), document.getElementById("headerTopupAmount")].filter(Boolean);
-    const topupPriceDisplayEls = [document.getElementById("topupPrice"), document.getElementById("headerTopupPrice")].filter(Boolean);
-    const demoTopupButtons = [document.getElementById("demoTopupBtn"), document.getElementById("headerDemoTopupBtn")].filter(Boolean);
+    const topupAmountDisplayEls = [document.getElementById("topupAmount")].filter(Boolean);
+    const topupPriceDisplayEls = [document.getElementById("topupPrice")].filter(Boolean);
+    const demoTopupButtons = [document.getElementById("demoTopupBtn")].filter(Boolean);
     const primaryDemoTopupBtn = demoTopupButtons[0] || null;
-    const realTopupButtons = [document.getElementById("realTopupBtn"), document.getElementById("headerRealTopupBtn")].filter(Boolean);
+    const realTopupButtons = [document.getElementById("realTopupBtn")].filter(Boolean);
     const profileTabButtons = Array.from(document.querySelectorAll("[data-profile-tab]"));
     const profileViews = Array.from(document.querySelectorAll("[data-profile-view]"));
     const headerUsersBtn = document.getElementById("headerUsersBtn");
@@ -4138,12 +4076,45 @@
       });
     }
 
+    function revealSection(sectionEl) {
+      if (!sectionEl) {
+        return false;
+      }
+      sectionEl.hidden = false;
+      sectionEl.classList.remove("section-hidden");
+      return true;
+    }
+
+    function openPaymentsSection(options = {}) {
+      const shouldFocusTopup = options.focusTopup === true;
+      if (!revealSection(paymentsSection)) {
+        notifyPaymentsInProgress();
+        return;
+      }
+      paymentsSection.scrollIntoView({ behavior: "smooth" });
+      if (shouldFocusTopup && primaryDemoTopupBtn && typeof primaryDemoTopupBtn.focus === "function") {
+        window.setTimeout(() => {
+          try {
+            primaryDemoTopupBtn.focus({ preventScroll: true });
+          } catch (error) {
+            primaryDemoTopupBtn.focus();
+          }
+        }, 260);
+      }
+    }
+
     if (mainNav) {
       const navLinks = Array.from(mainNav.querySelectorAll("a[href^=\"#\"]"));
       navLinks.forEach(link => {
         link.addEventListener("click", event => {
           const targetId = link.getAttribute("href");
           if (!targetId || !targetId.startsWith("#")) {
+            return;
+          }
+          if (targetId === "#payments") {
+            event.preventDefault();
+            mainNav.classList.remove("nav-open");
+            openPaymentsSection({ focusTopup: true });
             return;
           }
           const target = document.querySelector(targetId);
@@ -4156,71 +4127,12 @@
       });
     }
 
-    function scrollToCoinsSection() {
-      if (coinsSection) {
-        coinsSection.scrollIntoView({ behavior: "smooth" });
-        if (primaryDemoTopupBtn && typeof primaryDemoTopupBtn.focus === "function") {
-          window.setTimeout(() => {
-            try {
-              primaryDemoTopupBtn.focus({ preventScroll: true });
-            } catch (error) {
-              primaryDemoTopupBtn.focus();
-            }
-          }, 260);
-        }
-      } else {
-        notifyPaymentsInProgress();
-      }
+    if (window.location.hash === "#payments") {
+      revealSection(paymentsSection);
     }
 
     function notifyPaymentsInProgress() {
       alert("Выберите сумму и один из способов оплаты, чтобы отправить заявку на пополнение RUZCOIN.");
-    }
-
-      function setTopupPanelVisibility(shouldShow) {
-        if (!topupMethodsPanel || !headerTopupBtn) {
-          return;
-        }
-        const isVisible = Boolean(shouldShow);
-        topupMethodsPanel.setAttribute("aria-hidden", isVisible ? "false" : "true");
-        topupMethodsPanel.hidden = !isVisible;
-        headerTopupBtn.setAttribute("aria-expanded", isVisible ? "true" : "false");
-      if (isVisible) {
-        topupMethodsPanel.scrollTop = 0;
-      }
-    }
-
-    function toggleTopupPanel() {
-      if (!topupMethodsPanel) {
-        notifyPaymentsInProgress();
-        return;
-      }
-      const isOpen = topupMethodsPanel.getAttribute("aria-hidden") === "false";
-      setTopupPanelVisibility(!isOpen);
-    }
-
-    function hideTopupPanel() {
-      if (topupMethodsPanel) {
-        setTopupPanelVisibility(false);
-      }
-    }
-
-    if (headerTopupBtn) {
-      headerTopupBtn.addEventListener("click", event => {
-        event.preventDefault();
-        if (coinsPopoverController && !coinsPopoverController.isOpen()) {
-          coinsPopoverController.open();
-        }
-        toggleTopupPanel();
-      });
-    }
-
-    if (goToCoinsSectionBtn) {
-      goToCoinsSectionBtn.addEventListener("click", event => {
-        event.preventDefault();
-        hideTopupPanel();
-        scrollToCoinsSection();
-      });
     }
 
     realTopupButtons.forEach(button => {
@@ -4358,7 +4270,6 @@
       saveProfile();
       updateProfilePopoverState();
       setActiveProfileView("history");
-      hideTopupPanel();
     }
 
     function setActiveProfileView(targetView) {
@@ -6603,7 +6514,6 @@
       }
 
       function closeAllPopovers(exceptController) {
-        hideTopupPanel();
         popoverControllers.forEach(controller => {
           if (controller !== exceptController) {
             controller.close();
@@ -7007,6 +6917,15 @@
         saveProfile();
         setActiveTopupMethod("");
         closeAllPopovers();
+        if (loginForm) {
+          loginForm.reset();
+        }
+        if (adminCodeForm) {
+          adminCodeForm.reset();
+        }
+        if (adminLoginToggle) {
+          adminLoginToggle.open = true;
+        }
         alert("Вы вышли из профиля. До встречи!");
       }
 
@@ -7334,17 +7253,7 @@
         profileTopupBtn.addEventListener("click", event => {
           event.preventDefault();
           closeAllPopovers();
-          if (coinsPopoverController) {
-            coinsPopoverController.open();
-          }
-          if (headerCoinsBtn && typeof headerCoinsBtn.focus === "function") {
-            try {
-              headerCoinsBtn.focus({ preventScroll: true });
-            } catch (error) {
-              headerCoinsBtn.focus();
-            }
-          }
-          setTopupPanelVisibility(true);
+          openPaymentsSection({ focusTopup: true });
         });
       }
 
@@ -7352,8 +7261,15 @@
         coinsInfoBtn.addEventListener("click", event => {
           event.preventDefault();
           closeAllPopovers();
-          hideTopupPanel();
-          scrollToCoinsSection();
+          openPaymentsSection({ focusTopup: true });
+        });
+      }
+
+      if (openPaymentsFromPopoverBtn) {
+        openPaymentsFromPopoverBtn.addEventListener("click", event => {
+          event.preventDefault();
+          closeAllPopovers();
+          openPaymentsSection({ focusTopup: true });
         });
       }
 
