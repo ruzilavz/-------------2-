@@ -8552,7 +8552,6 @@
         usersDirectoryEl.innerHTML = "";
         usersDirectoryEl.appendChild(fragment);
         updateUsersPopoverList(enriched);
-        renderUsersModal(enriched);
         if (usersModalBody) {
           usersModalBody.innerHTML = usersDirectoryEl.innerHTML;
         }
@@ -9002,14 +9001,14 @@
         });
       }
 
-      if (openProfileSectionBtn) {
-        openProfileSectionBtn.addEventListener("click", () => {
-          const profileSection = document.getElementById("profile");
-          if (profileSection) {
-            profileSection.scrollIntoView({ behavior: "smooth" });
-          }
+      if (openUsersSectionBtn) {
+        openUsersSectionBtn.addEventListener("click", event => {
+          event.preventDefault();
+          closeAllPopovers();
+          openUsersModal();
         });
       }
+
 
       if (headerSectionShortcuts.length) {
         headerSectionShortcuts.forEach(link => {
