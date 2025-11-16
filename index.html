@@ -3186,6 +3186,163 @@
       cursor: pointer;
     }
 
+    .nav-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(47, 107, 255, 0.2), rgba(5, 6, 10, 0.94));
+      backdrop-filter: blur(10px);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease-out;
+      z-index: 80;
+    }
+
+    .nav-modal-overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-modal {
+      width: min(720px, 100%);
+      background: linear-gradient(145deg, rgba(11, 15, 28, 0.96), rgba(18, 23, 38, 0.92));
+      border: 1px solid rgba(47, 107, 255, 0.28);
+      border-radius: 18px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-modal::before {
+      content: "";
+      position: absolute;
+      inset: -40% auto auto -20%;
+      width: 55%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(47, 107, 255, 0.24), transparent 65%);
+      filter: blur(12px);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .nav-modal::after {
+      content: "";
+      position: absolute;
+      inset: auto -30% -35% auto;
+      width: 55%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(120, 165, 255, 0.14), transparent 65%);
+      filter: blur(12px);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .nav-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-modal-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(47, 107, 255, 0.16);
+      color: #bcd1ff;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid rgba(47, 107, 255, 0.3);
+    }
+
+    .nav-modal-title {
+      font-size: clamp(22px, 2vw, 28px);
+      margin-top: 8px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-modal-description {
+      margin: 18px 0;
+      color: #c8d0e6;
+      font-size: 15px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-modal-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-modal-close {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e7ecff;
+      border-radius: 12px;
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .nav-modal-close:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .nav-modal-close:active {
+      transform: translateY(0);
+    }
+
+    .nav-modal-overlay.is-visible .nav-modal {
+      animation: navModalPop 180ms ease-out;
+    }
+
+    @keyframes navModalPop {
+      from {
+        transform: translateY(12px) scale(0.98);
+        opacity: 0.92;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .nav-modal-footnote {
+      font-size: 12px;
+      color: rgba(200, 208, 230, 0.8);
+      margin-top: 12px;
+    }
+
+    .nav-modal-footnote strong {
+      color: #f4f6ff;
+    }
+
+    .nav-modal-overlay.is-visible
+      [data-nav-modal-close]:focus-visible,
+    .nav-modal-overlay.is-visible
+      #navModalPrimaryBtn:focus-visible {
+      outline: 2px solid rgba(47, 107, 255, 0.6);
+      outline-offset: 2px;
+    }
+
     .lyrics-modal-overlay {
       position: fixed;
       inset: 0;
@@ -3696,13 +3853,13 @@
       </button>
 
       <nav id="mainNav">
-        <a href="#tracks">Релизы</a>
-        <a href="#clips">Клипы</a>
-        <a href="#users">Пользователи</a>
+        <a href="#tracks" data-nav-target="tracks">Релизы</a>
+        <a href="#clips" data-nav-target="clips">Клипы</a>
+        <a href="#users" data-nav-target="users">Пользователи</a>
         <a href="#payments" data-nav-target="payments">Оплата</a>
-        <a href="#news">Новости</a>
-        <a href="#about">Биография</a>
-        <a href="#contacts">Контакты</a>
+        <a href="#news" data-nav-target="news">Новости</a>
+        <a href="#about" data-nav-target="about">Биография</a>
+        <a href="#contacts" data-nav-target="contacts">Контакты</a>
       </nav>
       <div class="mix-button-wrapper">
         <button class="mix-button" id="mixEventsBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
@@ -3889,6 +4046,28 @@
         </div>
       </div>
     </header>
+
+    <div class="nav-modal-overlay" id="navModalOverlay" aria-hidden="true">
+      <div class="nav-modal" role="dialog" aria-modal="true" aria-labelledby="navModalTitle">
+        <div class="nav-modal-header">
+          <div>
+            <div class="nav-modal-kicker" id="navModalKicker">Раздел</div>
+            <div class="nav-modal-title" id="navModalTitle">Раздел</div>
+          </div>
+          <button class="nav-modal-close" type="button" data-nav-modal-close aria-label="Закрыть окно">✕</button>
+        </div>
+        <p class="nav-modal-description" id="navModalDescription">
+          Выберите раздел, чтобы открыть содержимое.
+        </p>
+        <div class="nav-modal-actions">
+          <button class="btn btn-primary" type="button" id="navModalPrimaryBtn">Открыть раздел</button>
+          <button class="btn btn-ghost" type="button" data-nav-modal-close>Отмена</button>
+        </div>
+        <div class="nav-modal-footnote">
+          Быстрый предпросмотр раздела без перехода по странице.
+        </div>
+      </div>
+    </div>
 
     <section class="hero">
       <div class="hero-left">
@@ -4503,6 +4682,12 @@
       updateStickyChrome();
     const navToggle = document.getElementById("navToggle");
     const mainNav = document.getElementById("mainNav");
+    const navModalOverlay = document.getElementById("navModalOverlay");
+    const navModalTitle = document.getElementById("navModalTitle");
+    const navModalDescription = document.getElementById("navModalDescription");
+    const navModalKicker = document.getElementById("navModalKicker");
+    const navModalPrimaryBtn = document.getElementById("navModalPrimaryBtn");
+    const navModalCloseButtons = Array.from(document.querySelectorAll("[data-nav-modal-close]"));
     const headerProfileBtn = document.getElementById("headerProfileBtn");
     const headerProfileNameEl = document.getElementById("headerProfileName");
     const headerCoinsAmountEl = document.getElementById("headerCoinsAmount");
@@ -4589,11 +4774,119 @@
       }
     };
 
+    const NAV_MODAL_CONTENT = {
+      tracks: {
+        title: "Релизы",
+        kicker: "Музыка",
+        description: "Синглы, альбомы и EP с мгновенным воспроизведением и ссылками на платформы.",
+        sectionId: "tracks",
+        cta: "Открыть релизы"
+      },
+      clips: {
+        title: "Клипы",
+        kicker: "Видео",
+        description: "Подборка клипов и визуализаций, связанных с треками AVZALØV.",
+        sectionId: "clips",
+        cta: "Смотреть клипы"
+      },
+      users: {
+        title: "Пользователи",
+        kicker: "Комьюнити",
+        description: "Топ слушателей, онлайн-активность и быстрый доступ к профилям.",
+        sectionId: "users",
+        cta: "Открыть комьюнити"
+      },
+      payments: {
+        title: "Оплата и RUZCOIN",
+        kicker: "RUZCOIN",
+        description: "Выбери сумму и способ пополнения, чтобы отправить заявку и получить монеты.",
+        cta: "Перейти к оплате",
+        action: () => openPaymentsSection({ focusTopup: true })
+      },
+      news: {
+        title: "Новости",
+        kicker: "Блог",
+        description: "Анонсы релизов, обновления проектов и важные события вселенной AVZALØV.",
+        sectionId: "news",
+        cta: "Читать новости"
+      },
+      about: {
+        title: "Биография",
+        kicker: "Обо мне",
+        description: "История артиста, стиль, вдохновение и ключевые факты о творчестве.",
+        sectionId: "about",
+        cta: "Читать биографию"
+      },
+      contacts: {
+        title: "Контакты",
+        kicker: "Связь",
+        description: "Площадки для сотрудничества: концерты, коллаборации и приглашения в подборки.",
+        sectionId: "contacts",
+        cta: "Написать"
+      }
+    };
+
     if (navToggle && mainNav) {
       navToggle.addEventListener("click", () => {
         mainNav.classList.toggle("nav-open");
       });
     }
+
+    function closeNavModal() {
+      if (!navModalOverlay) {
+        return;
+      }
+      navModalOverlay.classList.remove("is-visible");
+      navModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    function openNavModal(targetKey) {
+      const config = NAV_MODAL_CONTENT[targetKey];
+      if (!config || !navModalOverlay || !navModalTitle || !navModalPrimaryBtn) {
+        openSectionById(targetKey);
+        return;
+      }
+
+      navModalTitle.textContent = config.title || "Раздел";
+      if (navModalDescription) {
+        navModalDescription.textContent = config.description || "Раздел откроется ниже.";
+      }
+      if (navModalKicker) {
+        navModalKicker.textContent = config.kicker || "Раздел";
+      }
+      navModalPrimaryBtn.textContent = config.cta || "Открыть";
+      navModalPrimaryBtn.onclick = () => {
+        closeNavModal();
+        if (typeof config.action === "function") {
+          config.action();
+        } else {
+          openSectionById(config.sectionId || targetKey);
+        }
+      };
+
+      navModalOverlay.classList.add("is-visible");
+      navModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    navModalCloseButtons.forEach(button => {
+      button.addEventListener("click", closeNavModal);
+    });
+
+    if (navModalOverlay) {
+      navModalOverlay.addEventListener("click", event => {
+        if (event.target === navModalOverlay) {
+          closeNavModal();
+        }
+      });
+    }
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && navModalOverlay && navModalOverlay.classList.contains("is-visible")) {
+        closeNavModal();
+      }
+    });
 
     function revealSection(sectionEl) {
       if (!sectionEl) {
@@ -4635,25 +4928,16 @@
     }
 
     if (mainNav) {
-      const navLinks = Array.from(mainNav.querySelectorAll("a[href^=\"#\"]"));
+      const navLinks = Array.from(mainNav.querySelectorAll("a[data-nav-target]"));
       navLinks.forEach(link => {
         link.addEventListener("click", event => {
-          const targetId = link.getAttribute("href");
-          if (!targetId || !targetId.startsWith("#")) {
+          const targetKey = link.dataset.navTarget;
+          if (!targetKey) {
             return;
           }
-          if (targetId === "#payments") {
-            event.preventDefault();
-            mainNav.classList.remove("nav-open");
-            openPaymentsSection({ focusTopup: true });
-            return;
-          }
-          const target = document.querySelector(targetId);
-          if (target) {
-            event.preventDefault();
-            mainNav.classList.remove("nav-open");
-            target.scrollIntoView({ behavior: "smooth" });
-          }
+          event.preventDefault();
+          mainNav.classList.remove("nav-open");
+          openNavModal(targetKey);
         });
       });
     }
