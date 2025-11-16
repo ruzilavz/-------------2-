@@ -1372,6 +1372,35 @@
       box-shadow: 0 16px 30px rgba(8, 10, 22, 0.55);
     }
 
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--role-color, var(--accent)) 55%, transparent);
+      background: color-mix(in srgb, var(--role-color, var(--accent)) 18%, rgba(255, 255, 255, 0.02));
+      color: var(--role-color, var(--accent));
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .role-badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--role-color, var(--accent));
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--role-color, var(--accent)) 26%, transparent);
+    }
+
+    .role-badge.is-compact {
+      padding: 4px 8px;
+      font-size: 10px;
+      gap: 6px;
+    }
+
     .user-card-header {
       display: flex;
       align-items: center;
@@ -3590,7 +3619,7 @@
                   <div class="popover-balance-value" id="popoverCoinsAmount">0</div>
                 </div>
               </div>
-              <div class="popover-meta">Роль: <span id="popoverProfileRole">Слушатель</span></div>
+              <div class="popover-meta">Роль: <span id="popoverProfileRole" class="role-badge is-compact">Слушатель</span></div>
               <div class="popover-actions">
                 <button class="btn btn-primary btn-xs" type="button" id="openProfileSectionBtn">Профиль</button>
                 <button class="btn btn-ghost btn-xs" type="button" data-action="logout">Выход</button>
@@ -3692,7 +3721,7 @@
             <div class="profile-info">
               <div class="profile-name" id="profileName">Гость</div>
               <div class="profile-id">ID: <span id="profileId">—</span></div>
-              <div class="profile-role">Роль: <span id="profileRole">Слушатель</span></div>
+              <div class="profile-role">Роль: <span id="profileRole" class="role-badge is-compact">Слушатель</span></div>
               <div class="profile-coins">
                 <span class="ruzcoin-icon is-inline" aria-hidden="true">
                   <span class="ruzcoin-glyph">Ɍ</span>
@@ -6004,7 +6033,35 @@
         const roleLabelMap = {
           admin: "Администратор",
           listener: "Слушатель",
-          moderator: "Модератор"
+          moderator: "Модератор",
+          producer: "Главный продюсер",
+          curator: "Куратор релизов",
+          community: "Руководитель комьюнити",
+          support: "Тех. поддержка",
+          security: "Безопасность",
+          pr: "PR & партнёры",
+          vip: "Золотой слушатель",
+          crew: "Команда сценографии",
+          design: "Дизайн и обложки",
+          editor: "Медиа-редактор",
+          "game-master": "Игровой мастер"
+        };
+
+        const roleColorMap = {
+          admin: "#ff5c8d",
+          moderator: "#7dd3fc",
+          listener: "#cbd5f5",
+          producer: "#c084fc",
+          curator: "#8ef0c1",
+          community: "#f8c07a",
+          support: "#89e0ff",
+          security: "#ff9ba8",
+          pr: "#ffc2f2",
+          vip: "#ffd166",
+          crew: "#9ad0ff",
+          design: "#a5b4ff",
+          editor: "#7cffe0",
+          "game-master": "#c4f08a"
         };
 
       const profilePanelEl = document.getElementById("profilePanel");
@@ -6571,6 +6628,7 @@
         safeUser.role = typeof safeUser.role === "string" && safeUser.role.trim()
           ? safeUser.role.trim().toLowerCase()
           : "listener";
+        safeUser.roleColor = resolveRoleColor(safeUser.role, safeUser.roleColor);
         safeUser.password = typeof safeUser.password === "string" ? safeUser.password : "";
         if (!Array.isArray(safeUser.unlockedTracks)) {
           safeUser.unlockedTracks = [];
@@ -6590,6 +6648,7 @@
           name: shaped.name,
           coins: shaped.coins,
           role: shaped.role,
+          roleColor: shaped.roleColor,
           password: shaped.password,
           avatar: shaped.avatar,
           unlockedTracks: Array.from(new Set(shaped.unlockedTracks)),
@@ -6630,6 +6689,10 @@
         renderUsersDirectory();
       }
 
+      function normalizeAdminCodeValue(code) {
+        return typeof code === "string" ? code.trim().toUpperCase() : "";
+      }
+
       function loadUsedAdminCodes() {
         const raw = localStorage.getItem(USED_CODES_KEY);
         if (!raw) {
@@ -6637,7 +6700,17 @@
         }
         try {
           const parsed = JSON.parse(raw);
-          return parsed && typeof parsed === "object" ? parsed : {};
+          if (!parsed || typeof parsed !== "object") {
+            return {};
+          }
+          const normalized = {};
+          Object.entries(parsed).forEach(([rawCode, userId]) => {
+            const normalizedCode = normalizeAdminCodeValue(rawCode);
+            if (normalizedCode) {
+              normalized[normalizedCode] = userId;
+            }
+          });
+          return normalized;
         } catch (error) {
           console.warn("Не удалось загрузить использованные коды:", error);
           return {};
@@ -6656,8 +6729,28 @@
         if (!code) {
           return;
         }
-        usedAdminCodes[code] = userId;
+        usedAdminCodes[normalizeAdminCodeValue(code)] = userId;
         persistUsedAdminCodes();
+      }
+
+      function normalizeAdminCodesList(rawCodes = []) {
+        const normalized = new Map();
+        rawCodes.forEach(entry => {
+          if (!entry || !entry.code) {
+            return;
+          }
+          const normalizedCode = normalizeAdminCodeValue(entry.code);
+          if (!normalizedCode || normalized.has(normalizedCode)) {
+            return;
+          }
+          normalized.set(normalizedCode, {
+            ...entry,
+            code: normalizedCode,
+            role: (entry.role || "admin").toLowerCase(),
+            color: typeof entry.color === "string" ? entry.color.trim() : ""
+          });
+        });
+        return normalized;
       }
 
       function formatRoleLabel(role) {
@@ -6669,6 +6762,30 @@
           return roleLabelMap.listener;
         }
         return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+      }
+
+      function resolveRoleColor(role, overrideColor = "") {
+        const normalizedColor = typeof overrideColor === "string" ? overrideColor.trim() : "";
+        if (normalizedColor) {
+          return normalizedColor;
+        }
+        const normalizedRole = (role || "").toLowerCase();
+        if (roleColorMap[normalizedRole]) {
+          return roleColorMap[normalizedRole];
+        }
+        return roleColorMap.listener;
+      }
+
+      function applyRoleBadge(element, role, colorOverride, labelOverride) {
+        if (!element) {
+          return;
+        }
+        const label = labelOverride || formatRoleLabel(role);
+        const badgeColor = resolveRoleColor(role, colorOverride);
+        const existingIcon = element.querySelector("i");
+        const iconHtml = existingIcon ? existingIcon.outerHTML : "";
+        element.innerHTML = `${iconHtml}${label}`;
+        element.style.setProperty("--role-color", badgeColor);
       }
 
       function updateRuzcoinPriceDisplay() {
@@ -6713,7 +6830,7 @@
             popoverProfileIdEl.textContent = currentUser.id;
           }
           if (popoverProfileRoleEl) {
-            popoverProfileRoleEl.textContent = formatRoleLabel(currentUser.role);
+            applyRoleBadge(popoverProfileRoleEl, currentUser.role, currentUser.roleColor);
           }
         } else {
           if (popoverProfileNameEl) {
@@ -6723,7 +6840,7 @@
             popoverProfileIdEl.textContent = "—";
           }
           if (popoverProfileRoleEl) {
-            popoverProfileRoleEl.textContent = formatRoleLabel("listener");
+            applyRoleBadge(popoverProfileRoleEl, "listener");
           }
           if (adminLoginToggle) {
             adminLoginToggle.open = false;
@@ -6960,8 +7077,10 @@
                 <span>${numberFormatter.format(entry.totalPlays)} просл.</span>
               </div>
             </div>
-            <span class="users-popover-role">${entry.roleLabel}</span>
+            <span class="users-popover-role role-badge is-compact">${entry.roleLabel}</span>
           `;
+          const roleBadge = item.querySelector(".users-popover-role");
+          applyRoleBadge(roleBadge, entry.role, entry.roleColor, entry.roleLabel);
           headerUsersListEl.appendChild(item);
         });
       }
@@ -6981,10 +7100,13 @@
         }
         const enriched = usersList.map(user => {
           const stats = getListeningSnapshotForUser(user.id);
+          const roleColor = resolveRoleColor(user.role, user.roleColor);
           return {
             id: user.id,
             name: user.name,
             coins: Number(user.coins) || 0,
+            role: user.role,
+            roleColor,
             roleLabel: formatRoleLabel(user.role),
             totalPlays: stats.totalPlays,
             uniqueTracks: stats.uniqueTracks,
@@ -7024,6 +7146,11 @@
           card.dataset.rank = index + 1;
           const avatarEl = card.querySelector(".user-avatar");
           applyUserCardAvatar(avatarEl, entry);
+          const roleStat = card.querySelector(".user-stat-badge:last-child");
+          if (roleStat) {
+            roleStat.classList.add("role-badge", "is-compact");
+            applyRoleBadge(roleStat, entry.role, entry.roleColor, entry.roleLabel);
+          }
           fragment.appendChild(card);
         });
         usersDirectoryEl.innerHTML = "";
@@ -7072,12 +7199,14 @@
             profileIdEl.textContent = currentUser.id;
           }
           if (profileRoleEl) {
-            profileRoleEl.textContent = formatRoleLabel(currentUser.role);
+            applyRoleBadge(profileRoleEl, currentUser.role, currentUser.roleColor);
           }
           if (coinsAmountEl) {
             coinsAmountEl.textContent = numberFormatter.format(currentUser.coins);
           }
           renderAchievements();
+        } else if (profileRoleEl) {
+          applyRoleBadge(profileRoleEl, "listener");
         }
         if (adminToolsEl) {
           const canGift = isLoggedIn && ["admin", "moderator"].includes((currentUser.role || "").toLowerCase());
@@ -7181,9 +7310,7 @@
           : adminCodesData && Array.isArray(adminCodesData.codes)
             ? adminCodesData.codes
             : [];
-        if (adminCodesArray.length) {
-          adminCodes = new Map(adminCodesArray.map(c => [c.code, c]));
-        }
+        adminCodes = normalizeAdminCodesList(adminCodesArray);
         usedAdminCodes = loadUsedAdminCodes();
       }
 
@@ -7312,19 +7439,40 @@
 
       function handleAdminLogin(event) {
         event.preventDefault();
-        const code = (adminCodeInput.value || "").trim().toUpperCase();
+        const code = normalizeAdminCodeValue(adminCodeInput.value);
         const name = (adminNameInput.value || "").trim();
         if (!code) {
           alert("Введите код администратора.");
           return;
         }
-        if (usedAdminCodes[code]) {
-          alert("Этот код уже был использован.");
-          return;
-        }
         const adminInfo = adminCodes.get(code);
         if (!adminInfo) {
           alert("Неверный код администратора.");
+          return;
+        }
+        const linkedUserId = usedAdminCodes[code];
+        if (linkedUserId) {
+          const existingUser = usersRegistry.get(linkedUserId);
+          if (!existingUser) {
+            alert("Этот код уже активирован и закреплён за другим профилем.");
+            return;
+          }
+          currentUser = ensureUserShape({
+            ...existingUser,
+            name: name || existingUser.name,
+            role: adminInfo.role || existingUser.role,
+            roleColor: adminInfo.color || existingUser.roleColor,
+            password: code
+          });
+          switchUserContext(currentUser);
+          saveProfile();
+          if (adminCodeForm) {
+            adminCodeForm.reset();
+          }
+          if (profilePopoverController) {
+            profilePopoverController.close();
+          }
+          renderUsersDirectory();
           return;
         }
         const role = (adminInfo.role || "admin").toLowerCase();
@@ -7334,6 +7482,7 @@
           id: generateUserId(),
           name: displayName,
           role,
+          roleColor: resolveRoleColor(role, adminInfo.color),
           coins: startingCoins,
           password: code,
           achievements: { welcome: true },
@@ -7476,6 +7625,14 @@
               return;
             }
             event.preventDefault();
+            closeAllPopovers();
+            if (mainNav) {
+              mainNav.classList.remove("nav-open");
+            }
+            if (targetSectionId === "payments") {
+              openPaymentsSection({ focusTopup: true });
+              return;
+            }
             openSectionById(targetSectionId);
           });
         });
