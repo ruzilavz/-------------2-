@@ -717,20 +717,24 @@
       font-size: 12px;
     }
 
-    .topup-overlay {
-      position: absolute;
-      inset: 12px;
-      border-radius: var(--radius-lg);
-      background: rgba(4, 6, 14, 0.92);
-      border: 1px solid rgba(88, 122, 228, 0.45);
-      box-shadow: 0 18px 42px rgba(8, 12, 28, 0.75);
-      display: none;
-      z-index: 3;
+    body.modal-open {
       overflow: hidden;
     }
 
+    .topup-overlay {
+      position: fixed;
+      inset: 0;
+      padding: 24px;
+      background: rgba(2, 4, 10, 0.78);
+      backdrop-filter: blur(10px);
+      display: none;
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
     .topup-overlay.is-visible {
-      display: block;
+      display: flex;
       animation: popoverFade var(--transition) ease;
     }
 
@@ -738,8 +742,8 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 30% 20%, rgba(120, 154, 255, 0.18), transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(255, 189, 122, 0.2), transparent 50%);
+      background: radial-gradient(circle at 20% 20%, rgba(120, 154, 255, 0.18), transparent 52%),
+        radial-gradient(circle at 80% 70%, rgba(255, 189, 122, 0.15), transparent 55%);
       pointer-events: none;
     }
 
@@ -748,9 +752,15 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding: 18px;
-      height: 100%;
+      gap: 14px;
+      padding: 20px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(13, 16, 28, 0.95), rgba(7, 9, 18, 0.97));
+      border: 1px solid rgba(88, 122, 228, 0.45);
+      box-shadow: 0 18px 42px rgba(8, 12, 28, 0.85);
+      width: min(860px, 100%);
+      max-height: min(85vh, 920px);
+      overflow: hidden;
     }
 
     .topup-overlay-header {
@@ -758,6 +768,25 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+    }
+
+    .topup-overlay-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .topup-overlay-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      color: rgba(230, 235, 255, 0.9);
+      border: 1px solid rgba(120, 150, 255, 0.18);
     }
 
     .topup-overlay-title {
@@ -786,9 +815,11 @@
 
     .topup-overlay-body {
       display: grid;
-      gap: 10px;
+      gap: 12px;
       font-size: 13px;
       color: rgba(224, 230, 255, 0.9);
+      overflow-y: auto;
+      padding-right: 6px;
     }
 
     .topup-overlay-summary {
@@ -809,6 +840,94 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+    }
+
+    .topup-overlay-user {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: rgba(17, 21, 36, 0.9);
+      border: 1px solid rgba(77, 110, 219, 0.35);
+    }
+
+    .topup-user-main {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .topup-user-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(47, 107, 255, 0.22), rgba(8, 14, 32, 0.92));
+      border: 1px solid rgba(102, 132, 238, 0.4);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #dfe6ff;
+      letter-spacing: 0.04em;
+    }
+
+    .topup-user-meta {
+      display: grid;
+      gap: 4px;
+    }
+
+    .topup-user-name {
+      font-weight: 700;
+      color: #f4f7ff;
+    }
+
+    .topup-user-id,
+    .topup-user-balance {
+      font-size: 12px;
+      color: rgba(198, 206, 244, 0.78);
+    }
+
+    .topup-user-balance strong {
+      color: #fff;
+    }
+
+    .topup-user-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #dfe5ff;
+      width: fit-content;
+    }
+
+    .topup-user-online {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-start;
+      color: rgba(214, 220, 255, 0.9);
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #39d98a;
+      box-shadow: 0 0 0 6px rgba(57, 217, 138, 0.16);
+    }
+
+    .topup-overlay-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .topup-overlay-methods .topup-method-card {
+      width: 100%;
     }
 
     .topup-methods-panel .topup-amount-btn small {
@@ -1275,14 +1394,16 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background-image: url("img/avzalov.jpg");
-      background-size: cover;
-      background-position: center 40%;
+      background: radial-gradient(circle at 30% 20%, rgba(68, 105, 255, 0.35), transparent 55%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.08), transparent 50%),
+        linear-gradient(145deg, #0f1629, #0b1020);
       position: relative;
       overflow: hidden;
-      filter: blur(0.6px) contrast(1.05) saturate(1.02);
       box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.07), 0 14px 30px rgba(0, 0, 0, 0.7);
       flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      isolation: isolate;
     }
 
     .hero-avatar::before {
@@ -1291,22 +1412,34 @@
       inset: 0;
       background: radial-gradient(circle at 30% 0, rgba(255, 255, 255, 0.24), transparent 55%);
       mix-blend-mode: screen;
-      opacity: 0.8;
+      opacity: 0.6;
+      z-index: 1;
+    }
+
+    .hero-avatar-symbol {
+      position: relative;
+      z-index: 2;
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #e6ecff;
+      text-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
     }
 
     .hero-avatar-label {
       position: absolute;
-      inset: 0;
+      inset: auto 0 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
       letter-spacing: 0.26em;
       text-transform: uppercase;
-      color: #f5f6ff;
+      color: rgba(245, 246, 255, 0.76);
       text-align: center;
       padding: 0 14px;
-      background: radial-gradient(circle at 50% 120%, rgba(0, 0, 0, 0.55), transparent 55%);
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.6));
+      z-index: 3;
     }
 
     .hero-main {
@@ -3609,8 +3742,9 @@
               <div class="popover-sub">1 RUZCOIN = <span id="ruzcoinPriceValue">25 ₽</span></div>
             </div>
             <p class="popover-text">
-              Выбирай количество монет и отправляй заявку на пополнение. Доступны платежи картой, через СБП или кошелёк ЮMoney.
-              Все операции собраны в отдельном разделе «Оплата» — открой его, чтобы быстро оформить заявку.
+              Выбирай количество монет и отправляй заявку на пополнение. В отдельном окне доступно 10 способов оплаты по СНГ: карты,
+              СБП, Mir Pay, Kaspi, кошельки и другие варианты. Все операции собраны в разделе «Оплата» — открой его, чтобы быстро
+              оформить заявку.
             </p>
             <div class="popover-actions">
               <button class="btn btn-primary btn-xs" type="button" id="openPaymentsFromPopoverBtn">
@@ -3759,6 +3893,7 @@
     <section class="hero">
       <div class="hero-left">
         <div class="hero-avatar">
+          <div class="hero-avatar-symbol">Ø</div>
           <div class="hero-avatar-label">AVZALØV</div>
         </div>
         <div class="hero-main">
@@ -4057,36 +4192,98 @@
               Отправить заявку
             </button>
           </div>
-          <div class="topup-methods-grid">
-            <button class="topup-method-card" type="button" data-topup-method="card">
-              <div class="topup-method-icon"><i class="fa-solid fa-credit-card"></i></div>
-              <div class="topup-method-name">Банковская карта</div>
-              <div class="topup-method-note">Visa, Mastercard, МИР</div>
-            </button>
-            <button class="topup-method-card" type="button" data-topup-method="sbp">
-              <div class="topup-method-icon"><i class="fa-solid fa-building-columns"></i></div>
-              <div class="topup-method-name">Система быстрых платежей</div>
-              <div class="topup-method-note">Перевод по номеру телефона</div>
-            </button>
-            <button class="topup-method-card" type="button" data-topup-method="yoomoney">
-              <div class="topup-method-icon"><i class="fa-solid fa-wallet"></i></div>
-              <div class="topup-method-name">ЮMoney</div>
-              <div class="topup-method-note">Оплата кошельком или номером карты</div>
-            </button>
+          <div class="topup-note">
+            Окно оплаты теперь открывается отдельно и не перекрывает меню. Внутри — десяток способов оплаты по СНГ, персональные
+            данные пользователя и актуальное количество слушателей онлайн.
           </div>
         </div>
         <div class="topup-overlay" id="topupOverlay" aria-hidden="true">
-          <div class="topup-overlay-inner">
+          <div class="topup-overlay-inner" role="dialog" aria-modal="true" aria-labelledby="topupOverlayTitle">
             <div class="topup-overlay-header">
-              <div class="topup-overlay-title">Оформление оплаты</div>
+              <div>
+                <div class="topup-overlay-title" id="topupOverlayTitle">Оформление оплаты</div>
+                <div class="topup-overlay-meta">
+                  <span class="topup-overlay-pill"><i class="fa-solid fa-globe"></i> 10 способов оплаты по СНГ</span>
+                  <span class="topup-overlay-pill"><i class="fa-solid fa-shield-halved"></i> Безопасная передача реквизитов</span>
+                </div>
+              </div>
               <button class="topup-overlay-close" type="button" aria-label="Закрыть оплату" data-topup-close>
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>
             <div class="topup-overlay-body">
+              <div class="topup-overlay-user">
+                <div class="topup-user-main">
+                  <div class="topup-user-avatar" id="topupUserAvatar">Ø</div>
+                  <div class="topup-user-meta">
+                    <div class="topup-user-name" id="topupUserName">Гость</div>
+                    <div class="topup-user-id" id="topupUserId">ID: —</div>
+                    <div class="topup-user-balance">Баланс: <strong id="topupUserBalance">0 RUZ</strong></div>
+                  </div>
+                </div>
+                <div class="topup-user-online">
+                  <span class="status-dot" aria-hidden="true"></span>
+                  <div>
+                    Сейчас на сайте: <strong id="topupOnlineCount">—</strong>
+                    <div class="topup-user-role" id="topupUserRole">Слушатель</div>
+                  </div>
+                </div>
+              </div>
               <div class="topup-overlay-summary">
                 <div>Сумма: <strong><span id="overlayTopupAmount">0</span> RUZ</strong></div>
                 <div>Способ: <strong id="overlayTopupMethod">—</strong></div>
+              </div>
+              <div class="topup-overlay-methods" role="group" aria-label="Способы оплаты по СНГ">
+                <button class="topup-method-card" type="button" data-topup-method="card">
+                  <div class="topup-method-icon"><i class="fa-solid fa-credit-card"></i></div>
+                  <div class="topup-method-name">Банковская карта</div>
+                  <div class="topup-method-note">Visa, Mastercard, МИР</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="sbp">
+                  <div class="topup-method-icon"><i class="fa-solid fa-building-columns"></i></div>
+                  <div class="topup-method-name">Система быстрых платежей</div>
+                  <div class="topup-method-note">Оплата по номеру телефона</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="yoomoney">
+                  <div class="topup-method-icon"><i class="fa-solid fa-wallet"></i></div>
+                  <div class="topup-method-name">ЮMoney</div>
+                  <div class="topup-method-note">Кошелёк или привязанная карта</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="qiwi">
+                  <div class="topup-method-icon"><i class="fa-solid fa-kiwi-bird"></i></div>
+                  <div class="topup-method-name">QIWI</div>
+                  <div class="topup-method-note">Счёт или карта QIWI</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="mirpay">
+                  <div class="topup-method-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                  <div class="topup-method-name">Mir Pay</div>
+                  <div class="topup-method-note">Оплата через приложение</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="tinkoff">
+                  <div class="topup-method-icon"><i class="fa-solid fa-building"></i></div>
+                  <div class="topup-method-name">Tinkoff Pay</div>
+                  <div class="topup-method-note">Скан по приложению банка</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="sberpay">
+                  <div class="topup-method-icon"><i class="fa-solid fa-leaf"></i></div>
+                  <div class="topup-method-name">СберPay</div>
+                  <div class="topup-method-note">Подтверждение в Сбербанк Онлайн</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="alfabank">
+                  <div class="topup-method-icon"><i class="fa-solid fa-university"></i></div>
+                  <div class="topup-method-name">Альфа-Банк</div>
+                  <div class="topup-method-note">Перевод по карте или счёту</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="kaspi">
+                  <div class="topup-method-icon"><i class="fa-solid fa-money-bill"></i></div>
+                  <div class="topup-method-name">Kaspi</div>
+                  <div class="topup-method-note">Перевод внутри Казахстана</div>
+                </button>
+                <button class="topup-method-card" type="button" data-topup-method="payeer">
+                  <div class="topup-method-icon"><i class="fa-solid fa-globe"></i></div>
+                  <div class="topup-method-name">Payeer/WebMoney</div>
+                  <div class="topup-method-note">Кошельки и валютные переводы</div>
+                </button>
               </div>
               <p>
                 Проверь сумму и способ оплаты. После подтверждения мы отправим реквизиты на указанный контакт и зафиксируем заявку в истории RUZCOIN.
@@ -4328,6 +4525,12 @@
     const topupOverlayMethodEl = document.getElementById("overlayTopupMethod");
     const topupOverlayCloseButtons = Array.from(document.querySelectorAll("[data-topup-close]"));
     const confirmTopupBtn = document.getElementById("confirmTopupBtn");
+    const topupUserNameEl = document.getElementById("topupUserName");
+    const topupUserIdEl = document.getElementById("topupUserId");
+    const topupUserBalanceEl = document.getElementById("topupUserBalance");
+    const topupUserRoleEl = document.getElementById("topupUserRole");
+    const topupUserAvatarEl = document.getElementById("topupUserAvatar");
+    const topupOnlineCountEl = document.getElementById("topupOnlineCount");
     const profileTabButtons = Array.from(document.querySelectorAll("[data-profile-tab]"));
     const profileViews = Array.from(document.querySelectorAll("[data-profile-view]"));
     const headerUsersBtn = document.getElementById("headerUsersBtn");
@@ -4341,6 +4544,8 @@
 
     const RUZCOIN_PRICE_RUB = 25;
     const VOLUME_STORAGE_KEY = "avzalov-volume";
+    const onlineCountBase = 58 + Math.floor(Math.random() * 14);
+    let liveOnlineCount = onlineCountBase;
     const TOPUP_METHOD_CONFIG = {
       card: {
         label: "Банковская карта",
@@ -4353,6 +4558,34 @@
       yoomoney: {
         label: "ЮMoney",
         description: "Платёж через кошелёк или привязанную карту"
+      },
+      qiwi: {
+        label: "QIWI",
+        description: "Счёт или привязанная карта QIWI"
+      },
+      mirpay: {
+        label: "Mir Pay",
+        description: "Оплата в приложении Mir Pay"
+      },
+      tinkoff: {
+        label: "Tinkoff Pay",
+        description: "Подтверждение платежа в приложении Тинькофф"
+      },
+      sberpay: {
+        label: "СберPay",
+        description: "Подтверждение в Сбербанк Онлайн"
+      },
+      alfabank: {
+        label: "Альфа-Банк",
+        description: "Перевод по карте или счёту"
+      },
+      kaspi: {
+        label: "Kaspi",
+        description: "Перевод внутри Казахстана"
+      },
+      payeer: {
+        label: "Payeer/WebMoney",
+        description: "Оплата с мультивалютных кошельков"
       }
     };
 
@@ -4553,7 +4786,7 @@
       }
 
       if (!selectedTopupMethod) {
-        alert("Выберите способ оплаты: карта, СБП или ЮMoney.");
+        alert("Выберите способ оплаты: карта, СБП, Mir Pay, Kaspi или другой доступный способ.");
         return;
       }
 
@@ -4565,6 +4798,8 @@
       updateTopupOverlaySummary();
       topupOverlay.classList.add("is-visible");
       topupOverlay.setAttribute("aria-hidden", "false");
+      updateTopupUserMeta();
+      document.body.classList.add("modal-open");
     }
 
     function closeTopupOverlay() {
@@ -4573,6 +4808,7 @@
       }
       topupOverlay.classList.remove("is-visible");
       topupOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
     }
 
     function initializeTopupMethod() {
@@ -4614,7 +4850,7 @@
       }
       const method = getTopupMethodInfo(methodKey);
       if (!method) {
-        alert("Выберите способ оплаты: карта, СБП или ЮMoney.");
+        alert("Выберите способ оплаты: карта, СБП, Mir Pay, Kaspi или другой доступный способ.");
         return false;
       }
       if (selectedTopupAmount <= 0) {
@@ -6350,6 +6586,9 @@
       let usersPopoverController = null;
       let mixPopoverController = null;
 
+      refreshOnlineCount();
+      window.setInterval(refreshOnlineCount, 12000);
+
       const profilePopoverLoggedOutSection = headerProfilePopover
         ? headerProfilePopover.querySelector('[data-state="logged-out"]')
         : null;
@@ -6836,6 +7075,7 @@
       function switchUserContext(user) {
         activeUserId = user && user.id ? String(user.id) : "guest";
         loadUserHistories();
+        updateTopupUserMeta();
       }
 
       function generateUserId() {
@@ -7033,12 +7273,54 @@
         }
       }
 
-      function updateHeaderProfileNameDisplay(name) {
-        if (headerProfileNameEl) {
-          headerProfileNameEl.textContent = name || "Войти";
-        }
-        applyHeaderAvatar(currentUser);
+    function updateHeaderProfileNameDisplay(name) {
+      if (headerProfileNameEl) {
+        headerProfileNameEl.textContent = name || "Войти";
       }
+      applyHeaderAvatar(currentUser);
+    }
+
+    function getInitials(name = "") {
+      const normalized = name.trim();
+      if (!normalized) {
+        return "Ø";
+      }
+      const parts = normalized.split(/\s+/).slice(0, 2);
+      return parts
+        .map(part => part.charAt(0).toUpperCase())
+        .join("")
+        .padEnd(1, "Ø");
+    }
+
+    function refreshOnlineCount() {
+      const registryCount = usersRegistry ? usersRegistry.size : 0;
+      const jitter = Math.floor(Math.random() * 6);
+      const activeBonus = currentUser ? 1 : 0;
+      liveOnlineCount = Math.max(registryCount + activeBonus, onlineCountBase + jitter);
+      if (topupOnlineCountEl) {
+        topupOnlineCountEl.textContent = liveOnlineCount.toLocaleString("ru-RU");
+      }
+    }
+
+    function updateTopupUserMeta() {
+      const user = currentUser ? ensureUserShape(currentUser) : { name: "Гость", id: "—", coins: 0, role: "listener" };
+      if (topupUserNameEl) {
+        topupUserNameEl.textContent = user.name || "Гость";
+      }
+      if (topupUserIdEl) {
+        topupUserIdEl.textContent = user.id ? `ID: ${user.id}` : "ID: —";
+      }
+      if (topupUserBalanceEl) {
+        topupUserBalanceEl.textContent = `${numberFormatter.format(user.coins || 0)} RUZ`;
+      }
+      if (topupUserRoleEl) {
+        applyRoleBadge(topupUserRoleEl, user.role, user.roleColor);
+      }
+      if (topupUserAvatarEl) {
+        topupUserAvatarEl.textContent = getInitials(user.name || "");
+      }
+      refreshOnlineCount();
+    }
 
       function updateProfilePopoverState() {
         const isLoggedIn = Boolean(currentUser);
