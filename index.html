@@ -1726,6 +1726,42 @@
       box-shadow: 0 10px 24px rgba(12, 16, 32, 0.55);
     }
 
+    .users-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .users-btn-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .users-btn-inner i {
+      font-size: 20px;
+      opacity: 0.85;
+    }
+
+    .users-btn-label {
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    .users-btn-sub {
+      font-size: 9px;
+      opacity: 0.5;
+      margin-top: -2px;
+    }
+
+
     .user-meta {
       display: flex;
       flex-direction: column;
@@ -4294,11 +4330,14 @@
           </div>
         </div>
         <div class="header-action-group">
-            <button id="headerUsersBtn" class="header-action-btn" type="button" aria-label="Пользователи" aria-haspopup="true" aria-expanded="false">
-              <span id="headerUsersAvatar" class="header-profile-avatar" style="font-size: 14px;">
-                <i class="fas fa-users"></i>
-              </span>
+            <button id="headerUsersBtn" class="header-action-btn users-btn" type="button" aria-label="Пользователи" aria-haspopup="true" aria-expanded="false">
+              <div class="users-btn-inner">
+                <i class="fas fa-user-friends"></i>
+                <span class="users-btn-label">Пользователи</span>
+                <span class="users-btn-sub">Топ слушателей</span>
+              </div>
             </button>
+
           <div class="header-popover users-popover" id="headerUsersPopover" role="dialog" aria-hidden="true">
             <div class="popover-header">
               <div class="popover-title">Пользователи</div>
