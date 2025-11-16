@@ -4823,6 +4823,21 @@
     let getPersonalPlayCount = () => 0;
     let updateTrackPersonalPlayDisplay = () => {};
 
+    function resolveTrackTitle(slug) {
+      if (!slug) {
+        return "Неизвестный трек";
+      }
+      if (trackTitleCache.has(slug)) {
+        return trackTitleCache.get(slug);
+      }
+      const trackFromLibrary = buildTrackLibrary().find(item => item.slug === slug);
+      if (trackFromLibrary && trackFromLibrary.title) {
+        trackTitleCache.set(slug, trackFromLibrary.title);
+        return trackFromLibrary.title;
+      }
+      return slug;
+    }
+
     function calculateTrackPrice(trackConfig, releaseState) {
       const basePrice = Number.parseInt(trackConfig.price, 10);
       const safeBasePrice = Number.isFinite(basePrice) ? Math.max(0, basePrice) : 0;
@@ -5848,21 +5863,6 @@
         { id: "collector", title: "Коллекционер", desc: "Открыл 3 закрытых трека.", coins: 0 }
       ];
 
-      function resolveTrackTitle(slug) {
-        if (!slug) {
-          return "Неизвестный трек";
-        }
-        if (trackTitleCache.has(slug)) {
-          return trackTitleCache.get(slug);
-        }
-        const trackFromLibrary = buildTrackLibrary().find(item => item.slug === slug);
-        if (trackFromLibrary && trackFromLibrary.title) {
-          trackTitleCache.set(slug, trackFromLibrary.title);
-          return trackFromLibrary.title;
-        }
-        return slug;
-      }
-
       function createEmptyListeningStats() {
         return {
           totalPlays: 0,
@@ -6122,6 +6122,10 @@
         }
         return mixEventStats.events[eventId];
       };
+
+      function refreshMiniGalleryPersonalDisplays() {
+        // Мини-галерея пока не используется, оставляем заглушку, чтобы не прерывать работу остального кода
+      }
 
       function refreshAllTrackPersonalDisplays() {
         document
@@ -6408,7 +6412,6 @@
         });
         persistUsersRegistry();
         renderUsersDirectory();
-        alert(`Код подтверждён. Добро пожаловать, ${currentUser.name}!`);
       }
 
       function loadUsedAdminCodes() {
