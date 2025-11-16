@@ -5098,11 +5098,23 @@
     </section>
 
     <!-- МОДАЛЬНОЕ ОКНО НОВОСТЕЙ -->
-    <div class="news-modal-overlay" id="newsModalOverlay" aria-hidden="true">
-      <div class="news-modal" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
-        <div class="news-modal-header">
-          <div>
-            <div class="news-modal-kicker">Новости</div>
+    <div id="newsModalOverlay" class="news-modal-overlay" aria-hidden="true">
+      <div class="news-modal">
+
+        <!-- КНОПКА ЗАКРЫТЬ (правильная версия) -->
+        <button
+          class="news-modal-close"
+          type="button"
+          data-news-modal-close
+          aria-label="Закрыть новости"
+          onclick="
+            document.getElementById('newsModalOverlay').classList.remove('is-visible');
+            document.getElementById('newsModalOverlay').setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+          "
+        >
+          ✕
+        </button>
             <div class="news-modal-title" id="newsModalTitle">Новости AVZALØV</div>
             <p class="news-modal-sub">
               Полная лента анонсов, релизов и важных событий проекта.
@@ -5913,8 +5925,15 @@
         kicker: "Блог",
         description: "Анонсы релизов, обновления проектов и важные события вселенной AVZALØV.",
         sectionId: "news",
-        cta: "Читать новости"
+        cta: "Читать новости",
+        action: () => {
+          // проскроллим к секции "Новости" (по желанию)
+          openSectionById("news");
+          // и сразу откроем модальное окно новостей
+          openNewsModal();
+        }
       },
+
       about: {
         title: "Биография",
         kicker: "Обо мне",
