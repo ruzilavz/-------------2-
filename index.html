@@ -6818,7 +6818,7 @@
           headerUsersListEl.innerHTML = '<p class="users-popover-empty">Список появится после входа в профиль.</p>';
           return;
         }
-        const topUsers = usersSummary.slice(0, 3);
+        const topUsers = usersSummary.slice(0, 10);
         topUsers.forEach((entry, index) => {
           const item = document.createElement("div");
           item.className = "users-popover-item";
