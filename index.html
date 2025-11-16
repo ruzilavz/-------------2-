@@ -2223,6 +2223,19 @@
       opacity: 1;
     }
 
+    .track-card.audio-error {
+      border-color: rgba(255, 122, 122, 0.55);
+      box-shadow: 0 18px 36px rgba(255, 76, 76, 0.25);
+    }
+
+    .track-card.audio-error .play-overlay {
+      background: radial-gradient(circle at center, rgba(255, 120, 120, 0.35), rgba(10, 12, 20, 0.95));
+    }
+
+    .track-card.audio-error .time-display {
+      color: #ff9f9f;
+    }
+
     .track-card.playing {
       --lift: -16px;
       border-color: rgba(61, 208, 156, 0.7);
@@ -5575,6 +5588,35 @@
       card.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
+    function markAudioUnavailable(card, audio) {
+      if (audio) {
+        audio.pause();
+        audio.removeAttribute("src");
+      }
+      if (card) {
+        card.dataset.hasAudio = "false";
+        card.classList.add("audio-error");
+        const playToggle = card.querySelector(".track-play-toggle");
+        if (playToggle) {
+          playToggle.disabled = true;
+          playToggle.setAttribute("aria-label", "Предпрослушивание временно недоступно");
+        }
+        const overlayIcon = card.querySelector(".play-overlay i");
+        if (overlayIcon) {
+          overlayIcon.className = "fas fa-ban";
+        }
+        const timeDisplay = card.querySelector(".time-display");
+        if (timeDisplay) {
+          timeDisplay.textContent = "Нет превью";
+        }
+      }
+      if (currentAudio === audio) {
+        currentAudio = null;
+        currentCard = null;
+        clearMiniPlayer();
+      }
+    }
+
     function openLyrics(card) {
       if (!card) {
         return;
@@ -5623,6 +5665,10 @@
         audio.addEventListener("loadedmetadata", () => {
           if (timeDisplay) timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
           if (audio === currentAudio) miniPlayerDuration.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener("error", () => {
+          markAudioUnavailable(card, audio);
         });
 
         [cover, toggle].forEach(control => {
