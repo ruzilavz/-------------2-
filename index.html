@@ -4246,6 +4246,93 @@
         align-items: flex-start;
       }
     }
+
+    /* Компактная шапка для телефонов */
+    @media (max-width: 600px) {
+      .site-header {
+      padding: 10px 12px;
+      margin: 10px 0 18px;
+      gap: 10px;
+      border-radius: 14px;
+      top: 8px;
+      transform: translateY(8px);
+    }
+
+    .logo-group {
+      gap: 8px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      box-shadow: 0 0 8px rgba(47, 107, 255, 0.3);
+    }
+
+    .logo-text-main {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+    }
+
+    .logo-text-sub {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+    }
+
+    /* Кнопки в шапке более компактные */
+    .header-actions {
+      margin-left: 0;
+      width: 100%;
+      justify-content: space-between;
+      padding: 4px 6px;
+      gap: 6px;
+      flex-wrap: nowrap;
+    }
+
+      /* Скрываем поиск на маленьких экранах,
+       если хочешь оставить — просто убери display:none */
+    .search-bar {
+      display: none;
+    }
+
+    .ruzcoin-chip {
+      padding: 7px 10px;
+    }
+
+    .header-action-group {
+      flex: 0 1 auto;
+    }
+
+    .mix-button-wrapper {
+      width: 100%;
+      min-width: auto;
+      order: 3;
+    }
+
+    .mix-button {
+      width: 100%;
+      padding: 8px 12px;
+    }
+
+    .nav-toggle {
+      margin-left: auto;
+    }
+  }
+
+  /* Ещё более компактно на очень маленьких телефонах */
+  @media (max-width: 400px) {
+    .ruzcoin-label {
+      display: none;
+    }
+
+    .ruzcoin-value {
+      font-size: 13px;
+    }
+
+    .logo-text-sub {
+      display: none; /* оставляем только AVZALØV, чтобы не было тесно */
+    }
+  }
   </style>
 </head>
 <body>
