@@ -3408,15 +3408,15 @@
     .users-modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(4, 6, 12, 0.78);
-      backdrop-filter: blur(14px);
-      display: grid;
-      place-items: center;
-      padding: 20px;
+      background: rgba(4, 6, 12, 0.75);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       opacity: 0;
       pointer-events: none;
       transition: opacity 200ms ease;
-      z-index: 90;
+      z-index: 70;
     }
 
     .users-modal-overlay.is-visible {
@@ -3425,15 +3425,16 @@
     }
 
     .users-modal {
-      width: min(880px, 100%);
-      max-height: min(90vh, 980px);
-      overflow: hidden;
-      background: linear-gradient(160deg, rgba(10, 14, 26, 0.96), rgba(17, 22, 38, 0.94));
-      border-radius: 20px;
-      border: 1px solid rgba(76, 104, 206, 0.4);
-      box-shadow: 0 28px 70px rgba(2, 4, 10, 0.85);
       position: relative;
-      padding: 20px;
+      background: linear-gradient(160deg, rgba(17, 22, 38, 0.96), rgba(26, 32, 56, 0.96));
+      border-radius: 22px;
+      border: 1px solid rgba(90, 120, 210, 0.4);
+      padding: 24px;
+      width: min(720px, calc(100% - 32px));
+      max-height: calc(100vh - 80px);
+      overflow: auto;
+      box-shadow: 0 40px 70px rgba(5, 8, 20, 0.8);
+      color: #e8ebff;
     }
 
     .users-modal::before,
@@ -4994,6 +4995,17 @@
     </div>
   </div>
   <script src="mix-events.js"></script>
+    <!-- Users Modal -->
+  <div class="users-modal-overlay" id="usersModalOverlay" aria-hidden="true">
+    <div class="users-modal" role="dialog" aria-modal="true" aria-labelledby="usersModalTitle">
+      <button class="users-modal-close" id="usersModalCloseBtn" type="button">&times;</button>
+      <h3 class="users-modal-title" id="usersModalTitle">Пользователи</h3>
+      <p class="users-modal-sub">Топ слушателей и подробная статистика</p>
+      <div class="users-modal-body" id="usersModalBody">
+        <!-- Сюда скопируется список пользователей -->
+      </div>
+    </div>
+  </div>
   <script src="tracks-data.js"></script>
   <script>
       // Показать/скрыть кнопку "Наверх"
@@ -7267,6 +7279,9 @@
       const headerUsersPopover = document.getElementById("headerUsersPopover");
       const headerUsersListEl = document.getElementById("headerUsersList");
       const openUsersSectionBtn = document.getElementById("openUsersSectionBtn");
+      const usersModalOverlay = document.getElementById("usersModalOverlay");
+      const usersModalCloseBtn = document.getElementById("usersModalCloseBtn");
+      const usersModalBody = document.getElementById("usersModalBody");
       const headerSectionShortcuts = Array.from(
         document.querySelectorAll("[data-open-section]")
       );
@@ -8142,6 +8157,19 @@
         });
       }
 
+            function openUsersModal() {
+        if (!usersModalOverlay) return;
+        usersModalOverlay.classList.add("visible");
+        usersModalOverlay.setAttribute("aria-hidden", "false");
+      }
+
+      function closeUsersModal() {
+        if (!usersModalOverlay) return;
+        usersModalOverlay.classList.remove("visible");
+        usersModalOverlay.setAttribute("aria-hidden", "true");
+      }
+
+
       function attachPopover(button, popover) {
         if (!button || !popover) {
           return null;
@@ -8525,6 +8553,9 @@
         usersDirectoryEl.appendChild(fragment);
         updateUsersPopoverList(enriched);
         renderUsersModal(enriched);
+        if (usersModalBody) {
+          usersModalBody.innerHTML = usersDirectoryEl.innerHTML;
+        }
       }
 
       function grantAchievement(achievementId) {
