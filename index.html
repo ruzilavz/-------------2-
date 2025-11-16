@@ -836,6 +836,56 @@
       color: #ffffff;
     }
 
+    .topup-overlay-steps {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: rgba(17, 20, 36, 0.92);
+      border: 1px solid rgba(113, 144, 238, 0.35);
+    }
+
+    .topup-step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: border var(--transition), background var(--transition);
+    }
+
+    .topup-step.is-complete {
+      border-color: rgba(76, 186, 124, 0.6);
+      background: linear-gradient(120deg, rgba(66, 104, 182, 0.12), rgba(41, 184, 135, 0.12));
+    }
+
+    .topup-step-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: #e8edff;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), rgba(47, 107, 255, 0.55));
+      box-shadow: 0 6px 18px rgba(11, 18, 46, 0.6);
+    }
+
+    .topup-step-title {
+      font-weight: 700;
+      color: #f5f7ff;
+      letter-spacing: 0.02em;
+    }
+
+    .topup-step-note {
+      font-size: 12px;
+      color: rgba(198, 206, 244, 0.85);
+    }
+
     .topup-overlay-actions {
       margin-top: auto;
       display: flex;
@@ -3336,6 +3386,216 @@
       color: #f4f6ff;
     }
 
+    .users-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 12, 0.78);
+      backdrop-filter: blur(14px);
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+      z-index: 90;
+    }
+
+    .users-modal-overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .users-modal {
+      width: min(880px, 100%);
+      max-height: min(90vh, 980px);
+      overflow: hidden;
+      background: linear-gradient(160deg, rgba(10, 14, 26, 0.96), rgba(17, 22, 38, 0.94));
+      border-radius: 20px;
+      border: 1px solid rgba(76, 104, 206, 0.4);
+      box-shadow: 0 28px 70px rgba(2, 4, 10, 0.85);
+      position: relative;
+      padding: 20px;
+    }
+
+    .users-modal::before,
+    .users-modal::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      pointer-events: none;
+      filter: blur(12px);
+      opacity: 0.4;
+    }
+
+    .users-modal::before {
+      width: 65%;
+      height: 55%;
+      background: radial-gradient(circle, rgba(47, 107, 255, 0.22), transparent 65%);
+      top: -22%;
+      left: -12%;
+    }
+
+    .users-modal::after {
+      width: 60%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(255, 198, 128, 0.18), transparent 60%);
+      bottom: -18%;
+      right: -10%;
+    }
+
+    .users-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .users-modal-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(138, 180, 255, 0.14);
+      color: #c6d7ff;
+      border: 1px solid rgba(118, 156, 255, 0.24);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .users-modal-title {
+      font-size: clamp(22px, 2.4vw, 30px);
+      margin-top: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .users-modal-sub {
+      color: rgba(204, 214, 240, 0.88);
+      margin-top: 6px;
+    }
+
+    .users-modal-close {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: #e7ecff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      z-index: 2;
+    }
+
+    .users-modal-close:hover,
+    .users-modal-close:focus-visible {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .users-modal-body {
+      margin-top: 16px;
+      display: grid;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+      max-height: calc(90vh - 140px);
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .users-modal-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(15, 19, 34, 0.92);
+      border: 1px solid rgba(96, 133, 238, 0.35);
+    }
+
+    .users-summary-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .users-summary-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      color: #dfe5ff;
+      box-shadow: 0 10px 24px rgba(3, 6, 18, 0.55);
+    }
+
+    .users-summary-label {
+      font-size: 12px;
+      color: rgba(196, 204, 230, 0.9);
+    }
+
+    .users-summary-value {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #f4f6ff;
+    }
+
+    .users-modal-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .users-modal-card {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(15, 18, 32, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: grid;
+      gap: 8px;
+    }
+
+    .users-modal-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .users-modal-card-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .users-modal-card .user-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      font-size: 16px;
+    }
+
+    .users-modal-card .user-name {
+      font-size: 16px;
+    }
+
+    .users-modal-card .user-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 8px;
+    }
+
+    .users-modal-overlay.is-visible .users-modal {
+      animation: navModalPop 180ms ease-out;
+    }
+
     .nav-modal-overlay.is-visible
       [data-nav-modal-close]:focus-visible,
     .nav-modal-overlay.is-visible
@@ -4070,6 +4330,49 @@
       </div>
     </div>
 
+    <div class="users-modal-overlay" id="usersModalOverlay" aria-hidden="true">
+      <div class="users-modal" role="dialog" aria-modal="true" aria-labelledby="usersModalTitle">
+        <div class="users-modal-header">
+          <div>
+            <div class="users-modal-kicker">Комьюнити</div>
+            <div class="users-modal-title" id="usersModalTitle">Пользователи</div>
+            <p class="users-modal-sub">
+              Здесь собираются все профили без дублей. Проверяй активность, роли и баланс перед отправкой подарков.
+            </p>
+          </div>
+          <button class="users-modal-close" type="button" aria-label="Закрыть окно" data-users-modal-close>✕</button>
+        </div>
+        <div class="users-modal-body">
+          <div class="users-modal-summary" id="usersModalSummary">
+            <div class="users-summary-card">
+              <div class="users-summary-icon"><i class="fa-solid fa-users"></i></div>
+              <div>
+                <div class="users-summary-label">Профилей</div>
+                <div class="users-summary-value">—</div>
+              </div>
+            </div>
+            <div class="users-summary-card">
+              <div class="users-summary-icon"><i class="fa-solid fa-signal"></i></div>
+              <div>
+                <div class="users-summary-label">Онлайн</div>
+                <div class="users-summary-value">—</div>
+              </div>
+            </div>
+            <div class="users-summary-card">
+              <div class="users-summary-icon"><i class="fa-solid fa-coins"></i></div>
+              <div>
+                <div class="users-summary-label">Средний баланс</div>
+                <div class="users-summary-value">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="users-modal-list" id="usersModalList">
+            <p class="users-popover-empty">Список прогружается…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <section class="hero">
       <div class="hero-left">
         <div class="hero-avatar">
@@ -4413,6 +4716,29 @@
                 <div>Сумма: <strong><span id="overlayTopupAmount">0</span> RUZ</strong></div>
                 <div>Способ: <strong id="overlayTopupMethod">—</strong></div>
               </div>
+              <div class="topup-overlay-steps" id="topupOverlaySteps">
+                <div class="topup-step" data-step="amount">
+                  <div class="topup-step-icon">1</div>
+                  <div>
+                    <div class="topup-step-title">Выбери сумму</div>
+                    <div class="topup-step-note">Текущий выбор: <span id="topupStepAmountLabel">0 RUZ</span></div>
+                  </div>
+                </div>
+                <div class="topup-step" data-step="method">
+                  <div class="topup-step-icon">2</div>
+                  <div>
+                    <div class="topup-step-title">Подбери способ оплаты</div>
+                    <div class="topup-step-note">Сейчас активен: <span id="topupStepMethodLabel">—</span></div>
+                  </div>
+                </div>
+                <div class="topup-step" data-step="confirm">
+                  <div class="topup-step-icon">3</div>
+                  <div>
+                    <div class="topup-step-title">Подтверди заявку</div>
+                    <div class="topup-step-note">Окно показывает сумму, способ и данные профиля перед отправкой.</div>
+                  </div>
+                </div>
+              </div>
               <div class="topup-overlay-methods" role="group" aria-label="Способы оплаты по СНГ">
                 <button class="topup-method-card" type="button" data-topup-method="card">
                   <div class="topup-method-icon"><i class="fa-solid fa-credit-card"></i></div>
@@ -4709,6 +5035,9 @@
     const topupOverlay = document.getElementById("topupOverlay");
     const topupOverlayAmountEl = document.getElementById("overlayTopupAmount");
     const topupOverlayMethodEl = document.getElementById("overlayTopupMethod");
+    const topupOverlayStepsEl = document.getElementById("topupOverlaySteps");
+    const topupStepAmountLabel = document.getElementById("topupStepAmountLabel");
+    const topupStepMethodLabel = document.getElementById("topupStepMethodLabel");
     const topupOverlayCloseButtons = Array.from(document.querySelectorAll("[data-topup-close]"));
     const confirmTopupBtn = document.getElementById("confirmTopupBtn");
     const topupUserNameEl = document.getElementById("topupUserName");
@@ -4722,9 +5051,14 @@
     const headerUsersBtn = document.getElementById("headerUsersBtn");
     const usersSection = document.getElementById("users");
     const usersDirectoryEl = document.getElementById("usersDirectory");
+    const usersModalOverlay = document.getElementById("usersModalOverlay");
+    const usersModalListEl = document.getElementById("usersModalList");
+    const usersModalSummaryEl = document.getElementById("usersModalSummary");
+    const usersModalCloseButtons = Array.from(document.querySelectorAll("[data-users-modal-close]"));
     const clipsGrid = document.getElementById("clipsGrid");
     const loginQuickButtons = Array.from(document.querySelectorAll("[data-login-quick]"));
     const topupMethodButtons = Array.from(document.querySelectorAll("[data-topup-method]"));
+    const usersModalTriggers = [headerUsersBtn, document.getElementById("openUsersSectionBtn")].filter(Boolean);
 
     const tracksGrid = document.querySelector("#tracks .tracks-grid");
 
@@ -4795,7 +5129,10 @@
         kicker: "Комьюнити",
         description: "Топ слушателей, онлайн-активность и быстрый доступ к профилям.",
         sectionId: "users",
-        cta: "Открыть комьюнити"
+        cta: "Открыть комьюнити",
+        action: () => {
+          openUsersModal();
+        }
       },
       payments: {
         title: "Оплата и RUZCOIN",
@@ -4884,9 +5221,35 @@
     }
 
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && navModalOverlay && navModalOverlay.classList.contains("is-visible")) {
+      if (event.key !== "Escape") {
+        return;
+      }
+      if (navModalOverlay && navModalOverlay.classList.contains("is-visible")) {
         closeNavModal();
       }
+      if (usersModalOverlay && usersModalOverlay.classList.contains("is-visible")) {
+        closeUsersModal();
+      }
+    });
+
+    usersModalCloseButtons.forEach(button => {
+      button.addEventListener("click", closeUsersModal);
+    });
+
+    if (usersModalOverlay) {
+      usersModalOverlay.addEventListener("click", event => {
+        if (event.target === usersModalOverlay) {
+          closeUsersModal();
+        }
+      });
+    }
+
+    usersModalTriggers.forEach(button => {
+      button.addEventListener("click", event => {
+        event.preventDefault();
+        closeAllPopovers();
+        openUsersModal();
+      });
     });
 
     function revealSection(sectionEl) {
@@ -5046,6 +5409,30 @@
         const method = getTopupMethodInfo(selectedTopupMethod);
         topupOverlayMethodEl.textContent = method ? method.label : "—";
       }
+      updateTopupStepsState();
+    }
+
+    function updateTopupStepsState() {
+      if (topupStepAmountLabel) {
+        topupStepAmountLabel.textContent = `${numberFormatter.format(Math.max(0, selectedTopupAmount))} RUZ`;
+      }
+      if (topupStepMethodLabel) {
+        const method = getTopupMethodInfo(selectedTopupMethod);
+        topupStepMethodLabel.textContent = method ? method.label : "Выберите способ";
+      }
+      if (!topupOverlayStepsEl) {
+        return;
+      }
+      const steps = Array.from(topupOverlayStepsEl.querySelectorAll(".topup-step"));
+      steps.forEach(step => {
+        const key = step.dataset.step;
+        const isComplete = key === "amount"
+          ? selectedTopupAmount > 0
+          : key === "method"
+            ? Boolean(selectedTopupMethod)
+            : selectedTopupAmount > 0 && Boolean(selectedTopupMethod);
+        step.classList.toggle("is-complete", isComplete);
+      });
     }
 
     function isTopupOverlayOpen() {
@@ -5056,22 +5443,17 @@
       const normalized = (methodKey || "").toLowerCase();
       if (normalized) {
         setActiveTopupMethod(normalized);
-      } else if (!selectedTopupMethod && topupMethodButtons[0]) {
+      }
+      if (selectedTopupAmount <= 0 && topupAmountButtons.length) {
+        updateTopupSelectionFromButton(topupAmountButtons[0]);
+      }
+
+      if (!selectedTopupMethod && topupMethodButtons[0]) {
         setActiveTopupMethod(topupMethodButtons[0].dataset.topupMethod || "");
       }
 
       if (topupOverlay && isTopupOverlayOpen() && (!methodKey || normalized === selectedTopupMethod)) {
         closeTopupOverlay();
-        return;
-      }
-
-      if (selectedTopupAmount <= 0) {
-        alert("Выберите количество RUZCOIN для пополнения.");
-        return;
-      }
-
-      if (!selectedTopupMethod) {
-        alert("Выберите способ оплаты: карта, СБП, Mir Pay, Kaspi или другой доступный способ.");
         return;
       }
 
@@ -5084,6 +5466,7 @@
       topupOverlay.classList.add("is-visible");
       topupOverlay.setAttribute("aria-hidden", "false");
       updateTopupUserMeta();
+      updateTopupStepsState();
       document.body.classList.add("modal-open");
     }
 
@@ -7408,6 +7791,53 @@
         };
       }
 
+      function mergeUserProfiles(baseUser, incomingUser) {
+        const base = sanitizeUserForRegistry(baseUser);
+        const incoming = sanitizeUserForRegistry(incomingUser);
+        const unlockedTracks = Array.from(new Set([...(base.unlockedTracks || []), ...(incoming.unlockedTracks || [])]));
+        return {
+          ...base,
+          id: base.id || incoming.id,
+          name: incoming.name || base.name,
+          coins: Math.max(Number(base.coins) || 0, Number(incoming.coins) || 0),
+          role: incoming.role || base.role,
+          roleColor: resolveRoleColor(incoming.role || base.role, incoming.roleColor || base.roleColor),
+          password: base.password || incoming.password,
+          avatar: incoming.avatar || base.avatar,
+          unlockedTracks,
+          achievements: { ...base.achievements, ...incoming.achievements }
+        };
+      }
+
+      function findRegistryUserByName(name) {
+        const normalized = typeof name === "string" ? name.trim().toLowerCase() : "";
+        if (!normalized) {
+          return null;
+        }
+        for (const entry of usersRegistry.values()) {
+          if ((entry.name || "").toLowerCase() === normalized) {
+            return entry;
+          }
+        }
+        return null;
+      }
+
+      function upsertUserInRegistry(user, { persist = true } = {}) {
+        const cleaned = sanitizeUserForRegistry(user);
+        const existingById = usersRegistry.get(cleaned.id);
+        const existingByName = findRegistryUserByName(cleaned.name);
+        const base = existingById || existingByName;
+        const merged = base ? mergeUserProfiles(base, cleaned) : cleaned;
+        usersRegistry.set(merged.id, merged);
+        if (existingByName && existingByName.id !== merged.id) {
+          usersRegistry.delete(existingByName.id);
+        }
+        if (persist) {
+          persistUsersRegistry();
+        }
+        return merged;
+      }
+
       function persistUsersRegistry() {
         try {
           const payload = JSON.stringify(Array.from(usersRegistry.values()));
@@ -7433,9 +7863,9 @@
 
       function bootstrapRegistryFromArray(list = []) {
         usersRegistry = new Map();
-        list.forEach(entry => {
-          const cleaned = sanitizeUserForRegistry(entry);
-          usersRegistry.set(cleaned.id, cleaned);
+        const normalizedList = Array.isArray(list) ? list : [];
+        normalizedList.forEach(entry => {
+          upsertUserInRegistry(entry, { persist: false });
         });
         persistUsersRegistry();
         renderUsersDirectory();
@@ -7585,6 +8015,29 @@
       if (topupOnlineCountEl) {
         topupOnlineCountEl.textContent = liveOnlineCount.toLocaleString("ru-RU");
       }
+      if (usersModalOverlay && usersModalOverlay.classList.contains("is-visible")) {
+        renderUsersModal(buildUsersSummaryList());
+      }
+    }
+
+    function openUsersModal() {
+      const summary = buildUsersSummaryList();
+      renderUsersModal(summary);
+      if (!usersModalOverlay) {
+        return;
+      }
+      usersModalOverlay.classList.add("is-visible");
+      usersModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeUsersModal() {
+      if (!usersModalOverlay) {
+        return;
+      }
+      usersModalOverlay.classList.remove("is-visible");
+      usersModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
     }
 
     function updateTopupUserMeta() {
@@ -7849,7 +8302,55 @@
         setAvatarBackground(avatarEl, "--user-avatar-image", resolveAvatarSource(user));
       }
 
-      function updateUsersPopoverList(usersSummary = []) {
+      function buildUsersSummaryList() {
+        const usersList = Array.from(usersRegistry.values());
+        if (currentUser && !usersRegistry.has(currentUser.id)) {
+          usersList.push(sanitizeUserForRegistry(currentUser));
+        }
+        if (!usersList.length) {
+          return [];
+        }
+        const merged = [];
+        const nameIndex = new Map();
+        usersList.forEach(user => {
+          const normalizedName = (user.name || "").toLowerCase();
+          if (nameIndex.has(normalizedName)) {
+            const existingIdx = nameIndex.get(normalizedName);
+            merged[existingIdx] = mergeUserProfiles(merged[existingIdx], user);
+            return;
+          }
+          nameIndex.set(normalizedName, merged.length);
+          merged.push(user);
+        });
+        const enriched = merged.map(user => {
+          const stats = getListeningSnapshotForUser(user.id);
+          const roleColor = resolveRoleColor(user.role, user.roleColor);
+          return {
+            id: user.id,
+            name: user.name,
+            coins: Number(user.coins) || 0,
+            role: user.role,
+            roleColor,
+            roleLabel: formatRoleLabel(user.role),
+            totalPlays: stats.totalPlays,
+            uniqueTracks: stats.uniqueTracks,
+            achievements: getAchievementCount(user),
+            avatar: user.avatar
+          };
+        });
+        enriched.sort((a, b) => {
+          if (b.coins !== a.coins) {
+            return b.coins - a.coins;
+          }
+          if (b.totalPlays !== a.totalPlays) {
+            return b.totalPlays - a.totalPlays;
+          }
+          return a.name.localeCompare(b.name, "ru", { sensitivity: "base" });
+        });
+        return enriched;
+      }
+
+      function updateUsersPopoverList(usersSummary = buildUsersSummaryList()) {
         if (!headerUsersListEl) {
           return;
         }
@@ -7879,44 +8380,79 @@
         });
       }
 
+      function renderUsersModal(usersSummary = buildUsersSummaryList()) {
+        if (!usersModalListEl) {
+          return;
+        }
+        usersModalListEl.innerHTML = "";
+        if (!usersSummary.length) {
+          usersModalListEl.innerHTML = '<p class="users-popover-empty">Войдите в профиль, чтобы увидеть активных слушателей.</p>';
+        } else {
+          usersSummary.forEach(entry => {
+            const card = document.createElement("div");
+            card.className = "users-modal-card";
+            card.innerHTML = `
+              <div class="users-modal-card-header">
+                <div class="users-modal-card-meta">
+                  <div class="user-avatar">${formatAvatarLabel(entry.name)}</div>
+                  <div>
+                    <div class="user-name">${entry.name}</div>
+                    <div class="user-id">ID: ${entry.id}</div>
+                  </div>
+                </div>
+                <span class="role-badge is-compact">${entry.roleLabel}</span>
+              </div>
+              <div class="user-stats">
+                <span class="user-stat-badge"><i class="fas fa-coins"></i>${numberFormatter.format(entry.coins)} RUZ</span>
+                <span class="user-stat-badge"><i class="fas fa-chart-line"></i>${numberFormatter.format(entry.totalPlays)} прослушиваний</span>
+                <span class="user-stat-badge"><i class="fas fa-music"></i>${numberFormatter.format(entry.uniqueTracks)} треков</span>
+                <span class="user-stat-badge"><i class="fas fa-medal"></i>${entry.achievements} достиж.</span>
+              </div>
+            `;
+            const avatarEl = card.querySelector(".user-avatar");
+            const roleBadge = card.querySelector(".role-badge");
+            applyUserCardAvatar(avatarEl, entry);
+            applyRoleBadge(roleBadge, entry.role, entry.roleColor, entry.roleLabel);
+            usersModalListEl.appendChild(card);
+          });
+        }
+
+        if (!usersModalSummaryEl) {
+          return;
+        }
+        usersModalSummaryEl.innerHTML = "";
+        const totalCoins = usersSummary.reduce((sum, entry) => sum + (Number(entry.coins) || 0), 0);
+        const averageCoins = usersSummary.length ? Math.round(totalCoins / usersSummary.length) : 0;
+        const summaryData = [
+          { icon: "fa-users", label: "Профилей", value: numberFormatter.format(usersSummary.length) },
+          { icon: "fa-signal", label: "Сейчас онлайн", value: numberFormatter.format(liveOnlineCount) },
+          { icon: "fa-coins", label: "Средний баланс", value: `${numberFormatter.format(averageCoins)} RUZ` }
+        ];
+        summaryData.forEach(entry => {
+          const card = document.createElement("div");
+          card.className = "users-summary-card";
+          card.innerHTML = `
+            <div class="users-summary-icon"><i class="fa-solid ${entry.icon}"></i></div>
+            <div>
+              <div class="users-summary-label">${entry.label}</div>
+              <div class="users-summary-value">${entry.value}</div>
+            </div>
+          `;
+          usersModalSummaryEl.appendChild(card);
+        });
+      }
+
       function renderUsersDirectory() {
         if (!usersDirectoryEl) {
           return;
         }
-        const usersList = Array.from(usersRegistry.values());
-        if (currentUser && !usersRegistry.has(currentUser.id)) {
-          usersList.push(sanitizeUserForRegistry(currentUser));
-        }
-        if (!usersList.length) {
+        const enriched = buildUsersSummaryList();
+        if (!enriched.length) {
           usersDirectoryEl.innerHTML = '<p class="users-empty">Войдите в профиль или добавьте пользователей, чтобы увидеть список.</p>';
-          updateUsersPopoverList();
+          updateUsersPopoverList([]);
+          renderUsersModal([]);
           return;
         }
-        const enriched = usersList.map(user => {
-          const stats = getListeningSnapshotForUser(user.id);
-          const roleColor = resolveRoleColor(user.role, user.roleColor);
-          return {
-            id: user.id,
-            name: user.name,
-            coins: Number(user.coins) || 0,
-            role: user.role,
-            roleColor,
-            roleLabel: formatRoleLabel(user.role),
-            totalPlays: stats.totalPlays,
-            uniqueTracks: stats.uniqueTracks,
-            achievements: getAchievementCount(user),
-            avatar: user.avatar
-          };
-        });
-        enriched.sort((a, b) => {
-          if (b.coins !== a.coins) {
-            return b.coins - a.coins;
-          }
-          if (b.totalPlays !== a.totalPlays) {
-            return b.totalPlays - a.totalPlays;
-          }
-          return a.name.localeCompare(b.name, "ru", { sensitivity: "base" });
-        });
         const fragment = document.createDocumentFragment();
         enriched.forEach((entry, index) => {
           const card = document.createElement("div");
@@ -7950,6 +8486,7 @@
         usersDirectoryEl.innerHTML = "";
         usersDirectoryEl.appendChild(fragment);
         updateUsersPopoverList(enriched);
+        renderUsersModal(enriched);
       }
 
       function grantAchievement(achievementId) {
@@ -8021,10 +8558,8 @@
           return;
         }
         try {
-          const userToSave = sanitizeUserForRegistry(currentUser);
+          const userToSave = upsertUserInRegistry(currentUser);
           localStorage.setItem(STORAGE_KEY, JSON.stringify(userToSave));
-          usersRegistry.set(userToSave.id, userToSave);
-          persistUsersRegistry();
         } catch (error) {
           console.warn("Не удалось сохранить профиль:", error);
         }
@@ -8129,7 +8664,7 @@
               unlockedTracks: []
             };
           }
-          currentUser = ensureUserShape(demoUser);
+          currentUser = upsertUserInRegistry(ensureUserShape(demoUser));
           switchUserContext(currentUser);
           saveProfile();
           if (profilePopoverController) {
@@ -8198,15 +8733,18 @@
           alert("Введите имя и пароль.");
           return;
         }
-        let foundUser = null;
-        for (const user of usersRegistry.values()) {
-          if (user.name.toLowerCase() === name.toLowerCase() && user.password === password) {
-            foundUser = user;
-            break;
+        const existingByName = findRegistryUserByName(name);
+        const passwordMatches = existingByName
+          ? !existingByName.password || existingByName.password === password
+          : false;
+        if (existingByName) {
+          currentUser = ensureUserShape({
+            ...existingByName,
+            password: existingByName.password || password
+          });
+          if (!passwordMatches) {
+            currentUser.password = password;
           }
-        }
-        if (foundUser) {
-          currentUser = ensureUserShape(foundUser);
         } else {
           currentUser = ensureUserShape({
             id: generateUserId(),
@@ -8219,6 +8757,7 @@
           });
           recordCoinHistory("bonus", WELCOME_BONUS, "Приветственный бонус");
         }
+        currentUser = upsertUserInRegistry(currentUser);
         switchUserContext(currentUser);
         saveProfile();
         if (loginForm) {
@@ -8258,6 +8797,7 @@
             roleColor: adminInfo.color || existingUser.roleColor,
             password: code
           });
+          currentUser = upsertUserInRegistry(currentUser);
           switchUserContext(currentUser);
           saveProfile();
           if (adminCodeForm) {
@@ -8282,6 +8822,7 @@
           achievements: { welcome: true },
           unlockedTracks: []
         });
+        currentUser = upsertUserInRegistry(currentUser);
         switchUserContext(currentUser);
         recordCoinHistory("bonus", WELCOME_BONUS, "Активирован код администратора");
         markAdminCodeUsed(code, currentUser.id);
@@ -8401,16 +8942,6 @@
         });
       }
 
-      if (openUsersSectionBtn) {
-        openUsersSectionBtn.addEventListener("click", event => {
-          event.preventDefault();
-          closeAllPopovers();
-          if (usersSection) {
-            usersSection.scrollIntoView({ behavior: "smooth" });
-          }
-        });
-      }
-
       if (headerSectionShortcuts.length) {
         headerSectionShortcuts.forEach(link => {
           link.addEventListener("click", event => {
@@ -8507,9 +9038,7 @@
 
       const storedUser = loadCurrentUser();
       if (storedUser) {
-        currentUser = ensureUserShape(storedUser);
-        usersRegistry.set(currentUser.id, sanitizeUserForRegistry(currentUser));
-        persistUsersRegistry();
+        currentUser = upsertUserInRegistry(ensureUserShape(storedUser));
         switchUserContext(currentUser);
       } else {
         currentUser = null;
@@ -8521,7 +9050,6 @@
 
       coinsPopoverController = attachPopover(headerCoinsBtn, headerCoinsPopover);
       profilePopoverController = attachPopover(headerProfileBtn, headerProfilePopover);
-      usersPopoverController = attachPopover(headerUsersBtn, headerUsersPopover);
       mixPopoverController = attachPopover(mixEventsBtn, mixEventsPopover);
 
       [tracksGrid, clipsGrid].forEach(grid => {
