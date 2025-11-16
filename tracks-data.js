@@ -21,6 +21,7 @@ window.RELEASED_TRACKS_DATA = [
   { slug: "karusel", title: "Карусель", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "dikaya-kometa", title: "Дикая комета", releaseDate: "28.11.2025", access: "early-access", price: 1, hasClip: true, clipUrl: "https://youtu.be/avzalov-kometa", copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "mamaamakriminal", title: "МамаамаКриминал", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены." },
+  { slug: "molchaniyami", title: "Молчаниями", releaseDate: "30.11.2025", access: "early-access", price: 1, coverExt: ".jpg", copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "ekho-shagov", title: "Эхо шагов", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "ayforio", title: "Айфорио", releaseDate: "30.11.2025", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "bez-imeni", title: "Без имени", releaseDate: "01.12.2025", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены." },
