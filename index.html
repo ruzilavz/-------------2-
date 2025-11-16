@@ -6778,6 +6778,21 @@
         setAvatarBackground(headerProfileAvatarEl, "--header-avatar-image", resolveAvatarSource(user));
       }
 
+      function applyHeaderUsersAvatar(user) {
+        const headerUsersAvatarEl = document.getElementById("headerUsersAvatar");
+        if (!headerUsersAvatarEl) {
+          return;
+        }
+        const source = resolveAvatarSource(user);
+        if (user && source) {
+          headerUsersAvatarEl.innerHTML = '';
+          setAvatarBackground(headerUsersAvatarEl, "--header-avatar-image", source);
+        } else {
+          headerUsersAvatarEl.innerHTML = '<i class="fas fa-users"></i>';
+          setAvatarBackground(headerUsersAvatarEl, "--header-avatar-image", "");
+        }
+      }
+
       function applyPopoverAvatar(user) {
         if (!popoverAvatarEl) {
           return;
