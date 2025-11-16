@@ -4629,6 +4629,22 @@
 
     const MIX_EVENT_DAY_MS = 24 * 60 * 60 * 1000;
     const MIX_EVENT_DEFAULT_DURATION_MS = 7 * MIX_EVENT_DAY_MS;
+    const MIX_EVENT_STATS_KEY = "avzalov_mix_event_stats_v1";
+
+    function createEmptyMixEventStats() {
+      return { events: {} };
+    }
+
+    let mixEventStatsRegistry = {};
+    let mixEventStats = createEmptyMixEventStats();
+
+    let getMixEventStatsForCurrentUser = () => null;
+    let ensureMixEventEntry = () => ({
+      totalPlays: 0,
+      trackPlays: {},
+      updatedAt: new Date().toISOString()
+    });
+    let saveMixEventStatsForActiveUser = () => {};
 
     function parseMixDate(value) {
       if (typeof value !== "string") {
@@ -5829,16 +5845,15 @@
         const COIN_HISTORY_KEY = "avzalov_coin_history_v1";
         const DEMO_TOPUP_KEY = "avzalov_demo_topup_claimed_v1";
         const DEMO_BONUS_KEY = "avzalov_demo_bonus_claimed_v1";
-        const MIX_EVENT_STATS_KEY = "avzalov_mix_event_stats_v1";
         const MAX_HISTORY_ENTRIES = 100;
         const MAX_RECENT_LISTENS = 6;
 
         let listeningStatsRegistry = loadListeningStatsRegistry();
         let coinHistoryRegistry = loadCoinHistoryRegistry();
-        let mixEventStatsRegistry = loadMixEventStatsRegistry();
+        mixEventStatsRegistry = loadMixEventStatsRegistry();
         let listeningStats = createEmptyListeningStats();
         let coinHistory = [];
-        let mixEventStats = createEmptyMixEventStats();
+        mixEventStats = createEmptyMixEventStats();
         let activeUserId = "guest";
 
         const roleLabelMap = {
@@ -6016,10 +6031,6 @@
         }
       }
 
-      function createEmptyMixEventStats() {
-        return { events: {} };
-      }
-
       function sanitizeMixEventStats(rawStats) {
         const base = createEmptyMixEventStats();
         if (!rawStats || typeof rawStats !== "object") {
@@ -6159,12 +6170,12 @@
         saveCoinHistoryRegistry();
       }
 
-      function saveMixEventStatsForActiveUser() {
+      saveMixEventStatsForActiveUser = function () {
         mixEventStatsRegistry[getActiveStatsKey()] = sanitizeMixEventStats(mixEventStats);
         saveMixEventStatsRegistry();
-      }
+      };
 
-      function getMixEventStatsForCurrentUser(eventId) {
+      getMixEventStatsForCurrentUser = function (eventId) {
         if (!eventId || !mixEventStats || !mixEventStats.events) {
           return null;
         }
@@ -6179,12 +6190,9 @@
           trackPlays: entry.trackPlays && typeof entry.trackPlays === "object" ? entry.trackPlays : {},
           updatedAt: entry.updatedAt || null
         };
-      }
+      };
 
-
-
-
-      function ensureMixEventEntry(eventId) {
+      ensureMixEventEntry = function (eventId) {
         if (!mixEventStats.events) {
           mixEventStats.events = {};
         }
@@ -6196,7 +6204,7 @@
           };
         }
         return mixEventStats.events[eventId];
-      }
+      };
 
       function refreshAllTrackPersonalDisplays() {
         document
