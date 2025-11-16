@@ -3922,10 +3922,108 @@
       background: rgba(47, 107, 255, 0.4);
     }
 
+    /* МОБИЛЬНАЯ НАСТРОЙКА ШАПКИ, МИНИ-ПЛЕЕРА И НИЖНЕГО МЕНЮ */
     @media (max-width: 720px) {
-      .profile-wrapper {
-        padding: 18px;
+      /* шапка меньше */
+      .site-header {
+      padding: 10px 12px;
+      gap: 10px;
+      top: 8px;
+      transform: translateY(8px);
+    }
+
+    .logo-group {
+      gap: 8px;
+    }
+
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      font-size: 14px;
+      box-shadow: 0 0 8px rgba(47, 107, 255, 0.3);
+    }
+
+    .logo-text-main {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+    }
+
+    .logo-text-sub {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+    }
+
+    /* прячем тяжелые элементы в шапке на мобильных */
+    .header-actions,
+    .mix-button-wrapper {
+      display: none;
+    }
+
+    /* даём место для нижнего меню */
+    body {
+      padding-bottom: 70px;
+    }
+
+    /* мини-плеер поднимаем над нижним меню и делаем на всю ширину */
+    .mini-player {
+      left: 12px;
+      right: 12px;
+      bottom: 78px; /* чуть выше нижнего меню */
+      width: auto;
+    }
+
+    .mini-player-inner {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "track"
+        "controls"
+        "actions";
       }
+    }
+
+      /* нижнее навигационное меню только для мобильных */
+    .mobile-bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 6px 10px calc(6px + env(safe-area-inset-bottom, 0px));
+      background: rgba(5, 7, 16, 0.96);
+      border-top: 1px solid var(--border);
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      z-index: 55; /* ниже модалок, выше контента */
+    }
+
+    .mobile-bottom-nav a {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .mobile-bottom-nav a i {
+      font-size: 16px;
+    }
+
+    .mobile-bottom-nav a.active {
+      color: #ffffff;
+    }
+
+    /* показываем нижнее меню только на телефонах */
+    @media (max-width: 720px) {
+      .mobile-bottom-nav {
+        display: flex;
+      }
+    
+
 
       .profile-main {
         flex-direction: column;
