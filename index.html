@@ -5252,6 +5252,24 @@
       });
     });
 
+    function openUsersModal() {
+      const modal = document.querySelector(".users-popover");
+      if (!modal) return;
+
+      modal.style.display = "block";
+      setTimeout(() => modal.classList.add("open"), 10);
+    }
+
+    function closeUsersModal() {
+      const modal = document.querySelector(".users-popover");
+      if (!modal) return;
+
+      modal.classList.remove("open");
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 150);
+    }
+
     function revealSection(sectionEl) {
       if (!sectionEl) {
         return false;
