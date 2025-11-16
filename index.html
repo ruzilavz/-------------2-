@@ -6934,6 +6934,7 @@
           }
         }
         applyProfileAvatar(isLoggedIn ? currentUser : null);
+        applyHeaderUsersAvatar(isLoggedIn ? currentUser : null);
         if (isLoggedIn) {
           if (profileNameEl) {
             profileNameEl.textContent = currentUser.name;
