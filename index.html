@@ -16,6 +16,24 @@
       appearance: none;
     }
 
+    .release-date {
+      margin-top: 6px;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .release-date-text {
+      font-weight: 600;
+      color: #ddd;
+    }
+
+    .release-status {
+      font-size: 12px;
+      color: #ffcc66;
+    }
+
     :root {
       --bg: #05060a;
       --accent: #2f6bff;
@@ -9093,6 +9111,31 @@
 
       modal.dataset.open = "false";
       setTimeout(() => modal.style.display = "none", 150);
+    }
+
+    function formatDateDisplay(dateStr) {
+      // пример: 27.11.2025 → делим
+      const [day, month, year] = dateStr.split(".");
+      const releaseDate = new Date(`${year}-${month}-${day}`);
+      const now = new Date();
+
+      const dateFormatted = `${day}.${month}.${year}`;
+
+      const diffTime = releaseDate - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      let statusText = "";
+      if (diffDays > 1) {
+        statusText = `Осталось ${diffDays} дней`;
+      } else if (diffDays === 1) {
+        statusText = "Остался 1 день";
+      } else if (diffDays === 0) {
+        statusText = "Релиз сегодня!";
+      } else {
+        statusText = "Уже доступно";
+      }
+
+      return { dateFormatted, statusText };
     }
   </script>
   <script>
