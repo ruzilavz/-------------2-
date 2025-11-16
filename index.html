@@ -31,7 +31,8 @@
       --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
       --transition: 200ms ease-out;
-      --active-cover: none;
+      --active-cover: url('img/background.jpg');
+
     }
 
     * {
@@ -8529,6 +8530,10 @@
         }
       });
     })();
+  </script>
+  <script>
+    document.body.style.setProperty("--active-cover", "url('img/background.jpg')");
+    document.body.classList.add("has-active-cover");
   </script>
 </body>
 </html>
