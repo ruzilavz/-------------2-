@@ -17,7 +17,7 @@ window.RELEASED_TRACKS_DATA = [
   { slug: "pachka-sigaret", title: "Пачка сигарет", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "yashlek", title: "Яшьлек", releaseDate: "28.11.2025", access: "early-access", price: 1, hasClip: true, clipUrl: "https://youtu.be/avzalov-yashlek", copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "eto-vetru-govoril", title: "Это ветру говорил", releaseDate: "29.11.2025", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены.", coverExt: ".png" },
-  { slug: "mir-naiznanku", title: "Мир наизнанку", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены." },
+  { slug: "mir-naiznanku", title: "Мир наизнанку", releaseDate: "скоро", access: "early-access", price: 1, audio: false, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "karusel", title: "Карусель", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "dikaya-kometa", title: "Дикая комета", releaseDate: "28.11.2025", access: "early-access", price: 1, hasClip: true, clipUrl: "https://youtu.be/avzalov-kometa", copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "mamaamakriminal", title: "МамаамаКриминал", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены." },
