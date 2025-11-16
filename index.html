@@ -5053,6 +5053,10 @@
         ? `<a class="track-action-btn" href="${track.clipUrl || '#'}" target="_blank" rel="noopener"><i class="fas fa-video"></i><span>Клип</span></a>`
         : '<button class="track-action-btn" type="button" disabled><i class="fas fa-video-slash"></i><span>Клип</span></button>';
 
+      const unlockActionMarkup = isLocked
+        ? `<button class="track-action-btn unlock-btn" data-track-id="${track.slug}" data-unlock-price="${track.price}"><i class="fas fa-key"></i><span>Открыть</span></button>`
+        : '';
+
       article.innerHTML = `
         <div class="track-cover" style="background-image:${track.coverStyle};">
           <div class="play-overlay"><i class="fas ${isLocked ? 'fa-lock' : 'fa-play'}"></i></div>
