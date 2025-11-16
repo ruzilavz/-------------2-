@@ -4953,524 +4953,546 @@
     </section>
 
     <section id="news">
-      <div class="section-header">
-        <h2 class="section-title">Новости</h2>
-        <p class="section-sub">
-        Свежие анонсы, релизы и важные события.
-       </p>
-      </div>
+  <div class="section-header">
+    <h2 class="section-title">Новости</h2>
+    <p class="section-sub">
+      Свежие анонсы, релизы и важные события.
+    </p>
+  </div>
 
-      <div class="news-preview">
-        <p class="news-text">
-          Полный архив новостей AVZALØV доступен в отдельном окне. Здесь ничего не растягивает страницу вниз.
+  <div class="news-preview">
+    <p class="news-text">
+      Полный архив новостей AVZALØV доступен в отдельном окне. Здесь ничего не растягивает страницу вниз.
+    </p>
+    <button class="btn btn-primary" type="button" id="openNewsModalBtn">
+      <i class="fa-solid fa-newspaper"></i>
+      Открыть все новости
+    </button>
+  </div>
+</section>
+
+<!-- МОДАЛЬНОЕ ОКНО НОВОСТЕЙ -->
+<div class="news-modal-overlay" id="newsModalOverlay" aria-hidden="true">
+  <div class="news-modal" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
+    <div class="news-modal-header">
+      <div>
+        <div class="news-modal-kicker">Новости</div>
+        <div class="news-modal-title" id="newsModalTitle">Новости AVZALØV</div>
+        <p class="news-modal-sub">
+          Полная лента анонсов, релизов и важных событий проекта.
         </p>
-        <button class="btn btn-primary" type="button" id="openNewsModalBtn">
-          <i class="fa-solid fa-newspaper"></i>
-            Открыть все новости
-        </button>
       </div>
-    </section>
+      <button class="news-modal-close" type="button" data-news-modal-close aria-label="Закрыть новости">
+        ✕
+      </button>
+    </div>
+
+    <div class="news-modal-body">
       <div class="news-list">
-  <!-- 1 -->
-    <article class="news-item">
-      <div class="news-tag" style="color: #2ed58b;">релиз</div>
-      <div class="news-title">«Она срывала розы» — первый официальный релиз</div>
-      <div class="news-meta">22.07.2025</div>
-      <p class="news-text">
-        Оригинальная версия трека «Она срывала розы» вышла 22 июля 2025 года и стала отправной точкой новой истории AVZALØV.
-      </p>
-    </article>
+        <!-- 1 -->
+        <article class="news-item">
+          <div class="news-tag" style="color: #2ed58b;">релиз</div>
+          <div class="news-title">«Она срывала розы» — первый официальный релиз</div>
+          <div class="news-meta">22.07.2025</div>
+          <p class="news-text">
+            Оригинальная версия трека «Она срывала розы» вышла 22 июля 2025 года и стала отправной точкой новой истории AVZALØV.
+          </p>
+        </article>
 
-    <!-- 2 -->
-    <article class="news-item">
-      <div class="news-tag" style="color: #2ed58b;">релиз</div>
-      <div class="news-title">Мини-EP «Пока дышу» открыл цикл релизов</div>
-      <div class="news-meta">27.07.2025</div>
-      <p class="news-text">
-        27 июля 2025 вышел мини-EP «Пока дышу» и ещё несколько треков одного периода — «Пульс», «Не верю», «Уливер» и «Сотри меня».
-      </p>
-    </article>
+        <!-- 2 -->
+        <article class="news-item">
+          <div class="news-tag" style="color: #2ed58b;">релиз</div>
+          <div class="news-title">Мини-EP «Пока дышу» открыл цикл релизов</div>
+          <div class="news-meta">27.07.2025</div>
+          <p class="news-text">
+            27 июля 2025 вышел мини-EP «Пока дышу» и ещё несколько треков одного периода — «Пульс», «Не верю», «Уливер» и «Сотри меня».
+          </p>
+        </article>
 
-    <!-- 3 -->
-    <article class="news-item">
-      <div class="news-tag" style="color: #2ed58b;">релиз</div>
-      <div class="news-title">«Спички» — сингл и клип</div>
-      <div class="news-meta">12.08.2025</div>
-      <p class="news-text">
-        Трек «Спички» вышел 12 августа 2025 года и получил клип с темной визуальной историей о внутреннем огне.
-      </p>
-    </article>
+        <!-- 3 -->
+        <article class="news-item">
+          <div class="news-tag" style="color: #2ed58b;">релиз</div>
+          <div class="news-title">«Спички» — сингл и клип</div>
+          <div class="news-meta">12.08.2025</div>
+          <p class="news-text">
+            Трек «Спички» вышел 12 августа 2025 года и получил клип с темной визуальной историей о внутреннем огне.
+          </p>
+        </article>
 
-    <!-- 4 -->
-    <article class="news-item">
-      <div class="news-tag">релиз</div>
-      <div class="news-title">«ДИКАЯ КОМЕТА» выходит 28 ноября</div>
-      <div class="news-meta">28.11.2025</div>
-      <p class="news-text">
-        Новый сингл AVZALØV «Дикая комета» готов к премьерному запуску — релиз назначен на 28.11.2025.
-      </p>
-    </article>
+        <!-- 4 -->
+        <article class="news-item">
+          <div class="news-tag">релиз</div>
+          <div class="news-title">«ДИКАЯ КОМЕТА» выходит 28 ноября</div>
+          <div class="news-meta">28.11.2025</div>
+          <p class="news-text">
+            Новый сингл AVZALØV «Дикая комета» готов к премьерному запуску — релиз назначен на 28.11.2025.
+          </p>
+        </article>
 
-    <!-- 5 -->
-    <article class="news-item">
-      <div class="news-tag">анонс</div>
-      <div class="news-title">Готовится новый мини-альбом</div>
-      <div class="news-meta">скоро</div>
-      <p class="news-text">
-        В треклист будущего мини-альбома войдут тёмные баллады на русском и татарском языках, а также совместные работы с другими артистами.
-      </p>
-    </article>
+        <!-- 5 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">Готовится новый мини-альбом</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            В треклист будущего мини-альбома войдут тёмные баллады на русском и татарском языках, а также совместные работы с другими артистами.
+          </p>
+        </article>
 
-    <!-- 6 -->
-    <article class="news-item">
-      <div class="news-tag">анонс</div>
-      <div class="news-title">«Сирена» — релиз 25 ноября 2025</div>
-      <div class="news-meta">25.11.2025</div>
-      <p class="news-text">
-        Один из самых напряжённых треков, «Сирена», выйдет 25 ноября 2025 года и задаст тон череде зимних релизов.
-      </p>
-    </article>
+        <!-- 6 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">«Сирена» — релиз 25 ноября 2025</div>
+          <div class="news-meta">25.11.2025</div>
+          <p class="news-text">
+            Один из самых напряжённых треков, «Сирена», выйдет 25 ноября 2025 года и задаст тон череде зимних релизов.
+          </p>
+        </article>
 
-  <!-- 7 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">«Перегрев» — премьера 27 ноября 2025</div>
-    <div class="news-meta">27.11.2025</div>
-    <p class="news-text">
-      Мощный трек «Перегрев» выходит 27.11.2025 — это история о точке, когда чувства становятся слишком горячими.
-    </p>
-  </article>
+        <!-- 7 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">«Перегрев» — премьера 27 ноября 2025</div>
+          <div class="news-meta">27.11.2025</div>
+          <p class="news-text">
+            Мощный трек «Перегрев» выходит 27.11.2025 — это история о точке, когда чувства становятся слишком горячими.
+          </p>
+        </article>
 
-  <!-- 8 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">«Немножко» и «Яшьлек» — двойной релиз 28 ноября</div>
-    <div class="news-meta">28.11.2025</div>
-    <p class="news-text">
-      28 ноября слушателей ждут два контрастных трека — эмоциональная «Немножко» и ностальгичный «Яшьлек».
-    </p>
-  </article>
+        <!-- 8 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">«Немножко» и «Яшьлек» — двойной релиз 28 ноября</div>
+          <div class="news-meta">28.11.2025</div>
+          <p class="news-text">
+            28 ноября слушателей ждут два контрастных трека — эмоциональная «Немножко» и ностальгичный «Яшьлек».
+          </p>
+        </article>
 
-  <!-- 9 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">«Это ветру говорил» и «Лети со мной» — 29 ноября</div>
-    <div class="news-meta">29.11.2025</div>
-    <p class="news-text">
-      29.11.2025 одновременно выйдут лиричный «Это ветру говорил» и атмосферный «Лети со мной» — два разных взгляда на движение вперёд.
-    </p>
-  </article>
+        <!-- 9 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">«Это ветру говорил» и «Лети со мной» — 29 ноября</div>
+          <div class="news-meta">29.11.2025</div>
+          <p class="news-text">
+            29.11.2025 одновременно выйдут лиричный «Это ветру говорил» и атмосферный «Лети со мной» — два разных взгляда на движение вперёд.
+          </p>
+        </article>
 
-  <!-- 10 -->
-  <article class="news-item">
-    <div class="news-tag" style="color:#2ed58b;">релиз</div>
-    <div class="news-title">«Молчаниями» и «Айфорио» — премьера 30 ноября</div>
-    <div class="news-meta">30.11.2025</div>
-    <p class="news-text">
-      30 ноября выйдут сразу два трека — глубокое «Молчаниями» и эмоциональный «Айфорио», отражающие разные стороны внутреннего напряжения.
-    </p>
-  </article>
+        <!-- 10 -->
+        <article class="news-item">
+          <div class="news-tag" style="color:#2ed58b;">релиз</div>
+          <div class="news-title">«Молчаниями» и «Айфорио» — премьера 30 ноября</div>
+          <div class="news-meta">30.11.2025</div>
+          <p class="news-text">
+            30 ноября выйдут сразу два трека — глубокое «Молчаниями» и эмоциональный «Айфорио», отражающие разные стороны внутреннего напряжения.
+          </p>
+        </article>
 
-  <!-- 11 -->
-  <article class="news-item">
-    <div class="news-tag" style="color:#2ed58b;">релиз</div>
-    <div class="news-title">«Без имени» завершит серию релизов</div>
-    <div class="news-meta">01.12.2025</div>
-    <p class="news-text">
-      1 декабря 2025 выйдет трек «Без имени» — последняя точка в серии осенне-зимних релизов AVZALØV.
-    </p>
-  </article>
+        <!-- 11 -->
+        <article class="news-item">
+          <div class="news-tag" style="color:#2ed58b;">релиз</div>
+          <div class="news-title">«Без имени» завершит серию релизов</div>
+          <div class="news-meta">01.12.2025</div>
+          <p class="news-text">
+            1 декабря 2025 выйдет трек «Без имени» — последняя точка в серии осенне-зимних релизов AVZALØV.
+          </p>
+        </article>
 
-  <!-- 12 -->
-  <article class="news-item">
-    <div class="news-tag">обновление</div>
-    <div class="news-title">Создана новая обложка для «Молчаниями»</div>
-    <div class="news-meta">Ноябрь 2025</div>
-    <p class="news-text">
-      Для трека «Молчаниями» создан мощный портретный визуал: холодный свет, тишина и сдержанная эмоция на лице героини.
-    </p>
-  </article>
+        <!-- 12 -->
+        <article class="news-item">
+          <div class="news-tag">обновление</div>
+          <div class="news-title">Создана новая обложка для «Молчаниями»</div>
+          <div class="news-meta">Ноябрь 2025</div>
+          <p class="news-text">
+            Для трека «Молчаниями» создан мощный портретный визуал: холодный свет, тишина и сдержанная эмоция на лице героини.
+          </p>
+        </article>
 
-  <!-- 13 -->
-  <article class="news-item">
-    <div class="news-tag">обложка</div>
-    <div class="news-title">«Дикая комета» получила космическую обложку</div>
-    <div class="news-meta">Ноябрь 2025</div>
-    <p class="news-text">
-      Обновлённая обложка «Дикая комета» — столкновение света и тьмы, космос, яркий след и ощущение полёта.
-    </p>
-  </article>
+        <!-- 13 -->
+        <article class="news-item">
+          <div class="news-tag">обложка</div>
+          <div class="news-title">«Дикая комета» получила космическую обложку</div>
+          <div class="news-meta">Ноябрь 2025</div>
+          <p class="news-text">
+            Обновлённая обложка «Дикая комета» — столкновение света и тьмы, космос, яркий след и ощущение полёта.
+          </p>
+        </article>
 
-  <!-- 14 -->
-  <article class="news-item">
-    <div class="news-tag">обложка</div>
-    <div class="news-title">«Немножко» — неоновый визуал</div>
-    <div class="news-meta">Ноябрь 2025</div>
-    <p class="news-text">
-      Трек «Немножко» получил неоновую обложку с мягким свечением и акцентом на хрупкости чувств.
-    </p>
-  </article>
+        <!-- 14 -->
+        <article class="news-item">
+          <div class="news-tag">обложка</div>
+          <div class="news-title">«Немножко» — неоновый визуал</div>
+          <div class="news-meta">Ноябрь 2025</div>
+          <p class="news-text">
+            Трек «Немножко» получил неоновую обложку с мягким свечением и акцентом на хрупкости чувств.
+          </p>
+        </article>
 
-  <!-- 15 -->
-  <article class="news-item">
-    <div class="news-tag">обновление</div>
-    <div class="news-title">«Океан внутри» — новая глубина</div>
-    <div class="news-meta">Ноябрь 2025</div>
-    <p class="news-text">
-      Визуал «Океан внутри» обновлён — теперь он отражает внутреннюю бурю, темную воду и свет, прорывающийся сквозь толщу.
-    </p>
-  </article>
+        <!-- 15 -->
+        <article class="news-item">
+          <div class="news-tag">обновление</div>
+          <div class="news-title">«Океан внутри» — новая глубина</div>
+          <div class="news-meta">Ноябрь 2025</div>
+          <p class="news-text">
+            Визуал «Океан внутри» обновлён — теперь он отражает внутреннюю бурю, темную воду и свет, прорывающийся сквозь толщу.
+          </p>
+        </article>
 
-  <!-- 16 -->
-  <article class="news-item">
-    <div class="news-tag">студия</div>
-    <div class="news-title">Обновление текста в «Черный ящик»</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      В трек «Черный ящик» добавлены новые строки — больше личной драматургии и образов, связанных с памятью.
-    </p>
-  </article>
+        <!-- 16 -->
+        <article class="news-item">
+          <div class="news-tag">студия</div>
+          <div class="news-title">Обновление текста в «Черный ящик»</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            В трек «Черный ящик» добавлены новые строки — больше личной драматургии и образов, связанных с памятью.
+          </p>
+        </article>
 
-  <!-- 17 -->
-  <article class="news-item">
-    <div class="news-tag">студия</div>
-    <div class="news-title">Запись вокала для «Помни» завершена</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Финальные дубли вокала для трека «Помни» записаны, впереди — этап сведения и мастеринга.
-    </p>
-  </article>
+        <!-- 17 -->
+        <article class="news-item">
+          <div class="news-tag">студия</div>
+          <div class="news-title">Запись вокала для «Помни» завершена</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Финальные дубли вокала для трека «Помни» записаны, впереди — этап сведения и мастеринга.
+          </p>
+        </article>
 
-  <!-- 18 -->
-  <article class="news-item">
-    <div class="news-tag">в разработке</div>
-    <div class="news-title">«Мир наизнанку» — экспериментальный проект</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      «Мир наизнанку» создаётся как экспериментальный трек с необычной структурой, ритмами и текстовой подачей.
-    </p>
-  </article>
+        <!-- 18 -->
+        <article class="news-item">
+          <div class="news-tag">в разработке</div>
+          <div class="news-title">«Мир наизнанку» — экспериментальный проект</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            «Мир наизнанку» создаётся как экспериментальный трек с необычной структурой, ритмами и текстовой подачей.
+          </p>
+        </article>
 
-  <!-- 19 -->
-  <article class="news-item">
-    <div class="news-tag">в разработке</div>
-    <div class="news-title">«Карусель» — о цикличности мыслей</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      В треке «Карусель» AVZALØV поднимает тему зацикленных состояний, внутренних повторов и эмоциональных кругов.
-    </p>
-  </article>
+        <!-- 19 -->
+        <article class="news-item">
+          <div class="news-tag">в разработке</div>
+          <div class="news-title">«Карусель» — о цикличности мыслей</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            В треке «Карусель» AVZALØV поднимает тему зацикленных состояний, внутренних повторов и эмоциональных кругов.
+          </p>
+        </article>
 
-  <!-- 20 -->
-  <article class="news-item">
-    <div class="news-tag">в разработке</div>
-    <div class="news-title">«Иерархия» — символика и выбор</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      Трек «Иерархия» будет затрагивать темы власти, внутренней лестницы и цены, которую платит каждый за своё место.
-    </p>
-  </article>
+        <!-- 20 -->
+        <article class="news-item">
+          <div class="news-tag">в разработке</div>
+          <div class="news-title">«Иерархия» — символика и выбор</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            Трек «Иерархия» будет затрагивать темы власти, внутренней лестницы и цены, которую платит каждый за своё место.
+          </p>
+        </article>
 
-  <!-- 21 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">«Аллах» — новая версия звучания</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      Для трека «Аллах» готовится обновлённый микс с акцентом на пространстве, глубине и духовной атмосфере.
-    </p>
-  </article>
+        <!-- 21 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">«Аллах» — новая версия звучания</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            Для трека «Аллах» готовится обновлённый микс с акцентом на пространстве, глубине и духовной атмосфере.
+          </p>
+        </article>
 
-  <!-- 22 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">«О Всевышний» — трек о диалоге с небом</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      В треке «О Всевышний» AVZALØV поднимает вопросы веры, выбора и обращения к чему-то выше нас.
-    </p>
-  </article>
+        <!-- 22 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">«О Всевышний» — трек о диалоге с небом</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            В треке «О Всевышний» AVZALØV поднимает вопросы веры, выбора и обращения к чему-то выше нас.
+          </p>
+        </article>
 
-  <!-- 23 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">«Как яд» — ядовитые отношения</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      «Как яд» расскажет историю отношений, которые медленно разрушают изнутри, оставаясь притягательными.
-    </p>
-  </article>
+        <!-- 23 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">«Как яд» — ядовитые отношения</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            «Как яд» расскажет историю отношений, которые медленно разрушают изнутри, оставаясь притягательными.
+          </p>
+        </article>
 
-  <!-- 24 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">«Пачка сигарет» — кинематографичный трек</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      Трек «Пачка сигарет» задуман как атмосферная история с визуальными образами дыма, стола и ночной тишины.
-    </p>
-  </article>
+        <!-- 24 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">«Пачка сигарет» — кинематографичный трек</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            Трек «Пачка сигарет» задуман как атмосферная история с визуальными образами дыма, стола и ночной тишины.
+          </p>
+        </article>
 
-  <!-- 25 -->
-  <article class="news-item">
-    <div class="news-tag">клип</div>
-    <div class="news-title">Клип «Спички» уже в сети</div>
-    <div class="news-meta">Осень 2025</div>
-    <p class="news-text">
-      Визуальная история к треку «Спички» доступна на YouTube — огонь, тень и внутренний конфликт в каждом кадре.
-    </p>
-  </article>
+        <!-- 25 -->
+        <article class="news-item">
+          <div class="news-tag">клип</div>
+          <div class="news-title">Клип «Спички» уже в сети</div>
+          <div class="news-meta">Осень 2025</div>
+          <p class="news-text">
+            Визуальная история к треку «Спички» доступна на YouTube — огонь, тень и внутренний конфликт в каждом кадре.
+          </p>
+        </article>
 
-  <!-- 26 -->
-  <article class="news-item">
-    <div class="news-tag">клип</div>
-    <div class="news-title">Готовится клип для «Яшьлек»</div>
-    <div class="news-meta">Ноябрь 2025</div>
-    <p class="news-text">
-      Для трека «Яшьлек» снимаются сцены ночного города, двора и живых воспоминаний о молодости.
-    </p>
-  </article>
+        <!-- 26 -->
+        <article class="news-item">
+          <div class="news-tag">клип</div>
+          <div class="news-title">Готовится клип для «Яшьлек»</div>
+          <div class="news-meta">Ноябрь 2025</div>
+          <p class="news-text">
+            Для трека «Яшьлек» снимаются сцены ночного города, двора и живых воспоминаний о молодости.
+          </p>
+        </article>
 
-  <!-- 27 -->
-  <article class="news-item">
-    <div class="news-tag">клип</div>
-    <div class="news-title">Планы на клип «Дикая комета»</div>
-    <div class="news-meta">Ноябрь 2025</div>
-    <p class="news-text">
-      Видеоработа для «Дикая комета» задумана как визуальный полёт сквозь темноту, свет и внутренние столкновения.
-    </p>
-  </article>
+        <!-- 27 -->
+        <article class="news-item">
+          <div class="news-tag">клип</div>
+          <div class="news-title">Планы на клип «Дикая комета»</div>
+          <div class="news-meta">Ноябрь 2025</div>
+          <p class="news-text">
+            Видеоработа для «Дикая комета» задумана как визуальный полёт сквозь темноту, свет и внутренние столкновения.
+          </p>
+        </article>
 
-  <!-- 28 -->
-  <article class="news-item">
-    <div class="news-tag">клип</div>
-    <div class="news-title">«Немножко» — клип в неоновой эстетике</div>
-    <div class="news-meta">Ноябрь 2025</div>
-    <p class="news-text">
-      Для трека «Немножко» планируется клип в неоновых цветах, с городом, дождём и отражениями в витринах.
-    </p>
-  </article>
+        <!-- 28 -->
+        <article class="news-item">
+          <div class="news-tag">клип</div>
+          <div class="news-title">«Немножко» — клип в неоновой эстетике</div>
+          <div class="news-meta">Ноябрь 2025</div>
+          <p class="news-text">
+            Для трека «Немножко» планируется клип в неоновых цветах, с городом, дождём и отражениями в витринах.
+          </p>
+        </article>
 
-  <!-- 29 -->
-  <article class="news-item">
-    <div class="news-tag">фан-зона</div>
-    <div class="news-title">На сайте появился раздел с архивными демо</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      В разделе «Архив» доступны ранние демо нескольких треков, которые показывают, как менялось звучание AVZALØV.
-    </p>
-  </article>
+        <!-- 29 -->
+        <article class="news-item">
+          <div class="news-tag">фан-зона</div>
+          <div class="news-title">На сайте появился раздел с архивными демо</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            В разделе «Архив» доступны ранние демо нескольких треков, которые показывают, как менялось звучание AVZALØV.
+          </p>
+        </article>
 
-  <!-- 30 -->
-  <article class="news-item">
-    <div class="news-tag">обновление</div>
-    <div class="news-title">Обновлён раздел релизов</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      На сайте у каждого трека теперь есть статус — «релиз», «ранний доступ» или «скоро» — чтобы фанатам было проще ориентироваться.
-    </p>
-  </article>
+        <!-- 30 -->
+        <article class="news-item">
+          <div class="news-tag">обновление</div>
+          <div class="news-title">Обновлён раздел релизов</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            На сайте у каждого трека теперь есть статус — «релиз», «ранний доступ» или «скоро» — чтобы фанатам было проще ориентироваться.
+          </p>
+        </article>
 
-  <!-- 31 -->
-  <article class="news-item">
-    <div class="news-tag">обновление</div>
-    <div class="news-title">Сайт AVZALØV адаптирован под мобильные устройства</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Оптимизирован мобильный вид сайта: обновлены отступы, типографика и поведение меню на маленьких экранах.
-    </p>
-  </article>
+        <!-- 31 -->
+        <article class="news-item">
+          <div class="news-tag">обновление</div>
+          <div class="news-title">Сайт AVZALØV адаптирован под мобильные устройства</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Оптимизирован мобильный вид сайта: обновлены отступы, типографика и поведение меню на маленьких экранах.
+          </p>
+        </article>
 
-  <!-- 32 -->
-  <article class="news-item">
-    <div class="news-tag">визуал</div>
-    <div class="news-title">Готовится коллекция всех обложек</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Формируется единая коллекция обложек всех треков и релизов, которая будет доступна на отдельной странице.
-    </p>
-  </article>
+        <!-- 32 -->
+        <article class="news-item">
+          <div class="news-tag">визуал</div>
+          <div class="news-title">Готовится коллекция всех обложек</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Формируется единая коллекция обложек всех треков и релизов, которая будет доступна на отдельной странице.
+          </p>
+        </article>
 
-  <!-- 33 -->
-  <article class="news-item">
-    <div class="news-tag">фан-зона</div>
-    <div class="news-title">Запущен сбор фан-арта по вселенной AVZALØV</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Лучшие фан-арты будут опубликованы на сайте и в социальных сетях — это ещё один способ стать частью истории.
-    </p>
-  </article>
+        <!-- 33 -->
+        <article class="news-item">
+          <div class="news-tag">фан-зона</div>
+          <div class="news-title">Запущен сбор фан-арта по вселенной AVZALØV</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Лучшие фан-арты будут опубликованы на сайте и в социальных сетях — это ещё один способ стать частью истории.
+          </p>
+        </article>
 
-  <!-- 34 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">Авторский плейлист от AVZALØV</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      Готовится плейлист из собственных треков и вдохновляющих композиций, который отразит настроение текущего периода.
-    </p>
-  </article>
+        <!-- 34 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">Авторский плейлист от AVZALØV</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            Готовится плейлист из собственных треков и вдохновляющих композиций, который отразит настроение текущего периода.
+          </p>
+        </article>
 
-  <!-- 35 -->
-  <article class="news-item">
-    <div class="news-tag">студия</div>
-    <div class="news-title">Работа над новым экспериментальным треком</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      В студии в разработке трек без названия — смесь дарк-попа, атмосферных синтов и эмоционального речитатива.
-    </p>
-  </article>
+        <!-- 35 -->
+        <article class="news-item">
+          <div class="news-tag">студия</div>
+          <div class="news-title">Работа над новым экспериментальным треком</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            В студии в разработке трек без названия — смесь дарк-попа, атмосферных синтов и эмоционального речитатива.
+          </p>
+        </article>
 
-  <!-- 36 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">Концепция большого релиз-проекта</div>
-    <div class="news-meta">в планах</div>
-    <p class="news-text">
-      AVZALØV работает над концептуальным релизом, где несколько треков будут связаны одной историей и общим настроением.
-    </p>
-  </article>
+        <!-- 36 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">Концепция большого релиз-проекта</div>
+          <div class="news-meta">в планах</div>
+          <p class="news-text">
+            AVZALØV работает над концептуальным релизом, где несколько треков будут связаны одной историей и общим настроением.
+          </p>
+        </article>
 
-  <!-- 37 -->
-  <article class="news-item">
-    <div class="news-tag">обновление</div>
-    <div class="news-title">«Не верю» — готовится новая версия</div>
-    <div class="news-meta">в работе</div>
-    <p class="news-text">
-      Трек «Не верю» получит новое сведение, более мощный припев и усиленный акцент на голосе.
-    </p>
-  </article>
+        <!-- 37 -->
+        <article class="news-item">
+          <div class="news-tag">обновление</div>
+          <div class="news-title">«Не верю» — готовится новая версия</div>
+          <div class="news-meta">в работе</div>
+          <p class="news-text">
+            Трек «Не верю» получит новое сведение, более мощный припев и усиленный акцент на голосе.
+          </p>
+        </article>
 
-  <!-- 38 -->
-  <article class="news-item">
-    <div class="news-tag">обновление</div>
-    <div class="news-title">«Уливер» завершает определённый творческий этап</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      «Уливер» задуман как одна из финальных точек конкретного периода творчества, подводящая эмоциональный итог.
-    </p>
-  </article>
+        <!-- 38 -->
+        <article class="news-item">
+          <div class="news-tag">обновление</div>
+          <div class="news-title">«Уливер» завершает определённый творческий этап</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            «Уливер» задуман как одна из финальных точек конкретного периода творчества, подводящая эмоциональный итог.
+          </p>
+        </article>
 
-  <!-- 39 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">«Сотри меня» — трек о перезапуске</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      В «Сотри меня» поднимается тема желания исчезнуть и перезаписать свою историю, чтобы начать всё с нуля.
-    </p>
-  </article>
+        <!-- 39 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">«Сотри меня» — трек о перезапуске</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            В «Сотри меня» поднимается тема желания исчезнуть и перезаписать свою историю, чтобы начать всё с нуля.
+          </p>
+        </article>
 
-  <!-- 40 -->
-  <article class="news-item">
-    <div class="news-tag">обложка</div>
-    <div class="news-title">«Без имени» — монохромный минимализм</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Обложка трека «Без имени» выполнена в чёрно-белой эстетике, подчёркивая пустоту и недосказанность.
-    </p>
-  </article>
+        <!-- 40 -->
+        <article class="news-item">
+          <div class="news-tag">обложка</div>
+          <div class="news-title">«Без имени» — монохромный минимализм</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Обложка трека «Без имени» выполнена в чёрно-белой эстетике, подчёркивая пустоту и недосказанность.
+          </p>
+        </article>
 
-  <!-- 41 -->
-  <article class="news-item">
-    <div class="news-tag">обновление</div>
-    <div class="news-title">Секция новостей на сайте расширена</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Раздел новостей дополнен подробными заметками о релизах, визуале, студийной работе и планах на будущее.
-    </p>
-  </article>
+        <!-- 41 -->
+        <article class="news-item">
+          <div class="news-tag">обновление</div>
+          <div class="news-title">Секция новостей на сайте расширена</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Раздел новостей дополнен подробными заметками о релизах, визуале, студийной работе и планах на будущее.
+          </p>
+        </article>
 
-  <!-- 42 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">Ранняя система доступа к трекам</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      Планируется запуск системы раннего доступа, где некоторые треки можно будет услышать до официального релиза.
-    </p>
-  </article>
+        <!-- 42 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">Ранняя система доступа к трекам</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            Планируется запуск системы раннего доступа, где некоторые треки можно будет услышать до официального релиза.
+          </p>
+        </article>
 
-  <!-- 43 -->
-  <article class="news-item">
-    <div class="news-tag">студия</div>
-    <div class="news-title">Новые скиты и интерлюдии между треками</div>
-    <div class="news-meta">в разработке</div>
-    <p class="news-text">
-      Готовятся короткие голосовые фрагменты и атмосферные переходы, которые свяжут треки в цельные истории.
-    </p>
-  </article>
+        <!-- 43 -->
+        <article class="news-item">
+          <div class="news-tag">студия</div>
+          <div class="news-title">Новые скиты и интерлюдии между треками</div>
+          <div class="news-meta">в разработке</div>
+          <p class="news-text">
+            Готовятся короткие голосовые фрагменты и атмосферные переходы, которые свяжут треки в цельные истории.
+          </p>
+        </article>
 
-  <!-- 44 -->
-  <article class="news-item">
-    <div class="news-tag">визуал</div>
-    <div class="news-title">Специальные фоны для сайта под релизы</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Для крупных релизов на сайте будут появляться динамические фоны и визуальные темы, совпадающие с атмосферой трека.
-    </p>
-  </article>
+        <!-- 44 -->
+        <article class="news-item">
+          <div class="news-tag">визуал</div>
+          <div class="news-title">Специальные фоны для сайта под релизы</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Для крупных релизов на сайте будут появляться динамические фоны и визуальные темы, совпадающие с атмосферой трека.
+          </p>
+        </article>
 
-  <!-- 45 -->
-  <article class="news-item">
-    <div class="news-tag">фан-зона</div>
-    <div class="news-title">Скрытые пасхалки на страницах релизов</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      На некоторых страницах релизов спрятаны отсылки, фразы и символы, связанные с лором AVZALØV.
-    </p>
-  </article>
+        <!-- 45 -->
+        <article class="news-item">
+          <div class="news-tag">фан-зона</div>
+          <div class="news-title">Скрытые пасхалки на страницах релизов</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            На некоторых страницах релизов спрятаны отсылки, фразы и символы, связанные с лором AVZALØV.
+          </p>
+        </article>
 
-  <!-- 46 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">Связанные истории между треками</div>
-    <div class="news-meta">в планах</div>
-    <p class="news-text">
-      Часть треков будет объединена общим сюжетом — истории будут продолжаться от релиза к релизу.
-    </p>
-  </article>
+        <!-- 46 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">Связанные истории между треками</div>
+          <div class="news-meta">в планах</div>
+          <p class="news-text">
+            Часть треков будет объединена общим сюжетом — истории будут продолжаться от релиза к релизу.
+          </p>
+        </article>
 
-  <!-- 47 -->
-  <article class="news-item">
-    <div class="news-tag">обновление</div>
-    <div class="news-title">Улучшено звучание нескольких релизов</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Несколько уже вышедших треков получили обновлённый мастеринг — звук стал ровнее и объёмнее.
-    </p>
-  </article>
+        <!-- 47 -->
+        <article class="news-item">
+          <div class="news-tag">обновление</div>
+          <div class="news-title">Улучшено звучание нескольких релизов</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Несколько уже вышедших треков получили обновлённый мастеринг — звук стал ровнее и объёмнее.
+          </p>
+        </article>
 
-  <!-- 48 -->
-  <article class="news-item">
-    <div class="news-tag">анонс</div>
-    <div class="news-title">Готовится серия постов о создании треков</div>
-    <div class="news-meta">скоро</div>
-    <p class="news-text">
-      В новостях появятся истории о том, как создавались отдельные треки — от первой строчки до финального мастера.
-    </p>
-  </article>
+        <!-- 48 -->
+        <article class="news-item">
+          <div class="news-tag">анонс</div>
+          <div class="news-title">Готовится серия постов о создании треков</div>
+          <div class="news-meta">скоро</div>
+          <p class="news-text">
+            В новостях появятся истории о том, как создавались отдельные треки — от первой строчки до финального мастера.
+          </p>
+        </article>
 
-  <!-- 49 -->
-  <article class="news-item">
-    <div class="news-tag">студия</div>
-    <div class="news-title">AVZALØV проводит переслушивание старых демо</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Часть старых идей может перерасти в новые треки — самые сильные демо будут доработаны и оформлены как релизы.
-    </p>
-  </article>
+        <!-- 49 -->
+        <article class="news-item">
+          <div class="news-tag">студия</div>
+          <div class="news-title">AVZALØV проводит переслушивание старых демо</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Часть старых идей может перерасти в новые треки — самые сильные демо будут доработаны и оформлены как релизы.
+          </p>
+        </article>
 
-  <!-- 50 -->
-  <article class="news-item">
-    <div class="news-tag" style="color:#2ed58b;">итог</div>
-    <div class="news-title">Начало новой главы AVZALØV</div>
-    <div class="news-meta">2025</div>
-    <p class="news-text">
-      Сайт, серия релизов, визуал и собственная вселенная — это только начало большой главы в истории AVZALØV.
-    </p>
-  </article>
+        <!-- 50 -->
+        <article class="news-item">
+          <div class="news-tag" style="color:#2ed58b;">итог</div>
+          <div class="news-title">Начало новой главы AVZALØV</div>
+          <div class="news-meta">2025</div>
+          <p class="news-text">
+            Сайт, серия релизов, визуал и собственная вселенная — это только начало большой главы в истории AVZALØV.
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
 </div>
+
 
       </div>
     </section>
@@ -5875,11 +5897,11 @@
     });
 
     function openUsersModal() {
-      const modal = document.querySelector(".users-popover");
-      if (!modal) return;
+      if (!usersModalOverlay) return;
 
-      modal.style.display = "block";
-      setTimeout(() => modal.classList.add("open"), 10);
+      usersModalOverlay.classList.add("is-visible");
+      usersModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
     }
 
     function openNewsModal() {
@@ -5889,10 +5911,11 @@
       document.body.classList.add("modal-open");
     }
 
-    function closeNewsModal() {
-      if (!newsModalOverlay) return;
-      newsModalOverlay.classList.remove("is-visible");
-      newsModalOverlay.setAttribute("aria-hidden", "true");
+    function closeUsersModal() {
+      if (!usersModalOverlay) return;
+
+      usersModalOverlay.classList.remove("is-visible");
+      usersModalOverlay.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-open");
     }
 
