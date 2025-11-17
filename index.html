@@ -6242,7 +6242,6 @@
     usersModalTriggers.forEach(button => {
       button.addEventListener("click", event => {
         event.preventDefault();
-        closeAllPopovers();
         openUsersModal();
       });
     });
@@ -6268,17 +6267,6 @@
       usersModalOverlay.classList.remove("is-visible");
       usersModalOverlay.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-open");
-    }
-
-
-    function closeUsersModal() {
-      const modal = document.querySelector(".users-popover");
-      if (!modal) return;
-
-      modal.classList.remove("open");
-      setTimeout(() => {
-        modal.style.display = "none";
-      }, 150);
     }
 
     function revealSection(sectionEl) {
