@@ -8927,8 +8927,13 @@
         });
       }
 
-      if (profileCtaTopupBtn) {
-        profileCtaTopupBtn.addEventListener("click", () => openPaymentsSection({ focusTopup: true }));
+      if (topupCtaButtons.length) {
+        topupCtaButtons.forEach(button => {
+          button.addEventListener("click", event => {
+            event.preventDefault();
+            openPaymentsSection({ focusTopup: true });
+          });
+        });
       }
 
       const baseAchievements = [
