@@ -7946,6 +7946,16 @@
       if (track.slug) {
         trackTitleCache.set(track.slug, track.title);
       }
+      article.dataset.trackTitle = track.title || "";
+      article.dataset.trackType = track.typeLabel || "";
+      article.dataset.trackRelease = track.releaseLabel || "";
+      article.dataset.trackAvailabilityLabel = track.availabilityLabel || "";
+      article.dataset.trackAvailabilityRaw = track.availability || "";
+      article.dataset.trackPrice = String(track.price || 0);
+      article.dataset.trackCopyright = track.copyright || "";
+      article.dataset.trackCoverStyle = track.coverStyle || "";
+      article.dataset.trackStreamUrl = track.streamUrl || "";
+      article.dataset.trackHasClip = track.hasClip ? "true" : "false";
 
       const personalPlayCount = getPersonalPlayCount(track.slug);
       const personalMarkup = `
