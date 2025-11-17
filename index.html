@@ -3149,6 +3149,31 @@
       pointer-events: none;
     }
 
+    .now-playing-pill {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      margin-top: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(46, 255, 180, 0.38);
+      background: rgba(46, 255, 180, 0.12);
+      color: #a9ffe2;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 26px rgba(46, 255, 180, 0.18);
+    }
+
+    .now-playing-pill i {
+      color: #46d5a0;
+    }
+
+    .track-card.playing .now-playing-pill {
+      display: inline-flex;
+    }
+
 
     .mini-player {
       position: fixed;
@@ -3205,6 +3230,13 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+    }
+
+    .mini-player-status {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(169, 255, 226, 0.82);
     }
 
     .mini-player-title {
@@ -3294,6 +3326,34 @@
     .mini-player .track-action-btn {
       font-size: 10px;
       padding: 6px 12px;
+    }
+
+    .mini-player-source-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px solid rgba(146, 195, 255, 0.4);
+      background: rgba(34, 46, 86, 0.7);
+      color: #dce7ff;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .mini-player-source-btn:hover:not([disabled]) {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(71, 143, 255, 0.35);
+      border-color: rgba(146, 195, 255, 0.7);
+      background: linear-gradient(140deg, rgba(88, 149, 255, 0.22), rgba(52, 82, 150, 0.5));
+    }
+
+    .mini-player-source-btn[disabled] {
+      opacity: 0.55;
+      cursor: not-allowed;
     }
 
     .volume-control {
@@ -5947,6 +6007,7 @@
       <div class="mini-player-track">
         <div class="mini-player-cover" id="miniPlayerCover"></div>
         <div class="mini-player-info">
+          <div class="mini-player-status" id="miniPlayerStatus" aria-live="polite">Плеер остановлен</div>
           <div class="mini-player-title" id="miniPlayerTitle">Название трека</div>
           <div class="mini-player-artist">AVZALØV</div>
         </div>
@@ -5965,6 +6026,7 @@
       </div>
       <div class="mini-player-actions">
         <button class="track-action-btn" id="miniPlayerLyricsBtn">Текст</button>
+        <button class="mini-player-source-btn" id="miniPlayerSourceBtn" disabled><i class="fas fa-location-arrow"></i><span>Где играет?</span></button>
         <div class="volume-control">
           <i class="fas fa-volume-down"></i>
           <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="1">
@@ -7373,6 +7435,9 @@
             <div class="track-title">${track.title}</div>
             <span class="track-badge ${track.availability}">${track.availabilityLabel}</span>
           </div>
+          <div class="track-nowplaying">
+            <span class="now-playing-pill" aria-live="polite"><i class="fas fa-wave-square"></i>Сейчас играет</span>
+          </div>
           <div class="track-meta">
             <span>${track.typeLabel}</span>
             <span class="dot"></span>
@@ -7607,6 +7672,8 @@
     const miniPlayerPlayIcon = miniPlayerPlayBtn ? miniPlayerPlayBtn.querySelector("i") : null;
     const miniPlayerPrevBtn = document.getElementById("miniPlayerPrevBtn");
     const miniPlayerNextBtn = document.getElementById("miniPlayerNextBtn");
+    const miniPlayerStatus = document.getElementById("miniPlayerStatus");
+    const miniPlayerSourceBtn = document.getElementById("miniPlayerSourceBtn");
     const miniPlayerCurrentTime = document.getElementById("miniPlayerCurrentTime");
     const miniPlayerDuration = document.getElementById("miniPlayerDuration");
     const miniPlayerProgressBar = document.getElementById("miniPlayerProgressBar");
@@ -7900,6 +7967,8 @@
       miniPlayerDuration.textContent = "0:00";
       miniPlayerProgressFilled.style.width = "0%";
       miniPlayerPlayIcon.className = "fas fa-play";
+      if (miniPlayerStatus) miniPlayerStatus.textContent = "Плеер остановлен";
+      if (miniPlayerSourceBtn) miniPlayerSourceBtn.setAttribute("disabled", "disabled");
       updateMiniPlayerLyricsState(null);
       clearBodyCover();
     }
@@ -7924,6 +7993,8 @@
       miniPlayerCurrentTime.textContent = formatTime(audio.currentTime);
       miniPlayerDuration.textContent = formatTime(audio.duration);
       miniPlayerPlayIcon.className = audio.paused ? "fas fa-play" : "fas fa-pause";
+      if (miniPlayerStatus) miniPlayerStatus.textContent = audio.paused ? "Плеер на паузе" : "Сейчас играет";
+      if (miniPlayerSourceBtn) miniPlayerSourceBtn.removeAttribute("disabled");
       updateMiniPlayerLyricsState(card);
     }
 
@@ -8196,6 +8267,18 @@
 
     if (miniPlayerLyricsBtn) {
       miniPlayerLyricsBtn.addEventListener("click", () => openLyrics(currentCard));
+    }
+
+    if (miniPlayerSourceBtn) {
+      miniPlayerSourceBtn.addEventListener("click", () => {
+        if (!currentCard) return;
+        const slug = currentCard.dataset ? currentCard.dataset.trackSlug : "";
+        if (slug) {
+          focusTrackCardBySlug(slug);
+        } else {
+          currentCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
     }
 
     if (lyricsCloseBtn) {
