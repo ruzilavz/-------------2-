@@ -8796,6 +8796,32 @@
         ? headerProfilePopover.querySelector('[data-state="logged-in"]')
         : null;
 
+      const profileModalOpenButtons = [openProfileSectionBtn, openProfileModalBtn].filter(Boolean);
+      profileModalOpenButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          if (profilePopoverController) {
+            profilePopoverController.close();
+          }
+          openProfileModal();
+        });
+      });
+
+      profileModalCloseButtons.forEach(button => {
+        button.addEventListener("click", closeProfileModal);
+      });
+
+      if (profileModalOverlay) {
+        profileModalOverlay.addEventListener("click", event => {
+          if (event.target === profileModalOverlay) {
+            closeProfileModal();
+          }
+        });
+      }
+
+      if (profileCtaTopupBtn) {
+        profileCtaTopupBtn.addEventListener("click", () => openPaymentsSection({ focusTopup: true }));
+      }
+
       const baseAchievements = [
         { id: "welcome", title: "Новый слушатель", desc: "Вошёл в профиль впервые.", coins: 1 },
         { id: "first_unlock", title: "Первый доступ", desc: "Открыл закрытый трек.", coins: 0 },
