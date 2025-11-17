@@ -5176,7 +5176,7 @@
       </div>
     </section>
 
-        <section id="news">
+    <section id="news">
       <div class="section-header">
         <h2 class="section-title">Новости</h2>
         <p class="section-sub">
@@ -5197,28 +5197,29 @@
 
     <!-- МОДАЛЬНОЕ ОКНО НОВОСТЕЙ -->
     <div id="newsModalOverlay" class="news-modal-overlay" aria-hidden="true">
-      <div class="news-modal">
+      <div class="news-modal" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
 
-        <!-- КНОПКА ЗАКРЫТЬ (правильная версия) -->
-        <button
-          class="news-modal-close"
-          type="button"
-          data-news-modal-close
-          aria-label="Закрыть новости"
-          onclick="
-            document.getElementById('newsModalOverlay').classList.remove('is-visible');
-            document.getElementById('newsModalOverlay').setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('modal-open');
-          "
-        >
-          ✕
-        </button>
+        <div class="news-modal-header">
+          <div>
+            <div class="news-modal-kicker">Новости</div>
             <div class="news-modal-title" id="newsModalTitle">Новости AVZALØV</div>
             <p class="news-modal-sub">
               Полная лента анонсов, релизов и важных событий проекта.
             </p>
           </div>
-          <button class="news-modal-close" type="button" data-news-modal-close aria-label="Закрыть новости">
+
+          <!-- КНОПКА ЗАКРЫТЬ -->
+          <button
+            class="news-modal-close"
+            type="button"
+            data-news-modal-close
+            aria-label="Закрыть новости"
+            onclick="
+              document.getElementById('newsModalOverlay').classList.remove('is-visible');
+              document.getElementById('newsModalOverlay').setAttribute('aria-hidden', 'true');
+              document.body.classList.remove('modal-open');
+            "
+          >
             ✕
           </button>
         </div>
