@@ -9270,6 +9270,7 @@
           }
         });
       }
+      window.closeAllPopovers = closeAllPopovers;
 
             function openUsersModal() {
         if (!usersModalOverlay) return;
@@ -9305,6 +9306,18 @@
             button.setAttribute("aria-expanded", "true");
           },
           close() {
+            const activeElement = document.activeElement;
+            const shouldRefocus =
+              activeElement &&
+              popover.contains(activeElement) &&
+              typeof button.focus === "function";
+            if (shouldRefocus) {
+              try {
+                button.focus({ preventScroll: true });
+              } catch (error) {
+                button.focus();
+              }
+            }
             popover.dataset.open = "false";
             popover.setAttribute("aria-hidden", "true");
             popover.hidden = true;
