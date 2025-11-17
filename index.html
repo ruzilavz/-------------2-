@@ -10796,6 +10796,7 @@
 
       modal.dataset.open = "true";
       modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
     }
 
     function closeProfileModal() {
@@ -10804,6 +10805,7 @@
 
       modal.dataset.open = "false";
       modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
     }
 
     // Функция преобразования даты
