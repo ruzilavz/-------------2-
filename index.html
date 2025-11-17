@@ -6456,6 +6456,7 @@
     const openPaymentsFromPopoverBtn = document.getElementById("openPaymentsFromPopoverBtn");
     const profileTopupBtn = document.getElementById("profileTopupBtn");
     const paymentsSection = document.getElementById("payments");
+    const topupCtaButtons = Array.from(document.querySelectorAll("[data-open-topup]"));
     const topupAmountButtons = Array.from(document.querySelectorAll(".topup-amount-btn"));
     const topupAmountDisplayEls = [document.getElementById("topupAmount")].filter(Boolean);
     const topupPriceDisplayEls = [document.getElementById("topupPrice")].filter(Boolean);
