@@ -16,6 +16,27 @@
       appearance: none;
     }
 
+    .live-time {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9da5c9;
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(76, 106, 204, 0.32);
+      background: rgba(8, 10, 20, 0.6);
+      box-shadow: 0 4px 14px rgba(47, 107, 255, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-time i {
+      color: #2f6bff;
+      opacity: 0.9;
+    }
+
+
     .release-date {
       margin-top: 6px;
       font-size: 13px;
@@ -4581,6 +4602,7 @@
               <span class="ruzcoin-label">RUZCOIN</span>
               <span class="ruzcoin-value" id="headerCoinsAmount">0</span>
             </div>
+            <div id="liveTime" class="live-time"></div>
           </button>
           <div class="header-popover coins-popover" id="headerCoinsPopover" role="dialog" aria-hidden="true">
             <div class="popover-header">
@@ -10166,6 +10188,36 @@
         closeNewsModal();
       }
     });
+
+    function updateLiveTime() {
+      const now = new Date();
+
+      const optionsDate = {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      };
+
+      const optionsTime = {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      };
+
+      const date = now.toLocaleDateString("ru-RU", optionsDate);
+      const time = now.toLocaleTimeString("ru-RU", optionsTime);
+
+      const el = document.getElementById("liveTime");
+
+      if (el) {
+        el.innerHTML =
+          `<i class="fa-regular fa-clock"></i> ${time} — ${date}`;
+      }
+    }
+
+    setInterval(updateLiveTime, 1000);
+    updateLiveTime();
+
 </script>
   <!-- НИЖНЕЕ МЕНЮ ДЛЯ МОБИЛЬНЫХ -->
   <nav class="mobile-bottom-nav">
