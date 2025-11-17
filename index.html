@@ -8188,7 +8188,9 @@
         });
 
         audio.addEventListener("play", () => {
-          handleListeningStatIncrement(card, audio);
+          if (typeof window.handleListeningStatIncrement === "function") {
+            window.handleListeningStatIncrement(card, audio);
+          }
           stopAllExcept(card);
           currentAudio = audio;
           currentCard = card;
