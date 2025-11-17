@@ -8928,6 +8928,48 @@
 
     rebindTrackCardEvents();
 
+    if (trackModalCloseBtn) {
+      trackModalCloseBtn.addEventListener("click", closeTrackModal);
+    }
+
+    if (trackModalOverlay) {
+      trackModalOverlay.addEventListener("click", event => {
+        if (event.target === trackModalOverlay) {
+          closeTrackModal();
+        }
+      });
+    }
+
+    if (trackModalPlayBtn) {
+      trackModalPlayBtn.addEventListener("click", () => {
+        if (!trackModalActiveCard) {
+          return;
+        }
+        closeTrackModal();
+        playCard(trackModalActiveCard);
+      });
+    }
+
+    if (trackModalLyricsBtn) {
+      trackModalLyricsBtn.addEventListener("click", () => {
+        if (!trackModalActiveCard) {
+          return;
+        }
+        closeTrackModal();
+        openLyrics(trackModalActiveCard);
+      });
+    }
+
+    if (openTrackDocBtn) {
+      openTrackDocBtn.addEventListener("click", () => {
+        openTrackDocModal();
+      });
+    }
+
+    if (trackDocCloseBtn) {
+      trackDocCloseBtn.addEventListener("click", closeTrackDocModal);
+    }
+
     if (miniPlayerPlayBtn) {
       miniPlayerPlayBtn.addEventListener("click", () => {
         if (!currentAudio) return;
