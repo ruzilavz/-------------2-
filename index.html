@@ -8910,7 +8910,7 @@
         saveCoinHistoryRegistry();
       }
 
-      function handleListeningStatIncrement(card, audio) {
+      handleListeningStatIncrement = function handleListeningStatIncrement(card, audio) {
         if (!card || !audio) {
           return;
         }
@@ -8928,7 +8928,7 @@
         const titleEl = card.querySelector(".track-title");
         const title = titleEl ? titleEl.textContent.trim() : resolveTrackTitle(slug);
         recordListeningEvent(slug, title);
-      }
+      };
 
       function loadUserHistories() {
         loadListeningStatsForActiveUser();
