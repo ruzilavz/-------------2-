@@ -2817,9 +2817,9 @@
 
     .track-cover {
       position: relative;
-      width: 96px;
-      height: 96px;
-      border-radius: 16px;
+      width: 118px;
+      height: 118px;
+      border-radius: 18px;
       background-size: cover;
       background-position: center;
       background-color: #1b2031;
@@ -4160,15 +4160,44 @@
       .track-card {
         flex-direction: column;
         align-items: flex-start;
+        gap: 14px;
+      }
+
+      .track-info {
+        width: 100%;
       }
 
       .track-cover {
         width: 100%;
-        height: 200px;
+        height: 240px;
+        border-radius: 22px;
+      }
+
+      .track-title {
+        white-space: normal;
       }
 
       .player-controls {
         width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+
+      .progress-bar-wrapper {
+        width: 100%;
+      }
+
+      .track-actions {
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .track-actions .track-action-btn {
+        flex: 1 1 calc(50% - 8px);
+        justify-content: center;
+        text-align: center;
       }
 
       .mini-player {
@@ -7987,16 +8016,19 @@
       miniPlayer.classList.add("is-active");
       const titleEl = card.querySelector(".track-title");
       const coverEl = card.querySelector(".track-cover");
-      if (titleEl) {
-        miniPlayerTitle.textContent = titleEl.textContent;
-      }
+      const titleText = titleEl ? titleEl.textContent : "";
+      miniPlayerTitle.textContent = titleText || "Название трека";
       if (coverEl) {
         miniPlayerCover.style.backgroundImage = coverEl.style.backgroundImage;
       }
       miniPlayerCurrentTime.textContent = formatTime(audio.currentTime);
       miniPlayerDuration.textContent = formatTime(audio.duration);
       miniPlayerPlayIcon.className = audio.paused ? "fas fa-play" : "fas fa-pause";
-      if (miniPlayerStatus) miniPlayerStatus.textContent = audio.paused ? "Плеер на паузе" : "Сейчас играет";
+      if (miniPlayerStatus) {
+        miniPlayerStatus.textContent = audio.paused
+          ? "Плеер на паузе"
+          : `Сейчас играет: ${titleText || "текущий трек"}`;
+      }
       if (miniPlayerSourceBtn) miniPlayerSourceBtn.removeAttribute("disabled");
       updateMiniPlayerLyricsState(card);
     }
