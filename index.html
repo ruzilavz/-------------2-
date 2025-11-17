@@ -4514,28 +4514,36 @@
             </div>
           </div>
         </div>
-        <div class="header-action-group">
-            <button id="headerUsersBtn" class="header-action-btn users-btn" type="button" aria-label="Пользователи" aria-haspopup="true" aria-expanded="false">
-              <div class="users-btn-inner">
-                <i class="fas fa-user-friends"></i>
-                <span class="users-btn-label">Пользователи</span>
-                <span class="users-btn-sub">Топ слушателей</span>
-              </div>
-            </button>
+            <div class="header-action-group">
+              <button
+                id="headerUsersBtn"
+                class="header-action-btn users-btn"
+                type="button"
+                aria-label="Пользователи"
+                aria-haspopup="dialog"
+                data-users-modal-open
+              >
+                <div class="users-btn-inner">
+                  <i class="fas fa-user-friends"></i>
+                  <span class="users-btn-label">Пользователи</span>
+                  <span class="users-btn-sub">Топ слушателей</span>
+                </div>
+              </button>
 
-          <div class="header-popover users-popover" id="headerUsersPopover" role="dialog" aria-hidden="true">
-            <div class="popover-header">
-              <div class="popover-title">Пользователи</div>
-              <div class="popover-sub">Топ слушателей</div>
+              <div class="header-popover users-popover" id="headerUsersPopover" role="dialog" aria-hidden="true">
+                <div class="popover-header">
+                  <div class="popover-title">Пользователи</div>
+                  <div class="popover-sub">Топ слушателей</div>
+                </div>
+                <div class="users-popover-list" id="headerUsersList">
+                  <p class="users-popover-empty">Войдите в профиль, чтобы увидеть активность слушателей.</p>
+                </div>
+                <div class="popover-actions">
+                  <button class="btn btn-ghost btn-xs" type="button" id="openUsersSectionBtn">Открыть раздел</button>
+                </div>
             </div>
-            <div class="users-popover-list" id="headerUsersList">
-              <p class="users-popover-empty">Войдите в профиль, чтобы увидеть активность слушателей.</p>
-            </div>
-            <div class="popover-actions">
-              <button class="btn btn-ghost btn-xs" type="button" id="openUsersSectionBtn">Открыть раздел</button>
-            </div>
-          </div>
         </div>
+
         <div class="header-action-group">
           <button
             class="header-profile-btn"
