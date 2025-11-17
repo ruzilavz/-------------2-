@@ -414,6 +414,9 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(6, 9, 18, 0.85); /* аккуратная капсула под стиль шапки */
     }
 
     .mix-countdown::before {
@@ -425,6 +428,24 @@
     .mix-button.is-live .mix-countdown::before {
       content: "🔥";
     }
+
+    .mix-button.is-live {
+      background: linear-gradient(135deg, rgba(255, 76, 41, 0.65), rgba(255, 191, 0, 0.5));
+      border-color: rgba(255, 176, 126, 0.9);
+      box-shadow: 0 26px 46px rgba(255, 120, 72, 0.45);
+      animation: mixPulse 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes mixPulse {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-1px) scale(1.02);
+      }
+    }
+
+
 
     .header-actions {
       margin-left: auto;
