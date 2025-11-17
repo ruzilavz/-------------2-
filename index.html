@@ -6973,16 +6973,25 @@
         return "Скоро";
       }
       if (diffMs <= 0) {
-        return "00:00";
+        return "00:00:00";
       }
-      const totalMinutes = Math.floor(diffMs / 60000);
-      const days = Math.floor(totalMinutes / (60 * 24));
-      const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
-      const minutes = totalMinutes % 60;
+
+      const totalSeconds = Math.floor(diffMs / 1000);
+      const days = Math.floor(totalSeconds / (60 * 60 * 24));
+      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
       const hoursSegment = String(hours).padStart(2, "0");
       const minutesSegment = String(minutes).padStart(2, "0");
-      return days > 0 ? `${days}д ${hoursSegment}:${minutesSegment}` : `${hoursSegment}:${minutesSegment}`;
+      const secondsSegment = String(seconds).padStart(2, "0");
+
+      // 4д 14:10:05 / 03:25:42
+      return days > 0
+        ? `${days}д ${hoursSegment}:${minutesSegment}:${secondsSegment}`
+        : `${hoursSegment}:${minutesSegment}:${secondsSegment}`;
     }
+
 
     function setMixCountdownLabel(text, isLive) {
       if (mixCountdownLabel) {
@@ -7025,10 +7034,16 @@
       if (mixCountdownTimer) {
         window.clearInterval(mixCountdownTimer);
       }
+
+      // сразу один раз обновляем, чтобы не ждать 1 секунду
+      updateMixCountdown();
+
+      // обновляем каждую секунду
       mixCountdownTimer = window.setInterval(() => {
         updateMixCountdown();
-      }, 60000);
+      }, 1000);
     }
+
 
     function stopMixCountdown() {
       if (mixCountdownTimer) {
