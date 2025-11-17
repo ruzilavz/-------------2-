@@ -8706,6 +8706,114 @@
       }
       updateLyricsDesyncState();
     }
+
+    function buildTrackModalTags(card) {
+      const tags = [];
+      const type = (card.dataset.trackType || "").trim();
+      if (type) tags.push(type);
+      const release = (card.dataset.trackRelease || "").trim();
+      if (release) tags.push(release);
+      const availability = (card.dataset.trackAvailabilityLabel || "").trim();
+      if (availability) tags.push(availability);
+      return tags;
+    }
+
+    function buildTrackModalStats(card) {
+      const stats = [];
+      const plays = formatCount(Number(card.dataset.plays) || 0);
+      const likes = formatCount(Number(card.dataset.likes) || 0);
+      stats.push(`<span><i class="fa-solid fa-chart-line"></i> ${plays} прослушиваний</span>`);
+      stats.push(`<span><i class="fa-solid fa-heart"></i> ${likes} реакций</span>`);
+      return stats;
+    }
+
+    function populateTrackModal(card) {
+      if (!card) {
+        return;
+      }
+      const title = card.dataset.trackTitle || (card.querySelector(".track-title") || {}).textContent || "Трек";
+      const typeLabel = card.dataset.trackType || "RELEASE";
+      const coverStyle = card.dataset.trackCoverStyle || window.getComputedStyle(card.querySelector(".track-cover")).backgroundImage;
+      const releaseLabel = card.dataset.trackRelease || "—";
+      const availabilityLabel = card.dataset.trackAvailabilityLabel || "—";
+      const availabilityRaw = card.dataset.trackAvailabilityRaw || "";
+      const priceValue = Number(card.dataset.trackPrice) || 0;
+      const extras = card.dataset.trackHasClip === "true" ? "Есть клип и потоковая ссылка" : "Только аудио";
+      const copyright = card.dataset.trackCopyright || "Документ не указан.";
+
+      if (trackModalCover) {
+        trackModalCover.style.backgroundImage = coverStyle || "linear-gradient(140deg, #111933, #080b18)";
+      }
+      if (trackModalTitle) {
+        trackModalTitle.textContent = title;
+      }
+      if (trackModalKicker) {
+        trackModalKicker.textContent = `AVZALØV • ${typeLabel}`;
+      }
+      if (trackModalTags) {
+        const tagsMarkup = buildTrackModalTags(card)
+          .map(tag => `<span class="track-modal-tag">${tag}</span>`)
+          .join("");
+        trackModalTags.innerHTML = tagsMarkup;
+      }
+      if (trackModalStats) {
+        trackModalStats.innerHTML = buildTrackModalStats(card).join("");
+      }
+      if (trackModalRelease) {
+        trackModalRelease.textContent = releaseLabel;
+      }
+      if (trackModalAccess) {
+        trackModalAccess.textContent = availabilityLabel;
+      }
+      if (trackModalPrice) {
+        trackModalPrice.textContent = priceValue > 0 ? `${priceValue} RUZCOIN` : "Бесплатно";
+      }
+      if (trackModalExtras) {
+        trackModalExtras.textContent = extras || availabilityRaw || "—";
+      }
+      if (trackDocContent) {
+        trackDocContent.textContent = copyright;
+      }
+    }
+
+    function openTrackModal(card) {
+      if (!trackModalOverlay) {
+        return;
+      }
+      trackModalActiveCard = card || null;
+      populateTrackModal(card);
+      trackModalOverlay.dataset.open = "true";
+      trackModalOverlay.setAttribute("aria-hidden", "false");
+      if (trackDocModal) {
+        trackDocModal.classList.remove("is-visible");
+      }
+    }
+
+    function closeTrackModal() {
+      if (!trackModalOverlay) {
+        return;
+      }
+      trackModalActiveCard = null;
+      trackModalOverlay.dataset.open = "false";
+      trackModalOverlay.setAttribute("aria-hidden", "true");
+      if (trackDocModal) {
+        trackDocModal.classList.remove("is-visible");
+      }
+    }
+
+    function openTrackDocModal() {
+      if (!trackDocModal) {
+        return;
+      }
+      trackDocModal.classList.add("is-visible");
+    }
+
+    function closeTrackDocModal() {
+      if (!trackDocModal) {
+        return;
+      }
+      trackDocModal.classList.remove("is-visible");
+    }
     
     function rebindTrackCardEvents() {
       document.querySelectorAll(".track-card").forEach(card => {
