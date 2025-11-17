@@ -3192,12 +3192,19 @@
       transform: translateY(40px);
       transition: opacity 220ms ease, transform 220ms ease;
       backdrop-filter: blur(14px);
+      cursor: grab;
+      touch-action: none;
     }
 
     .mini-player.is-active {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
+    }
+
+    .mini-player.is-dragging {
+      cursor: grabbing;
+      user-select: none;
     }
 
     .mini-player-inner {
