@@ -6748,7 +6748,6 @@
       }
       topupModalOverlay.dataset.open = "true";
       topupModalOverlay.setAttribute("aria-hidden", "false");
-      document.body.classList.add("modal-open");
       if (shouldFocusTopup && primaryDemoTopupBtn && typeof primaryDemoTopupBtn.focus === "function") {
         window.setTimeout(() => {
           try {
@@ -6766,7 +6765,6 @@
       }
       topupModalOverlay.dataset.open = "false";
       topupModalOverlay.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("modal-open");
     }
 
     function openSectionById(sectionId) {
