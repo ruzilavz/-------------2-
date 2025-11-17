@@ -8326,6 +8326,117 @@
       });
     }
 
+    const MINI_PLAYER_DRAG_MARGIN = 12;
+    const miniPlayerDragState = {
+      active: false,
+      pointerId: null,
+      offsetX: 0,
+      offsetY: 0,
+      width: 0,
+      height: 0
+    };
+    const MINI_PLAYER_DRAG_IGNORE_SELECTOR = "button, a, input, textarea, select, .progress-bar, .mini-player-progress-wrapper";
+
+    function clampMiniPlayerPosition(left, top, width, height) {
+      const minLeft = MINI_PLAYER_DRAG_MARGIN;
+      const minTop = MINI_PLAYER_DRAG_MARGIN;
+      const maxLeft = Math.max(minLeft, window.innerWidth - width - MINI_PLAYER_DRAG_MARGIN);
+      const maxTop = Math.max(minTop, window.innerHeight - height - MINI_PLAYER_DRAG_MARGIN);
+      return {
+        left: Math.min(Math.max(left, minLeft), maxLeft),
+        top: Math.min(Math.max(top, minTop), maxTop)
+      };
+    }
+
+    function updateMiniPlayerPosition(left, top) {
+      if (!miniPlayer) {
+        return;
+      }
+      const width = miniPlayerDragState.width || miniPlayer.offsetWidth || 0;
+      const height = miniPlayerDragState.height || miniPlayer.offsetHeight || 0;
+      const safePosition = clampMiniPlayerPosition(left, top, width, height);
+      miniPlayer.style.left = `${safePosition.left}px`;
+      miniPlayer.style.top = `${safePosition.top}px`;
+      miniPlayer.style.right = "auto";
+      miniPlayer.style.bottom = "auto";
+    }
+
+    function shouldIgnoreMiniPlayerDragStart(target) {
+      if (!target) {
+        return false;
+      }
+      return Boolean(target.closest(MINI_PLAYER_DRAG_IGNORE_SELECTOR));
+    }
+
+    function startMiniPlayerDrag(event) {
+      if (!miniPlayer || !miniPlayer.classList.contains("is-active")) {
+        return;
+      }
+      if (event.pointerType === "mouse" && event.button !== 0) {
+        return;
+      }
+      if (shouldIgnoreMiniPlayerDragStart(event.target)) {
+        return;
+      }
+      const rect = miniPlayer.getBoundingClientRect();
+      miniPlayerDragState.active = true;
+      miniPlayerDragState.pointerId = event.pointerId;
+      miniPlayerDragState.offsetX = event.clientX - rect.left;
+      miniPlayerDragState.offsetY = event.clientY - rect.top;
+      miniPlayerDragState.width = rect.width;
+      miniPlayerDragState.height = rect.height;
+      updateMiniPlayerPosition(rect.left, rect.top);
+      miniPlayer.classList.add("is-dragging");
+      miniPlayer.style.transition = "none";
+      try {
+        miniPlayer.setPointerCapture(event.pointerId);
+      } catch (error) {
+        // Ignore if pointer capture is not supported.
+      }
+      event.preventDefault();
+    }
+
+    function handleMiniPlayerDrag(event) {
+      if (!miniPlayerDragState.active || event.pointerId !== miniPlayerDragState.pointerId) {
+        return;
+      }
+      const nextLeft = event.clientX - miniPlayerDragState.offsetX;
+      const nextTop = event.clientY - miniPlayerDragState.offsetY;
+      updateMiniPlayerPosition(nextLeft, nextTop);
+    }
+
+    function stopMiniPlayerDrag(event) {
+      if (!miniPlayerDragState.active || event.pointerId !== miniPlayerDragState.pointerId) {
+        return;
+      }
+      miniPlayerDragState.active = false;
+      miniPlayerDragState.pointerId = null;
+      miniPlayer.classList.remove("is-dragging");
+      miniPlayer.style.transition = "";
+      try {
+        miniPlayer.releasePointerCapture(event.pointerId);
+      } catch (error) {
+        // Ignore if pointer capture is not supported.
+      }
+    }
+
+    if (miniPlayer) {
+      miniPlayer.addEventListener("pointerdown", startMiniPlayerDrag);
+      miniPlayer.addEventListener("pointermove", handleMiniPlayerDrag);
+      miniPlayer.addEventListener("pointerup", stopMiniPlayerDrag);
+      miniPlayer.addEventListener("pointercancel", stopMiniPlayerDrag);
+    }
+
+    window.addEventListener("resize", () => {
+      if (!miniPlayer || !miniPlayer.style.left || miniPlayerDragState.active) {
+        return;
+      }
+      const rect = miniPlayer.getBoundingClientRect();
+      miniPlayerDragState.width = rect.width;
+      miniPlayerDragState.height = rect.height;
+      updateMiniPlayerPosition(rect.left, rect.top);
+    });
+
     if (lyricsCloseBtn) {
       lyricsCloseBtn.addEventListener("click", closeLyricsModal);
     }
