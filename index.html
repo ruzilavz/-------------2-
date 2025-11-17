@@ -8822,11 +8822,16 @@
         const toggle = card.querySelector(".track-play-toggle");
         const progressBar = card.querySelector(".progress-bar");
         const lyricsBtn = card.querySelector(".lyrics-btn");
+        const detailsBtn = card.querySelector(".details-btn");
 
         setupTrackStats(card);
 
         if (lyricsBtn) {
           lyricsBtn.addEventListener("click", () => openLyrics(card));
+        }
+
+        if (detailsBtn) {
+          detailsBtn.addEventListener("click", () => openTrackModal(card));
         }
 
         if (!audio) return;
