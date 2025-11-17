@@ -5553,200 +5553,153 @@
       </div>
     </section>
 
-    <section id="payments" class="section-hidden">
-      <div class="section-header">
-        <h2 class="section-title">Оплата и RUZCOIN</h2>
-        <p class="section-sub">
-          1 RUZCOIN = 25 ₽. Выбирай количество, смотри ориентировочную цену и отправляй заявку на пополнение.
-        </p>
-      </div>
-
-      <div class="topup-card">
-        <div class="topup-content">
-          <div class="topup-rows" role="group" aria-label="Выбор количества RUZCOIN">
-            <div class="topup-row">
-              <button class="topup-amount-btn" type="button" data-amount="1" aria-pressed="false">
-                <span>1 RUZ</span>
-                <small>~25 ₽</small>
-              </button>
-              <button class="topup-amount-btn" type="button" data-amount="5" aria-pressed="false">
-                <span>5 RUZ</span>
-                <small>~125 ₽</small>
-              </button>
-              <button class="topup-amount-btn" type="button" data-amount="10" aria-pressed="false">
-                <span>10 RUZ</span>
-                <small>~250 ₽</small>
-              </button>
-            </div>
-            <div class="topup-row">
-              <button class="topup-amount-btn" type="button" data-amount="15" aria-pressed="false">
-                <span>15 RUZ</span>
-                <small>~375 ₽</small>
-              </button>
-              <button class="topup-amount-btn" type="button" data-amount="25" aria-pressed="false">
-                <span>25 RUZ</span>
-                <small>~625 ₽</small>
-              </button>
-              <button class="topup-amount-btn active" type="button" data-amount="50" aria-pressed="true">
-                <span>50 RUZ</span>
-                <small>~1250 ₽</small>
-              </button>
-            </div>
-          </div>
-
-          <div class="topup-summary">
-            <div>
-              Выбрано: <strong><span id="topupAmount">50</span> RUZ</strong>
-            </div>
-            <div>
-              Примерная сумма: <strong><span id="topupPrice">1250</span> ₽</strong>
-            </div>
-          </div>
-
-          <div class="topup-actions">
-            <button class="btn btn-primary topup-btn-main" type="button" id="demoTopupBtn">
-              <i class="fa-solid fa-bolt"></i>
-              Зачислить как демо
-            </button>
-            <button class="btn btn-ghost topup-btn-real" type="button" id="realTopupBtn">
-              <i class="fa-solid fa-circle-check"></i>
-              Отправить заявку
-            </button>
-          </div>
-          <div class="topup-note">
-            Окно оплаты теперь открывается отдельно и не перекрывает меню. Внутри — десяток способов оплаты по СНГ, персональные
-            данные пользователя и актуальное количество слушателей онлайн.
-          </div>
-        </div>
-        <div class="topup-overlay" id="topupOverlay" aria-hidden="true">
-          <div class="topup-overlay-inner" role="dialog" aria-modal="true" aria-labelledby="topupOverlayTitle">
-            <div class="topup-overlay-header">
-              <div>
-                <div class="topup-overlay-title" id="topupOverlayTitle">Оформление оплаты</div>
-                <div class="topup-overlay-meta">
-                  <span class="topup-overlay-pill"><i class="fa-solid fa-globe"></i> 10 способов оплаты по СНГ</span>
-                  <span class="topup-overlay-pill"><i class="fa-solid fa-shield-halved"></i> Безопасная передача реквизитов</span>
-                </div>
-              </div>
-              <button class="topup-overlay-close" type="button" aria-label="Закрыть оплату" data-topup-close>
-                <i class="fa-solid fa-xmark"></i>
-              </button>
-            </div>
-            <div class="topup-overlay-body">
-              <div class="topup-overlay-user">
-                <div class="topup-user-main">
-                  <div class="topup-user-avatar" id="topupUserAvatar">Ø</div>
-                  <div class="topup-user-meta">
-                    <div class="topup-user-name" id="topupUserName">Гость</div>
-                    <div class="topup-user-id" id="topupUserId">ID: —</div>
-                    <div class="topup-user-balance">Баланс: <strong id="topupUserBalance">0 RUZ</strong></div>
-                  </div>
-                </div>
-                <div class="topup-user-online">
-                  <span class="status-dot" aria-hidden="true"></span>
-                  <div>
-                    Сейчас на сайте: <strong id="topupOnlineCount">—</strong>
-                    <div class="topup-user-role" id="topupUserRole">Слушатель</div>
-                  </div>
-                </div>
-              </div>
-              <div class="topup-overlay-summary">
-                <div>Сумма: <strong><span id="overlayTopupAmount">0</span> RUZ</strong></div>
-                <div>Способ: <strong id="overlayTopupMethod">—</strong></div>
-              </div>
-              <div class="topup-overlay-steps" id="topupOverlaySteps">
-                <div class="topup-step" data-step="amount">
-                  <div class="topup-step-icon">1</div>
-                  <div>
-                    <div class="topup-step-title">Выбери сумму</div>
-                    <div class="topup-step-note">Текущий выбор: <span id="topupStepAmountLabel">0 RUZ</span></div>
-                  </div>
-                </div>
-                <div class="topup-step" data-step="method">
-                  <div class="topup-step-icon">2</div>
-                  <div>
-                    <div class="topup-step-title">Подбери способ оплаты</div>
-                    <div class="topup-step-note">Сейчас активен: <span id="topupStepMethodLabel">—</span></div>
-                  </div>
-                </div>
-                <div class="topup-step" data-step="confirm">
-                  <div class="topup-step-icon">3</div>
-                  <div>
-                    <div class="topup-step-title">Подтверди заявку</div>
-                    <div class="topup-step-note">Окно показывает сумму, способ и данные профиля перед отправкой.</div>
-                  </div>
-                </div>
-              </div>
-              <div class="topup-overlay-methods" role="group" aria-label="Способы оплаты по СНГ">
-                <button class="topup-method-card" type="button" data-topup-method="card">
-                  <div class="topup-method-icon"><i class="fa-solid fa-credit-card"></i></div>
-                  <div class="topup-method-name">Банковская карта</div>
-                  <div class="topup-method-note">Visa, Mastercard, МИР</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="sbp">
-                  <div class="topup-method-icon"><i class="fa-solid fa-building-columns"></i></div>
-                  <div class="topup-method-name">Система быстрых платежей</div>
-                  <div class="topup-method-note">Оплата по номеру телефона</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="yoomoney">
-                  <div class="topup-method-icon"><i class="fa-solid fa-wallet"></i></div>
-                  <div class="topup-method-name">ЮMoney</div>
-                  <div class="topup-method-note">Кошелёк или привязанная карта</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="qiwi">
-                  <div class="topup-method-icon"><i class="fa-solid fa-kiwi-bird"></i></div>
-                  <div class="topup-method-name">QIWI</div>
-                  <div class="topup-method-note">Счёт или карта QIWI</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="mirpay">
-                  <div class="topup-method-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-                  <div class="topup-method-name">Mir Pay</div>
-                  <div class="topup-method-note">Оплата через приложение</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="tinkoff">
-                  <div class="topup-method-icon"><i class="fa-solid fa-building"></i></div>
-                  <div class="topup-method-name">Tinkoff Pay</div>
-                  <div class="topup-method-note">Скан по приложению банка</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="sberpay">
-                  <div class="topup-method-icon"><i class="fa-solid fa-leaf"></i></div>
-                  <div class="topup-method-name">СберPay</div>
-                  <div class="topup-method-note">Подтверждение в Сбербанк Онлайн</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="alfabank">
-                  <div class="topup-method-icon"><i class="fa-solid fa-university"></i></div>
-                  <div class="topup-method-name">Альфа-Банк</div>
-                  <div class="topup-method-note">Перевод по карте или счёту</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="kaspi">
-                  <div class="topup-method-icon"><i class="fa-solid fa-money-bill"></i></div>
-                  <div class="topup-method-name">Kaspi</div>
-                  <div class="topup-method-note">Перевод внутри Казахстана</div>
-                </button>
-                <button class="topup-method-card" type="button" data-topup-method="payeer">
-                  <div class="topup-method-icon"><i class="fa-solid fa-globe"></i></div>
-                  <div class="topup-method-name">Payeer/WebMoney</div>
-                  <div class="topup-method-note">Кошельки и валютные переводы</div>
-                </button>
-              </div>
-              <p>
-                Проверь сумму и способ оплаты. После подтверждения мы отправим реквизиты на указанный контакт и зафиксируем заявку в истории RUZCOIN.
-              </p>
-            </div>
-            <div class="topup-overlay-actions">
-              <button class="btn btn-primary" type="button" id="confirmTopupBtn">
-                <i class="fa-solid fa-paper-plane"></i>
-                Подтвердить заявку
-              </button>
-              <button class="btn btn-ghost" type="button" data-topup-close>Закрыть</button>
-            </div>
-          </div>
-        </div>
-        <p class="topup-note">
-          После заявки мы пришлём реквизиты выбранного способа и подтвердим пополнение вручную. Пока ждёшь ответ, можно
-          протестировать демо-зачисления.
-        </p>
-      </div>
+    <section id="payments">
+      <div class="section-header">
+        <h2 class="section-title">Пополнение RUZCOIN</h2>
+        <p class="section-sub">
+          1 RUZCOIN = 25 ₽. Пополняй баланс, дари подарки и тестируй экономику AVZALØV без перегрузки главной страницы.
+        </p>
+      </div>
+
+      <div class="topup-teaser-card">
+        <div class="topup-teaser-content">
+          <h3>Центр управления RUZCOIN</h3>
+          <p>
+            Открывай демо-пополнение, выбирай метод оплаты и следи за онлайн-приёмом внутри отдельного окна.
+          </p>
+          <ul class="topup-teaser-list">
+            <li>Демо-пополнение + реальные сценарии оплаты</li>
+            <li>Поддержка SBP, Mir Pay, Kaspi, QIWI, YooMoney</li>
+            <li>Автосбор статуса профиля и онлайна</li>
+          </ul>
+        </div>
+        <div class="topup-teaser-actions">
+          <button class="btn btn-primary" type="button" data-open-topup>
+            Пополнить баланс
+          </button>
+          <button class="btn btn-ghost" type="button" id="openTopupModalBtn" data-open-topup>
+            Посмотреть методы
+          </button>
+        </div>
+      </div>
+
+      <div class="topup-modal-overlay" id="topupModal" data-open="false" aria-hidden="true">
+        <div class="topup-modal" role="dialog" aria-modal="true" aria-labelledby="topupModalTitle">
+          <button class="topup-modal-close" type="button" aria-label="Закрыть пополнение" data-topup-modal-close>&times;</button>
+          <div class="topup-modal-header">
+            <div class="topup-modal-kicker">RUZCOIN</div>
+            <h3 class="topup-modal-title" id="topupModalTitle">Пополнение монет</h3>
+            <p class="topup-modal-sub">
+              Выбирай количество монет, способ оплаты и мгновенно получай инструкции. Внутри сохранён доступ к демо-сценариям и защищённым методам оплаты.
+            </p>
+          </div>
+          <div class="topup-card">
+            <div class="topup-content">
+              <div class="topup-rows" role="group" aria-label="Выбор пакета RUZCOIN">
+                <div class="topup-row">
+                  <button class="topup-amount-btn" type="button" data-amount="1" aria-pressed="false">
+                    <span>1 RUZ</span>
+                    <small>~25 ₽</small>
+                  </button>
+                  <button class="topup-amount-btn" type="button" data-amount="5" aria-pressed="false">
+                    <span>5 RUZ</span>
+                    <small>~125 ₽</small>
+                  </button>
+                  <button class="topup-amount-btn" type="button" data-amount="10" aria-pressed="false">
+                    <span>10 RUZ</span>
+                    <small>~250 ₽</small>
+                  </button>
+                </div>
+                <div class="topup-row">
+                  <button class="topup-amount-btn" type="button" data-amount="15" aria-pressed="false">
+                    <span>15 RUZ</span>
+                    <small>~375 ₽</small>
+                  </button>
+                  <button class="topup-amount-btn" type="button" data-amount="25" aria-pressed="false">
+                    <span>25 RUZ</span>
+                    <small>~625 ₽</small>
+                  </button>
+                  <button class="topup-amount-btn active" type="button" data-amount="50" aria-pressed="true">
+                    <span>50 RUZ</span>
+                    <small>~1250 ₽</small>
+                  </button>
+                </div>
+              </div>
+
+              <div class="topup-summary">
+                <div>
+                  Выбрано: <strong><span id="topupAmount">50</span> RUZ</strong>
+                </div>
+                <div>
+                  К оплате: <strong><span id="topupPrice">1250</span> ₽</strong>
+                </div>
+              </div>
+
+              <div class="topup-actions">
+                <button class="btn btn-primary topup-btn-main" type="button" id="demoTopupBtn">
+                  <i class="fa-solid fa-bolt"></i>
+                  Демо-пополнение
+                </button>
+                <button class="btn btn-ghost topup-btn-real" type="button" id="realTopupBtn">
+                  <i class="fa-solid fa-circle-check"></i>
+                  Настоящее пополнение
+                </button>
+              </div>
+              <div class="topup-note">
+                Демо-режим показывает процесс оплаты без списаний. Реальные методы доступны по запросу: Mir Pay, SBP, Visa/Mastercard, Kaspi, QIWI, YooMoney, Tinkoff Pay, SberPay, Alfa и Payeer/WebMoney.
+              </div>
+            </div>
+            <div class="topup-overlay" id="topupOverlay" aria-hidden="true">
+              <div class="topup-overlay-inner" role="dialog" aria-modal="true" aria-labelledby="topupOverlayTitle">
+                <div class="topup-overlay-header">
+                  <div>
+                    <div class="topup-overlay-title" id="topupOverlayTitle">Инструкции по оплате</div>
+                    <div class="topup-overlay-meta">
+                      <span class="topup-overlay-pill"><i class="fa-solid fa-globe"></i> 10+ методов оплаты</span>
+                      <span class="topup-overlay-pill"><i class="fa-solid fa-shield-halved"></i> Шифрование транзакций</span>
+                    </div>
+                  </div>
+                  <button class="topup-overlay-close" type="button" data-topup-close aria-label="Закрыть">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+                <div class="topup-overlay-body">
+                  <div class="topup-step">
+                    <div class="topup-step-title">1. Выбранный пакет</div>
+                    <div class="topup-step-value" id="topupStepAmountLabel">50 RUZ</div>
+                  </div>
+                  <div class="topup-step">
+                    <div class="topup-step-title">2. Метод оплаты</div>
+                    <div class="topup-step-value" id="topupStepMethodLabel">Банковская карта</div>
+                  </div>
+                  <div class="topup-step">
+                    <div class="topup-step-title">3. Итоговая сумма</div>
+                    <div class="topup-step-value">К списанию: <strong id="overlayTopupAmount">1250 ₽</strong></div>
+                  </div>
+                  <div class="topup-overlay-info">
+                    <p>
+                      Все выплаты проходят вручную (ответ до 10 минут). После подтверждения ты получишь ссылку или QR-код для перевода.
+                    </p>
+                    <ul id="topupOverlaySteps">
+                      <li>Выберите сумму и метод</li>
+                      <li>Получите данные для оплаты</li>
+                      <li>Совершите перевод и прикрепите чек</li>
+                      <li>Получите подтверждение и монеты</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="topup-overlay-footer">
+                  <button class="btn btn-primary" type="button" id="confirmTopupBtn">
+                    <i class="fa-solid fa-check"></i>
+                    Подтвердить заявку
+                  </button>
+                  <button class="btn btn-ghost" type="button" data-topup-close>Отмена</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="tracks">
@@ -6509,6 +6462,8 @@
     const demoTopupButtons = [document.getElementById("demoTopupBtn")].filter(Boolean);
     const primaryDemoTopupBtn = demoTopupButtons[0] || null;
     const realTopupButtons = [document.getElementById("realTopupBtn")].filter(Boolean);
+    const topupModalOverlay = document.getElementById("topupModal");
+    const topupModalCloseButtons = Array.from(document.querySelectorAll("[data-topup-modal-close]"));
     const topupOverlay = document.getElementById("topupOverlay");
     const topupOverlayAmountEl = document.getElementById("overlayTopupAmount");
     const topupOverlayMethodEl = document.getElementById("overlayTopupMethod");
