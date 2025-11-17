@@ -3759,6 +3759,95 @@
       transform: translateY(0);
     }
 
+    .profile-modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      background: rgba(2, 4, 12, 0.8);
+      backdrop-filter: blur(20px);
+      z-index: 95;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease;
+    }
+
+    .profile-modal-overlay[data-open="true"] {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .profile-modal {
+      width: min(1100px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      border-radius: 32px;
+      border: 1px solid rgba(92, 128, 248, 0.25);
+      background: linear-gradient(140deg, rgba(10, 14, 28, 0.98), rgba(3, 3, 10, 0.94));
+      box-shadow: 0 45px 90px rgba(0, 0, 0, 0.7);
+      padding: 36px 40px;
+      position: relative;
+    }
+
+    .profile-modal-header {
+      margin-bottom: 24px;
+    }
+
+    .profile-modal-kicker {
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(173, 191, 255, 0.75);
+    }
+
+    .profile-modal-title {
+      font-size: 28px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 8px 0 6px;
+      color: #f3f6ff;
+    }
+
+    .profile-modal-sub {
+      color: rgba(199, 208, 245, 0.85);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    .profile-modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f0f2ff;
+      font-size: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+      z-index: 2;
+    }
+
+    .profile-modal-close:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .profile-modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
 
     .users-modal::before,
     .users-modal::after {
