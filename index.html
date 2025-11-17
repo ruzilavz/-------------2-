@@ -6406,7 +6406,9 @@
       if (!sectionId) {
         return;
       }
-      closeAllPopovers();
+      if (typeof window.closeAllPopovers === "function") {
+        window.closeAllPopovers();
+      }
       const target = document.getElementById(sectionId);
       if (target) {
         revealSection(target);
