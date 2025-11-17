@@ -10135,14 +10135,16 @@
         }
         updateHeaderCoins(isLoggedIn ? currentUser.coins : 0);
         updateHeaderProfileNameDisplay(isLoggedIn ? currentUser.name : "Войти");
-        updateProfilePopoverState();
-        updateTrackCardsForUser();
-      }
+      updateProfilePopoverState();
+      updateTrackCardsForUser();
+    }
 
-      function persistCurrentUser() {
-        if (!currentUser) {
-          localStorage.removeItem(STORAGE_KEY);
-          return;
+    window.updateProfileUI = updateProfileDisplay;
+
+    function persistCurrentUser() {
+      if (!currentUser) {
+        localStorage.removeItem(STORAGE_KEY);
+        return;
         }
         try {
           const userToSave = upsertUserInRegistry(currentUser);
