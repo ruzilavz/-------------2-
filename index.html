@@ -7296,7 +7296,7 @@
     const trackTitleCache = new Map();
     let getPersonalPlayCount = () => 0;
     let updateTrackPersonalPlayDisplay = () => {};
-    let handleListeningStatIncrement = () => {};
+    window.handleListeningStatIncrement = window.handleListeningStatIncrement || function noopListeningIncrement() {};
 
     function resolveTrackTitle(slug) {
       if (!slug) {
