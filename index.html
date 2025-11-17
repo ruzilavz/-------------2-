@@ -8936,6 +8936,18 @@
         });
       }
 
+      topupModalCloseButtons.forEach(button => {
+        button.addEventListener("click", closeTopupModal);
+      });
+
+      if (topupModalOverlay) {
+        topupModalOverlay.addEventListener("click", event => {
+          if (event.target === topupModalOverlay) {
+            closeTopupModal();
+          }
+        });
+      }
+
       const baseAchievements = [
         { id: "welcome", title: "Новый слушатель", desc: "Вошёл в профиль впервые.", coins: 1 },
         { id: "first_unlock", title: "Первый доступ", desc: "Открыл закрытый трек.", coins: 0 },
