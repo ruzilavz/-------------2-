@@ -10652,8 +10652,8 @@
       // обновляем профиль только при открытии
       updateProfileUI(window.currentUser);
 
-      modal.style.display = "flex";
-      setTimeout(() => modal.dataset.open = "true", 10);
+      modal.dataset.open = "true";
+      modal.setAttribute("aria-hidden", "false");
     }
 
     function closeProfileModal() {
