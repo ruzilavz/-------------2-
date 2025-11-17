@@ -6739,11 +6739,16 @@
 
     function openPaymentsSection(options = {}) {
       const shouldFocusTopup = options.focusTopup === true;
-      if (!revealSection(paymentsSection)) {
+      if (paymentsSection) {
+        revealSection(paymentsSection);
+      }
+      if (!topupModalOverlay) {
         notifyPaymentsInProgress();
         return;
       }
-      paymentsSection.scrollIntoView({ behavior: "smooth" });
+      topupModalOverlay.dataset.open = "true";
+      topupModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
       if (shouldFocusTopup && primaryDemoTopupBtn && typeof primaryDemoTopupBtn.focus === "function") {
         window.setTimeout(() => {
           try {
@@ -6751,8 +6756,17 @@
           } catch (error) {
             primaryDemoTopupBtn.focus();
           }
-        }, 260);
+        }, 200);
       }
+    }
+
+    function closeTopupModal() {
+      if (!topupModalOverlay) {
+        return;
+      }
+      topupModalOverlay.dataset.open = "false";
+      topupModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
     }
 
     function openSectionById(sectionId) {
