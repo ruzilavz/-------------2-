@@ -10661,7 +10661,7 @@
       if (!modal) return;
 
       modal.dataset.open = "false";
-      setTimeout(() => modal.style.display = "none", 150);
+      modal.setAttribute("aria-hidden", "true");
     }
 
     // Функция преобразования даты
