@@ -13822,6 +13822,77 @@
     updateLiveTime();
 
   </script>
+
+    const FORMSPREE_URL = 'https://formspree.io/f/xjklvvev';
+
+    (function(){
+      const form = document.getElementById('contactForm');
+      if (!form) {
+        console.warn('contactForm not found on the page.');
+        return;
+      }
+
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+        const status = document.getElementById('contactStatus');
+        if (status) status.textContent = 'Отправка…';
+
+        const formData = new FormData(this);
+
+        try {
+          const resp = await fetch(FORMSPREE_URL, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          const data = await resp.json().catch(()=> ({}));
+
+          if (resp.ok) {
+            if (status) status.textContent = 'Спасибо — сообщение отправлено.';
+            this.reset();
+          } else {
+            if (status) status.textContent = data.error || 'Ошибка отправки, попробуйте позже.';
+            console.warn('Formspree response', resp.status, data);
+          }
+        } catch (err) {
+          if (status) status.textContent = 'Ошибка сети — проверьте соединение.';
+          console.error(err);
+        }
+      });
+    })();
+  </script>
+  </body>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const status = document.getElementById('contactStatus');
+      if (status) status.textContent = 'Отправка…';
+      const formData = new FormData(this);
+      try {
+        const resp = await fetch(FORMSPREE_URL, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+        const data = await resp.json().catch(()=> ({}));
+        if (resp.ok) {
+          if (status) status.textContent = 'Спасибо — сообщение отправлено.';
+          this.reset();
+        } else {
+          if (status) status.textContent = data.error || 'Ошибка отправки, попробуйте позже.';
+        }
+      } catch (err) {
+        if (status) status.textContent = 'Ошибка сети — проверьте соединение.';
+        console.error(err);
+      }
+    });
+  });
+  </script>
   <!-- НИЖНЕЕ МЕНЮ ДЛЯ МОБИЛЬНЫХ -->
   <nav class="mobile-bottom-nav">
     <a href="#tracks">
