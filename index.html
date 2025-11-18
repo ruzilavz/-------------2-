@@ -8630,6 +8630,90 @@
       }
     }
 
+    function buildChartRankings(limit = 8) {
+      const library = Array.isArray(trackLibrary) ? trackLibrary : [];
+      if (!library.length) {
+        return [];
+      }
+      const entries = library.map(track => {
+        const slug = track.slug || track.trackId || "";
+        const chartPlays = getTrackChartPlayCount(slug);
+        const basePlays = Number(track.plays) || 0;
+        const displayPlays = chartPlays > 0 ? chartPlays : basePlays;
+        return { track, chartPlays, basePlays, displayPlays };
+      });
+      const hasChartPlays = entries.some(entry => entry.chartPlays > 0);
+      entries.sort((a, b) => {
+        if (hasChartPlays && b.chartPlays !== a.chartPlays) {
+          return b.chartPlays - a.chartPlays;
+        }
+        if (b.displayPlays !== a.displayPlays) {
+          return b.displayPlays - a.displayPlays;
+        }
+        return (a.track.title || "").localeCompare(b.track.title || "");
+      });
+      return entries.slice(0, Math.max(1, limit));
+    }
+
+    function renderChartModalList(ranking) {
+      if (!chartModalList) {
+        return;
+      }
+      if (!ranking || ranking.length === 0) {
+        chartModalList.innerHTML = '<p class="chart-modal-empty">Чарт пока пуст — включи треки, чтобы он ожил.</p>';
+        return;
+      }
+      chartModalList.innerHTML = ranking
+        .map((entry, index) => {
+          const releaseLabel =
+            entry.track.releaseLabel || entry.track.releaseDate || "—";
+          return `
+            <article class="chart-modal-card">
+              <div class="chart-modal-rank">${index + 1}</div>
+              <div class="chart-modal-track">
+                <strong>${entry.track.title}</strong>
+                <span>${entry.track.typeLabel || "Трек"} • ${releaseLabel}</span>
+              </div>
+              <div class="chart-modal-plays">${formatCount(entry.displayPlays)} plays</div>
+            </article>`;
+        })
+        .join("");
+    }
+
+    function updateHeaderChartDisplay() {
+      const ranking = buildChartRankings(6);
+      const hasEntries = ranking.length > 0;
+      if (headerChartTopTitle) {
+        headerChartTopTitle.textContent = hasEntries
+          ? ranking[0].track.title
+          : "Чарт ждёт прослушиваний";
+      }
+      if (headerChartTopPlays) {
+        headerChartTopPlays.textContent = hasEntries
+          ? `${formatCount(ranking[0].displayPlays)} прослушиваний`
+          : "0 прослушиваний";
+      }
+      if (headerChartMiniList) {
+        headerChartMiniList.innerHTML = hasEntries
+          ? ranking
+              .slice(0, 3)
+              .map((entry, index) => `
+                <span class="header-chart-mini-item">
+                  <span class="header-chart-mini-rank">${index + 1}</span>
+                  <span class="header-chart-mini-name">${entry.track.title}</span>
+                  <span class="header-chart-mini-value">${formatCount(entry.displayPlays)} plays</span>
+                </span>`)
+              .join("")
+          : '<span class="header-chart-mini-item">Слушай треки, чтобы увидеть список</span>';
+      }
+      if (headerChartStatus) {
+        headerChartStatus.textContent = hasEntries
+          ? "Теперь лидеры в движении"
+          : "Слушай, чтобы активировать чарт";
+      }
+      renderChartModalList(ranking);
+    }
+
     function recordTrackChartPlay(slug) {
       const uniqueId = getTrackUniqueId(slug);
       if (!uniqueId) {
