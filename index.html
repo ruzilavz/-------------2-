@@ -9469,6 +9469,22 @@
       trackDocCloseBtn.addEventListener("click", closeTrackDocModal);
     }
 
+    if (openClipsModalBtn) {
+      openClipsModalBtn.addEventListener("click", openClipsModal);
+    }
+
+    clipsModalCloseButtons.forEach(button => {
+      button.addEventListener("click", closeClipsModal);
+    });
+
+    if (clipsModalOverlay) {
+      clipsModalOverlay.addEventListener("click", event => {
+        if (event.target === clipsModalOverlay) {
+          closeClipsModal();
+        }
+      });
+    }
+
     if (miniPlayerPlayBtn) {
       miniPlayerPlayBtn.addEventListener("click", () => {
         if (!currentAudio) return;
