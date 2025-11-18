@@ -14147,6 +14147,93 @@
     });
   });
   </script>
+  <section id="contacts" class="page-section" style="padding: 20px 16px;">
+  <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">Контакты</h2>
+  <p class="section-sub" style="color: var(--muted); margin-bottom: 20px;">Для концертов, коллабораций и других предложений.</p>
+
+  <div class="contact-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+    
+    <div class="contacts">
+      <h3 style="margin-bottom: 10px;">Связаться с артистом</h3>
+      <!-- Email -->
+      <a class="contact-item" href="mailto:avzalov19941994@gmail.com?subject=Сообщение%20с%20сайта" title="Написать на Email">
+        📧 Email: avzalov19941994@gmail.com
+      </a>
+      <!-- Phone -->
+      <a class="contact-item" href="tel:+79123456789" title="Позвонить">
+        📞 Телефон: +7 912 345-67-89
+      </a>
+      <!-- WhatsApp -->
+      <a class="contact-item" href="https://wa.me/79123456789?text=Здравствуйте" title="Написать в WhatsApp" target="_blank" rel="noopener">
+        💬 WhatsApp: +7 912 345-67-89
+      </a>
+      <!-- Telegram -->
+      <a class="contact-item" href="https://t.me/tg_username" title="Написать в Telegram" target="_blank" rel="noopener">
+        ✈️ Telegram: @tg_username
+      </a>
+      <!-- Viber -->
+      <a class="contact-item" href="viber://chat?number=%2B79123456789" title="Открыть в Viber">
+        📲 Viber: +7 912 345-67-89
+      </a>
+      <!-- Instagram -->
+      <a class="contact-item" href="https://instagram.com/insta_username" title="Instagram" target="_blank" rel="noopener">
+        📸 Instagram: @insta_username
+      </a>
+      <!-- VK -->
+      <a class="contact-item" href="https://vk.com/vk_username" title="VK" target="_blank" rel="noopener">
+        🕊 VK: vk.com/vk_username
+      </a>
+      <!-- Facebook Messenger -->
+      <a class="contact-item" href="httpshttps://m.me/fb_username" title="Messenger" target="_blank" rel="noopener">
+        💬 Messenger: m.me/fb_username
+      </a>
+      <!-- TikTok -->
+      <a class="contact-item" href="https://www.tiktok.com/@tiktok_username" title="TikTok" target="_blank" rel="noopener">
+        🎵 TikTok: @tiktok_username
+      </a>
+      <!-- Signal -->
+      <a class="contact-item" href="https://signal.me/#p+79123456789" title="Signal" target="_blank" rel="noopener">
+        🔒 Signal: +7 912 345-67-89
+      </a>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom: 10px;">Написать артисту</h3>
+      <form id="contactForm" class="contact-form">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="email" name="email" placeholder="Ваш Email" required>
+        <textarea name="message" placeholder="Сообщение" required></textarea>
+        <button type="submit" class="btn" style="background: var(--accent); color: var(--text); border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600; text-transform: uppercase;">Отправить</button>
+        <p id="contactStatus" style="margin-top: 10px; color: var(--muted);"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-item { display:block; padding:8px 6px; color:#cfe9ff; text-decoration:none; border-radius:6px; margin:6px 0; background: rgba(255,255,255,0.02); transition: .12s; }
+  .contact-item:hover { background: rgba(255,255,255,0.04); transform: translateX(4px); }
+  .contact-form { display: flex; flex-direction: column; gap: 10px; }
+  .contact-form input, .contact-form textarea {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(47, 107, 255, 0.3);
+      background: rgba(7, 9, 18, 0.9);
+      color: var(--text);
+      font-size: 13px;
+      font-family: inherit;
+      width: 100%;
+  }
+  .contact-form input:focus, .contact-form textarea:focus {
+      outline: 2px solid rgba(47, 107, 255, 0.6);
+      outline-offset: 1px;
+  }
+  .contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
+  }
+</style>
+
   <!-- НИЖНЕЕ МЕНЮ ДЛЯ МОБИЛЬНЫХ -->
   <nav class="mobile-bottom-nav">
     <a href="#tracks">
