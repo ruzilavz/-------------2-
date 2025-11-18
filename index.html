@@ -5959,6 +5959,55 @@
       color: #c5c9dd;
     }
 
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 28px;
+      align-items: start;
+      margin-top: 18px;
+    }
+
+    .contact-form-wrap {
+      background: rgba(10,12,20,0.6);
+      padding: 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+
+    .contact-form .btn {
+      margin-top: 8px;
+    }
+
+    .contact-methods {
+      background: rgba(8,10,18,0.6);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .messengers-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .messengers-list li a { color: var(--accent); text-decoration: none; }
+
+
     .about-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
@@ -8016,29 +8065,61 @@
     </section>
 
     <section id="contacts">
-      <div class="section-header">
-        <h2 class="section-title">Контакты</h2>
-        <p class="section-sub">
-          Для концертов, коллабораций, плейлистов и других предложений.
+    <div class="section-header">
+      <h2 class="section-title">Контакты</h2>
+      <p class="section-sub">Для концертов, коллабораций, плейлистов и других предложений.</p>
+    </div>
+
+    <div class="contacts-grid">
+
+      <!-- Форма отправки -->
+      <div class="contact-form-wrap">
+        <h3>Написать артисту</h3>
+        <form id="contactForm" class="contact-form" autocomplete="off">
+          <label for="contactName" class="sr-only">Имя</label>
+          <input id="contactName" name="name" type="text" placeholder="Ваше имя" required>
+
+          <label for="contactEmail" class="sr-only">Email</label>
+          <input id="contactEmail" name="email" type="email" placeholder="Email для ответа" required>
+
+          <label for="contactSubject" class="sr-only">Тема</label>
+          <input id="contactSubject" name="subject" type="text" placeholder="Тема" required>
+
+          <label for="contactMessage" class="sr-only">Сообщение</label>
+          <textarea id="contactMessage" name="message" rows="6" placeholder="Текст сообщения" required></textarea>
+
+          <button type="submit" class="btn btn-primary">Отправить</button>
+          <div id="contactStatus" role="status" aria-live="polite"></div>
+        </form>
+
+        <p style="margin-top:12px">
+          Или напишите напрямую: <a href="mailto:avzalov19941994@gmail.com" style="color:var(--accent);">avzalov19941994@gmail.com</a>
         </p>
       </div>
 
-      <div class="about-text">
-        <p>
-          По вопросам сотрудничества и выступлений:
+      <!-- 10 способов связи (обновите ссылки/номера) -->
+      <aside class="contact-methods">
+        <h3>Другие способы связи</h3>
+        <ul class="messengers-list">
+          <li><a href="https://t.me/avzalov19941994" target="_blank" rel="noopener">Telegram — @avzalov19941994</a></li>
+          <li><a href="https://wa.me/7XXXXXXXXXX?text=Здравствуйте" target="_blank" rel="noopener">WhatsApp — +7XXXXXXXXXX</a></li>
+          <li><a href="viber://chat?number=%2B7XXXXXXXXXX">Viber — +7XXXXXXXXXX</a></li>
+          <li><a href="sms:+7XXXXXXXXXX?body=Здравствуйте">SMS — +7XXXXXXXXXX</a></li>
+          <li><a href="https://instagram.com/your_instagram" target="_blank" rel="noopener">Instagram — @your_instagram</a></li>
+          <li><a href="https://vk.com/your_vk" target="_blank" rel="noopener">VK — your_vk</a></li>
+          <li><a href="https://m.me/your_fb_page" target="_blank" rel="noopener">Facebook Messenger</a></li>
+          <li><a href="skype:live:your_skype?chat">Skype</a></li>
+          <li><a href="https://x.com/your_x" target="_blank" rel="noopener">X (Twitter) — @your_x</a></li>
+          <li><a href="https://signal.me/#p/+7XXXXXXXXXX">Signal — +7XXXXXXXXXX</a></li>
+        </ul>
+        <p style="font-size:12px;color:rgba(200,200,220,0.7);margin-top:8px;">
+          Замените `+7XXXXXXXXXX`, `your_instagram`, `your_vk` и т.д. на реальные номера/имена.
         </p>
-        <p style="margin-top:8px;">
-          Email: <a href="mailto:booking@avzalov.com" style="color: var(--accent);">booking@avzalov.com</a><br />
-          Telegram: <a href="https://t.me/your_nick" target="_blank" style="color: var(--accent);">@your_nick</a>
-        </p>
-      </div>
-    </section>
+      </aside>
 
-    <footer>
-      <span>© <span id="year"></span> AVZALØV (Рузиль Авзалов).</span>
-      <span>Официальный сайт артиста.</span>
-    </footer>
-  </div>
+    </div>
+  </section>
+
 
   <!-- NEW Mini Player -->
   <div class="mini-player" id="miniPlayer">
