@@ -12539,6 +12539,22 @@
       openNewsModalBtn.addEventListener("click", openNewsModal);
     }
 
+    if (openChartModalBtn) {
+      openChartModalBtn.addEventListener("click", openChartModal);
+    }
+
+    chartModalCloseButtons.forEach(button => {
+      button.addEventListener("click", closeChartModal);
+    });
+
+    if (chartModalOverlay) {
+      chartModalOverlay.addEventListener("click", event => {
+        if (event.target === chartModalOverlay) {
+          closeChartModal();
+        }
+      });
+    }
+
     newsModalCloseButtons.forEach(button => {
       button.addEventListener("click", closeNewsModal);
     });
