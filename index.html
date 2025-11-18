@@ -7388,6 +7388,15 @@
     const usersModalTriggers = [headerUsersBtn, document.getElementById("openUsersSectionBtn")].filter(Boolean);
 
     const tracksGrid = document.querySelector("#tracks .tracks-grid");
+    const headerChartCard = document.getElementById("headerChartCard");
+    const headerChartTopTitle = document.getElementById("headerChartTopTitle");
+    const headerChartTopPlays = document.getElementById("headerChartTopPlays");
+    const headerChartMiniList = document.getElementById("headerChartMiniList");
+    const headerChartStatus = document.getElementById("headerChartStatus");
+    const openChartModalBtn = document.getElementById("openChartModalBtn");
+    const chartModalOverlay = document.getElementById("chartModalOverlay");
+    const chartModalList = document.getElementById("chartModalList");
+    const chartModalCloseButtons = Array.from(document.querySelectorAll("[data-chart-modal-close]"));
     const trackChartPanel = document.getElementById("trackChartPanel");
     const trackChartListEl = document.getElementById("trackChartList");
     const trackChartSummaryEl = document.getElementById("trackChartSummary");
