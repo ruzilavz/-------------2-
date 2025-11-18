@@ -990,6 +990,179 @@
       font-size: 14px;
     }
 
+    .bio-modal-overlay,
+    .platforms-modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(1, 3, 10, 0.9);
+      z-index: 2400;
+    }
+
+    .bio-modal-overlay.is-visible,
+    .platforms-modal-overlay.is-visible {
+      display: flex;
+      animation: popoverFade var(--transition) ease;
+    }
+
+    .bio-modal,
+    .platforms-modal {
+      width: min(820px, 94vw);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: radial-gradient(circle at 20% 20%, rgba(74, 117, 255, 0.12), transparent 40%),
+        rgba(7, 9, 18, 0.95);
+      box-shadow: 0 30px 70px rgba(3, 6, 18, 0.8);
+      padding: 24px;
+      position: relative;
+      color: #e9ecff;
+    }
+
+    .bio-modal-close,
+    .platforms-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: rgba(240, 244, 255, 0.7);
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .bio-modal-kicker,
+    .platforms-modal-kicker {
+      font-size: 11px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(169, 181, 221, 0.8);
+      margin-bottom: 6px;
+    }
+
+    .bio-modal-title,
+    .platforms-modal-title {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0.04em;
+    }
+
+    .bio-modal-sub,
+    .platforms-modal-sub {
+      margin: 10px 0 20px;
+      color: rgba(195, 204, 238, 0.8);
+      line-height: 1.5;
+    }
+
+    .bio-modal-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+    }
+
+    .bio-modal-panel {
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      line-height: 1.6;
+    }
+
+    .bio-modal-panel h4 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+    }
+
+    .bio-modal-panel p {
+      margin: 0 0 8px;
+      color: rgba(205, 212, 241, 0.9);
+    }
+
+    .bio-modal-facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .bio-modal-fact {
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+      color: rgba(218, 224, 247, 0.9);
+    }
+
+    .platforms-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .platform-card {
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .platform-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .platform-card-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.04);
+      color: #dfe6ff;
+      font-size: 16px;
+    }
+
+    .platform-card-title {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .platform-card-note {
+      font-size: 12px;
+      color: rgba(188, 198, 235, 0.8);
+    }
+
+    .platform-card-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .platform-card-actions a,
+    .platform-card-actions button {
+      font-size: 12px;
+      padding: 8px 10px;
+    }
+
+    .platform-card-actions button[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 900px) {
+      .bio-modal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .topup-overlay {
       position: fixed;
       inset: 0;
@@ -3049,7 +3222,7 @@
       letter-spacing: 0.08em;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       color: rgba(198, 207, 244, 0.86);
     }
 
@@ -3067,6 +3240,32 @@
 
     .track-chart-trend.is-new {
       color: #7cc7ff;
+    }
+
+    .track-chart-delta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(198, 207, 244, 0.86);
+    }
+
+    .track-chart-delta.is-up {
+      color: #5ce3ba;
+      background: rgba(92, 227, 186, 0.12);
+    }
+
+    .track-chart-delta.is-down {
+      color: #ff93b0;
+      background: rgba(255, 147, 176, 0.12);
+    }
+
+    .track-chart-delta.is-new {
+      color: #7cc7ff;
+      background: rgba(124, 199, 255, 0.14);
     }
 
     .track-chart-plays {
@@ -3554,6 +3753,38 @@
 
     .track-clip-indicator i {
       font-size: 12px;
+    }
+
+    .track-platforms-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 6px;
+    }
+
+    .track-platform-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: rgba(78, 101, 176, 0.16);
+      color: rgba(207, 214, 245, 0.9);
+      border: 1px solid rgba(102, 132, 215, 0.26);
+    }
+
+    .track-platform-chip.is-disabled {
+      opacity: 0.55;
+      color: rgba(172, 181, 214, 0.7);
+      border-color: rgba(94, 103, 134, 0.4);
+      background: rgba(56, 64, 96, 0.3);
+    }
+
+    .track-platform-chip i {
+      font-size: 12px;
+      color: inherit;
     }
 
     .track-card.upcoming .track-meta {
@@ -6118,6 +6349,48 @@
       </div>
     </div>
 
+    <div class="bio-modal-overlay" id="bioModalOverlay" aria-hidden="true">
+      <div class="bio-modal" role="dialog" aria-modal="true" aria-labelledby="bioModalTitle">
+        <button class="bio-modal-close" type="button" aria-label="Закрыть биографию" data-bio-modal-close>×</button>
+        <div class="bio-modal-kicker">AVZALØV</div>
+        <h3 class="bio-modal-title" id="bioModalTitle">Биография и путь</h3>
+        <p class="bio-modal-sub">
+          AVZALØV (Рузиль Авзалов) — артист, который строит собственную вселенную из музыки, визуала и игр, оставаясь верным
+          тёмной эстетике и честным текстам.
+        </p>
+        <div class="bio-modal-grid">
+          <div class="bio-modal-panel">
+            <h4>История</h4>
+            <p>
+              AVZALØV пишет и продюсирует музыку самостоятельно, соединяя мрачные настроения и искренние истории. Первый официальный релиз
+              «Она срывала розы» вышел 22.07.2025 и задал направление всей дискографии.
+            </p>
+            <p>
+              В песнях слышны мотивы веры, поиска себя, боли и надежды. Русский и татарский языки помогают раскрывать личные темы,
+              а клиповая эстетика и кинематографичные образы перекликаются с игровыми проектами артиста.
+            </p>
+          </div>
+          <div class="bio-modal-panel">
+            <h4>Стиль и фокус</h4>
+            <p>
+              Основные жанры — dark pop, альтернативный рэп и атмосферные баллады. Музыка строится на контрастах: тяжёлые рифы,
+              синтезаторные пласты, меланхоличные мелодии и перкуссия с электронными акцентами.
+            </p>
+            <p>
+              Вместе с релизами AVZALØV развивает игровые и AI-направления, сохраняя единую вселенную персонажей и визуальных мотивов.
+            </p>
+          </div>
+        </div>
+        <div class="bio-modal-facts">
+          <div class="bio-modal-fact"><strong>Имя</strong><br />Рузиль Авзалов (AVZALØV)</div>
+          <div class="bio-modal-fact"><strong>Языки</strong><br />Русский, татарский</div>
+          <div class="bio-modal-fact"><strong>Первый релиз</strong><br />«Она срывала розы» • 22.07.2025</div>
+          <div class="bio-modal-fact"><strong>Жанры</strong><br />Dark pop, alt-rap, кинематографичные баллады</div>
+          <div class="bio-modal-fact"><strong>Темы</strong><br />Вера, молодость, внутренние раны, надежда</div>
+        </div>
+      </div>
+    </div>
+
     <section class="hero">
       <div class="hero-left">
         <div class="hero-avatar">
@@ -6712,22 +6985,17 @@
     <section id="clips">
       <div class="section-header">
         <h2 class="section-title">Клипы</h2>
-        <p class="section-sub">Выбор треков, для которых есть клип или визуализация.</p>
+        <p class="section-sub">Клипы пока не опубликованы. Следи за обновлениями здесь.</p>
       </div>
       <div class="clips-actions">
-
-        <button class="btn btn-primary" type="button" id="openClipsModalBtn">
-
-          <i class="fa-solid fa-film"></i>
-
-          �������� �������� ������
-
+        <button class="btn btn-ghost" type="button" id="openClipsModalBtn" disabled title="Клипы появятся позже">
+          <i class="fa-solid fa-film-slash"></i>
+          Нет клипов
         </button>
-
       </div>
 
       <div class="tracks-grid" id="clipsGrid">
-        <p class="users-empty">Скоро здесь появятся клипы. Открой треки, чтобы увидеть больше.</p>
+        <p class="users-empty">Клипов пока нет — как только появятся премьеры, они появятся здесь.</p>
       </div>
     </section>
 
@@ -7303,6 +7571,10 @@
             В песнях звучат русский и татарский языки, а звучание балансирует между dark pop, альтернативным рэпом и эмоциональными балладами.
           </p>
 
+          <div style="margin: 12px 0 6px;">
+            <button class="btn btn-primary" type="button" id="openBioModalBtn">Читать биографию</button>
+          </div>
+
           <div class="socials">
             <a href="https://vk.com/artist/avzalov" target="_blank" class="social-pill">VK Music</a>
             <a href="https://music.youtube.com/" target="_blank" class="social-pill">YouTube Music</a>
@@ -7460,6 +7732,18 @@
       </div>
     </div>
   </div>
+
+  <div class="platforms-modal-overlay" id="platformsModalOverlay" aria-hidden="true">
+    <div class="platforms-modal" role="dialog" aria-modal="true" aria-labelledby="platformsModalTitle">
+      <button class="platforms-modal-close" type="button" aria-label="Закрыть список площадок" data-platforms-close>&times;</button>
+      <div class="platforms-modal-kicker">Стриминги</div>
+      <h3 class="platforms-modal-title" id="platformsModalTitle">Площадки трека</h3>
+      <p class="platforms-modal-sub" id="platformsModalSub">Все площадки для выбранного трека.</p>
+      <div class="platforms-list" id="platformsModalList">
+        <p class="chart-modal-empty">Выбери трек, чтобы увидеть ссылки на сервисы.</p>
+      </div>
+    </div>
+  </div>
   <div class="clips-modal-overlay" id="clipsModal" data-open="false" aria-hidden="true">
     <div class="clips-modal" role="dialog" aria-modal="true" aria-labelledby="clipsModalTitle">
       <button class="clips-modal-close" type="button" aria-label="Закрыть каталог клипов" data-clips-close>&times;</button>
@@ -7593,7 +7877,7 @@
 
     function openChartModal() {
       if (!chartModalOverlay) return;
-      renderChartModalList(buildChartRankings(12));
+      renderChartModalList(buildChartRankings());
       chartModalOverlay.classList.add("is-visible");
       chartModalOverlay.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-open");
@@ -7605,10 +7889,36 @@
       chartModalOverlay.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-open");
     }
+
+    function openBioModal() {
+      if (!bioModalOverlay) {
+        return;
+      }
+      bioModalOverlay.classList.add("is-visible");
+      bioModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeBioModal() {
+      if (!bioModalOverlay) {
+        return;
+      }
+      bioModalOverlay.classList.remove("is-visible");
+      bioModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
     const usersModalListEl = document.getElementById("usersModalList");
     const usersModalSummaryEl = document.getElementById("usersModalSummary");
     const usersModalCloseButtons = Array.from(document.querySelectorAll("[data-users-modal-close]"));
     const clipsGrid = document.getElementById("clipsGrid");
+    const bioModalOverlay = document.getElementById("bioModalOverlay");
+    const bioModalCloseButtons = Array.from(document.querySelectorAll("[data-bio-modal-close]"));
+    const openBioModalBtn = document.getElementById("openBioModalBtn");
+    const platformsModalOverlay = document.getElementById("platformsModalOverlay");
+    const platformsModalTitle = document.getElementById("platformsModalTitle");
+    const platformsModalSub = document.getElementById("platformsModalSub");
+    const platformsModalList = document.getElementById("platformsModalList");
+    const platformsModalCloseButtons = Array.from(document.querySelectorAll("[data-platforms-close]"));
     const loginQuickButtons = Array.from(document.querySelectorAll("[data-login-quick]"));
     const topupMethodButtons = Array.from(document.querySelectorAll("[data-topup-method]"));
     const usersModalTriggers = [headerUsersBtn, document.getElementById("openUsersSectionBtn")].filter(Boolean);
@@ -7632,6 +7942,16 @@
     const TRACK_CHART_COUNTS_KEY = "avzalov_track_chart_counts_v1";
     const TRACK_CHART_PREVIOUS_POSITIONS_KEY = "avzalov_track_chart_prev_positions_v1";
     const VOLUME_STORAGE_KEY = "avzalov-volume";
+    const CLIPS_ENABLED = false;
+    const STREAMING_PLATFORMS = [
+      { id: "vk", label: "VK Music", icon: "fa-vk", short: "VK" },
+      { id: "yandex", label: "Яндекс Музыка", icon: "fa-yandex", short: "Яндекс" },
+      { id: "apple", label: "Apple Music", icon: "fa-apple", short: "Apple" },
+      { id: "spotify", label: "Spotify", icon: "fa-spotify", short: "Spotify" },
+      { id: "youtube", label: "YouTube Music", icon: "fa-youtube", short: "YT Music" },
+      { id: "boom", label: "BOOM", icon: "fa-music", short: "BOOM" },
+      { id: "deezer", label: "Deezer", icon: "fa-music", short: "Deezer" }
+    ];
     const onlineCountBase = 58 + Math.floor(Math.random() * 14);
     let liveOnlineCount = onlineCountBase;
     const TOPUP_METHOD_CONFIG = {
@@ -8856,7 +9176,7 @@
       }
     }
 
-    function buildChartRankings(limit = 8) {
+    function buildChartRankings(limit = null) {
       const library = Array.isArray(trackLibrary) ? trackLibrary : [];
       if (!library.length) {
         return [];
@@ -8878,7 +9198,10 @@
         }
         return (a.track.title || "").localeCompare(b.track.title || "");
       });
-      return entries.slice(0, limit);
+      if (Number.isFinite(limit) && limit > 0) {
+        return entries.slice(0, limit);
+      }
+      return entries;
     }
 
     function renderChartModalList(ranking) {
@@ -8957,16 +9280,16 @@
     function describeTrackChartTrend(slug, currentRank) {
       const previousRank = Number(trackChartPrevPositions[slug]);
       if (!Number.isFinite(previousRank) || previousRank <= 0) {
-        return { label: "Новый", className: "is-new", icon: "fa-bolt", aria: "Новая позиция в чарте" };
+        return { label: "Новый", deltaLabel: "+NEW", className: "is-new", icon: "fa-bolt", aria: "Новая позиция в чарте" };
       }
       const delta = previousRank - currentRank;
       if (delta > 0) {
-        return { label: `▲ +${delta}`, className: "is-up", icon: "fa-arrow-trend-up", aria: `Рост на ${delta} позиций` };
+        return { label: "Рост", deltaLabel: `+${delta}`, className: "is-up", icon: "fa-arrow-trend-up", aria: `Рост на ${delta} позиций` };
       }
       if (delta < 0) {
-        return { label: `▼ ${Math.abs(delta)}`, className: "is-down", icon: "fa-arrow-trend-down", aria: `Падение на ${Math.abs(delta)} позиций` };
+        return { label: "Падение", deltaLabel: `-${Math.abs(delta)}`, className: "is-down", icon: "fa-arrow-trend-down", aria: `Падение на ${Math.abs(delta)} позиций` };
       }
-      return { label: "→ 0", className: "", icon: "fa-arrows-left-right", aria: "Без изменений" };
+      return { label: "Без изменений", deltaLabel: "0", className: "", icon: "fa-arrows-left-right", aria: "Без изменений" };
     }
 
     function buildTrackChartEntries(library = []) {
@@ -8975,7 +9298,7 @@
       }
 
       return library
-        .filter(track => track && track.slug && track.availability !== "upcoming")
+        .filter(track => track && track.slug)
         .map(track => {
           const basePlays = Number(track.plays) || 0;
           const chartPlays = getTrackChartPlayCount(track.slug);
@@ -8987,14 +9310,13 @@
             metaLine
           };
         })
-        .filter(entry => entry.plays > 0)
         .sort((a, b) => {
           if (a.plays === b.plays) {
             return a.title.localeCompare(b.title, "ru", { sensitivity: "base" });
           }
           return b.plays - a.plays;
         })
-        .slice(0, 10);
+        .map((entry, index) => ({ ...entry, rank: index + 1 }));
     }
 
     function renderTrackChart(library = trackLibrary) {
@@ -9026,9 +9348,12 @@
 
       const snapshot = {};
       const fragment = document.createDocumentFragment();
-      entries.forEach((entry, index) => {
-        const rank = index + 1;
+      entries.forEach(entry => {
+        const rank = entry.rank || entries.indexOf(entry) + 1;
         const trend = describeTrackChartTrend(entry.slug, rank);
+        const deltaBadge = trend.deltaLabel
+          ? `<span class="track-chart-delta ${trend.className}">${trend.deltaLabel}</span>`
+          : "";
         const item = document.createElement("li");
         item.className = "track-chart-item";
         item.innerHTML = `
@@ -9036,7 +9361,7 @@
           <div class="track-chart-meta">
             <strong>${entry.title}</strong>
             <span class="track-chart-sub">${entry.metaLine}</span>
-            <span class="track-chart-trend ${trend.className}" aria-label="${trend.aria}"><i class="fa-solid ${trend.icon}"></i>${trend.label}</span>
+            <span class="track-chart-trend ${trend.className}" aria-label="${trend.aria}"><i class="fa-solid ${trend.icon}"></i>${trend.label} ${deltaBadge}</span>
           </div>
           <div class="track-chart-plays"><strong>${formatCount(entry.plays)}</strong> PLAY</div>
         `;
@@ -9188,6 +9513,26 @@
       return safeBasePrice;
     }
 
+    function normalizePlatformLinks(rawPlatforms = {}) {
+      const platforms = Array.isArray(rawPlatforms) ? rawPlatforms : [];
+      const platformMap = platforms.reduce((map, item) => {
+        if (item && item.id) {
+          map[item.id] = item.url || item.href || item.link || "";
+        }
+        return map;
+      }, { ...rawPlatforms });
+
+      return STREAMING_PLATFORMS.map(platform => {
+        const urlRaw = platformMap[platform.id] || "";
+        const cleanedUrl = typeof urlRaw === "string" ? urlRaw.trim() : "";
+        return {
+          ...platform,
+          url: cleanedUrl,
+          available: Boolean(cleanedUrl && cleanedUrl !== "#")
+        };
+      });
+    }
+
     function buildTrackLibrary() {
       return releasedTracksConfig.map((trackConfig, index) => {
         const slug = (trackConfig.slug || trackConfig.file || `track-${index}`).trim();
@@ -9205,6 +9550,7 @@
         const audioSource = audioBase ? buildAudioSource(audioBase, trackConfig.audioExt) : "";
         const hasAudioAvailable = Boolean(audioSource);
         const hasAudio = hasAudioAvailable;
+        const platforms = normalizePlatformLinks(trackConfig.platforms);
         const price = calculateTrackPrice(trackConfig, releaseState);
         const releaseLabel = (() => {
           if (releaseRaw && releaseRaw.toLowerCase() !== "скоро") {
@@ -9213,6 +9559,8 @@
           return releaseState === "released" ? "Уже в сети" : "Скоро";
         })();
         const releaseDateValue = parsedDate ? parsedDate.getTime() : null;
+        const hasClip = CLIPS_ENABLED && trackConfig.hasClip === true;
+        const clipUrl = hasClip ? trackConfig.clipUrl || "" : "";
         return {
           slug,
           title: trackConfig.title || slug,
@@ -9228,10 +9576,11 @@
           coverStyle: buildCoverBackgroundValue(coverBase, trackConfig.coverExt),
           audio: audioSource || "",
           hasAudio,
-          hasClip: trackConfig.hasClip === true,
-          clipUrl: trackConfig.clipUrl || "",
+          hasClip,
+          clipUrl,
           streamUrl: trackConfig.streamUrl || audioSource || "#",
           lyrics: trackConfig.lyrics || null,
+          platforms,
           price,
           copyright: trackConfig.copyright || `© ${new Date().getFullYear()} AVZALØV. Все права защищены.`
         };
@@ -9263,6 +9612,21 @@
             return aTime - bTime;
           }
         });
+    }
+
+    function buildPlatformBadges(platforms = []) {
+      if (!Array.isArray(platforms) || !platforms.length) {
+        return '<div class="track-platforms-row"><span class="track-platform-chip is-disabled"><i class="fa-solid fa-music"></i>Площадки будут позже</span></div>';
+      }
+      const badges = platforms
+        .map(platform => {
+          const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
+          const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
+          const activeClass = platform.available ? "" : " is-disabled";
+          return `<span class="track-platform-chip${activeClass}" title="${platform.label}"><i class="${iconPrefix} ${iconClass}"></i>${platform.short || platform.label}</span>`;
+        })
+        .join("");
+      return `<div class="track-platforms-row">${badges}</div>`;
     }
 
     function createTrackCard(track) {
@@ -9299,6 +9663,7 @@
       article.dataset.trackCoverStyle = track.coverStyle || "";
       article.dataset.trackStreamUrl = track.streamUrl || "";
       article.dataset.trackHasClip = track.hasClip ? "true" : "false";
+      article.dataset.trackPlatforms = JSON.stringify(track.platforms || []);
 
       const personalPlayCount = getPersonalPlayCount(track.slug);
       const personalMarkup = `
@@ -9306,6 +9671,9 @@
             Твоих прослушиваний: <span>${formatCount(personalPlayCount)}</span>
           </div>
         `;
+
+      const clipAvailable = CLIPS_ENABLED && track.hasClip;
+      const platformBadges = buildPlatformBadges(track.platforms);
 
       const playerControlsClass = track.hasAudio ? "player-controls" : "player-controls is-disabled";
       const playButtonAttributes = track.hasAudio
@@ -9323,11 +9691,11 @@
         ? `<audio class="track-audio" src="${track.audio}" preload="metadata"></audio>`
         : '';
 
-      const clipIndicatorMarkup = track.hasClip
+      const clipIndicatorMarkup = clipAvailable
         ? `<a class="track-clip-indicator" href="${track.clipUrl || '#'}" target="_blank" rel="noopener" title="Открыть клип"><i class="fas fa-video"></i>Клип</a>`
-        : '<span class="track-clip-indicator is-missing" title="Клип пока недоступен"><i class="fas fa-video-slash"></i>Нет клипа</span>';
+        : '<span class="track-clip-indicator is-missing" title="Клипы пока недоступны"><i class="fas fa-video-slash"></i>Нет клипа</span>';
 
-      const clipActionMarkup = track.hasClip
+      const clipActionMarkup = clipAvailable
         ? `<a class="track-action-btn" href="${track.clipUrl || '#'}" target="_blank" rel="noopener"><i class="fas fa-video"></i><span>Клип</span></a>`
         : '<button class="track-action-btn" type="button" disabled><i class="fas fa-video-slash"></i><span>Клип</span></button>';
 
@@ -9353,6 +9721,7 @@
             <span>${track.releaseLabel}</span>
             ${clipIndicatorMarkup}
           </div>
+          ${platformBadges}
           <div class="track-stats">
             <button class="track-like-btn" type="button" aria-label="Понравилось" aria-pressed="false">
               <i class="fas fa-heart"></i>
@@ -9376,6 +9745,7 @@
           </div>
           <div class="track-actions">
             ${unlockActionMarkup}
+            <button class="track-action-btn platforms-btn" type="button"><i class="fas fa-globe"></i><span>Площадки</span></button>
             <button class="track-action-btn lyrics-btn"><i class="fas fa-align-left"></i><span>Текст</span></button>
             ${clipActionMarkup}
             <button class="track-action-btn details-btn" type="button" aria-label="Подробнее о треке">
@@ -9434,33 +9804,25 @@
     function renderClipsGrid(tracks) {
 
       if (!clipsGrid) {
-
         return;
-
       }
 
       clipsGrid.innerHTML = '';
+      clipLibrary = [];
 
-      if (!tracks || !tracks.length) {
-
-        clipsGrid.innerHTML = '<p class="users-empty">��� ५���� ��� �⮡ࠦ����.</p>';
-
+      if (!CLIPS_ENABLED) {
+        clipsGrid.innerHTML = '<p class="users-empty">Клипы отключены. Как только появятся премьеры, мы дадим знать.</p>';
         return;
-
       }
 
-      const clips = tracks.filter(track => track.hasClip);
-
+      const clips = Array.isArray(tracks) ? tracks.filter(track => track.hasClip) : [];
       clipLibrary = clips;
 
       renderClipsModalList();
 
       if (!clips.length) {
-
-        clipsGrid.innerHTML = '<p class="users-empty">����� ������� ����� - ᫥��� �� ���������ﬨ.</p>';
-
+        clipsGrid.innerHTML = '<p class="users-empty">Клипы пока готовятся. Заглядывай позже.</p>';
         return;
-
       }
 
       clips.forEach(track => {
@@ -9477,8 +9839,12 @@
       if (!clipsModalList) {
         return;
       }
+      if (!CLIPS_ENABLED) {
+        clipsModalList.innerHTML = '<p class="users-empty">Клипы пока не публикуются.</p>';
+        return;
+      }
       if (!clipLibrary.length) {
-        clipsModalList.innerHTML = '<p class="users-empty">����� ����� ���������� ��� �����.</p>';
+        clipsModalList.innerHTML = '<p class="users-empty">Список клипов пуст. Загляни позже.</p>';
         return;
       }
       clipsModalList.innerHTML = clipLibrary
@@ -9505,7 +9871,7 @@
     }
 
     function openClipsModal() {
-      if (!clipsModalOverlay) {
+      if (!clipsModalOverlay || !CLIPS_ENABLED) {
         return;
       }
       renderClipsModalList();
@@ -10224,7 +10590,77 @@
       }
       trackDocModal.classList.remove("is-visible");
     }
-    
+
+    function renderPlatformsModalList(platforms = []) {
+      if (!platformsModalList) {
+        return;
+      }
+      if (!platforms.length) {
+        platformsModalList.innerHTML = '<p class="chart-modal-empty">Ссылки на площадки появятся позже.</p>';
+        return;
+      }
+      platformsModalList.innerHTML = platforms
+        .map(platform => {
+          const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
+          const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
+          const actionMarkup = platform.available
+            ? `<a class="btn btn-primary btn-xs" href="${platform.url}" target="_blank" rel="noopener">Слушать</a>`
+            : '<button class="btn btn-ghost btn-xs" type="button" disabled>Скоро</button>';
+          const status = platform.available ? "Активная ссылка" : "Ссылка готовится";
+          return `
+            <div class="platform-card">
+              <div class="platform-card-header">
+                <div class="platform-card-icon"><i class="${iconPrefix} ${iconClass}"></i></div>
+                <div>
+                  <div class="platform-card-title">${platform.label}</div>
+                  <div class="platform-card-note">${status}</div>
+                </div>
+              </div>
+              <div class="platform-card-actions">
+                ${actionMarkup}
+                <span class="platform-card-note">${platform.short || platform.label}</span>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
+    function openPlatformsModal(card) {
+      if (!platformsModalOverlay) {
+        return;
+      }
+      const title = card?.dataset.trackTitle || "Трек";
+      let platforms = [];
+      try {
+        platforms = JSON.parse(card?.dataset.trackPlatforms || "[]") || [];
+      } catch (error) {
+        platforms = [];
+      }
+      if (!platforms.length) {
+        platforms = normalizePlatformLinks();
+      }
+      if (platformsModalTitle) {
+        platformsModalTitle.textContent = `Площадки: ${title}`;
+      }
+      if (platformsModalSub) {
+        platformsModalSub.textContent = "Все стриминговые ссылки трека. Активные подсвечены зелёным.";
+      }
+      renderPlatformsModalList(platforms);
+      platformsModalOverlay.classList.add("is-visible");
+      platformsModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closePlatformsModal() {
+      if (!platformsModalOverlay) {
+        return;
+      }
+      platformsModalOverlay.classList.remove("is-visible");
+      platformsModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
     function rebindTrackCardEvents() {
       document.querySelectorAll(".track-card").forEach(card => {
         const audio = card.querySelector(".track-audio");
@@ -10233,6 +10669,7 @@
         const progressBar = card.querySelector(".progress-bar");
         const lyricsBtn = card.querySelector(".lyrics-btn");
         const detailsBtn = card.querySelector(".details-btn");
+        const platformsBtn = card.querySelector(".platforms-btn");
 
         setupTrackStats(card);
 
@@ -10242,6 +10679,10 @@
 
         if (detailsBtn) {
           detailsBtn.addEventListener("click", () => openTrackModal(card));
+        }
+
+        if (platformsBtn) {
+          platformsBtn.addEventListener("click", () => openPlatformsModal(card));
         }
 
         if (!audio) return;
@@ -12646,14 +13087,42 @@
       openChartModalBtn.addEventListener("click", openChartModal);
     }
 
+    if (openBioModalBtn) {
+      openBioModalBtn.addEventListener("click", openBioModal);
+    }
+
     chartModalCloseButtons.forEach(button => {
       button.addEventListener("click", closeChartModal);
+    });
+
+    bioModalCloseButtons.forEach(button => {
+      button.addEventListener("click", closeBioModal);
+    });
+
+    platformsModalCloseButtons.forEach(button => {
+      button.addEventListener("click", closePlatformsModal);
     });
 
     if (chartModalOverlay) {
       chartModalOverlay.addEventListener("click", event => {
         if (event.target === chartModalOverlay) {
           closeChartModal();
+        }
+      });
+    }
+
+    if (bioModalOverlay) {
+      bioModalOverlay.addEventListener("click", event => {
+        if (event.target === bioModalOverlay) {
+          closeBioModal();
+        }
+      });
+    }
+
+    if (platformsModalOverlay) {
+      platformsModalOverlay.addEventListener("click", event => {
+        if (event.target === platformsModalOverlay) {
+          closePlatformsModal();
         }
       });
     }
@@ -12678,6 +13147,14 @@
         }
         if (newsModalOverlay && newsModalOverlay.classList.contains("is-visible")) {
           closeNewsModal();
+          return;
+        }
+        if (bioModalOverlay && bioModalOverlay.classList.contains("is-visible")) {
+          closeBioModal();
+          return;
+        }
+        if (platformsModalOverlay && platformsModalOverlay.classList.contains("is-visible")) {
+          closePlatformsModal();
         }
       }
     });
