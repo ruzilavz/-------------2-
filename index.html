@@ -8598,6 +8598,7 @@
     const primaryDemoTopupBtn = demoTopupButtons[0] || null;
     const realTopupButtons = [document.getElementById("realTopupBtn")].filter(Boolean);
     const topupModalOverlay = document.getElementById("topupModal");
+    let topupModalLastFocus = null;
     const topupModalCloseButtons = Array.from(document.querySelectorAll("[data-topup-modal-close]"));
     const topupOverlay = document.getElementById("topupOverlay");
     const topupOverlayAmountEl = document.getElementById("overlayTopupAmount");
@@ -8638,6 +8639,10 @@
     const clipsNewsTicker = document.getElementById("clipsNewsTicker");
     const openClipsModalBtn = document.getElementById("openClipsModalBtn");
     const clipsModalCloseButtons = Array.from(document.querySelectorAll("[data-clips-close]"));
+
+    if (topupModalOverlay) {
+      topupModalOverlay.setAttribute("inert", "");
+    }
 
     if (openClipsModalBtn) {
       openClipsModalBtn.disabled = !CLIPS_ENABLED;
@@ -9019,6 +9024,8 @@
         notifyPaymentsInProgress();
         return;
       }
+      topupModalLastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      topupModalOverlay.removeAttribute("inert");
       topupModalOverlay.dataset.open = "true";
       topupModalOverlay.setAttribute("aria-hidden", "false");
       if (shouldFocusTopup && primaryDemoTopupBtn && typeof primaryDemoTopupBtn.focus === "function") {
@@ -9036,8 +9043,31 @@
       if (!topupModalOverlay) {
         return;
       }
+      const activeEl = document.activeElement;
+      const shouldRestoreFocus = activeEl && topupModalOverlay.contains(activeEl);
       topupModalOverlay.dataset.open = "false";
       topupModalOverlay.setAttribute("aria-hidden", "true");
+      topupModalOverlay.setAttribute("inert", "");
+
+      if (shouldRestoreFocus) {
+        const fallbackTarget =
+          (topupModalLastFocus && document.contains(topupModalLastFocus) ? topupModalLastFocus : null) ||
+          primaryDemoTopupBtn ||
+          topupCtaButtons[0] ||
+          null;
+
+        if (fallbackTarget && typeof fallbackTarget.focus === "function") {
+          try {
+            fallbackTarget.focus({ preventScroll: true });
+          } catch (error) {
+            fallbackTarget.focus();
+          }
+        } else if (activeEl && typeof activeEl.blur === "function") {
+          activeEl.blur();
+        }
+      }
+
+      topupModalLastFocus = null;
     }
 
     function openSectionById(sectionId) {
