@@ -6399,6 +6399,159 @@
     }
   }
 
+
+    /* Mini-profile component styles */
+    .user-mini-container {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: rgba(10, 12, 24, 0.7);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      font-family: var(--font-main);
+      padding: 10px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid transparent;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .user-mini:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.08);
+    }
+    .avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: visible;
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+    }
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 50%;
+      transition: transform .12s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .avatar-wrap:hover .avatar {
+      transform: scale(1.08);
+    }
+    .role-icon {
+      position: absolute;
+      right: -4px;
+      bottom: -4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--card);
+      box-shadow: 0 2px 6px rgba(0,0,0,.25);
+      background: var(--accent);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+    }
+    .status-dot {
+      position: absolute;
+      right: 1px;
+      top: 1px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 2px solid var(--card);
+    }
+    .status-dot.online { background: #34D399; }
+    .status-dot.offline { background: #9CA3AF; }
+    .meta {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: 4px;
+    }
+    .line1 {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .user-mini .name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 150px;
+    }
+    .role-chip {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      color: #fff;
+      display: inline-block;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .badges {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .badge {
+      width: 16px;
+      height: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .more-badges {
+      font-size: 11px;
+      background: rgba(255,255,255,0.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+      color: var(--muted);
+    }
+    .profile-card {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 10px);
+      width: 280px;
+      background: var(--card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      padding: 14px;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity .16s ease, transform .16s ease;
+      z-index: 50;
+    }
+    .user-mini:focus-within .profile-card,
+    .user-mini:hover .profile-card {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .pc-top { display: flex; gap: 12px; align-items: center; }
+    .pc-avatar { width: 52px; height: 52px; border-radius: var(--radius-md); object-fit: cover; }
+    .pc-info { display: flex; flex-direction: column; gap: 2px; }
+    .pc-name { font-weight: 700; font-size: 15px; color: var(--text); }
+    .pc-role { font-size: 12px; color: var(--muted); }
+    .pc-achievements { display: grid; gap: 10px; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+    .pc-ach { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }
+    .pc-ach i { color: var(--accent); font-size: 14px; width: 18px; text-align: center; }
+
   </style>
 </head>
 <body>
