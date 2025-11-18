@@ -8567,15 +8567,63 @@
         clipsGrid.innerHTML = '<p class="users-empty">����� ������� ����� - ᫥��� �� ���������ﬨ.</p>';
         return;
       }
-      clips.forEach(track => {
-        const card = createTrackCard(track);
-        clipsGrid.appendChild(card);
-        if (track && track.slug) {
-          updateTrackPersonalPlayDisplay(track.slug);
-        }
-      });
-      refreshTrackChartHeat();
-    }
+      clips.forEach(track => {
+        const card = createTrackCard(track);
+        clipsGrid.appendChild(card);
+        if (track && track.slug) {
+          updateTrackPersonalPlayDisplay(track.slug);
+        }
+      });
+      refreshTrackChartHeat();
+    }
+
+    function renderClipsModalList() {
+      if (!clipsModalList) {
+        return;
+      }
+      if (!clipLibrary.length) {
+        clipsModalList.innerHTML = '<p class="users-empty">����� ����� ���������� ��� �����.</p>';
+        return;
+      }
+      clipsModalList.innerHTML = clipLibrary
+        .map(track => {
+          const disabled = !track.clipUrl || track.clipUrl === "#";
+          const actionMarkup = disabled
+            ? '<button class="btn btn-ghost btn-xs" type="button" disabled>������� ������</button>'
+            : `<a class="btn btn-primary btn-xs" href="${track.clipUrl}" target="_blank" rel="noopener">������</a>`;
+          return `
+            <article class="clip-modal-card">
+              <div class="clip-modal-cover" style="background-image:${track.coverStyle}"></div>
+              <div class="clip-modal-content">
+                <h4>${track.title}</h4>
+                <div class="clip-modal-meta">${track.releaseLabel || "—"}</div>
+                <div class="clip-modal-footer">
+                  <span>${track.typeLabel || "Single"}</span>
+                  ${actionMarkup}
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    function openClipsModal() {
+      if (!clipsModalOverlay) {
+        return;
+      }
+      renderClipsModalList();
+      clipsModalOverlay.dataset.open = "true";
+      clipsModalOverlay.setAttribute("aria-hidden", "false");
+    }
+
+    function closeClipsModal() {
+      if (!clipsModalOverlay) {
+        return;
+      }
+      clipsModalOverlay.dataset.open = "false";
+      clipsModalOverlay.setAttribute("aria-hidden", "true");
+    }
 
     function updateLyricsModalTheme(slug) {
       const isYashlek = slug === LYRICS_DESYNC_SLUG;
