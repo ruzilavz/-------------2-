@@ -8187,6 +8187,9 @@
     }
 
     const trackTitleCache = new Map();
+    let trackIdRegistry = new Map();
+    let trackChartCounts = loadTrackChartCounts();
+    let clipLibrary = [];
     let getPersonalPlayCount = () => 0;
     let updateTrackPersonalPlayDisplay = () => {};
     window.handleListeningStatIncrement = window.handleListeningStatIncrement || function noopListeningIncrement() {};
