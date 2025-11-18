@@ -6186,12 +6186,18 @@
         <h2 class="section-title">Клипы</h2>
         <p class="section-sub">Выбор треков, для которых есть клип или визуализация.</p>
       </div>
-      <div class="clips-actions">
-        <button class="btn btn-primary" type="button" id="openClipsModalBtn">
-          <i class="fa-solid fa-film"></i>
-          �������� �������� ������
-        </button>
-      </div>
+      <div class="clips-actions">
+
+        <button class="btn btn-primary" type="button" id="openClipsModalBtn">
+
+          <i class="fa-solid fa-film"></i>
+
+          �������� �������� ������
+
+        </button>
+
+      </div>
+
       <div class="tracks-grid" id="clipsGrid">
         <p class="users-empty">Скоро здесь появятся клипы. Открой треки, чтобы увидеть больше.</p>
       </div>
@@ -8545,29 +8551,32 @@
       }, 1600);
     }
 
-    function renderClipsGrid(tracks) {
-      if (!clipsGrid) {
-        return;
-      }
-      clipsGrid.innerHTML = '';
-      if (!tracks || !tracks.length) {
-        clipsGrid.innerHTML = '<p class="users-empty">Нет релизов для отображения.</p>';
-        return;
-      }
-      const clips = tracks.filter(track => track.hasClip);
-      if (!clips.length) {
-        clipsGrid.innerHTML = '<p class="users-empty">Клипы появятся позже — следите за обновлениями.</p>';
-        return;
-      }
-      clips.forEach(track => {
-        const card = createTrackCard(track);
-        clipsGrid.appendChild(card);
-        if (track && track.slug) {
-          updateTrackPersonalPlayDisplay(track.slug);
-        }
-      });
-    }
-
+    function renderClipsGrid(tracks) {
+      if (!clipsGrid) {
+        return;
+      }
+      clipsGrid.innerHTML = '';
+      if (!tracks || !tracks.length) {
+        clipsGrid.innerHTML = '<p class="users-empty">��� ५���� ��� �⮡ࠦ����.</p>';
+        return;
+      }
+      const clips = tracks.filter(track => track.hasClip);
+      clipLibrary = clips;
+      renderClipsModalList();
+      if (!clips.length) {
+        clipsGrid.innerHTML = '<p class="users-empty">����� ������� ����� - ᫥��� �� ���������ﬨ.</p>';
+        return;
+      }
+      clips.forEach(track => {
+        const card = createTrackCard(track);
+        clipsGrid.appendChild(card);
+        if (track && track.slug) {
+          updateTrackPersonalPlayDisplay(track.slug);
+        }
+      });
+      refreshTrackChartHeat();
+    }
+
     function updateLyricsModalTheme(slug) {
       const isYashlek = slug === LYRICS_DESYNC_SLUG;
       if (lyricsModal) {
