@@ -12568,8 +12568,14 @@
     }
 
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && newsModalOverlay && newsModalOverlay.classList.contains("is-visible")) {
-        closeNewsModal();
+      if (event.key === "Escape") {
+        if (chartModalOverlay && chartModalOverlay.classList.contains("is-visible")) {
+          closeChartModal();
+          return;
+        }
+        if (newsModalOverlay && newsModalOverlay.classList.contains("is-visible")) {
+          closeNewsModal();
+        }
       }
     });
 
