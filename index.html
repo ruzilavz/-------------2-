@@ -8625,6 +8625,9 @@
         card.style.setProperty("--chart-heat", heat.toFixed(3));
         card.dataset.chartCount = count;
       });
+      if (typeof updateHeaderChartDisplay === "function") {
+        updateHeaderChartDisplay();
+      }
     }
 
     function recordTrackChartPlay(slug) {
