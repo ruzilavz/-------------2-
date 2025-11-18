@@ -87,6 +87,25 @@
       --text: #aeecff;
     }
 
+    .card { padding: 2px; }
+    .card::before { padding: 2px; inset: -2px; }
+    .card::before, .card::after { animation: spin 12s linear infinite; }
+    .card::after { filter: blur(30px); }
+
+    :root { /* не нужно менять --accent если он у тебя уже есть */ }
+    .card::before,
+    .card::after {
+      background: conic-gradient(from 0deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #000) 50%);
+    }
+    .card::after { filter: none; opacity: 0.6; } /* без blur */
+
+    @media (max-width:720px) {
+      .card::after { filter: none; opacity: 0.7; }
+      .card::before, .card::after { animation-duration: 10s; }
+    }
+
+
+
     * {
       margin: 0;
       padding: 0;
