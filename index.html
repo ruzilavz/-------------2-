@@ -7138,6 +7138,56 @@
     .pc-ach i { color: var(--accent); font-size: 14px; width: 18px; text-align: center; }
 
 
+    /* Roles + phrases */
+    .roles-lab { margin-top: 60px; display: grid; gap: 22px; }
+    .role-panels { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; align-items: start; }
+    @media (max-width: 1000px) { .role-panels { grid-template-columns: 1fr; } }
+    .role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    .role-card { position: relative; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border); background: rgba(255,255,255,0.03); box-shadow: var(--shadow-sm); transition: transform var(--transition), border-color var(--transition); min-height: 160px; }
+    .role-card:hover, .role-card:focus-within { transform: translateY(-2px); border-color: rgba(95, 150, 255, 0.4); }
+    .role-card-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .role-card-desc { color: var(--muted); font-size: 13px; line-height: 1.4; }
+    .role-flags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .role-flag { font-size: 11px; padding: 4px 8px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: var(--text); letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 6px; }
+    .role-flag i { font-size: 12px; color: #6cd0ff; }
+    .role-default-holder { color: var(--muted); font-size: 12px; margin-top: 8px; display: flex; gap: 6px; align-items: center; }
+    .role-tooltip { position: absolute; left: 14px; right: 14px; bottom: 16px; padding: 10px; border-radius: 12px; background: rgba(5, 6, 10, 0.92); border: 1px solid rgba(95, 150, 255, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.45); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity var(--transition), transform var(--transition); font-size: 12px; line-height: 1.5; }
+    .role-card:hover .role-tooltip, .role-card:focus-within .role-tooltip { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .role-admin-panel { padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border); background: linear-gradient(135deg, rgba(47,107,255,0.06), rgba(255,255,255,0.02)); display: grid; gap: 10px; box-shadow: var(--shadow-sm); }
+    .role-admin-kicker { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6cd0ff; }
+    .role-admin-list { padding-left: 18px; display: grid; gap: 8px; color: var(--muted); font-size: 13px; }
+    .role-access-hint { font-size: 13px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.12); color: #dfe7ff; }
+    .role-stats { display: flex; gap: 12px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+    .role-stats span { padding: 6px 10px; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+
+    .role-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 200ms ease; z-index: 120; backdrop-filter: blur(6px); }
+    .role-modal-overlay.is-visible { opacity: 1; pointer-events: auto; }
+    .role-modal { width: min(720px, 92vw); background: #0e1220; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); padding: 18px; box-shadow: 0 30px 60px rgba(0,0,0,0.45); display: grid; gap: 14px; }
+    .role-modal-header { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+    .role-modal-kicker { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6cd0ff; }
+    .role-modal-title { font-size: 22px; margin: 4px 0; }
+    .role-modal-sub { color: var(--muted); font-size: 14px; }
+    .role-modal-close { border: none; background: rgba(255,255,255,0.06); color: var(--text); width: 34px; height: 34px; border-radius: 10px; font-size: 18px; cursor: pointer; }
+    .role-modal-flags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .role-modal-perms { display: grid; gap: 6px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 12px; border-radius: 12px; }
+    .role-modal-perm { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 14px; }
+    .role-modal-perm i { color: #6cd0ff; }
+    .role-holders-block { display: grid; gap: 8px; }
+    .role-holders-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .role-holders-list { list-style: none; display: grid; gap: 6px; padding: 0; margin: 0; }
+    .role-holder-chip { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 8px 10px; font-size: 13px; color: var(--text); }
+    .btn-sm { padding: 6px 10px; font-size: 12px; }
+    .role-modal-preview { display: flex; align-items: center; gap: 8px; }
+
+    .phrase-panel { padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border); background: rgba(255,255,255,0.03); display: grid; gap: 12px; }
+    .phrase-panel-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    @media (max-width: 760px) { .phrase-panel-top { flex-direction: column; } }
+    .phrase-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .phrase-code { background: #0a0d1c; border: 1px solid var(--border); border-radius: 12px; padding: 12px; font-family: "SFMono-Regular", Consolas, Monaco, monospace; font-size: 12px; color: #cfe9ff; overflow: auto; }
+    .phrase-sample { max-height: 240px; overflow: auto; display: grid; gap: 6px; font-size: 13px; color: var(--muted); padding: 8px; border-radius: 10px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); }
+
+    .chat-fill-btn { white-space: nowrap; }
+
     /* New Contact Section Styles */
     .contacts-list {
       display: flex;
@@ -8798,6 +8848,70 @@
     </div>
   </section>
 
+  <section id="roles-lab" class="roles-lab">
+    <div class="section-header">
+      <h2 class="section-title">Роли и чат</h2>
+      <p class="section-sub">100 ролей с подсказками и 99 заполненных ботами слотов до распределения главным админом.</p>
+      <div class="role-stats" id="roleStatsSummary"></div>
+    </div>
+    <div class="role-panels">
+      <div class="role-grid" id="roleGrid" aria-live="polite"></div>
+      <aside class="role-admin-panel" aria-label="Админ-панель ролей">
+        <div class="role-admin-kicker">Админ-панель</div>
+        <h3>99 слотов под ботов</h3>
+        <p>Все роли, кроме главного админа, стартуют с holder: bot_001…bot_099 и ждут выдачи пользователям.</p>
+        <ul class="role-admin-list">
+          <li>Выдавать/снимать роли могут assign_roles: Главный админ, Супер-админ, Модераторы, Bot Manager, Mentor+, Guardian.</li>
+          <li>Флаг listen_all_tracks даёт бесплатное прослушивание в плеере. Список помечен на карточке роли.</li>
+          <li>visibleInProfile включает бейдж в профиле, а defaultBot подсвечивает служебные роли.</li>
+        </ul>
+        <div class="role-access-hint">
+          <strong>Бесплатное прослушивание:</strong> VIP, Partner, Label Owner, Sponsor, Investor, Hall of Fame, DJ и другие роли с флагом listen_all_tracks.
+        </div>
+      </aside>
+    </div>
+    <div class="phrase-panel">
+      <div class="phrase-panel-top">
+        <div>
+          <div class="phrase-kicker">Фразы для чата</div>
+          <h3>Готовая выборка + генератор 5000</h3>
+          <p class="section-sub" id="phraseStats">Данные загружаются…</p>
+        </div>
+        <div class="phrase-actions">
+          <button class="btn btn-primary" type="button" id="downloadPhrasesBtn">Скачать 5000 фраз</button>
+          <button class="btn btn-ghost" type="button" id="showSamplePhrasesBtn">Показать 120 фраз</button>
+        </div>
+      </div>
+      <pre class="phrase-code" id="phraseCodeBlock" aria-label="Скрипт генерации"></pre>
+      <div class="phrase-sample" id="phraseSampleList" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <div class="role-modal-overlay" id="roleModalOverlay" aria-hidden="true">
+    <div class="role-modal" role="dialog" aria-modal="true" aria-labelledby="roleModalTitle">
+      <header class="role-modal-header">
+        <div>
+          <div class="role-modal-kicker">Детали роли</div>
+          <h3 class="role-modal-title" id="roleModalTitle">Роль</h3>
+          <p class="role-modal-sub" id="roleModalShort"></p>
+        </div>
+        <button class="role-modal-close" type="button" id="roleModalCloseBtn" aria-label="Закрыть окно">&times;</button>
+      </header>
+      <div class="role-modal-flags" id="roleModalFlags"></div>
+      <div class="role-modal-preview">
+        <span class="chat-role-badge role-tier-gold" id="roleModalPreviewBadge">Бейдж роли</span>
+      </div>
+      <div class="role-modal-perms" id="roleModalPerms"></div>
+      <div class="role-holders-block">
+        <div class="role-holders-header">
+          <h4>Держатели</h4>
+          <button class="btn btn-ghost btn-sm" type="button" id="roleModalSwapBtn">Заменить бот → пользователь</button>
+        </div>
+        <ul class="role-holders-list" id="roleModalHolders"></ul>
+      </div>
+    </div>
+  </div>
+
   <div class="chat-modal-overlay" id="chatModalOverlay" aria-hidden="true">
     <div class="chat-modal" role="dialog" aria-modal="true" aria-labelledby="chatModalTitle">
       <div class="chat-modal-header">
@@ -8817,6 +8931,7 @@
             <form class="chat-composer-form" id="chatComposerForm" autocomplete="off">
               <label class="sr-only" for="chatInput">Сообщение чату</label>
               <input id="chatInput" name="chatInput" type="text" placeholder="Напишите что-нибудь, боты ответят с паузой" />
+              <button type="button" class="btn btn-ghost chat-fill-btn" id="fillChatWithPhraseBtn">Вставить фразу</button>
               <button type="submit" class="btn btn-primary">Отправить</button>
             </form>
             <div class="chat-message-limit" id="chatMessageLimitInfoModal"></div>
@@ -9109,6 +9224,23 @@
     const chatModalCloseBtn = document.getElementById("chatModalCloseBtn");
     const chatParticipantsList = document.getElementById("chatParticipantsList");
     const chatThread = document.getElementById("chatThread");
+    const roleGrid = document.getElementById("roleGrid");
+    const roleStatsSummary = document.getElementById("roleStatsSummary");
+    const roleModalOverlay = document.getElementById("roleModalOverlay");
+    const roleModalCloseBtn = document.getElementById("roleModalCloseBtn");
+    const roleModalTitle = document.getElementById("roleModalTitle");
+    const roleModalShort = document.getElementById("roleModalShort");
+    const roleModalFlags = document.getElementById("roleModalFlags");
+    const roleModalPerms = document.getElementById("roleModalPerms");
+    const roleModalHolders = document.getElementById("roleModalHolders");
+    const roleModalSwapBtn = document.getElementById("roleModalSwapBtn");
+    const roleModalPreviewBadge = document.getElementById("roleModalPreviewBadge");
+    const phraseCodeBlock = document.getElementById("phraseCodeBlock");
+    const phraseSampleList = document.getElementById("phraseSampleList");
+    const phraseStats = document.getElementById("phraseStats");
+    const downloadPhrasesBtn = document.getElementById("downloadPhrasesBtn");
+    const showSamplePhrasesBtn = document.getElementById("showSamplePhrasesBtn");
+    const fillChatWithPhraseBtn = document.getElementById("fillChatWithPhraseBtn");
 
     if (topupModalOverlay) {
       topupModalOverlay.setAttribute("inert", "");
@@ -9446,6 +9578,9 @@
       if (chatModalOverlay && chatModalOverlay.classList.contains("is-visible")) {
         closeChatModal();
       }
+      if (roleModalOverlay && roleModalOverlay.classList.contains("is-visible")) {
+        closeRoleModal();
+      }
     });
 
     usersModalCloseButtons.forEach(button => {
@@ -9526,6 +9661,10 @@
     let chatUserParticipant = null;
     const CHAT_VISIBLE_LIMIT = 15;
     const CHAT_ARCHIVE_LIMIT = 30;
+    let rolesCatalogCache = null;
+    let roleHolderOverrides = new Map();
+    let activeRoleId = null;
+    let phraseSampleCache = [];
 
     async function loadChatData() {
       if (chatDataCache) {
@@ -9847,6 +9986,257 @@
       });
     }
 
+    async function loadRolesCatalog() {
+      if (rolesCatalogCache) {
+        return rolesCatalogCache;
+      }
+      const response = await fetch("data/roles-catalog.json");
+      if (!response.ok) {
+        throw new Error("Не удалось загрузить роли");
+      }
+      rolesCatalogCache = await response.json();
+      roleHolderOverrides = new Map((rolesCatalogCache.roles || []).map(role => [role.id, role.defaultHolder]));
+      return rolesCatalogCache;
+    }
+
+    function formatHolderLabel(holderId) {
+      if (!holderId) return "Свободно";
+      if (holderId === "admin") return "Главный админ";
+      if (holderId.startsWith("bot_")) return `Бот ${holderId.split("_")[1] || ""}`.trim();
+      return holderId.replace(/^user_/i, "Пользователь ");
+    }
+
+    function buildRoleFlagBadges(role) {
+      const flags = [];
+      if (role.permissions?.assign_roles) {
+        flags.push('<span class="role-flag"><i class="fa-solid fa-person-circle-check"></i>assign_roles</span>');
+      }
+      if (role.permissions?.listen_all_tracks) {
+        flags.push('<span class="role-flag"><i class="fa-solid fa-headphones"></i>listen_all_tracks</span>');
+      }
+      if (role.defaultBot) {
+        flags.push('<span class="role-flag"><i class="fa-solid fa-robot"></i>defaultBot</span>');
+      }
+      if (role.visibleInProfile === false) {
+        flags.push('<span class="role-flag"><i class="fa-solid fa-eye-slash"></i>hidden</span>');
+      } else {
+        flags.push('<span class="role-flag"><i class="fa-solid fa-eye"></i>visible</span>');
+      }
+      return flags.join("");
+    }
+
+    function renderRoleStats(roles = []) {
+      if (!roleStatsSummary) return;
+      const total = roles.length;
+      const botSlots = roles.filter(role => (role.defaultHolder || "").startsWith("bot_")).length;
+      const listenAll = roles.filter(role => role.permissions?.listen_all_tracks).length;
+      const assignable = roles.filter(role => role.permissions?.assign_roles).length;
+      roleStatsSummary.innerHTML = [
+        `<span>Всего ролей: ${total}</span>`,
+        `<span>Слотов занято ботами: ${botSlots}</span>`,
+        `<span>Бесплатное прослушивание: ${listenAll}</span>`,
+        `<span>Могут выдавать роли: ${assignable}</span>`
+      ].join("");
+    }
+
+    function renderRoleGrid(roles = []) {
+      if (!roleGrid) return;
+      roleGrid.innerHTML = roles
+        .map(role => {
+          const holder = roleHolderOverrides.get(role.id) ?? role.defaultHolder;
+          return `
+            <article class="role-card" data-role-id="${role.id}" tabindex="0">
+              <div class="role-card-title">${role.name}</div>
+              <div class="role-card-desc">${role.short}</div>
+              <div class="role-flags">${buildRoleFlagBadges(role)}</div>
+              <div class="role-default-holder"><i class="fa-solid fa-user-gear"></i>${formatHolderLabel(holder)}</div>
+              <div class="role-tooltip">${role.tooltip}</div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    function renderRoleModal(role) {
+      if (!roleModalOverlay || !role) {
+        return;
+      }
+      activeRoleId = role.id;
+      const holder = roleHolderOverrides.get(role.id) ?? role.defaultHolder;
+      if (roleModalTitle) roleModalTitle.textContent = role.name;
+      if (roleModalShort) roleModalShort.textContent = role.short;
+      if (roleModalFlags) roleModalFlags.innerHTML = buildRoleFlagBadges(role);
+      if (roleModalPreviewBadge) roleModalPreviewBadge.textContent = role.name;
+
+      if (roleModalPerms) {
+        const permItems = [
+          { label: "assign_roles", enabled: role.permissions?.assign_roles },
+          { label: "ban_users", enabled: role.permissions?.ban_users },
+          { label: "listen_all_tracks", enabled: role.permissions?.listen_all_tracks },
+          { label: "edit_site", enabled: role.permissions?.edit_site }
+        ];
+        roleModalPerms.innerHTML = permItems
+          .map(perm => `
+            <div class="role-modal-perm">
+              <i class="fa-solid ${perm.enabled ? "fa-check-circle" : "fa-circle"}"></i>
+              <span>${perm.label}</span>
+            </div>
+          `)
+          .join("");
+      }
+
+      if (roleModalHolders) {
+        roleModalHolders.innerHTML = `
+          <li class="role-holder-chip">
+            <span>Текущий holder</span>
+            <span>${formatHolderLabel(holder)}</span>
+          </li>
+          <li class="role-holder-chip">
+            <span>По умолчанию</span>
+            <span>${formatHolderLabel(role.defaultHolder)}</span>
+          </li>
+        `;
+      }
+    }
+
+    function openRoleModal(role) {
+      if (!roleModalOverlay || !role) return;
+      renderRoleModal(role);
+      roleModalOverlay.classList.add("is-visible");
+      roleModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeRoleModal() {
+      if (!roleModalOverlay) return;
+      roleModalOverlay.classList.remove("is-visible");
+      roleModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    function swapRoleHolder() {
+      if (!rolesCatalogCache || !activeRoleId) {
+        return;
+      }
+      const role = rolesCatalogCache.roles.find(item => item.id === activeRoleId);
+      if (!role) {
+        return;
+      }
+      const current = roleHolderOverrides.get(role.id) ?? role.defaultHolder;
+      const next = current && current.startsWith("bot_") ? "user_main" : role.defaultHolder || "bot_reserve";
+      roleHolderOverrides.set(role.id, next);
+      renderRoleModal(role);
+      renderRoleGrid(rolesCatalogCache.roles);
+    }
+
+    async function hydrateRolesSection() {
+      if (!roleGrid) return;
+      try {
+        const data = await loadRolesCatalog();
+        renderRoleStats(data.roles || []);
+        renderRoleGrid(data.roles || []);
+      } catch (error) {
+        if (roleGrid) {
+          roleGrid.innerHTML = `<p class="section-sub">${error.message}</p>`;
+        }
+      }
+    }
+
+    async function loadSamplePhrases() {
+      if (phraseSampleCache.length) {
+        return phraseSampleCache;
+      }
+      const response = await fetch("data/phrases_sample_120.txt");
+      const text = await response.text();
+      phraseSampleCache = text.split(/\n/).map(line => line.trim()).filter(Boolean);
+      return phraseSampleCache;
+    }
+
+    function renderPhraseSample(sample = [], limit = 24) {
+      if (!phraseSampleList) return;
+      const subset = sample.slice(0, limit);
+      phraseSampleList.innerHTML = subset
+        .map(line => `<div>• ${line}</div>`)
+        .join("");
+    }
+
+    async function hydratePhrasePanel() {
+      if (phraseCodeBlock) {
+        phraseCodeBlock.textContent = "python scripts/generate_chat_phrases.py --output data/phrases_5000.txt --count 5000 --sample-output data/phrases_sample_120.txt --sample-count 120";
+      }
+      if (phraseStats) {
+        phraseStats.textContent = "Файл с 5000 фразами готов к скачиванию, выборка 120 строк ниже.";
+      }
+      try {
+        const sample = await loadSamplePhrases();
+        renderPhraseSample(sample);
+      } catch (error) {
+        if (phraseSampleList) {
+          phraseSampleList.textContent = "Не удалось загрузить пример фраз.";
+        }
+      }
+    }
+
+    if (roleGrid) {
+      roleGrid.addEventListener("click", event => {
+        const card = event.target.closest("[data-role-id]");
+        if (!card || !rolesCatalogCache) return;
+        const role = rolesCatalogCache.roles.find(item => item.id === card.dataset.roleId);
+        if (role) {
+          openRoleModal(role);
+        }
+      });
+      roleGrid.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          const card = event.target.closest("[data-role-id]");
+          if (card && rolesCatalogCache) {
+            const role = rolesCatalogCache.roles.find(item => item.id === card.dataset.roleId);
+            if (role) openRoleModal(role);
+          }
+        }
+      });
+    }
+
+    if (roleModalCloseBtn) {
+      roleModalCloseBtn.addEventListener("click", closeRoleModal);
+    }
+
+    if (roleModalOverlay) {
+      roleModalOverlay.addEventListener("click", event => {
+        if (event.target === roleModalOverlay) {
+          closeRoleModal();
+        }
+      });
+    }
+
+    if (roleModalSwapBtn) {
+      roleModalSwapBtn.addEventListener("click", swapRoleHolder);
+    }
+
+    if (downloadPhrasesBtn) {
+      downloadPhrasesBtn.addEventListener("click", () => {
+        window.open("data/phrases_5000.txt", "_blank");
+      });
+    }
+
+    if (showSamplePhrasesBtn) {
+      showSamplePhrasesBtn.addEventListener("click", async () => {
+        const sample = await loadSamplePhrases();
+        renderPhraseSample(sample);
+      });
+    }
+
+    if (fillChatWithPhraseBtn) {
+      fillChatWithPhraseBtn.addEventListener("click", async () => {
+        const sample = await loadSamplePhrases();
+        const phrase = sample[Math.floor(Math.random() * sample.length)] || "Привет!";
+        if (chatInput) {
+          chatInput.value = phrase;
+          chatInput.focus();
+        }
+      });
+    }
+
     function openContactModal() {
       if (!contactModalOverlay) return;
       contactModalOverlay.classList.add("is-visible");
@@ -9885,6 +10275,8 @@
     });
 
     hydrateChatPreview();
+    hydrateRolesSection();
+    hydratePhrasePanel();
 
     function revealSection(sectionEl) {
       if (!sectionEl) {

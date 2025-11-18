@@ -1,0 +1,1608 @@
+{
+  "meta": {
+    "version": 1,
+    "defaultBotSlots": 99
+  },
+  "roles": [
+    {
+      "id": "role_001",
+      "name": "Главный админ",
+      "short": "Владелец системы и главный распределитель прав.",
+      "tooltip": "Владелец системы и главный распределитель прав.",
+      "permissions": {
+        "assign_roles": true,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "admin",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_002",
+      "name": "Супер-админ",
+      "short": "Помогает управлять ролями и настройками.",
+      "tooltip": "Помогает управлять ролями и настройками.",
+      "permissions": {
+        "assign_roles": true,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_002",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_003",
+      "name": "Модератор",
+      "short": "Следит за чатом и порядком.",
+      "tooltip": "Следит за чатом и порядком.",
+      "permissions": {
+        "assign_roles": true,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_003",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_004",
+      "name": "Старший модератор",
+      "short": "Расширенные права модерации, бан/разбан.",
+      "tooltip": "Расширенные права модерации, бан/разбан.",
+      "permissions": {
+        "assign_roles": true,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_004",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_005",
+      "name": "DJ (Resident)",
+      "short": "Резидентный диджей со свободным доступом к каталогу.",
+      "tooltip": "Резидентный диджей со свободным доступом к каталогу.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_005",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_006",
+      "name": "Резидент / DJ",
+      "short": "Локальный DJ с повышенными правами.",
+      "tooltip": "Локальный DJ с повышенными правами.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_006",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_007",
+      "name": "Радио-хост",
+      "short": "Ведёт эфиры и ставит любые треки.",
+      "tooltip": "Ведёт эфиры и ставит любые треки.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_007",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_008",
+      "name": "Подкаст-хост",
+      "short": "Ведущий подкастов, ранний доступ к материалам.",
+      "tooltip": "Ведущий подкастов, ранний доступ к материалам.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_008",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_009",
+      "name": "Куратор плейлистов",
+      "short": "Формирует официальные подборки.",
+      "tooltip": "Формирует официальные подборки.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_009",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_010",
+      "name": "Редактор плейлистов",
+      "short": "Помогает куратору обновлять подборки.",
+      "tooltip": "Помогает куратору обновлять подборки.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_010",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_011",
+      "name": "Лейбл-менеджер",
+      "short": "Представитель лейбла, доступ к статистике.",
+      "tooltip": "Представитель лейбла, доступ к статистике.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_011",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_012",
+      "name": "A&R Scout",
+      "short": "Ищет новых артистов и демо.",
+      "tooltip": "Ищет новых артистов и демо.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_012",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_013",
+      "name": "Букер",
+      "short": "Организует бронирования и выступления.",
+      "tooltip": "Организует бронирования и выступления.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_013",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_014",
+      "name": "Промоутер",
+      "short": "Продвигает мероприятия и релизы.",
+      "tooltip": "Продвигает мероприятия и релизы.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_014",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_015",
+      "name": "PR / Менеджер по связям",
+      "short": "Работает со СМИ и пабликами.",
+      "tooltip": "Работает со СМИ и пабликами.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_015",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_016",
+      "name": "Фан-клуб лидер",
+      "short": "Руководит фан-сообществом.",
+      "tooltip": "Руководит фан-сообществом.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_016",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_017",
+      "name": "Superfan",
+      "short": "Выделенный активный фан.",
+      "tooltip": "Выделенный активный фан.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_017",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_018",
+      "name": "Fan",
+      "short": "Обычный фан, базовый доступ.",
+      "tooltip": "Обычный фан, базовый доступ.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_018",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_019",
+      "name": "Collector",
+      "short": "Собирает релизы и редкие версии.",
+      "tooltip": "Собирает релизы и редкие версии.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_019",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_020",
+      "name": "Archivist",
+      "short": "Хранитель архивов и редких записей.",
+      "tooltip": "Хранитель архивов и редких записей.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_020",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_021",
+      "name": "Historian",
+      "short": "Исследует историю релизов.",
+      "tooltip": "Исследует историю релизов.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_021",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_022",
+      "name": "Критик / Рецензент",
+      "short": "Пишет рецензии и обзоры.",
+      "tooltip": "Пишет рецензии и обзоры.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_022",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_023",
+      "name": "Автор статей",
+      "short": "Готовит заметки и интервью.",
+      "tooltip": "Готовит заметки и интервью.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_023",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_024",
+      "name": "Фотограф",
+      "short": "Официальный фотограф событий.",
+      "tooltip": "Официальный фотограф событий.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_024",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_025",
+      "name": "Видеограф",
+      "short": "Снимает клипы и репортажи.",
+      "tooltip": "Снимает клипы и репортажи.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_025",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_026",
+      "name": "VJ / Визуалист",
+      "short": "Делает визуализации для сетов.",
+      "tooltip": "Делает визуализации для сетов.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_026",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_027",
+      "name": "Light Designer",
+      "short": "Настраивает световые шоу.",
+      "tooltip": "Настраивает световые шоу.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_027",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_028",
+      "name": "Sound Engineer",
+      "short": "Звукорежиссёр лайвов.",
+      "tooltip": "Звукорежиссёр лайвов.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_028",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_029",
+      "name": "Mixer",
+      "short": "Сводит треки и лайв-сеты.",
+      "tooltip": "Сводит треки и лайв-сеты.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_029",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_030",
+      "name": "Mastering Engineer",
+      "short": "Отвечает за мастеринг.",
+      "tooltip": "Отвечает за мастеринг.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_030",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_031",
+      "name": "Producer",
+      "short": "Продюсер проекта.",
+      "tooltip": "Продюсер проекта.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_031",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_032",
+      "name": "Beatmaker",
+      "short": "Создаёт биты.",
+      "tooltip": "Создаёт биты.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_032",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_033",
+      "name": "Composer",
+      "short": "Пишет музыку и мелодии.",
+      "tooltip": "Пишет музыку и мелодии.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_033",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_034",
+      "name": "Lyricist",
+      "short": "Автор текстов.",
+      "tooltip": "Автор текстов.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_034",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_035",
+      "name": "Remixer",
+      "short": "Делает ремиксы.",
+      "tooltip": "Делает ремиксы.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_035",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_036",
+      "name": "Sampler",
+      "short": "Работает с семплами.",
+      "tooltip": "Работает с семплами.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_036",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_037",
+      "name": "Label Owner",
+      "short": "Владелец лейбла, VIP-доступ.",
+      "tooltip": "Владелец лейбла, VIP-доступ.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_037",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_038",
+      "name": "Sponsor",
+      "short": "Спонсор проекта, бесплатное прослушивание.",
+      "tooltip": "Спонсор проекта, бесплатное прослушивание.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_038",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_039",
+      "name": "Investor",
+      "short": "Инвестор платформы, VIP.",
+      "tooltip": "Инвестор платформы, VIP.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_039",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_040",
+      "name": "Hall of Fame",
+      "short": "Легенда платформы.",
+      "tooltip": "Легенда платформы.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_040",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_041",
+      "name": "Legend",
+      "short": "Эксклюзивный бейдж для легенд.",
+      "tooltip": "Эксклюзивный бейдж для легенд.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_041",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_042",
+      "name": "MVP",
+      "short": "Самый ценный участник.",
+      "tooltip": "Самый ценный участник.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_042",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_043",
+      "name": "Beta Tester",
+      "short": "Тестирует новые функции.",
+      "tooltip": "Тестирует новые функции.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_043",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_044",
+      "name": "Developer",
+      "short": "Разработчик платформы.",
+      "tooltip": "Разработчик платформы.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_044",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_045",
+      "name": "Frontend Engineer",
+      "short": "Фронтенд разработчик.",
+      "tooltip": "Фронтенд разработчик.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_045",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_046",
+      "name": "Backend Engineer",
+      "short": "Бэкенд разработчик.",
+      "tooltip": "Бэкенд разработчик.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_046",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_047",
+      "name": "DevOps",
+      "short": "Инженер инфраструктуры.",
+      "tooltip": "Инженер инфраструктуры.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_047",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_048",
+      "name": "QA Engineer",
+      "short": "Тестирует качество.",
+      "tooltip": "Тестирует качество.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_048",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_049",
+      "name": "Designer",
+      "short": "Отвечает за визуал.",
+      "tooltip": "Отвечает за визуал.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_049",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_050",
+      "name": "UX Specialist",
+      "short": "Следит за UX.",
+      "tooltip": "Следит за UX.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_050",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_051",
+      "name": "Translator",
+      "short": "Локализует контент.",
+      "tooltip": "Локализует контент.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_051",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_052",
+      "name": "Community Manager",
+      "short": "Управляет сообществом.",
+      "tooltip": "Управляет сообществом.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_052",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_053",
+      "name": "Social Media Manager",
+      "short": "Ведёт соцсети.",
+      "tooltip": "Ведёт соцсети.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_053",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_054",
+      "name": "Event Manager",
+      "short": "Организует события.",
+      "tooltip": "Организует события.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_054",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_055",
+      "name": "Tour Manager",
+      "short": "Сопровождает гастроли.",
+      "tooltip": "Сопровождает гастроли.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_055",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_056",
+      "name": "Roadie",
+      "short": "Техник на мероприятиях.",
+      "tooltip": "Техник на мероприятиях.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_056",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_057",
+      "name": "Press",
+      "short": "Работник прессы/СМИ.",
+      "tooltip": "Работник прессы/СМИ.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_057",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_058",
+      "name": "Journalist",
+      "short": "Журналист с правами интервью.",
+      "tooltip": "Журналист с правами интервью.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_058",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_059",
+      "name": "Teacher / Mentor",
+      "short": "Ментор для новичков.",
+      "tooltip": "Ментор для новичков.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_059",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_060",
+      "name": "Trainer",
+      "short": "Проводит мастер-классы.",
+      "tooltip": "Проводит мастер-классы.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_060",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_061",
+      "name": "Scholar / Researcher",
+      "short": "Изучает музыку и сцены.",
+      "tooltip": "Изучает музыку и сцены.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_061",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_062",
+      "name": "Collector Pro",
+      "short": "Профессиональный коллекционер.",
+      "tooltip": "Профессиональный коллекционер.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_062",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_063",
+      "name": "Archivist Pro",
+      "short": "Продвинутый архивариус.",
+      "tooltip": "Продвинутый архивариус.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_063",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_064",
+      "name": "Label Scout",
+      "short": "Скаут от лейбла.",
+      "tooltip": "Скаут от лейбла.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_064",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_065",
+      "name": "Playlist Editor",
+      "short": "Редактор официальных плейлистов.",
+      "tooltip": "Редактор официальных плейлистов.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_065",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_066",
+      "name": "Playlist Curator",
+      "short": "Куратор тематического плейлиста.",
+      "tooltip": "Куратор тематического плейлиста.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_066",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_067",
+      "name": "Reporter",
+      "short": "Освещает новости сцены.",
+      "tooltip": "Освещает новости сцены.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_067",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_068",
+      "name": "Moderator Helper",
+      "short": "Помощник модератора.",
+      "tooltip": "Помощник модератора.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_068",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_069",
+      "name": "Support",
+      "short": "Техническая поддержка.",
+      "tooltip": "Техническая поддержка.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_069",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_070",
+      "name": "Bot Manager",
+      "short": "Управляет сервисными ботами.",
+      "tooltip": "Управляет сервисными ботами.",
+      "permissions": {
+        "assign_roles": true,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_070",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_071",
+      "name": "Bot: Welcome",
+      "short": "Автовстречающий бот.",
+      "tooltip": "Автовстречающий бот.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_071",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_072",
+      "name": "Bot: Notifications",
+      "short": "Бот уведомлений.",
+      "tooltip": "Бот уведомлений.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_072",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_073",
+      "name": "Bot: AutoMod",
+      "short": "Авто-модерация.",
+      "tooltip": "Авто-модерация.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_073",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_074",
+      "name": "Bot: Stats",
+      "short": "Собирает статистику.",
+      "tooltip": "Собирает статистику.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_074",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_075",
+      "name": "Bot: PlaylistGen",
+      "short": "Генерирует плейлисты.",
+      "tooltip": "Генерирует плейлисты.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_075",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_076",
+      "name": "Bot: Announcements",
+      "short": "Бот объявлений.",
+      "tooltip": "Бот объявлений.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_076",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_077",
+      "name": "Bot: Welcome+",
+      "short": "Расширенный приветственный бот.",
+      "tooltip": "Расширенный приветственный бот.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_077",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_078",
+      "name": "Bot: DMResponder",
+      "short": "Отвечает на личные сообщения.",
+      "tooltip": "Отвечает на личные сообщения.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_078",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_079",
+      "name": "Bot: StreamMonitor",
+      "short": "Следит за стримами.",
+      "tooltip": "Следит за стримами.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_079",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_080",
+      "name": "Bot: Backup",
+      "short": "Резервный бот.",
+      "tooltip": "Резервный бот.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_080",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_081",
+      "name": "VIP",
+      "short": "Платиновый пользователь.",
+      "tooltip": "Платиновый пользователь.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_081",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_082",
+      "name": "Supporter",
+      "short": "Поддержал проект, бонусы.",
+      "tooltip": "Поддержал проект, бонусы.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_082",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_083",
+      "name": "Contributor",
+      "short": "Вносит вклад в контент или код.",
+      "tooltip": "Вносит вклад в контент или код.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_083",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_084",
+      "name": "Sponsor Liaison",
+      "short": "Связь со спонсорами.",
+      "tooltip": "Связь со спонсорами.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_084",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_085",
+      "name": "Legal",
+      "short": "Юрист проекта.",
+      "tooltip": "Юрист проекта.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_085",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_086",
+      "name": "Accountant",
+      "short": "Финансовый контроль.",
+      "tooltip": "Финансовый контроль.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_086",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_087",
+      "name": "Collector Legend",
+      "short": "Легендарный коллекционер.",
+      "tooltip": "Легендарный коллекционер.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_087",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_088",
+      "name": "Trendsetter",
+      "short": "Формирует тренды.",
+      "tooltip": "Формирует тренды.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_088",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_089",
+      "name": "Early Adopter",
+      "short": "Ранний участник.",
+      "tooltip": "Ранний участник.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_089",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_090",
+      "name": "Newcomer",
+      "short": "Новичок на платформе.",
+      "tooltip": "Новичок на платформе.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_090",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_091",
+      "name": "Rookie",
+      "short": "Только что пришёл, ограниченный доступ.",
+      "tooltip": "Только что пришёл, ограниченный доступ.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_091",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_092",
+      "name": "Mentor+",
+      "short": "Наставник, может выдавать бейджи.",
+      "tooltip": "Наставник, может выдавать бейджи.",
+      "permissions": {
+        "assign_roles": true,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_092",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_093",
+      "name": "Guardian",
+      "short": "Защитник сообщества с расширенной модерацией.",
+      "tooltip": "Защитник сообщества с расширенной модерацией.",
+      "permissions": {
+        "assign_roles": true,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_093",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_094",
+      "name": "Streamer",
+      "short": "Стример с интеграцией плеера.",
+      "tooltip": "Стример с интеграцией плеера.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_094",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_095",
+      "name": "Partner",
+      "short": "Партнёр проекта.",
+      "tooltip": "Партнёр проекта.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": true,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_095",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_096",
+      "name": "Community Star",
+      "short": "Звезда сообщества.",
+      "tooltip": "Звезда сообщества.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_096",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_097",
+      "name": "Legacy",
+      "short": "Участник с историей на платформе.",
+      "tooltip": "Участник с историей на платформе.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_097",
+      "adminAssignable": false,
+      "defaultBot": false
+    },
+    {
+      "id": "role_098",
+      "name": "TestBot",
+      "short": "Бот для QA/интеграции.",
+      "tooltip": "Бот для QA/интеграции.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_098",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_099",
+      "name": "System Bot",
+      "short": "Системный бот, занимает 99-й слот.",
+      "tooltip": "Системный бот, занимает 99-й слот.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": "bot_099",
+      "adminAssignable": false,
+      "defaultBot": true
+    },
+    {
+      "id": "role_100",
+      "name": "Unassigned",
+      "short": "Свободный слот роли.",
+      "tooltip": "Свободный слот роли.",
+      "permissions": {
+        "assign_roles": false,
+        "ban_users": false,
+        "listen_all_tracks": false,
+        "edit_site": false
+      },
+      "visibleInProfile": true,
+      "defaultHolder": null,
+      "adminAssignable": false,
+      "defaultBot": false
+    }
+  ]
+}
