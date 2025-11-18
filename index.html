@@ -6415,44 +6415,7 @@
       </div>
       <div class="header-actions">
         <div class="header-action-group">
-          <button
-            class="ruzcoin-chip"
-            id="headerCoinsBtn"
-            type="button"
-            aria-haspopup="dialog"
-            aria-expanded="false"
-          >
-            <div class="ruzcoin-icon" aria-hidden="true">
-              <span class="ruzcoin-glyph">Ɍ</span>
-            </div>
-            <div class="ruzcoin-info">
-              <span class="ruzcoin-label">RUZCOIN</span>
-              <span class="ruzcoin-value" id="headerCoinsAmount">0</span>
-            </div>
-            <div id="liveTime" class="live-time"></div>
-          </button>
-          <div class="header-popover coins-popover" id="headerCoinsPopover" role="dialog" aria-hidden="true">
-            <div class="popover-header">
-              <div class="popover-title">RUZCOIN</div>
-              <div class="popover-sub">1 RUZCOIN = <span id="ruzcoinPriceValue">25 ₽</span></div>
-            </div>
-            <p class="popover-text">
-              Выбирай количество монет и отправляй заявку на пополнение. В отдельном окне доступно 10 способов оплаты по СНГ: карты,
-              СБП, Mir Pay, Kaspi, кошельки и другие варианты. Все операции собраны в разделе «Оплата» — открой его, чтобы быстро
-              оформить заявку.
-            </p>
-            <div class="popover-actions">
-              <button class="btn btn-primary btn-xs" type="button" id="openPaymentsFromPopoverBtn">
-                Открыть раздел оплаты
-              </button>
-              <button class="btn btn-ghost btn-xs" type="button" id="coinsInfoBtn">
-                Как пополнить RUZCOIN
-              </button>
-            </div>
-            <div class="popover-footnote">
-              В профиле ты увидишь историю начислений RUZCOIN и бонусы за активность.
-            </div>
-          </div>
+          <div id="liveTime" class="live-time" aria-live="polite"></div>
         </div>
             <div class="header-action-group">
               <button
@@ -6499,7 +6462,7 @@
             <div class="profile-popover-section" data-state="logged-out">
               <div class="popover-header">
                 <div class="popover-title">Вход в профиль</div>
-                <div class="popover-sub">Получи 10 RUZCOIN за первое подключение</div>
+                <div class="popover-sub">Получи приветственный бонус в ₽ при первом подключении</div>
               </div>
               <div class="login-methods" role="group" aria-label="Способы входа">
                 <button class="login-method-btn" type="button" data-login-quick="demo">
@@ -6545,12 +6508,10 @@
                 <div class="popover-sub">ID: <span id="popoverProfileId">—</span></div>
               </div>
               <div class="popover-balance">
-                <span class="ruzcoin-icon is-inline" aria-hidden="true">
-                  <span class="ruzcoin-glyph">Ɍ</span>
-                </span>
                 <div>
                   <div class="popover-meta">Баланс</div>
-                  <div class="popover-balance-value" id="popoverCoinsAmount">0</div>
+                  <div class="popover-balance-value" id="popoverCoinsAmount">0 ₽</div>
+                  <div class="popover-balance-value" id="popoverCoinsAmountUsd">$0.00</div>
                 </div>
               </div>
               <div class="popover-meta">Роль: <span id="popoverProfileRole" class="role-badge is-compact">Слушатель</span></div>
@@ -6586,7 +6547,7 @@
                   </span>
                   <span class="popover-section-body">
                     <span class="popover-section-title">Оплата</span>
-                    <span class="popover-section-note">Пополнение RUZCOIN и способы оплаты</span>
+                    <span class="popover-section-note">Пополнение баланс и способы оплаты</span>
                   </span>
                 </a>
               </div>
@@ -6885,7 +6846,7 @@
       <div class="section-header">
         <h2 class="section-title">Профиль</h2>
         <p class="section-sub">
-          Личный кабинет, RUZCOIN и доступ к закрытым трекам.
+          Личный кабинет, баланс и доступ к закрытым трекам.
         </p>
       </div>
 
@@ -6893,7 +6854,7 @@
         <div class="profile-teaser-content">
           <h3>Личный кабинет AVZALØV</h3>
           <p>
-            Управляй балансом RUZCOIN, следи за достижениями и выдай демо-награды без перегрузки главной страницы.
+            Управляй балансом, следи за достижениями и выдавай демо-награды без перегрузки главной страницы.
           </p>
           <ul class="profile-teaser-list">
             <li>Баланс, пополнения и история транзакций</li>
@@ -6906,7 +6867,7 @@
             Открыть профиль
           </button>
           <button class="btn btn-ghost profile-cta-btn" type="button" data-open-topup>
-            Пополнить RUZCOIN
+            Пополнить баланс
           </button>
         </div>
       </div>
@@ -6918,7 +6879,7 @@
             <div class="profile-modal-kicker">AVZALØV ID</div>
             <h3 class="profile-modal-title" id="profileModalTitle">Личный кабинет</h3>
             <p class="profile-modal-sub">
-              Настраивай профиль, выдавай демо-бонусы и следи за RUZCOIN в отдельном окне с сохранением контекста прослушивания.
+              Настраивай профиль, выдавай демо-бонусы и следи за балансом в отдельном окне с сохранением контекста прослушивания.
             </p>
           </div>
           <div class="profile-modal-body">
@@ -6941,14 +6902,12 @@
               <div class="profile-id">ID: <span id="profileId">—</span></div>
               <div class="profile-role">Роль: <span id="profileRole" class="role-badge is-compact">Слушатель</span></div>
               <div class="profile-coins">
-                <span class="ruzcoin-icon is-inline" aria-hidden="true">
-                  <span class="ruzcoin-glyph">Ɍ</span>
-                </span>
-                Баланс RUZCOIN:
-                <span class="coins-amount" id="coinsAmount">0</span>
+                Баланс:
+                <span class="coins-amount" id="coinsAmount">0 ₽</span>
+                <span class="coins-amount" id="coinsAmountUsd">$0.00</span>
               </div>
               <div class="profile-actions-row">
-                <button class="btn btn-primary btn-xs" id="earnDemoCoinsBtn">+1 RUZCOIN (демо, разово)</button>
+                <button class="btn btn-primary btn-xs" id="earnDemoCoinsBtn">+1 ₽ (демо, разово)</button>
                 <button class="btn btn-ghost btn-xs" id="profileTopupBtn" type="button">
                   Пополнить баланс
                 </button>
@@ -6960,12 +6919,12 @@
           <div class="admin-tools" id="adminTools">
             <h4>Панель администратора</h4>
             <p class="section-sub">
-              Дарите RUZCOIN пользователям по их ID. Данные сохраняются в локальном реестре и файле пользователей.
+              Дарите баланс пользователям по их ID. Данные сохраняются в локальном реестре и файле пользователей.
             </p>
             <form class="admin-gift-form" id="adminGiftForm">
               <input type="text" id="giftUserId" placeholder="ID пользователя" autocomplete="off" required />
-              <input type="number" id="giftAmount" placeholder="RUZ" min="1" step="1" required />
-              <button type="submit">Подарить RUZCOIN</button>
+              <input type="number" id="giftAmount" placeholder="₽" min="1" step="1" required />
+              <button type="submit">Подарить баланс</button>
             </form>
             <div class="section-sub" id="adminGiftStatus" role="status" aria-live="polite"></div>
           </div>
@@ -7002,7 +6961,7 @@
               aria-selected="false"
               data-profile-tab="history"
             >
-              История RUZCOIN
+              История баланс
             </button>
           </div>
 
@@ -7016,7 +6975,7 @@
             >
               <div class="profile-overview-grid">
                 <div class="profile-overview-callout">
-                  Переключайся между вкладками, чтобы отслеживать личную статистику прослушиваний и историю операций с RUZCOIN.
+                  Переключайся между вкладками, чтобы отслеживать личную статистику прослушиваний и историю операций с баланс.
                   За активность и тестовые действия ты получаешь демо-монеты.
                 </div>
                 <div class="profile-achievements">
@@ -7079,20 +7038,20 @@
                 <div class="history-summary">
                   <div class="history-summary-item">
                     <span class="summary-label">Получено</span>
-                    <span class="summary-value" id="historyEarned">0 RUZ</span>
+                    <span class="summary-value" id="historyEarned">0 ₽</span>
                   </div>
                   <div class="history-summary-item">
                     <span class="summary-label">Потрачено</span>
-                    <span class="summary-value" id="historySpent">0 RUZ</span>
+                    <span class="summary-value" id="historySpent">0 ₽</span>
                   </div>
                   <div class="history-summary-item">
                     <span class="summary-label">Баланс операций</span>
-                    <span class="summary-value" id="historyNet">0 RUZ</span>
+                    <span class="summary-value" id="historyNet">0 ₽</span>
                   </div>
                 </div>
 
                 <div class="history-list" id="coinHistoryList">
-                  <div class="history-empty" id="coinHistoryEmpty">История появится после операций с RUZCOIN.</div>
+                  <div class="history-empty" id="coinHistoryEmpty">История появится после операций с балансом.</div>
                 </div>
               </div>
             </div>
@@ -7103,7 +7062,7 @@
           <h3>Открой свой профиль AVZALØV</h3>
           <p>
             Нажми «Войти» в правом верхнем углу — выбери демо-аккаунт, останься гостем или создай собственный профиль с бонусом
-            +10 RUZCOIN. В кабинете ждут баланс, достижения, статистика прослушиваний и история операций.
+            +10 ₽. В кабинете ждут баланс, достижения, статистика прослушиваний и история операций.
           </p>
         </div>
       </div>
@@ -7117,7 +7076,7 @@
       <div class="section-header">
         <h2 class="section-title">Пользователи</h2>
         <p class="section-sub">
-          Топ слушателей по количеству RUZCOIN и активности. Данные обновляются после входа.
+          Топ слушателей по сумме баланса и активности. Данные обновляются после входа.
         </p>
       </div>
       <div class="users-directory" id="usersDirectory">
@@ -7129,12 +7088,10 @@
 
       <div class="section-header">
 
-        <h2 class="section-title">Пополнение RUZCOIN</h2>
+        <h2 class="section-title">Пополнение баланса</h2>
 
         <p class="section-sub">
-
-          1 RUZCOIN = 25 ₽. Пополняй баланс, дари подарки и тестируй экономику AVZALØV без перегрузки главной страницы.
-
+          Минимальная единица — 25 ₽. Пополняй баланс, дари подарки и тестируй экономику AVZALØV без перегрузки главной страницы.
         </p>
 
       </div>
@@ -7145,7 +7102,7 @@
 
         <div class="topup-teaser-content">
 
-          <h3>Центр управления RUZCOIN</h3>
+          <h3>Центр управления балансом</h3>
 
           <p>
 
@@ -7193,7 +7150,7 @@
 
           <div class="topup-modal-header">
 
-            <div class="topup-modal-kicker">RUZCOIN</div>
+            <div class="topup-modal-kicker">баланс</div>
 
             <h3 class="topup-modal-title" id="topupModalTitle">Пополнение монет</h3>
 
@@ -7209,13 +7166,13 @@
 
             <div class="topup-content">
 
-              <div class="topup-rows" role="group" aria-label="Выбор пакета RUZCOIN">
+              <div class="topup-rows" role="group" aria-label="Выбор пакета баланс">
 
                 <div class="topup-row">
 
                   <button class="topup-amount-btn" type="button" data-amount="1" aria-pressed="false">
 
-                    <span>1 RUZ</span>
+                    <span>1 ₽</span>
 
                     <small>~25 ₽</small>
 
@@ -7223,7 +7180,7 @@
 
                   <button class="topup-amount-btn" type="button" data-amount="5" aria-pressed="false">
 
-                    <span>5 RUZ</span>
+                    <span>5 ₽</span>
 
                     <small>~125 ₽</small>
 
@@ -7231,7 +7188,7 @@
 
                   <button class="topup-amount-btn" type="button" data-amount="10" aria-pressed="false">
 
-                    <span>10 RUZ</span>
+                    <span>10 ₽</span>
 
                     <small>~250 ₽</small>
 
@@ -7243,7 +7200,7 @@
 
                   <button class="topup-amount-btn" type="button" data-amount="15" aria-pressed="false">
 
-                    <span>15 RUZ</span>
+                    <span>15 ₽</span>
 
                     <small>~375 ₽</small>
 
@@ -7251,7 +7208,7 @@
 
                   <button class="topup-amount-btn" type="button" data-amount="25" aria-pressed="false">
 
-                    <span>25 RUZ</span>
+                    <span>25 ₽</span>
 
                     <small>~625 ₽</small>
 
@@ -7259,7 +7216,7 @@
 
                   <button class="topup-amount-btn active" type="button" data-amount="50" aria-pressed="true">
 
-                    <span>50 RUZ</span>
+                    <span>50 ₽</span>
 
                     <small>~1250 ₽</small>
 
@@ -7275,7 +7232,7 @@
 
                 <div>
 
-                  Выбрано: <strong><span id="topupAmount">50</span> RUZ</strong>
+                  Выбрано: <strong><span id="topupAmount">50</span> ₽</strong>
 
                 </div>
 
@@ -7351,7 +7308,7 @@
 
                     <div class="topup-step-title">1. Выбранный пакет</div>
 
-                    <div class="topup-step-value" id="topupStepAmountLabel">50 RUZ</div>
+                    <div class="topup-step-value" id="topupStepAmountLabel">50 ₽</div>
 
                   </div>
 
@@ -8418,7 +8375,7 @@
     const trackChartListEl = document.getElementById("trackChartList");
     const trackChartSummaryEl = document.getElementById("trackChartSummary");
 
-    const RUZCOIN_PRICE_RUB = 25;
+    const BALANCE_UNIT_RUB = 25;
     const TRACK_ID_ENDPOINT = "data/track-ids.json";
     const TRACK_CHART_COUNTS_KEY = "avzalov_track_chart_counts_v1";
     const TRACK_CHART_PREVIOUS_POSITIONS_KEY = "avzalov_track_chart_prev_positions_v1";
@@ -8463,6 +8420,9 @@
       { id: "boom", label: "BOOM", icon: "fa-music", short: "BOOM" },
       { id: "deezer", label: "Deezer", icon: "fa-music", short: "Deezer" }
     ];
+    const UPCOMING_PRICE_RUB = 49;
+    const UNSCHEDULED_PRICE_RUB = 179;
+    const USD_EXCHANGE_RATE = 93;
     const onlineCountBase = 58 + Math.floor(Math.random() * 14);
     let liveOnlineCount = onlineCountBase;
     const TOPUP_METHOD_CONFIG = {
@@ -8541,8 +8501,8 @@
         }
       },
       payments: {
-        title: "Оплата и RUZCOIN",
-        kicker: "RUZCOIN",
+        title: "Оплата и баланс",
+        kicker: "баланс",
         description: "Выбери сумму и способ пополнения, чтобы отправить заявку и получить монеты.",
         cta: "Перейти к оплате",
         action: () => openPaymentsSection({ focusTopup: true })
@@ -8758,7 +8718,7 @@
     }
 
     function notifyPaymentsInProgress() {
-      alert("Выберите сумму и один из способов оплаты, чтобы отправить заявку на пополнение RUZCOIN.");
+      alert("Выберите сумму и один из способов оплаты, чтобы отправить заявку на пополнение баланс.");
     }
 
     realTopupButtons.forEach(button => {
@@ -8773,6 +8733,23 @@
       currentYearEl.textContent = new Date().getFullYear();
     }
     const numberFormatter = new Intl.NumberFormat("ru-RU");
+
+    function formatRub(value) {
+      return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(
+        Math.max(0, Math.round(value || 0))
+      );
+    }
+
+    function formatUsd(value) {
+      return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }).format(
+        Math.max(0, Number(value || 0))
+      );
+    }
+
+    function convertRubToUsd(valueRub) {
+      const safeRub = Math.max(0, Number(valueRub || 0));
+      return Number((safeRub / USD_EXCHANGE_RATE).toFixed(2));
+    }
     const moscowTimeEl = document.getElementById("moscowTime");
 
     function updateMoscowTime() {
@@ -8820,7 +8797,7 @@
         el.textContent = numberFormatter.format(amountValue);
       });
       topupPriceDisplayEls.forEach(el => {
-        el.textContent = numberFormatter.format(amountValue * RUZCOIN_PRICE_RUB);
+        el.textContent = numberFormatter.format(amountValue * BALANCE_UNIT_RUB);
       });
       updateTopupOverlaySummary();
     }
@@ -8850,7 +8827,7 @@
 
     function updateTopupOverlaySummary() {
       if (topupOverlayAmountEl) {
-        topupOverlayAmountEl.textContent = numberFormatter.format(Math.max(0, selectedTopupAmount));
+        topupOverlayAmountEl.textContent = formatRub(Math.max(0, selectedTopupAmount));
       }
       if (topupOverlayMethodEl) {
         const method = getTopupMethodInfo(selectedTopupMethod);
@@ -8861,7 +8838,7 @@
 
     function updateTopupStepsState() {
       if (topupStepAmountLabel) {
-        topupStepAmountLabel.textContent = `${numberFormatter.format(Math.max(0, selectedTopupAmount))} RUZ`;
+        topupStepAmountLabel.textContent = formatRub(Math.max(0, selectedTopupAmount));
       }
       if (topupStepMethodLabel) {
         const method = getTopupMethodInfo(selectedTopupMethod);
@@ -8941,7 +8918,7 @@
       }
       const numericAmount = Number(amount);
       const safeAmount = Number.isFinite(numericAmount) && numericAmount > 0 ? Math.floor(numericAmount) : 0;
-      const description = `Заявка на пополнение (${method.label}) — ${numberFormatter.format(safeAmount)} RUZ`;
+      const description = `Заявка на пополнение (${method.label}) — ${formatRub(safeAmount)}`;
       const entry = {
         type: "request",
         description,
@@ -8969,12 +8946,12 @@
         return false;
       }
       if (selectedTopupAmount <= 0) {
-        alert("Выберите количество RUZCOIN для пополнения.");
+        alert("Выберите сумму для пополнения.");
         return false;
       }
       recordTopupRequest(methodKey, selectedTopupAmount);
       alert(
-        `Заявка отправлена!\nСумма: ${numberFormatter.format(selectedTopupAmount)} RUZ\nСпособ: ${method.label}.\n` +
+        `Заявка отправлена!\nСумма: ${formatRub(selectedTopupAmount)}\nСпособ: ${method.label}.\n` +
           "Мы пришлём реквизиты и подтвердим пополнение вручную."
       );
       saveProfile();
@@ -9127,15 +9104,18 @@
         }
         const demoTopupAmount = 1;
         if (selectedTopupAmount <= 0) {
-          alert("Выбери количество RUZCOIN для демо-пополнения.");
+          alert("Выбери сумму для демо-пополнения.");
           return;
         }
         currentUser.coins += demoTopupAmount;
         if (coinsAmountEl) {
-          coinsAmountEl.textContent = numberFormatter.format(currentUser.coins);
+          coinsAmountEl.textContent = formatRub(currentUser.coins);
+        }
+        if (coinsAmountUsdEl) {
+          coinsAmountUsdEl.textContent = formatUsd(convertRubToUsd(currentUser.coins));
         }
         updateHeaderCoins(currentUser.coins);
-        recordCoinHistory("demo-topup", demoTopupAmount, `Демо пополнение: +${demoTopupAmount} RUZCOIN`);
+        recordCoinHistory("demo-topup", demoTopupAmount, `Демо пополнение: +${demoTopupAmount} ₽`);
         saveProfile();
         updateProfilePopoverState();
         localStorage.setItem(demoTopupKey, "true");
@@ -10022,33 +10002,62 @@
       return slug;
     }
 
-    function calculateTrackPrice(trackConfig, releaseState) {
-      const basePrice = Number.parseInt(trackConfig.price, 10);
-      const safeBasePrice = Number.isFinite(basePrice) ? Math.max(0, basePrice) : 0;
-      if (releaseState !== "released") {
-        return 1;
+    function calculateTrackPricing(trackConfig, releaseState, releaseDateValue) {
+      const baseRub = Number.isFinite(trackConfig.priceRub)
+        ? Math.max(0, trackConfig.priceRub)
+        : Number.isFinite(trackConfig.price)
+          ? Math.max(0, trackConfig.price)
+          : null;
+      const baseUsd = Number.isFinite(trackConfig.priceUsd) ? Math.max(0, trackConfig.priceUsd) : null;
+      if (releaseState === "released") {
+        return { rub: 0, usd: 0, tier: "released", note: "Трек уже в сети", paid: false };
       }
-      return safeBasePrice;
+
+      const hasReleaseDate = Boolean(releaseDateValue);
+      const rubPrice = hasReleaseDate ? baseRub ?? UPCOMING_PRICE_RUB : baseRub ?? UNSCHEDULED_PRICE_RUB;
+      const usdPrice = baseUsd ?? convertRubToUsd(rubPrice);
+      return {
+        rub: rubPrice,
+        usd: usdPrice,
+        tier: hasReleaseDate ? "scheduled" : "undated",
+        note: hasReleaseDate ? "Ранний доступ по расписанию" : "Без даты — премиум доступ",
+        paid: rubPrice > 0
+      };
     }
 
-    function normalizePlatformLinks(rawPlatforms = {}) {
-      const platforms = Array.isArray(rawPlatforms) ? rawPlatforms : [];
-      const platformMap = platforms.reduce((map, item) => {
-        if (item && item.id) {
-          map[item.id] = item.url || item.href || item.link || "";
-        }
-        return map;
-      }, { ...rawPlatforms });
+    function normalizePlatformLinks(rawPlatforms = {}, releaseState = "soon") {
+      const rawList = Array.isArray(rawPlatforms)
+        ? rawPlatforms
+        : Object.entries(rawPlatforms || {}).map(([id, url]) => ({ id, url }));
 
-      return STREAMING_PLATFORMS.map(platform => {
-        const urlRaw = platformMap[platform.id] || "";
-        const cleanedUrl = typeof urlRaw === "string" ? urlRaw.trim() : "";
-        return {
+      const normalizedList = rawList
+        .map(item => {
+          if (!item || !item.id) return null;
+          const base = STREAMING_PLATFORMS.find(platform => platform.id === item.id) || {
+            id: item.id,
+            label: item.label || item.id,
+            icon: item.icon || "fa-music",
+            short: item.short || item.label || item.id
+          };
+          const urlRaw = item.url || item.href || item.link || "";
+          const cleanedUrl = typeof urlRaw === "string" ? urlRaw.trim() : "";
+          return {
+            ...base,
+            url: cleanedUrl,
+            available: Boolean(cleanedUrl)
+          };
+        })
+        .filter(Boolean);
+
+      if (releaseState === "released" && normalizedList.length === 0) {
+        return STREAMING_PLATFORMS.map(platform => ({
           ...platform,
-          url: cleanedUrl,
-          available: Boolean(cleanedUrl && cleanedUrl !== "#")
-        };
-      });
+          url: "",
+          available: true
+        }));
+      }
+
+      return normalizedList;
     }
 
     function buildTrackLibrary() {
@@ -10067,16 +10076,16 @@
         const audioBase = audioBaseRaw === false ? "" : (audioBaseRaw || slug).trim();
         const audioSource = audioBase ? buildAudioSource(audioBase, trackConfig.audioExt) : "";
         const hasAudioAvailable = Boolean(audioSource);
-        const hasAudio = hasAudioAvailable;
-        const platforms = normalizePlatformLinks(trackConfig.platforms);
-        const price = calculateTrackPrice(trackConfig, releaseState);
+        const hasAudio = releaseState === "released" ? hasAudioAvailable : false;
+        const releaseDateValue = parsedDate ? parsedDate.getTime() : null;
+        const platforms = normalizePlatformLinks(trackConfig.platforms, releaseState);
+        const pricing = calculateTrackPricing(trackConfig, releaseState, releaseDateValue);
         const releaseLabel = (() => {
           if (releaseRaw && releaseRaw.toLowerCase() !== "скоро") {
             return releaseState === "soon" ? `Скоро • ${releaseRaw}` : releaseRaw;
           }
           return releaseState === "released" ? "Уже в сети" : "Скоро";
         })();
-        const releaseDateValue = parsedDate ? parsedDate.getTime() : null;
         const hasClip = CLIPS_ENABLED && trackConfig.hasClip === true;
         const clipUrl = hasClip ? trackConfig.clipUrl || "" : "";
         return {
@@ -10099,7 +10108,7 @@
           streamUrl: trackConfig.streamUrl || audioSource || "#",
           lyrics: trackConfig.lyrics || null,
           platforms,
-          price,
+          pricing,
           copyright: trackConfig.copyright || `© ${new Date().getFullYear()} AVZALØV. Все права защищены.`
         };
       });
@@ -10133,15 +10142,15 @@
     }
 
     function buildPlatformBadges(platforms = []) {
-      if (!Array.isArray(platforms) || !platforms.length) {
-        return '<div class="track-platforms-row"><span class="track-platform-chip is-disabled"><i class="fa-solid fa-music"></i>Площадки будут позже</span></div>';
+      const supportedPlatforms = Array.isArray(platforms) ? platforms.filter(platform => platform.available) : [];
+      if (!supportedPlatforms.length) {
+        return "";
       }
-      const badges = platforms
+      const badges = supportedPlatforms
         .map(platform => {
           const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
           const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
-          const activeClass = platform.available ? "" : " is-disabled";
-          return `<span class="track-platform-chip${activeClass}" title="${platform.label}"><i class="${iconPrefix} ${iconClass}"></i>${platform.short || platform.label}</span>`;
+          return `<span class="track-platform-chip" title="${platform.label}"><i class="${iconPrefix} ${iconClass}"></i>${platform.short || platform.label}</span>`;
         })
         .join("");
       return `<div class="track-platforms-row">${badges}</div>`;
@@ -10161,11 +10170,11 @@
       article.dataset.hasAudio = track.hasAudio ? "true" : "false";
       article.dataset.hasClip = track.hasClip ? "true" : "false";
 
-      const isLocked = !track.hasAudio && track.price > 0;
+      const isLocked = !track.hasAudio && track.pricing && track.pricing.paid;
       if (isLocked) {
         article.classList.add("track-locked");
         article.dataset.trackLocked = track.slug;
-        article.dataset.trackPrice = track.price;
+        article.dataset.trackPrice = track.pricing ? track.pricing.rub : 0;
       }
 
       if (track.slug) {
@@ -10174,9 +10183,12 @@
       article.dataset.trackTitle = track.title || "";
       article.dataset.trackType = track.typeLabel || "";
       article.dataset.trackRelease = track.releaseLabel || "";
+      article.dataset.trackReleaseState = track.releaseState || "";
       article.dataset.trackAvailabilityLabel = track.availabilityLabel || "";
       article.dataset.trackAvailabilityRaw = track.availability || "";
-      article.dataset.trackPrice = String(track.price || 0);
+      article.dataset.trackPrice = String(track.pricing ? track.pricing.rub || 0 : 0);
+      article.dataset.trackPriceUsd = String(track.pricing ? track.pricing.usd || 0 : 0);
+      article.dataset.trackPriceNote = track.pricing ? track.pricing.note || "" : "";
       article.dataset.trackCopyright = track.copyright || "";
       article.dataset.trackCoverStyle = track.coverStyle || "";
       article.dataset.trackStreamUrl = track.streamUrl || "";
@@ -10198,12 +10210,12 @@
         ? 'class="track-play-toggle" type="button" aria-label="Воспроизвести трек"'
         : 'class="track-play-toggle" type="button" aria-label="Предпрослушивание недоступно" disabled';
       
-      const priceMarkup = isLocked
+      const priceMarkup = track.pricing && track.pricing.paid
         ? `<div class="track-price">
-             <span class="ruzcoin-icon is-inline" aria-hidden="true"><span class="ruzcoin-glyph">Ɍ</span></span>
-             Цена раннего доступа: ${track.price} RUZCOIN
+             Цена доступа: ${formatRub(track.pricing.rub)} / ${formatUsd(track.pricing.usd)}
+             <div class="track-price-note">${track.pricing.note}</div>
            </div>`
-        : '';
+        : '<div class="track-price is-free">Бесплатно</div>';
 
       const audioMarkup = track.hasAudio
         ? `<audio class="track-audio" src="${track.audio}" preload="metadata"></audio>`
@@ -10218,7 +10230,7 @@
         : '<button class="track-action-btn" type="button" disabled><i class="fas fa-video-slash"></i><span>Клип</span></button>';
 
       const unlockActionMarkup = isLocked
-        ? `<button class="track-action-btn unlock-btn" data-track-id="${track.slug}" data-unlock-price="${track.price}"><i class="fas fa-key"></i><span>Открыть</span></button>`
+        ? `<button class="track-action-btn unlock-btn" data-track-id="${track.slug}" data-unlock-price="${track.pricing ? track.pricing.rub : 0}"><i class="fas fa-key"></i><span>Открыть</span></button>`
         : '';
 
       article.innerHTML = `
@@ -11057,6 +11069,8 @@
       const availabilityLabel = card.dataset.trackAvailabilityLabel || "—";
       const availabilityRaw = card.dataset.trackAvailabilityRaw || "";
       const priceValue = Number(card.dataset.trackPrice) || 0;
+      const priceUsd = Number(card.dataset.trackPriceUsd) || convertRubToUsd(priceValue);
+      const priceNote = card.dataset.trackPriceNote || "";
       const extras = card.dataset.trackHasClip === "true" ? "Есть клип и потоковая ссылка" : "Только аудио";
       const copyright = card.dataset.trackCopyright || "Документ не указан.";
 
@@ -11085,7 +11099,8 @@
         trackModalAccess.textContent = availabilityLabel;
       }
       if (trackModalPrice) {
-        trackModalPrice.textContent = priceValue > 0 ? `${priceValue} RUZCOIN` : "Бесплатно";
+        const basePriceLabel = priceValue > 0 ? `${formatRub(priceValue)} / ${formatUsd(priceUsd)}` : "Бесплатно";
+        trackModalPrice.textContent = priceNote ? `${basePriceLabel} — ${priceNote}` : basePriceLabel;
       }
       if (trackModalExtras) {
         trackModalExtras.textContent = extras || availabilityRaw || "—";
@@ -11146,10 +11161,11 @@
         .map(platform => {
           const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
           const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
-          const actionMarkup = platform.available
+          const hasLink = platform.available && platform.url;
+          const actionMarkup = hasLink
             ? `<a class="btn btn-primary btn-xs" href="${platform.url}" target="_blank" rel="noopener">Слушать</a>`
             : '<button class="btn btn-ghost btn-xs" type="button" disabled>Скоро</button>';
-          const status = platform.available ? "Активная ссылка" : "Ссылка готовится";
+          const status = hasLink ? "Активная ссылка" : platform.available ? "Доступно без ссылки" : "Ссылка готовится";
           return `
             <div class="platform-card">
               <div class="platform-card-header">
@@ -11175,13 +11191,14 @@
       }
       const title = card?.dataset.trackTitle || "Трек";
       let platforms = [];
+      const releaseState = card?.dataset.trackReleaseState || "soon";
       try {
         platforms = JSON.parse(card?.dataset.trackPlatforms || "[]") || [];
       } catch (error) {
         platforms = [];
       }
       if (!platforms.length) {
-        platforms = normalizePlatformLinks();
+        platforms = normalizePlatformLinks([], releaseState);
       }
       if (platformsModalTitle) {
         platformsModalTitle.textContent = `Площадки: ${title}`;
@@ -11633,6 +11650,7 @@
       const profileIdEl = document.getElementById("profileId");
       const profileRoleEl = document.getElementById("profileRole");
       const coinsAmountEl = document.getElementById("coinsAmount");
+      const coinsAmountUsdEl = document.getElementById("coinsAmountUsd");
       const achievementsGridEl = document.getElementById("achievementsGrid");
 
       const loginForm = document.getElementById("loginForm");
@@ -11673,6 +11691,7 @@
       const popoverProfileNameEl = document.getElementById("popoverProfileName");
       const popoverProfileIdEl = document.getElementById("popoverProfileId");
       const popoverCoinsAmountEl = document.getElementById("popoverCoinsAmount");
+      const popoverCoinsAmountUsdEl = document.getElementById("popoverCoinsAmountUsd");
       const popoverProfileRoleEl = document.getElementById("popoverProfileRole");
       const popoverAvatarEl = document.getElementById("popoverAvatar");
       const ruzcoinPriceValueEl = document.getElementById("ruzcoinPriceValue");
@@ -11823,7 +11842,7 @@
           const parsed = JSON.parse(raw);
           return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
         } catch (error) {
-          console.warn("Не удалось загрузить историю RUZCOIN:", error);
+          console.warn("Не удалось загрузить историю баланс:", error);
           return {};
         }
       }
@@ -11832,7 +11851,7 @@
         try {
           localStorage.setItem(COIN_HISTORY_KEY, JSON.stringify(coinHistoryRegistry));
         } catch (error) {
-          console.warn("Не удалось сохранить историю RUZCOIN:", error);
+          console.warn("Не удалось сохранить историю баланс:", error);
         }
       }
 
@@ -11906,7 +11925,7 @@
             const status = entry.status ? String(entry.status) : type === "request" ? "pending" : "completed";
             return {
               type,
-              description: entry.description ? String(entry.description) : "Операция с RUZCOIN",
+              description: entry.description ? String(entry.description) : "Операция с баланс",
               delta: normalizedDelta,
               status,
               time: entry.time ? String(entry.time) : new Date().toLocaleString("ru-RU")
@@ -12084,18 +12103,18 @@
           }
         });
         if (historyEarnedEl) {
-          historyEarnedEl.textContent = `${formatCount(earned)} RUZ`;
+          historyEarnedEl.textContent = formatRub(earned);
         }
         if (historySpentEl) {
-          historySpentEl.textContent = `${formatCount(spent)} RUZ`;
+          historySpentEl.textContent = formatRub(spent);
         }
         if (historyNetEl) {
           const net = earned - spent;
           if (net === 0) {
-            historyNetEl.textContent = "0 RUZ";
+            historyNetEl.textContent = "0 ₽";
           } else {
             const netSign = net > 0 ? "+" : "−";
-            historyNetEl.textContent = `${netSign}${formatCount(Math.abs(net))} RUZ`;
+            historyNetEl.textContent = `${netSign}${formatRub(Math.abs(net))}`;
           }
         }
         if (!coinHistoryListEl) {
@@ -12104,7 +12123,7 @@
         if (!coinHistory.length) {
           coinHistoryListEl.innerHTML = `<div class="history-empty">${
             currentUser
-              ? "История появится после операций с RUZCOIN."
+              ? "История появится после операций с баланс."
               : "Войдите в профиль, чтобы видеть историю операций."
           }</div>`;
           return;
@@ -12120,7 +12139,7 @@
               : delta >= 0
                 ? "history-entry-delta is-positive"
                 : "history-entry-delta is-negative";
-            const valueLabel = isPending ? "Ожидает" : `${sign}${formatCount(absolute)} RUZ`;
+            const valueLabel = isPending ? "Ожидает" : `${sign}${formatRub(absolute)}`;
             const timeLabel = isPending ? `Ожидает подтверждения · ${entry.time}` : entry.time;
             return `
               <div class="history-entry">
@@ -12164,7 +12183,7 @@
         }
         const entry = {
           type: type || (numericDelta > 0 ? "earn" : "spend"),
-          description: description || "Операция с RUZCOIN",
+          description: description || "Операция с баланс",
           delta: numericDelta,
           time: new Date().toLocaleString("ru-RU")
         };
@@ -12183,7 +12202,7 @@
         }
         const entry = {
           type: numericDelta > 0 ? "gift" : "gift",
-          description: description || "Операция с RUZCOIN",
+          description: description || "Операция с баланс",
           delta: numericDelta,
           time: new Date().toLocaleString("ru-RU")
         };
@@ -12229,7 +12248,7 @@
       }
 
       function generateUserId() {
-        return `RUZ-${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
+        return `BAL-${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
       }
 
       function ensureUserShape(rawUser = {}) {
@@ -12454,7 +12473,7 @@
 
       function updateRuzcoinPriceDisplay() {
         if (ruzcoinPriceValueEl) {
-          const formattedPrice = `${RUZCOIN_PRICE_RUB.toLocaleString("ru-RU")} ₽`;
+          const formattedPrice = `${BALANCE_UNIT_RUB.toLocaleString("ru-RU")} ₽`;
           ruzcoinPriceValueEl.textContent = formattedPrice;
         }
       }
@@ -12466,7 +12485,10 @@
           headerCoinsAmountEl.textContent = formatted;
         }
         if (popoverCoinsAmountEl) {
-          popoverCoinsAmountEl.textContent = formatted;
+          popoverCoinsAmountEl.textContent = formatRub(numericValue);
+        }
+        if (popoverCoinsAmountUsdEl) {
+          popoverCoinsAmountUsdEl.textContent = formatUsd(convertRubToUsd(numericValue));
         }
       }
 
@@ -12531,7 +12553,7 @@
         topupUserIdEl.textContent = user.id ? `ID: ${user.id}` : "ID: —";
       }
       if (topupUserBalanceEl) {
-        topupUserBalanceEl.textContent = `${numberFormatter.format(user.coins || 0)} RUZ`;
+        topupUserBalanceEl.textContent = formatRub(user.coins || 0);
       }
       if (topupUserRoleEl) {
         applyRoleBadge(topupUserRoleEl, user.role, user.roleColor);
@@ -12876,7 +12898,7 @@
             <div class="users-popover-meta">
               <span class="users-popover-name">${entry.name}</span>
               <div class="users-popover-stats">
-                <span>${numberFormatter.format(entry.coins)} RUZ</span>
+                <span>${formatRub(entry.coins)}</span>
                 <span>${numberFormatter.format(entry.totalPlays)} просл.</span>
               </div>
             </div>
@@ -12911,7 +12933,7 @@
                 <span class="role-badge is-compact">${entry.roleLabel}</span>
               </div>
               <div class="user-stats">
-                <span class="user-stat-badge"><i class="fas fa-coins"></i>${numberFormatter.format(entry.coins)} RUZ</span>
+                <span class="user-stat-badge"><i class="fas fa-coins"></i>${formatRub(entry.coins)}</span>
                 <span class="user-stat-badge"><i class="fas fa-chart-line"></i>${numberFormatter.format(entry.totalPlays)} прослушиваний</span>
                 <span class="user-stat-badge"><i class="fas fa-music"></i>${numberFormatter.format(entry.uniqueTracks)} треков</span>
                 <span class="user-stat-badge"><i class="fas fa-medal"></i>${entry.achievements} достиж.</span>
@@ -12934,7 +12956,7 @@
         const summaryData = [
           { icon: "fa-users", label: "Профилей", value: numberFormatter.format(usersSummary.length) },
           { icon: "fa-signal", label: "Сейчас онлайн", value: numberFormatter.format(liveOnlineCount) },
-          { icon: "fa-coins", label: "Средний баланс", value: `${numberFormatter.format(averageCoins)} RUZ` }
+          { icon: "fa-coins", label: "Средний баланс", value: formatRub(averageCoins) }
         ];
         summaryData.forEach(entry => {
           const card = document.createElement("div");
@@ -12974,7 +12996,7 @@
               </div>
             </div>
             <div class="user-stats">
-              <span class="user-stat-badge"><i class="fas fa-coins"></i>${numberFormatter.format(entry.coins)} RUZ</span>
+              <span class="user-stat-badge"><i class="fas fa-coins"></i>${formatRub(entry.coins)}</span>
               <span class="user-stat-badge"><i class="fas fa-chart-line"></i>${numberFormatter.format(entry.totalPlays)} прослушиваний</span>
               <span class="user-stat-badge"><i class="fas fa-music"></i>${numberFormatter.format(entry.uniqueTracks)} треков</span>
               <span class="user-stat-badge"><i class="fas fa-medal"></i>${entry.achievements} достиж.</span>
@@ -13043,7 +13065,10 @@
             applyRoleBadge(profileRoleEl, currentUser.role, currentUser.roleColor);
           }
           if (coinsAmountEl) {
-            coinsAmountEl.textContent = numberFormatter.format(currentUser.coins);
+            coinsAmountEl.textContent = formatRub(currentUser.coins);
+          }
+          if (coinsAmountUsdEl) {
+            coinsAmountUsdEl.textContent = formatUsd(convertRubToUsd(currentUser.coins));
           }
           renderAchievements();
         } else if (profileRoleEl) {
@@ -13167,7 +13192,7 @@
           }
           if (!demoUser) {
             demoUser = {
-              id: "RUZ-DEMO01",
+              id: "BAL-DEMO01",
               name: "Demo Listener",
               coins: 25,
               role: "listener",
@@ -13394,10 +13419,7 @@
           return;
         }
         if (currentUser.coins < price) {
-          alert("Не хватает RUZCOIN. Попробуйте пополнить баланс.");
-          if (coinsPopoverController) {
-            coinsPopoverController.open();
-          }
+          alert("Не хватает средств. Пополните баланс в профиле.");
           setTopupPanelVisibility(true);
           return;
         }
@@ -13429,7 +13451,7 @@
             if (profilePopoverController) {
               profilePopoverController.open();
             } else {
-              alert("Войдите в профиль, чтобы получить демо RUZCOIN.");
+              alert("Войдите в профиль, чтобы получить демо баланс.");
             }
             return;
           }
@@ -13442,7 +13464,7 @@
           currentUser.coins += demoBonusAmount;
           persistCurrentUser();
           updateProfileDisplay();
-          recordCoinHistory("bonus", demoBonusAmount, `Демо бонус: +${demoBonusAmount} RUZCOIN`);
+          recordCoinHistory("bonus", demoBonusAmount, `Демо бонус: +${demoBonusAmount} баланс`);
           localStorage.setItem(demoBonusKey, "true");
         });
       }
@@ -13506,7 +13528,7 @@
           event.preventDefault();
           if (!currentUser || !["admin", "moderator"].includes((currentUser.role || "").toLowerCase())) {
             if (adminGiftStatusEl) {
-              adminGiftStatusEl.textContent = "Дарить RUZCOIN могут только администраторы и модераторы.";
+              adminGiftStatusEl.textContent = "Дарить баланс могут только администраторы и модераторы.";
             }
             return;
           }
@@ -13542,7 +13564,7 @@
             renderUsersDirectory();
           }
           if (adminGiftStatusEl) {
-            adminGiftStatusEl.textContent = `+${numberFormatter.format(amountValue)} RUZ начислено пользователю ${targetUser.name}.`;
+            adminGiftStatusEl.textContent = `+${formatRub(amountValue)} начислено пользователю ${targetUser.name}.`;
           }
           adminGiftForm.reset();
         });
