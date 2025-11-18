@@ -3,7 +3,7 @@
     {
       "id": "RUZ-DEMO01",
       "name": "AVZALØV",
-      "coins": 25,
+      "coins": 900,
       "role": "listener",
       "password": "demo",
       "unlockedTracks": [],

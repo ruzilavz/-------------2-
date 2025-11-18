@@ -1,12 +1,12 @@
 window.RELEASES_TODAY = "2025-11-15";
 window.RELEASED_TRACKS_DATA = [
-  { slug: "davyl", title: "Davyl / Давыл", releaseDate: "01.12.2025", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
-  { slug: "the-psychopath", title: "The Psychopath / Психопат", releaseDate: "03.12.2025", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
-  { slug: "teapot", title: "Teapot / Чайник", releaseDate: "05.12.2025", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
+  { slug: "davyl", title: "Davyl / Давыл", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
+  { slug: "the-psychopath", title: "The Psychopath / Психопат", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
+  { slug: "teapot", title: "Teapot / Чайник", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
   {
     slug: "davyl",
-    title: "Davyl",
-    releaseDate: "15.11.2025",
+    title: "Давыл",
+    releaseDate: "Скоро",
     price: 0,
     cover: "Davyl",
     audio: "Davyl",
@@ -15,8 +15,8 @@ window.RELEASED_TRACKS_DATA = [
   },
   {
     slug: "the-psychopath",
-    title: "The psychopath",
-    releaseDate: "15.11.2025",
+    title: "Психопат",
+    releaseDate: "Скоро",
     price: 0,
     cover: "The psychopath",
     audio: "The psychopath",
@@ -25,8 +25,8 @@ window.RELEASED_TRACKS_DATA = [
   },
   {
     slug: "teapot",
-    title: "Teapot",
-    releaseDate: "15.11.2025",
+    title: "Чайник",
+    releaseDate: "Скоро",
     price: 0,
     cover: "Teapot",
     audio: "Teapot",
