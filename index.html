@@ -6594,6 +6594,58 @@
       </div>
     </div>
   </div>
+  <div class="track-modal-overlay" id="trackModal" data-open="false" aria-hidden="true">
+    <div class="track-modal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle">
+      <button class="track-modal-close" type="button" aria-label="Закрыть трек" data-track-modal-close>&times;</button>
+      <div class="track-modal-header">
+        <div class="track-modal-cover" id="trackModalCover"></div>
+        <div class="track-modal-info">
+          <div class="track-modal-kicker" id="trackModalKicker">AVZALØV TRACK</div>
+          <h3 class="track-modal-title" id="trackModalTitle">Название</h3>
+          <div class="track-modal-tags" id="trackModalTags"></div>
+          <div class="track-modal-stats" id="trackModalStats"></div>
+          <div class="track-modal-actions">
+            <button class="btn btn-primary btn-sm" type="button" id="trackModalPlayBtn">
+              <i class="fa-solid fa-play"></i> Слушать
+            </button>
+            <button class="btn btn-ghost btn-sm" type="button" id="trackModalLyricsBtn">
+              <i class="fa-solid fa-align-left"></i> Текст
+            </button>
+            <button class="btn btn-ghost btn-sm" type="button" id="openTrackDocBtn">
+              <i class="fa-solid fa-scroll"></i> Документы
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="track-modal-body">
+        <div class="track-modal-panel">
+          <h4>Релиз</h4>
+          <p id="trackModalRelease"></p>
+        </div>
+        <div class="track-modal-panel">
+          <h4>Доступ</h4>
+          <p id="trackModalAccess"></p>
+        </div>
+        <div class="track-modal-panel">
+          <h4>Стоимость</h4>
+          <p id="trackModalPrice"></p>
+        </div>
+        <div class="track-modal-panel">
+          <h4>Дополнительно</h4>
+          <p id="trackModalExtras"></p>
+        </div>
+      </div>
+      <div class="track-doc-modal" id="trackDocModal">
+        <div class="track-doc-modal-header">
+          <h5>Копирайт</h5>
+          <button type="button" data-track-doc-close aria-label="Закрыть документ">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="track-doc-modal-body" id="trackDocContent"></div>
+      </div>
+    </div>
+  </div>
   <script src="tracks-data.js"></script>
   <script>
       // Показать/скрыть кнопку "Наверх"
