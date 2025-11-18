@@ -4460,7 +4460,16 @@
     .clips-actions {
       margin: 18px 0;
       display: flex;
-      justify-content: flex-end;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .clips-actions-note {
+      font-size: 12px;
+      color: rgba(210, 220, 255, 0.8);
+      letter-spacing: 0.02em;
+      max-width: 720px;
     }
 
     .profile-modal-overlay {
@@ -4937,6 +4946,127 @@
 
     .clip-modal-footer .btn {
       flex: none;
+    }
+
+    .clip-modal-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9fd3ff;
+    }
+
+    .clips-modal-news {
+      margin: 18px 0 24px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .clips-news-header {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .clips-news-header h4 {
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .clips-news-sub {
+      color: rgba(210, 220, 255, 0.82);
+      font-size: 13px;
+      line-height: 1.55;
+      max-width: 640px;
+    }
+
+    .clips-news-ticker {
+      flex: 1;
+      min-width: 280px;
+      border-radius: 12px;
+      border: 1px solid rgba(157, 173, 255, 0.25);
+      background: rgba(9, 12, 22, 0.75);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .clips-news-ticker-track {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .clips-news-ticker-track-inner {
+      display: inline-block;
+      padding: 10px 12px;
+      white-space: nowrap;
+      animation: clipsTicker 28s linear infinite;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #d4ddff;
+    }
+
+    @keyframes clipsTicker {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .clips-news-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .clips-news-card {
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .clips-news-tag {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8ec2ff;
+    }
+
+    .clips-news-title {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .clips-news-meta {
+      font-size: 12px;
+      color: rgba(198, 208, 246, 0.8);
+    }
+
+    .clips-news-text {
+      font-size: 13px;
+      color: rgba(220, 228, 255, 0.82);
+      line-height: 1.5;
     }
 
     .bio-modal-overlay {
@@ -6985,17 +7115,18 @@
     <section id="clips">
       <div class="section-header">
         <h2 class="section-title">Клипы</h2>
-        <p class="section-sub">Клипы пока не опубликованы. Следи за обновлениями здесь.</p>
+        <p class="section-sub">Каталог клипов и новости о съемках открываются в отдельном окне, чтобы лента главной оставалась чистой.</p>
       </div>
       <div class="clips-actions">
-        <button class="btn btn-ghost" type="button" id="openClipsModalBtn" disabled title="Клипы появятся позже">
-          <i class="fa-solid fa-film-slash"></i>
-          Нет клипов
+        <button class="btn btn-primary" type="button" id="openClipsModalBtn" title="Каталог клипов и новости о съемках">
+          <i class="fa-solid fa-film"></i>
+          Открыть каталог клипов
         </button>
+        <p class="clips-actions-note">Сейчас идут съёмки нового клипа — оперативные апдейты и факты остаются внутри модального окна.</p>
       </div>
 
       <div class="tracks-grid" id="clipsGrid">
-        <p class="users-empty">Клипов пока нет — как только появятся премьеры, они появятся здесь.</p>
+        <p class="users-empty">Основные карточки клипов и все свежие новости доступны через каталог.</p>
       </div>
     </section>
 
@@ -7751,8 +7882,21 @@
         <div class="clips-modal-kicker">AVZALØV VIDEO</div>
         <h3 id="clipsModalTitle">Каталог клипов</h3>
         <p class="clips-modal-sub">
-          Все доступные видеоработы, трейлеры и live-визуализации. Запуск клипа открывается во внешнем окне без запуска трека на сайте.
+          Все доступные видеоработы, трейлеры и live-визуализации. Запуск клипа открывается во внешнем окне без запуска трека на сайте. Актуальные новости о съёмках показываем здесь же, а не на главной.
         </p>
+      </div>
+      <div class="clips-modal-news" aria-live="polite">
+        <div class="clips-news-header">
+          <div>
+            <div class="clips-modal-kicker">Съёмки идут</div>
+            <h4>Новый клип в работе</h4>
+            <p class="clips-news-sub">Съёмочная группа сейчас на площадке: фиксим кадры, следим за светом и собираем визуальные факты для фанатов. Все апдейты остаются внутри каталога клипов.</p>
+          </div>
+          <div class="clips-news-ticker" aria-label="Бегущая строка новостей по клипам">
+            <div class="clips-news-ticker-track" id="clipsNewsTicker"></div>
+          </div>
+        </div>
+        <div class="clips-news-list" id="clipsNewsList"></div>
       </div>
       <div class="clips-modal-list" id="clipsModalList"></div>
     </div>
@@ -7850,8 +7994,19 @@
     let trackModalActiveCard = null;
     const clipsModalOverlay = document.getElementById("clipsModal");
     const clipsModalList = document.getElementById("clipsModalList");
+    const clipsNewsList = document.getElementById("clipsNewsList");
+    const clipsNewsTicker = document.getElementById("clipsNewsTicker");
     const openClipsModalBtn = document.getElementById("openClipsModalBtn");
     const clipsModalCloseButtons = Array.from(document.querySelectorAll("[data-clips-close]"));
+
+    if (openClipsModalBtn) {
+      openClipsModalBtn.disabled = !CLIPS_ENABLED;
+      openClipsModalBtn.classList.toggle("btn-ghost", !CLIPS_ENABLED);
+      openClipsModalBtn.classList.toggle("btn-primary", CLIPS_ENABLED);
+      openClipsModalBtn.innerHTML = CLIPS_ENABLED
+        ? '<i class="fa-solid fa-film"></i> <span>Открыть каталог клипов</span>'
+        : '<i class="fa-solid fa-film-slash"></i> <span>Клипы появятся позже</span>';
+    }
     const profileTabButtons = Array.from(document.querySelectorAll("[data-profile-tab]"));
     const profileViews = Array.from(document.querySelectorAll("[data-profile-view]"));
     const headerUsersBtn = document.getElementById("headerUsersBtn");
@@ -7942,7 +8097,37 @@
     const TRACK_CHART_COUNTS_KEY = "avzalov_track_chart_counts_v1";
     const TRACK_CHART_PREVIOUS_POSITIONS_KEY = "avzalov_track_chart_prev_positions_v1";
     const VOLUME_STORAGE_KEY = "avzalov-volume";
-    const CLIPS_ENABLED = false;
+    const CLIPS_ENABLED = true;
+    const CLIP_NEWS_ITEMS = [
+      {
+        tag: "съёмки",
+        title: "Ночной сет для клипа «Яшьлек»",
+        meta: "Казань · ретро-авто во дворе",
+        text: "Снимаем сцены с ретро-машинами, поднимаем дым из-под капота и ловим блики фонарей в мокром асфальте.",
+        ticker: "Ночная площадка «Яшьлек»: ретро-авто, дым и уличный свет"
+      },
+      {
+        tag: "продакшн",
+        title: "Дрон-сцены для «Немножко»",
+        meta: "Ночной город · неон",
+        text: "Готовим пролёты дрона с подсветкой витрин, чтобы показать неоновый город в такт бита.",
+        ticker: "Дрон снимает неоновые улицы для клипа «Немножко»"
+      },
+      {
+        tag: "команда",
+        title: "Световые тесты по «Дикой комете»",
+        meta: "Павильон · световые анимации",
+        text: "Собираем микс из синего и пурпурного света, тестируем дымовые пушки и вспышки для эффекта пролёта кометы.",
+        ticker: "Световые тесты «Дикой кометы»: дым, вспышки и пурпурные фильтры"
+      },
+      {
+        tag: "план",
+        title: "Городские сцены для «Спички»",
+        meta: "Улица · мокрый асфальт",
+        text: "Переснимаем финальные кадры с мокрым асфальтом, чтобы усилить отражения огня от зажигалки.",
+        ticker: "«Спички»: финальные кадры на мокром асфальте для отражений огня"
+      }
+    ];
     const STREAMING_PLATFORMS = [
       { id: "vk", label: "VK Music", icon: "fa-vk", short: "VK" },
       { id: "yandex", label: "Яндекс Музыка", icon: "fa-yandex", short: "Яндекс" },
@@ -9819,6 +10004,7 @@
       clipLibrary = clips;
 
       renderClipsModalList();
+      renderClipNews();
 
       if (!clips.length) {
         clipsGrid.innerHTML = '<p class="users-empty">Клипы пока готовятся. Заглядывай позже.</p>';
@@ -9851,8 +10037,9 @@
         .map(track => {
           const disabled = !track.clipUrl || track.clipUrl === "#";
           const actionMarkup = disabled
-            ? '<button class="btn btn-ghost btn-xs" type="button" disabled>������� ������</button>'
-            : `<a class="btn btn-primary btn-xs" href="${track.clipUrl}" target="_blank" rel="noopener">������</a>`;
+            ? '<button class="btn btn-ghost btn-xs" type="button" disabled>Съёмки</button>'
+            : `<a class="btn btn-primary btn-xs" href="${track.clipUrl}" target="_blank" rel="noopener">Смотреть</a>`;
+          const statusLabel = track.releaseState === "released" ? "Готовый клип" : "Съёмки идут";
           return `
             <article class="clip-modal-card">
               <div class="clip-modal-cover" style="background-image:${track.coverStyle}"></div>
@@ -9861,6 +10048,7 @@
                 <div class="clip-modal-meta">${track.releaseLabel || "—"}</div>
                 <div class="clip-modal-footer">
                   <span>${track.typeLabel || "Single"}</span>
+                  <span class="clip-modal-status">${statusLabel}</span>
                   ${actionMarkup}
                 </div>
               </div>
@@ -9868,6 +10056,28 @@
           `;
         })
         .join("");
+    }
+
+    function renderClipNews() {
+      if (clipsNewsList) {
+        clipsNewsList.innerHTML = CLIP_NEWS_ITEMS.map(item => `
+            <article class="clips-news-card">
+              <div class="clips-news-tag">${item.tag || "новость"}</div>
+              <div class="clips-news-title">${item.title}</div>
+              <div class="clips-news-meta">${item.meta || ""}</div>
+              <p class="clips-news-text">${item.text || ""}</p>
+            </article>
+        `).join("");
+      }
+
+      if (clipsNewsTicker) {
+        const tickerText = CLIP_NEWS_ITEMS.length
+          ? CLIP_NEWS_ITEMS.map(item => item.ticker || `${item.title} — ${item.meta || ""}`.trim()).join(" • ")
+          : "Съёмочная группа работает над новым клипом";
+        const loopText = `${tickerText} • ${tickerText}`;
+        const duration = Math.max(18, Math.min(40, loopText.length / 3));
+        clipsNewsTicker.innerHTML = `<div class="clips-news-ticker-track-inner" style="animation-duration:${duration}s">${loopText}</div>`;
+      }
     }
 
     function openClipsModal() {

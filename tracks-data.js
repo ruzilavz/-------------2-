@@ -30,8 +30,7 @@ window.RELEASED_TRACKS_DATA = [
   { slug: "puls", title: "Пульс", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },
   { slug: "ne-veryu", title: "Не верю", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },
   { slug: "uliver", title: "Уливер", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },
-  { slug: "sotri-menya", title: "Сотри меня", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },
-  { slug: "clip-demo-2", title: "CLIP DEMO 2", releaseDate: "16.11.2025", access: "released", price: 0, hasClip: true, clipUrl: "https://youtu.be/avzalov-demo2", copyright: "© 2025 AVZALØV.", plays: Math.floor(Math.random() * 1000) }
+  { slug: "sotri-menya", title: "Сотри меня", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) }
 ];
 
 
