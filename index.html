@@ -876,6 +876,120 @@
       overflow: hidden;
     }
 
+    .chart-modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(2, 4, 12, 0.92);
+      z-index: 2200;
+    }
+
+    .chart-modal-overlay.is-visible {
+      display: flex;
+      animation: popoverFade var(--transition) ease;
+    }
+
+    .chart-modal {
+      width: min(560px, 92vw);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(6, 8, 18, 0.95);
+      box-shadow: 0 25px 60px rgba(2, 3, 12, 0.9);
+      padding: 24px;
+      position: relative;
+    }
+
+    .chart-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .chart-modal-kicker {
+      margin: 0;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .chart-modal-title {
+      margin: 4px 0 0;
+      font-size: 22px;
+    }
+
+    .chart-modal-close {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .chart-modal-sub {
+      margin: 12px 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .chart-modal-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 50vh;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .chart-modal-card {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(6px);
+    }
+
+    .chart-modal-rank {
+      font-weight: 700;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    .chart-modal-track strong {
+      font-size: 16px;
+      display: block;
+    }
+
+    .chart-modal-track span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .chart-modal-plays {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .chart-modal-empty {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
     .topup-overlay {
       position: fixed;
       inset: 0;
