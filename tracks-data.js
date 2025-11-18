@@ -1,5 +1,35 @@
 window.RELEASES_TODAY = "2025-11-15";
 window.RELEASED_TRACKS_DATA = [
+  {
+    slug: "davyl",
+    title: "Davyl",
+    releaseDate: "15.11.2025",
+    price: 0,
+    cover: "Davyl",
+    audio: "Davyl",
+    copyright: "© 2025 AVZALØV. Все права защищены.",
+    plays: Math.floor(Math.random() * 1000)
+  },
+  {
+    slug: "the-psychopath",
+    title: "The psychopath",
+    releaseDate: "15.11.2025",
+    price: 0,
+    cover: "The psychopath",
+    audio: "The psychopath",
+    copyright: "© 2025 AVZALØV. Все права защищены.",
+    plays: Math.floor(Math.random() * 1000)
+  },
+  {
+    slug: "teapot",
+    title: "Teapot",
+    releaseDate: "15.11.2025",
+    price: 0,
+    cover: "Teapot",
+    audio: "Teapot",
+    copyright: "© 2025 AVZALØV. Все права защищены.",
+    plays: Math.floor(Math.random() * 1000)
+  },
   { slug: "chernyy-yashchik", title: "Черный ящик", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },
   { slug: "zima", title: "Зима", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },
   { slug: "pomni", title: "Помни", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },

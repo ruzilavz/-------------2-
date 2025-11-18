@@ -2,6 +2,33 @@
   "today": "2025-11-15",
   "releases": [
     {
+      "slug": "davyl",
+      "title": "Davyl",
+      "type": "single",
+      "release_date": "2025-11-15",
+      "display_date": "15.11.2025",
+      "release_state": "released",
+      "availability": "public"
+    },
+    {
+      "slug": "the-psychopath",
+      "title": "The psychopath",
+      "type": "single",
+      "release_date": "2025-11-15",
+      "display_date": "15.11.2025",
+      "release_state": "released",
+      "availability": "public"
+    },
+    {
+      "slug": "teapot",
+      "title": "Teapot",
+      "type": "single",
+      "release_date": "2025-11-15",
+      "display_date": "15.11.2025",
+      "release_state": "released",
+      "availability": "public"
+    },
+    {
       "slug": "chernyy-yashchik",
       "title": "Черный ящик",
       "type": "single",
