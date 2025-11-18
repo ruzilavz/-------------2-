@@ -7373,12 +7373,27 @@
         document.body.classList.add("modal-open");
       }
 
-      function closeNewsModal() {
-        if (!newsModalOverlay) return;
-        newsModalOverlay.classList.remove("is-visible");
-        newsModalOverlay.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("modal-open");
-      }
+    function closeNewsModal() {
+      if (!newsModalOverlay) return;
+      newsModalOverlay.classList.remove("is-visible");
+      newsModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    function openChartModal() {
+      if (!chartModalOverlay) return;
+      renderChartModalList(buildChartRankings(12));
+      chartModalOverlay.classList.add("is-visible");
+      chartModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeChartModal() {
+      if (!chartModalOverlay) return;
+      chartModalOverlay.classList.remove("is-visible");
+      chartModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
     const usersModalListEl = document.getElementById("usersModalList");
     const usersModalSummaryEl = document.getElementById("usersModalSummary");
     const usersModalCloseButtons = Array.from(document.querySelectorAll("[data-users-modal-close]"));
