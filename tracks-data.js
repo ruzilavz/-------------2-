@@ -3,36 +3,7 @@ window.RELEASED_TRACKS_DATA = [
   { slug: "davyl", title: "Давыл", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
   { slug: "the-psychopath", title: "Психопат", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
   { slug: "teapot", title: "Чайник", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
-  {
-    slug: "davyl",
-    title: "Давыл",
-    releaseDate: "Скоро",
-    price: 0,
-    cover: "Davyl",
-    audio: "Davyl",
-    copyright: "© 2025 AVZALØV. Все права защищены.",
-    plays: Math.floor(Math.random() * 1000)
-  },
-  {
-    slug: "the-psychopath",
-    title: "Психопат",
-    releaseDate: "Скоро",
-    price: 0,
-    cover: "The psychopath",
-    audio: "The psychopath",
-    copyright: "© 2025 AVZALØV. Все права защищены.",
-    plays: Math.floor(Math.random() * 1000)
-  },
-  {
-    slug: "teapot",
-    title: "Чайник",
-    releaseDate: "Скоро",
-    price: 0,
-    cover: "Teapot",
-    audio: "Teapot",
-    copyright: "© 2025 AVZALØV. Все права защищены.",
-    plays: Math.floor(Math.random() * 1000)
-  },
+  
   { slug: "chernyy-yashchik", title: "Черный ящик", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },
   { slug: "zima", title: "Зима", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },
   { slug: "pomni", title: "Помни", releaseDate: "скоро", access: "early-access", price: 1, copyright: "© 2025 AVZALØV. Все права защищены.", plays: Math.floor(Math.random() * 1000) },
