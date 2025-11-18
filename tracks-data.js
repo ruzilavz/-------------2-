@@ -30,8 +30,9 @@ window.RELEASED_TRACKS_DATA = [
   { slug: "puls", title: "Пульс", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "ne-veryu", title: "Не верю", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены." },
   { slug: "uliver", title: "Уливер", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены." },
-  { slug: "sotri-menya", title: "Сотри меня", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены." }
-  { slug: "clip-demo-1", title: "CLIP DEMO 1", releaseDate: "15.11.2025", access: "released", price: 0, hasClip: true, clipUrl: "https://youtu.be/avzalov-demo1", copyright: "?c 2025 AVZAL??V." },
-  { slug: "clip-demo-2", title: "CLIP DEMO 2", releaseDate: "16.11.2025", access: "released", price: 0, hasClip: true, clipUrl: "https://youtu.be/avzalov-demo2", copyright: "?c 2025 AVZAL??V." }];
+  { slug: "sotri-menya", title: "Сотри меня", releaseDate: "27.07.2025", type: "EP", price: 0, copyright: "© 2025 AVZALØV. Все права защищены." },
+  { slug: "clip-demo-1", title: "CLIP DEMO 1", releaseDate: "15.11.2025", access: "released", price: 0, hasClip: true, clipUrl: "https://youtu.be/avzalov-demo1", copyright: "© 2025 AVZALØV." },
+  { slug: "clip-demo-2", title: "CLIP DEMO 2", releaseDate: "16.11.2025", access: "released", price: 0, hasClip: true, clipUrl: "https://youtu.be/avzalov-demo2", copyright: "© 2025 AVZALØV." }
+];
 
 
