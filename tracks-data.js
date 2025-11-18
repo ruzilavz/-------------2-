@@ -1,8 +1,8 @@
 window.RELEASES_TODAY = "2025-11-15";
 window.RELEASED_TRACKS_DATA = [
-  { slug: "davyl", title: "Davyl / Давыл", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
-  { slug: "the-psychopath", title: "The Psychopath / Психопат", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
-  { slug: "teapot", title: "Teapot / Чайник", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
+  { slug: "davyl", title: "Давыл", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
+  { slug: "the-psychopath", title: "Психопат", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
+  { slug: "teapot", title: "Чайник", releaseDate: "Скоро", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
   {
     slug: "davyl",
     title: "Давыл",
