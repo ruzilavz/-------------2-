@@ -398,6 +398,84 @@
       letter-spacing: 0.18em;
     }
 
+    .platforms-panel {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: rgba(14, 18, 34, 0.92);
+      border: 1px solid rgba(59, 90, 177, 0.34);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .platforms-panel p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .platforms-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .platforms-open-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(73, 111, 215, 0.55);
+      background: linear-gradient(135deg, rgba(47, 107, 255, 0.16), rgba(47, 107, 255, 0.05));
+      color: #cfe3ff;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .platforms-open-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(15, 28, 64, 0.65);
+      border-color: rgba(109, 144, 255, 0.75);
+    }
+
+    .platforms-compact-note {
+      font-size: 13px;
+      color: #a8b7df;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .platforms-compact-note i {
+      color: var(--accent);
+    }
+
+    .platforms-mini-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .platforms-mini-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(59, 90, 177, 0.42);
+      background: rgba(14, 18, 34, 0.75);
+      color: #d5dfff;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .platforms-mini-chip i {
+      color: var(--accent);
+    }
+
     .platforms-section .platforms-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -7066,104 +7144,24 @@
           <div class="platforms-hero-pill">Always<br />Live</div>
         </div>
 
-        <div>
-          <div class="platforms-packages">
-            <div class="platforms-package">
-              <strong>Базовый пакет</strong>
-              <span>Яндекс, VK Music, СберЗвук, BOOM — обязательный минимум для русских релизов.</span>
-            </div>
-            <div class="platforms-package">
-              <strong>Международный</strong>
-              <span>Spotify, Apple Music, YouTube Music, Deezer, Tidal, Amazon — чтобы собирать стримы по всему миру.</span>
-            </div>
-            <div class="platforms-package">
-              <strong>Социальный</strong>
-              <span>TikTok, Instagram, Facebook, Shorts, Snapchat — треки сразу готовы для трендов и клипов.</span>
-            </div>
-            <div class="platforms-package">
-              <strong>Видео +</strong>
-              <span>YouTube, VK Видео, RuTube — клипы, визуализеры и премьеры.</span>
-            </div>
+        <div class="platforms-panel">
+          <p>
+            Сами ссылки прячутся в модальном окне, а на карточке трека остаётся компактный бейдж с количеством площадок.
+            Наведи на иконку внутри модалки — появится описание сервиса.
+          </p>
+          <div class="platforms-mini-chips">
+            <span class="platforms-mini-chip" title="VK Music, Яндекс, СберЗвук, BOOM"><i class="fa-solid fa-flag"></i>Русские</span>
+            <span class="platforms-mini-chip" title="Apple Music, Spotify, Deezer, Amazon"><i class="fa-solid fa-globe"></i>Глобальные</span>
+            <span class="platforms-mini-chip" title="TikTok Sounds, Instagram Music, Shorts"><i class="fa-solid fa-share-nodes"></i>Соцсети</span>
+            <span class="platforms-mini-chip" title="YouTube, VK Видео, RuTube"><i class="fa-solid fa-video"></i>Видео</span>
+            <span class="platforms-mini-chip" title="Beatport, Traxsource, Juno"><i class="fa-solid fa-record-vinyl"></i>DJ</span>
           </div>
-          <div class="platforms-footnote">Площадки открываются сразу — без переходов в модальные окна.</div>
-        </div>
-      </div>
-
-      <div class="platforms-grid" style="margin-top: 14px;">
-        <div class="platform-card">
-          <small>🇷🇺 Главные</small>
-          <h3>Российские сервисы</h3>
-          <p>Ключевые площадки по аудитории в РФ — база для любого релиза.</p>
-          <div class="platform-pills">
-            <span class="platform-pill"><i class="fa-solid fa-music"></i>Yandex Music</span>
-            <span class="platform-pill"><i class="fa-solid fa-headphones"></i>VK Music</span>
-            <span class="platform-pill"><i class="fa-solid fa-signal"></i>СберЗвук / Zvooq</span>
-            <span class="platform-pill"><i class="fa-solid fa-bolt"></i>Boom</span>
-            <span class="platform-pill"><i class="fa-solid fa-video"></i>RuTube Music</span>
-            <span class="platform-pill"><i class="fa-solid fa-tower-broadcast"></i>MTS Music</span>
-          </div>
-        </div>
-
-        <div class="platform-card">
-          <small>🌍 Мировые</small>
-          <h3>Стриминговые гиганты</h3>
-          <p>Российские артисты публикуются на мировых сервисах, чтобы собирать международные стримы.</p>
-          <div class="platform-pills">
-            <span class="platform-pill"><i class="fa-brands fa-spotify"></i>Spotify</span>
-            <span class="platform-pill"><i class="fa-brands fa-apple"></i>Apple Music</span>
-            <span class="platform-pill"><i class="fa-brands fa-youtube"></i>YouTube Music</span>
-            <span class="platform-pill"><i class="fa-solid fa-play"></i>Deezer</span>
-            <span class="platform-pill"><i class="fa-solid fa-water"></i>Tidal</span>
-            <span class="platform-pill"><i class="fa-brands fa-amazon"></i>Amazon Music</span>
-            <span class="platform-pill"><i class="fa-solid fa-cloud"></i>SoundCloud</span>
-            <span class="platform-pill"><i class="fa-solid fa-compact-disc"></i>Napster</span>
-          </div>
-        </div>
-
-        <div class="platform-card">
-          <small>📱 Соцсети</small>
-          <h3>Тренды и клипы</h3>
-          <p>Музыка сразу попадает в библиотеки соцсетей для челленджей и вирусных видео.</p>
-          <div class="platform-pills">
-            <span class="platform-pill"><i class="fa-brands fa-tiktok"></i>TikTok Sounds</span>
-            <span class="platform-pill"><i class="fa-brands fa-instagram"></i>Instagram Music</span>
-            <span class="platform-pill"><i class="fa-brands fa-facebook"></i>Facebook Music</span>
-            <span class="platform-pill"><i class="fa-solid fa-clapperboard"></i>YouTube Shorts Library</span>
-            <span class="platform-pill"><i class="fa-solid fa-ghost"></i>Snapchat Sounds</span>
-          </div>
-        </div>
-
-        <div class="platform-card">
-          <small>🎧 СНГ и регионы</small>
-          <h3>Локальные площадки</h3>
-          <p>Дополнительный охват по СНГ и Азии: Казахстан, Узбекистан, Африка.</p>
-          <div class="platform-pills">
-            <span class="platform-pill"><i class="fa-solid fa-star"></i>Zvuk KZ</span>
-            <span class="platform-pill"><i class="fa-solid fa-language"></i>UMG / узбекские</span>
-            <span class="platform-pill"><i class="fa-solid fa-flag"></i>iTunes СНГ</span>
-            <span class="platform-pill"><i class="fa-solid fa-earth-africa"></i>Boomplay</span>
-          </div>
-        </div>
-
-        <div class="platform-card">
-          <small>💿 Для диджеев</small>
-          <h3>DJ-площадки</h3>
-          <p>Танцевальные версии и ремиксы выходят для селекторов и сетов.</p>
-          <div class="platform-pills">
-            <span class="platform-pill"><i class="fa-solid fa-record-vinyl"></i>Beatport</span>
-            <span class="platform-pill"><i class="fa-solid fa-compact-disc"></i>Traxsource</span>
-            <span class="platform-pill"><i class="fa-solid fa-microphone-lines"></i>Juno Download</span>
-          </div>
-        </div>
-
-        <div class="platform-card">
-          <small>🎥 Видео</small>
-          <h3>Клипы и премьеры</h3>
-          <p>Визуалы выходят на площадках с самыми активными комьюнити.</p>
-          <div class="platform-pills">
-            <span class="platform-pill"><i class="fa-brands fa-youtube"></i>YouTube</span>
-            <span class="platform-pill"><i class="fa-brands fa-vk"></i>VK Видео</span>
-            <span class="platform-pill"><i class="fa-solid fa-tower-broadcast"></i>RuTube</span>
+          <div class="platforms-cta">
+            <button class="platforms-open-btn" type="button" id="openPlatformsCatalogBtn">
+              <i class="fa-solid fa-globe"></i>
+              <span>Открыть модалку со списком площадок</span>
+            </button>
+            <span class="platforms-compact-note"><i class="fa-solid fa-circle-info"></i>Каждый трек раскрывает свой список площадок внутри окна.</span>
           </div>
         </div>
       </div>
@@ -8334,7 +8332,7 @@
             <a href="https://vk.com/artist/avzalov" target="_blank" class="social-pill">VK Music</a>
             <a href="https://music.youtube.com/" target="_blank" class="social-pill">YouTube Music</a>
             <a href="https://open.spotify.com/artist/" target="_blank" class="social-pill">Spotify</a>
-            <a href="https://t.me/your_nick" target="_blank" class="social-pill">Telegram</a>
+            <a href="https://t.me/Ruzilavzalov" target="_blank" class="social-pill">Telegram</a>
           </div>
         </div>
 
@@ -8464,24 +8462,9 @@
       <aside class="contact-methods">
         <h3>Другие способы связи</h3>
         <ul class="messengers-list">
-          <li>
-            <a class="messenger-link" href="https://t.me/Ruzilavzalov" target="_blank" rel="noopener">
-              <img src="img/icons/telegram.png" alt="Telegram" class="messenger-icon" />
-              <div class="messenger-text">
-                <span class="messenger-label">Telegram</span>
-                <span class="messenger-handle">@Ruzilavzalov</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="messenger-link" href="https://chat.whatsapp.com/HOMj3afDgUkDacZVRKa7VF" target="_blank" rel="noopener">
-              <img src="img/icons/whatsapp.png" alt="WhatsApp" class="messenger-icon" />
-              <div class="messenger-text">
-                <span class="messenger-label">WhatsApp</span>
-                <span class="messenger-handle">Открытый чат</span>
-              </div>
-            </a>
-          </li>
+          <li><a href="https://t.me/avzalov19941994" target="_blank" rel="noopener">Telegram — @avzalov19941994</a></li>
+          <li><a href="https://chat.whatsapp.com/HOMj3afDgUkDacZVRKa7VF" target="_blank" rel="noopener">WhatsApp — +7XXXXXXXXXX</a></li>
+          <!-- остальные способы по необходимости -->
         </ul>
       </aside>
     </div>
@@ -8802,6 +8785,7 @@
     const platformsModalSub = document.getElementById("platformsModalSub");
     const platformsModalList = document.getElementById("platformsModalList");
     const platformsModalCloseButtons = Array.from(document.querySelectorAll("[data-platforms-close]"));
+    const openPlatformsCatalogBtn = document.getElementById("openPlatformsCatalogBtn");
     const loginQuickButtons = Array.from(document.querySelectorAll("[data-login-quick]"));
     const topupMethodButtons = Array.from(document.querySelectorAll("[data-topup-method]"));
     const usersModalTriggers = [headerUsersBtn, document.getElementById("openUsersSectionBtn")].filter(Boolean);
@@ -8864,6 +8848,15 @@
       { id: "boom", label: "BOOM", icon: "fa-music", short: "BOOM", category: "social", description: "Музыка для VK и Одноклассников" },
       { id: "deezer", label: "Deezer", icon: "fa-music", short: "Deezer", category: "global", description: "Европейский стриминг" }
     ];
+    const DEFAULT_PLATFORM_LINKS = normalizePlatformLinks([
+      { id: "yandex", url: "https://music.yandex.ru/artist/avzalov" },
+      { id: "vk", url: "https://vk.com/artist/avzalov" },
+      { id: "apple", url: "https://music.apple.com/artist" },
+      { id: "spotify", url: "https://open.spotify.com/artist" },
+      { id: "youtube", url: "https://music.youtube.com" },
+      { id: "boom", url: "https://vk.com/audios-1" },
+      { id: "deezer", url: "https://www.deezer.com" }
+    ], "released");
     const UPCOMING_PRICE_RUB = 49;
     const UNSCHEDULED_PRICE_RUB = 179;
     const USD_EXCHANGE_RATE = 93;
@@ -11624,93 +11617,55 @@
         platformsModalList.innerHTML = '<p class="chart-modal-empty">Ссылки на площадки появятся позже.</p>';
         return;
       }
-      const groups = platforms.reduce((acc, platform) => {
-        const groupKey = platform.category || platform.type || "other";
-        if (!acc[groupKey]) {
-          acc[groupKey] = [];
-        }
-        acc[groupKey].push(platform);
-        return acc;
-      }, {});
-
-      const groupLabels = {
-        ru: "Российские",
-        social: "Соцсети",
-        video: "Видео",
-        dj: "DJ",
-        global: "Международные",
-        regional: "Региональные",
-        other: "Дополнительно"
-      };
-
-      const groupIcons = {
-        ru: "fa-flag",
-        social: "fa-share-nodes",
-        video: "fa-video",
-        dj: "fa-record-vinyl",
-        global: "fa-globe",
-        regional: "fa-earth-europe",
-        other: "fa-music"
-      };
-
-      const groupOrder = ["ru", "global", "social", "video", "dj", "regional", "other"];
-      const extraGroupKeys = Object.keys(groups).filter(key => !groupOrder.includes(key));
-      const orderedKeys = [...groupOrder, ...extraGroupKeys];
-      const sections = orderedKeys
-        .filter(key => Array.isArray(groups[key]) && groups[key].length)
-        .map(key => {
-          const label = groupLabels[key] || "Площадки";
-          const icon = groupIcons[key] || "fa-music";
-          const chips = groups[key]
-            .map(platform => {
-              const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
-              const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
-              const hasLink = platform.available && platform.url;
-              const status = hasLink
-                ? "Активная ссылка"
-                : platform.available
-                  ? "Доступно без прямой ссылки"
-                  : "Готовится";
-              const description = platform.description || "Стриминговая площадка";
-              const title = `${platform.label} — ${description}. ${status}.`;
-              const content = `
-                <span class="platform-chip-icon"><i class="${iconPrefix} ${iconClass}"></i></span>
-                <span>${platform.short || platform.label}</span>
-              `;
-              if (hasLink) {
-                return `<a class="platform-chip is-active" href="${platform.url}" target="_blank" rel="noopener" title="${title}">${content}</a>`;
-              }
-              return `<div class="platform-chip ${platform.available ? "is-available" : ""}" title="${title}" role="text">${content}<small>${status}</small></div>`;
-            })
-            .join("");
+      platformsModalList.innerHTML = platforms
+        .map(platform => {
+          const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
+          const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
+          const hasLink = platform.available && platform.url;
+          const actionMarkup = hasLink
+            ? `<a class="btn btn-primary btn-xs" href="${platform.url}" target="_blank" rel="noopener">Слушать</a>`
+            : '<button class="btn btn-ghost btn-xs" type="button" disabled>Скоро</button>';
+          const status = hasLink ? "Активная ссылка" : platform.available ? "Доступно без ссылки" : "Ссылка готовится";
           return `
-            <div class="platforms-modal-group">
-              <div class="platforms-modal-group-title"><i class="fa-solid ${icon}"></i>${label}</div>
-              <div class="platform-chips">${chips}</div>
+            <div class="platform-card">
+              <div class="platform-card-header">
+                <div class="platform-card-icon"><i class="${iconPrefix} ${iconClass}"></i></div>
+                <div>
+                  <div class="platform-card-title">${platform.label}</div>
+                  <div class="platform-card-note">${status}</div>
+                </div>
+              </div>
+              <div class="platform-card-actions">
+                ${actionMarkup}
+                <span class="platform-card-note">${platform.short || platform.label}</span>
+              </div>
             </div>
           `;
-        });
-
-      platformsModalList.innerHTML = sections.join("") || '<p class="chart-modal-empty">Ссылки на площадки появятся позже.</p>';
+        })
+        .join("");
     }
 
-    function openPlatformsModal(card) {
+    function openPlatformsModal(card, overridePlatforms = null, heading = null, releaseStateOverride = null) {
       if (!platformsModalOverlay) {
         return;
       }
-      const title = card?.dataset.trackTitle || "Трек";
+      const title = heading || card?.dataset.trackTitle || "Трек";
       let platforms = [];
-      const releaseState = card?.dataset.trackReleaseState || "soon";
-      try {
-        platforms = JSON.parse(card?.dataset.trackPlatforms || "[]") || [];
-      } catch (error) {
-        platforms = [];
+      const releaseState = releaseStateOverride || card?.dataset.trackReleaseState || "soon";
+      if (Array.isArray(overridePlatforms)) {
+        platforms = overridePlatforms;
+      } else {
+        try {
+          platforms = JSON.parse(card?.dataset.trackPlatforms || "[]") || [];
+        } catch (error) {
+          platforms = [];
+        }
       }
       if (!platforms.length) {
         platforms = normalizePlatformLinks([], releaseState);
       }
       if (platformsModalTitle) {
-        platformsModalTitle.textContent = `Площадки: ${title}`;
+        platformsModalTitle.textContent = heading ? heading : `Площадки: ${title}`;
       }
       if (platformsModalSub) {
         platformsModalSub.textContent = "Все стриминговые ссылки трека. Наведите на иконку, чтобы увидеть описание.";
@@ -14190,6 +14145,10 @@
 
     if (openBioModalBtn) {
       openBioModalBtn.addEventListener("click", openBioModal);
+    }
+
+    if (openPlatformsCatalogBtn) {
+      openPlatformsCatalogBtn.addEventListener("click", () => openPlatformsModal(null, DEFAULT_PLATFORM_LINKS, "Площадки релизов", "released"));
     }
 
     chartModalCloseButtons.forEach(button => {
