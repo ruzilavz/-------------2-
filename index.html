@@ -8823,6 +8823,114 @@
       autoPlayTimer = window.setInterval(runAutoPlayTick, AUTO_PLAY_INTERVAL_MS);
     }
 
+    const AUTO_PLAY_INTERVAL_MS = 8000;
+    const AUTO_PLAY_CHANCE = 0.45;
+    const AUTO_PLAY_BURST_MIN = 1;
+    const AUTO_PLAY_BURST_MAX = 3;
+    const AUTO_PLAY_FOCUS_BOOST = 1.8;
+    const AUTO_PLAY_PUBLIC_BOOST = 1.25;
+
+    let autoPlayTimer = null;
+    let autoPlayPool = [];
+
+    function isTrackFocusedByMix(slug) {
+      const activeEvent = findActiveMixEvent();
+      if (!activeEvent || !Array.isArray(activeEvent.focus)) {
+        return false;
+      }
+      return activeEvent.focus.some(entry => entry === slug);
+    }
+
+    function buildAutoPlayPool(library = []) {
+      if (!Array.isArray(library)) {
+        return [];
+      }
+      return library
+        .filter(track => track && track.slug && track.availability !== "upcoming")
+        .map(track => {
+          const releasedWeight = track.releaseState === "released" ? 1.35 : 0.85;
+          const availabilityWeight = track.availability === "public" ? AUTO_PLAY_PUBLIC_BOOST : 1;
+          const focusWeight = isTrackFocusedByMix(track.slug) ? AUTO_PLAY_FOCUS_BOOST : 1;
+          const weight = releasedWeight * availabilityWeight * focusWeight;
+          return { slug: track.slug, weight: Math.max(0.15, weight) };
+        });
+    }
+
+    function pickWeightedTrack(pool) {
+      const totalWeight = pool.reduce((sum, item) => sum + (item.weight || 0), 0);
+      if (totalWeight <= 0) {
+        return null;
+      }
+      const roll = Math.random() * totalWeight;
+      let cursor = 0;
+      for (const item of pool) {
+        cursor += item.weight || 0;
+        if (roll <= cursor) {
+          return item.slug;
+        }
+      }
+      return pool.length ? pool[pool.length - 1].slug : null;
+    }
+
+    function applySyntheticPlayToCard(slug, boost = 1) {
+      if (!slug || boost <= 0) {
+        return;
+      }
+      const card = document.querySelector(`.track-card[data-track-slug="${slug}"]`);
+      if (!card) {
+        return;
+      }
+      setupTrackStats(card);
+      const stats = trackRealtimeStats.get(card);
+      if (!stats || !stats.playsCountEl) {
+        return;
+      }
+      stats.autoPlays = (stats.autoPlays || 0) + boost;
+      const totalPlays = stats.basePlays + stats.elapsedSeconds + (stats.autoPlays || 0);
+      stats.playsCountEl.textContent = formatCount(totalPlays);
+    }
+
+    function runAutoPlayTick() {
+      if (!autoPlayPool.length) {
+        autoPlayPool = buildAutoPlayPool(trackLibrary);
+      }
+      if (!autoPlayPool.length || document.hidden) {
+        return;
+      }
+      if (Math.random() > AUTO_PLAY_CHANCE) {
+        return;
+      }
+      const burstSize = Math.floor(
+        Math.random() * (AUTO_PLAY_BURST_MAX - AUTO_PLAY_BURST_MIN + 1)
+      ) + AUTO_PLAY_BURST_MIN;
+      for (let index = 0; index < burstSize; index += 1) {
+        const targetSlug = pickWeightedTrack(autoPlayPool);
+        if (!targetSlug) {
+          continue;
+        }
+        recordTrackChartPlay(targetSlug);
+        recordMixEventPlay(targetSlug);
+        applySyntheticPlayToCard(targetSlug, 1);
+      }
+    }
+
+    function refreshAutoPlayPool(library = trackLibrary) {
+      autoPlayPool = buildAutoPlayPool(library);
+    }
+
+    function stopAutoPlayEngine() {
+      if (autoPlayTimer) {
+        window.clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    function startAutoPlayEngine() {
+      stopAutoPlayEngine();
+      refreshAutoPlayPool();
+      autoPlayTimer = window.setInterval(runAutoPlayTick, AUTO_PLAY_INTERVAL_MS);
+    }
+
     function resolveTrackTitle(slug) {
       if (!slug) {
         return "Неизвестный трек";
