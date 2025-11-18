@@ -1312,64 +1312,80 @@
     }
 
     .platforms-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
 
-    .platform-card {
+    .platforms-modal-group {
       padding: 12px;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.02);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
     }
 
-    .platform-card-header {
+    .platforms-modal-group-title {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(223, 230, 255, 0.9);
+      margin-bottom: 8px;
     }
 
-    .platform-card-icon {
-      width: 34px;
-      height: 34px;
+    .platform-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .platform-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
       border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-size: 13px;
+      text-decoration: none;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+    }
+
+    .platform-chip:hover {
+      transform: translateY(-2px);
+      border-color: rgba(47, 107, 255, 0.6);
+      background: rgba(47, 107, 255, 0.14);
+    }
+
+    .platform-chip.is-active {
+      border-color: rgba(110, 231, 183, 0.5);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .platform-chip.is-available {
+      border-style: dashed;
+      border-color: rgba(255, 205, 111, 0.8);
+    }
+
+    .platform-chip-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.04);
-      color: #dfe6ff;
-      font-size: 16px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #e6edff;
     }
 
-    .platform-card-title {
-      font-weight: 600;
+    .platform-chip small {
+      color: rgba(200, 208, 238, 0.8);
+      font-size: 11px;
       letter-spacing: 0.04em;
-    }
-
-    .platform-card-note {
-      font-size: 12px;
-      color: rgba(188, 198, 235, 0.8);
-    }
-
-    .platform-card-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .platform-card-actions a,
-    .platform-card-actions button {
-      font-size: 12px;
-      padding: 8px 10px;
-    }
-
-    .platform-card-actions button[disabled] {
-      opacity: 0.6;
-      cursor: not-allowed;
     }
 
     @media (max-width: 900px) {
@@ -3977,6 +3993,12 @@
       margin: 8px 0 6px;
     }
 
+    .track-platforms-row--compact {
+      gap: 6px;
+      margin: 6px 0 4px;
+      opacity: 0.88;
+    }
+
     .track-platform-chip {
       display: inline-flex;
       align-items: center;
@@ -3988,6 +4010,13 @@
       background: rgba(78, 101, 176, 0.16);
       color: rgba(207, 214, 245, 0.9);
       border: 1px solid rgba(102, 132, 215, 0.26);
+    }
+
+    .track-platform-chip.is-compact {
+      padding: 6px 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: rgba(215, 224, 255, 0.9);
     }
 
     .track-platform-chip.is-disabled {
@@ -6033,11 +6062,53 @@
       padding: 0;
       margin: 0;
       display: grid;
-      gap: 8px;
+      gap: 10px;
       font-size: 14px;
     }
 
-    .messengers-list li a { color: var(--accent); text-decoration: none; }
+    .messenger-link {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .messenger-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(47, 107, 255, 0.4);
+      background: rgba(47, 107, 255, 0.1);
+    }
+
+    .messenger-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+    }
+
+    .messenger-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .messenger-label {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .messenger-handle {
+      color: var(--muted);
+      font-size: 13px;
+    }
 
 
     .about-grid {
@@ -8393,13 +8464,25 @@
       <aside class="contact-methods">
         <h3>Другие способы связи</h3>
         <ul class="messengers-list">
-          <li><a href="https://t.me/avzalov19941994" target="_blank" rel="noopener">Telegram — @avzalov19941994</a></li>
-          <li><a href="https://chat.whatsapp.com/HOMj3afDgUkDacZVRKa7VF" target="_blank" rel="noopener">WhatsApp — +7XXXXXXXXXX</a></li>
-          <!-- остальные способы по необходимости -->
+          <li>
+            <a class="messenger-link" href="https://t.me/Ruzilavzalov" target="_blank" rel="noopener">
+              <img src="img/icons/telegram.png" alt="Telegram" class="messenger-icon" />
+              <div class="messenger-text">
+                <span class="messenger-label">Telegram</span>
+                <span class="messenger-handle">@Ruzilavzalov</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="messenger-link" href="https://chat.whatsapp.com/HOMj3afDgUkDacZVRKa7VF" target="_blank" rel="noopener">
+              <img src="img/icons/whatsapp.png" alt="WhatsApp" class="messenger-icon" />
+              <div class="messenger-text">
+                <span class="messenger-label">WhatsApp</span>
+                <span class="messenger-handle">Открытый чат</span>
+              </div>
+            </a>
+          </li>
         </ul>
-        <p style="font-size:12px;color:rgba(200,200,220,0.7);margin-top:8px;">
-          Замените `+7XXXXXXXXXX`, `your_instagram` и т.д. на реальные значения
-        </p>
       </aside>
     </div>
   </section>
@@ -8773,13 +8856,13 @@
       }
     ];
     const STREAMING_PLATFORMS = [
-      { id: "vk", label: "VK Music", icon: "fa-vk", short: "VK" },
-      { id: "yandex", label: "Яндекс Музыка", icon: "fa-yandex", short: "Яндекс" },
-      { id: "apple", label: "Apple Music", icon: "fa-apple", short: "Apple" },
-      { id: "spotify", label: "Spotify", icon: "fa-spotify", short: "Spotify" },
-      { id: "youtube", label: "YouTube Music", icon: "fa-youtube", short: "YT Music" },
-      { id: "boom", label: "BOOM", icon: "fa-music", short: "BOOM" },
-      { id: "deezer", label: "Deezer", icon: "fa-music", short: "Deezer" }
+      { id: "vk", label: "VK Music", icon: "fa-vk", short: "VK", category: "ru", description: "Основной российский каталог" },
+      { id: "yandex", label: "Яндекс Музыка", icon: "fa-yandex", short: "Яндекс", category: "ru", description: "Главный стриминг в РФ" },
+      { id: "apple", label: "Apple Music", icon: "fa-apple", short: "Apple", category: "global", description: "Международный стор" },
+      { id: "spotify", label: "Spotify", icon: "fa-spotify", short: "Spotify", category: "global", description: "Мировые чарты и плейлисты" },
+      { id: "youtube", label: "YouTube Music", icon: "fa-youtube", short: "YT Music", category: "video", description: "Музыка + клипы" },
+      { id: "boom", label: "BOOM", icon: "fa-music", short: "BOOM", category: "social", description: "Музыка для VK и Одноклассников" },
+      { id: "deezer", label: "Deezer", icon: "fa-music", short: "Deezer", category: "global", description: "Европейский стриминг" }
     ];
     const UPCOMING_PRICE_RUB = 49;
     const UNSCHEDULED_PRICE_RUB = 179;
@@ -10532,14 +10615,12 @@
       if (!supportedPlatforms.length) {
         return "";
       }
-      const badges = supportedPlatforms
-        .map(platform => {
-          const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
-          const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
-          return `<span class="track-platform-chip" title="${platform.label}"><i class="${iconPrefix} ${iconClass}"></i>${platform.short || platform.label}</span>`;
-        })
-        .join("");
-      return `<div class="track-platforms-row">${badges}</div>`;
+      const summaryLabel = supportedPlatforms.length === 1
+        ? supportedPlatforms[0].label
+        : `${supportedPlatforms.length} площадки`;
+      return `<div class="track-platforms-row track-platforms-row--compact" title="Полный список — в модальном окне">
+        <span class="track-platform-chip is-compact"><i class="fa-solid fa-globe"></i>${summaryLabel}</span>
+      </div>`;
     }
 
     function createTrackCard(track) {
@@ -11543,32 +11624,74 @@
         platformsModalList.innerHTML = '<p class="chart-modal-empty">Ссылки на площадки появятся позже.</p>';
         return;
       }
-      platformsModalList.innerHTML = platforms
-        .map(platform => {
-          const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
-          const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
-          const hasLink = platform.available && platform.url;
-          const actionMarkup = hasLink
-            ? `<a class="btn btn-primary btn-xs" href="${platform.url}" target="_blank" rel="noopener">Слушать</a>`
-            : '<button class="btn btn-ghost btn-xs" type="button" disabled>Скоро</button>';
-          const status = hasLink ? "Активная ссылка" : platform.available ? "Доступно без ссылки" : "Ссылка готовится";
+      const groups = platforms.reduce((acc, platform) => {
+        const groupKey = platform.category || platform.type || "other";
+        if (!acc[groupKey]) {
+          acc[groupKey] = [];
+        }
+        acc[groupKey].push(platform);
+        return acc;
+      }, {});
+
+      const groupLabels = {
+        ru: "Российские",
+        social: "Соцсети",
+        video: "Видео",
+        dj: "DJ",
+        global: "Международные",
+        regional: "Региональные",
+        other: "Дополнительно"
+      };
+
+      const groupIcons = {
+        ru: "fa-flag",
+        social: "fa-share-nodes",
+        video: "fa-video",
+        dj: "fa-record-vinyl",
+        global: "fa-globe",
+        regional: "fa-earth-europe",
+        other: "fa-music"
+      };
+
+      const groupOrder = ["ru", "global", "social", "video", "dj", "regional", "other"];
+      const extraGroupKeys = Object.keys(groups).filter(key => !groupOrder.includes(key));
+      const orderedKeys = [...groupOrder, ...extraGroupKeys];
+      const sections = orderedKeys
+        .filter(key => Array.isArray(groups[key]) && groups[key].length)
+        .map(key => {
+          const label = groupLabels[key] || "Площадки";
+          const icon = groupIcons[key] || "fa-music";
+          const chips = groups[key]
+            .map(platform => {
+              const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
+              const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
+              const hasLink = platform.available && platform.url;
+              const status = hasLink
+                ? "Активная ссылка"
+                : platform.available
+                  ? "Доступно без прямой ссылки"
+                  : "Готовится";
+              const description = platform.description || "Стриминговая площадка";
+              const title = `${platform.label} — ${description}. ${status}.`;
+              const content = `
+                <span class="platform-chip-icon"><i class="${iconPrefix} ${iconClass}"></i></span>
+                <span>${platform.short || platform.label}</span>
+              `;
+              if (hasLink) {
+                return `<a class="platform-chip is-active" href="${platform.url}" target="_blank" rel="noopener" title="${title}">${content}</a>`;
+              }
+              return `<div class="platform-chip ${platform.available ? "is-available" : ""}" title="${title}" role="text">${content}<small>${status}</small></div>`;
+            })
+            .join("");
           return `
-            <div class="platform-card">
-              <div class="platform-card-header">
-                <div class="platform-card-icon"><i class="${iconPrefix} ${iconClass}"></i></div>
-                <div>
-                  <div class="platform-card-title">${platform.label}</div>
-                  <div class="platform-card-note">${status}</div>
-                </div>
-              </div>
-              <div class="platform-card-actions">
-                ${actionMarkup}
-                <span class="platform-card-note">${platform.short || platform.label}</span>
-              </div>
+            <div class="platforms-modal-group">
+              <div class="platforms-modal-group-title"><i class="fa-solid ${icon}"></i>${label}</div>
+              <div class="platform-chips">${chips}</div>
             </div>
           `;
-        })
-        .join("");
+        });
+
+      platformsModalList.innerHTML = sections.join("") || '<p class="chart-modal-empty">Ссылки на площадки появятся позже.</p>';
     }
 
     function openPlatformsModal(card) {
@@ -11590,7 +11713,7 @@
         platformsModalTitle.textContent = `Площадки: ${title}`;
       }
       if (platformsModalSub) {
-        platformsModalSub.textContent = "Все стриминговые ссылки трека. Активные подсвечены зелёным.";
+        platformsModalSub.textContent = "Все стриминговые ссылки трека. Наведите на иконку, чтобы увидеть описание.";
       }
       renderPlatformsModalList(platforms);
       platformsModalOverlay.classList.add("is-visible");
@@ -12682,10 +12805,11 @@
         const base = sanitizeUserForRegistry(baseUser);
         const incoming = sanitizeUserForRegistry(incomingUser);
         const unlockedTracks = Array.from(new Set([...(base.unlockedTracks || []), ...(incoming.unlockedTracks || [])]));
+        const resolvedName = base.name || incoming.name;
         return {
           ...base,
           id: base.id || incoming.id,
-          name: incoming.name || base.name,
+          name: resolvedName,
           coins: Math.max(Number(base.coins) || 0, Number(incoming.coins) || 0),
           role: incoming.role || base.role,
           roleColor: resolveRoleColor(incoming.role || base.role, incoming.roleColor || base.roleColor),
@@ -12696,13 +12820,17 @@
         };
       }
 
+      function normalizeNameKey(name) {
+        return typeof name === "string" ? name.trim().toLowerCase() : "";
+      }
+
       function findRegistryUserByName(name) {
-        const normalized = typeof name === "string" ? name.trim().toLowerCase() : "";
+        const normalized = normalizeNameKey(name);
         if (!normalized) {
           return null;
         }
         for (const entry of usersRegistry.values()) {
-          if ((entry.name || "").toLowerCase() === normalized) {
+          if (normalizeNameKey(entry.name) === normalized) {
             return entry;
           }
         }
@@ -12715,9 +12843,18 @@
         const existingByName = findRegistryUserByName(cleaned.name);
         const base = existingById || existingByName;
         const merged = base ? mergeUserProfiles(base, cleaned) : cleaned;
+        if (base && base.name) {
+          merged.name = base.name;
+        }
         usersRegistry.set(merged.id, merged);
-        if (existingByName && existingByName.id !== merged.id) {
-          usersRegistry.delete(existingByName.id);
+
+        const nameKey = normalizeNameKey(merged.name);
+        for (const [id, entry] of Array.from(usersRegistry.entries())) {
+          if (id !== merged.id && normalizeNameKey(entry.name) === nameKey) {
+            const combined = mergeUserProfiles(merged, entry);
+            usersRegistry.set(combined.id, combined);
+            usersRegistry.delete(id);
+          }
         }
         if (persist) {
           persistUsersRegistry();
@@ -12756,6 +12893,15 @@
         });
         persistUsersRegistry();
         renderUsersDirectory();
+      }
+
+      function dedupeUsersRegistry() {
+        const collected = Array.from(usersRegistry.values());
+        usersRegistry = new Map();
+        collected.forEach(entry => {
+          upsertUserInRegistry(entry, { persist: false });
+        });
+        persistUsersRegistry();
       }
 
       function normalizeAdminCodeValue(code) {
@@ -13556,6 +13702,7 @@
             : [];
         const combinedUsers = [...usersArray, ...storedUsers];
         bootstrapRegistryFromArray(combinedUsers);
+        dedupeUsersRegistry();
 
         const adminCodesArray = Array.isArray(adminCodesData)
           ? adminCodesData
@@ -13661,13 +13808,11 @@
           ? !existingByName.password || existingByName.password === password
           : false;
         if (existingByName) {
-          currentUser = ensureUserShape({
-            ...existingByName,
-            password: existingByName.password || password
-          });
           if (!passwordMatches) {
-            currentUser.password = password;
+            alert("Это имя уже закреплено за другим аккаунтом. Проверь пароль или выбери другое имя.");
+            return;
           }
+          currentUser = ensureUserShape(existingByName);
         } else {
           currentUser = ensureUserShape({
             id: generateUserId(),
@@ -13715,7 +13860,7 @@
           }
           currentUser = ensureUserShape({
             ...existingUser,
-            name: name || existingUser.name,
+            name: existingUser.name || name,
             role: adminInfo.role || existingUser.role,
             roleColor: adminInfo.color || existingUser.roleColor,
             password: code
@@ -13734,6 +13879,11 @@
         }
         const role = (adminInfo.role || "admin").toLowerCase();
         const displayName = name || adminInfo.label || adminInfo.name || "Администратор";
+        const conflictByName = findRegistryUserByName(displayName);
+        if (conflictByName) {
+          alert("Это имя уже закреплено за другим профилем. Выберите другой псевдоним для входа администратора.");
+          return;
+        }
         const startingCoins = Number.isFinite(adminInfo.coins) ? Math.max(adminInfo.coins, WELCOME_BONUS) : WELCOME_BONUS;
         currentUser = ensureUserShape({
           id: generateUserId(),
