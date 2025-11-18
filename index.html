@@ -6552,6 +6552,30 @@
     .pc-ach { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }
     .pc-ach i { color: var(--accent); font-size: 14px; width: 18px; text-align: center; }
 
+
+    /* New Contact Section Styles */
+    .contacts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .contact-item {
+      display: block;
+      padding: 10px 14px;
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+    .contact-item:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: var(--accent-soft);
+      transform: translateX(4px);
+      color: var(--text);
+    }
+
   </style>
 </head>
 <body>
