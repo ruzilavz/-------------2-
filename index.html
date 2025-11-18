@@ -7030,6 +7030,10 @@
     const trackDocCloseBtn = document.querySelector("[data-track-doc-close]");
     const trackDocContent = document.getElementById("trackDocContent");
     let trackModalActiveCard = null;
+    const clipsModalOverlay = document.getElementById("clipsModal");
+    const clipsModalList = document.getElementById("clipsModalList");
+    const openClipsModalBtn = document.getElementById("openClipsModalBtn");
+    const clipsModalCloseButtons = Array.from(document.querySelectorAll("[data-clips-close]"));
     const profileTabButtons = Array.from(document.querySelectorAll("[data-profile-tab]"));
     const profileViews = Array.from(document.querySelectorAll("[data-profile-view]"));
     const headerUsersBtn = document.getElementById("headerUsersBtn");
