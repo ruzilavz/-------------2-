@@ -2182,9 +2182,11 @@
     }
 
     .profile-info {
+      flex: 1;
+      min-width: 240px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
     }
 
     .profile-name {
@@ -2213,11 +2215,46 @@
       color: #ffd56a;
     }
 
-    .profile-actions-row {
+    .profile-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .profile-meta-card {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .profile-meta-card span {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(204, 214, 246, 0.6);
+    }
+
+    .profile-meta-card strong {
+      font-size: 16px;
+      color: #f4f6ff;
+      letter-spacing: 0.02em;
+    }
+
+    .profile-quick-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
+      gap: 10px;
+    }
+
+    .profile-quick-actions .btn,
+    .profile-quick-actions .btn-ghost {
+      flex: 1 1 160px;
+      justify-content: center;
     }
 
     .profile-tabs {
