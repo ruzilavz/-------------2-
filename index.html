@@ -2575,6 +2575,19 @@
       color: #d4ddff;
     }
 
+    .admin-panel-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .admin-toggle-title { font-weight: 700; color: #e8edff; font-size: 14px; }
+
     .admin-gift-form {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -2841,6 +2854,20 @@
       color: rgba(211, 217, 255, 0.82);
       line-height: 1.5;
     }
+
+    .profile-overview-card {
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      gap: 10px;
+    }
+
+    .profile-overview-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .profile-overview-kicker { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6cd0ff; }
 
     .profile-achievements h4 {
       font-size: 13px;
@@ -7188,6 +7215,38 @@
 
     .chat-fill-btn { white-space: nowrap; }
 
+    .chat-entry { margin-top: 48px; }
+    .chat-entry-card { position: relative; overflow: hidden; padding: 22px; border-radius: var(--radius-lg); border: 1px solid var(--border); background: linear-gradient(140deg, rgba(47,107,255,0.18), rgba(8,10,18,0.9)); box-shadow: var(--shadow-soft); }
+    .chat-entry-copy { display: grid; gap: 10px; max-width: 680px; position: relative; z-index: 1; }
+    .chat-entry-kicker { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6cd0ff; }
+    .chat-entry-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chat-entry-note { color: #dfe7ff; font-size: 13px; }
+    .chat-entry-glow { position: absolute; inset: -40% auto -40% 55%; width: 420px; background: radial-gradient(circle at 30% 30%, rgba(108,208,255,0.32), transparent 55%); filter: blur(20px); opacity: 0.7; }
+
+    .chat-hub-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); opacity: 0; pointer-events: none; transition: opacity 180ms ease-out; z-index: 140; display: flex; align-items: flex-end; justify-content: center; padding: 18px; backdrop-filter: blur(6px); }
+    .chat-hub-overlay.is-visible { opacity: 1; pointer-events: auto; }
+    .chat-hub { background: #0b0f1d; border-radius: 18px; border: 1px solid rgba(255,255,255,0.08); width: min(1180px, 96vw); max-height: 92vh; overflow: auto; padding: 20px; box-shadow: 0 28px 60px rgba(0,0,0,0.55); position: relative; }
+    .chat-hub-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06); color: var(--text); font-size: 18px; cursor: pointer; }
+    .chat-hub-header { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: flex-start; margin-bottom: 12px; }
+    .chat-hub-kicker { font-size: 12px; letter-spacing: 0.08em; color: #6cd0ff; text-transform: uppercase; }
+    .chat-hub-title { font-size: 24px; margin: 4px 0; }
+    .chat-hub-sub { color: var(--muted); max-width: 520px; }
+    .chat-hub-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chat-hub-body { display: grid; gap: 16px; }
+    .chat-preview-column { display: grid; gap: 12px; }
+    @media (min-width: 1024px) { .chat-hub-body { grid-template-columns: 1.15fr 1fr; } }
+
+    .role-admin-panel.is-locked { position: relative; opacity: 0.55; filter: grayscale(0.35); }
+    .role-admin-panel.is-locked::after { content: "Только по решению главного админа"; position: absolute; inset: 12px; border-radius: 12px; border: 1px dashed rgba(255,255,255,0.18); background: rgba(5,6,10,0.8); display: grid; place-items: center; color: #cfe9ff; font-size: 12px; text-align: center; padding: 8px; }
+
+    .chat-fab { position: fixed; right: 18px; bottom: 18px; width: 54px; height: 54px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.14); background: linear-gradient(135deg, #2f6bff, #5ddcff); color: #0b0f1d; font-size: 20px; cursor: pointer; box-shadow: 0 16px 30px rgba(0,0,0,0.45); z-index: 150; transition: transform 160ms ease, box-shadow 160ms ease, opacity 120ms ease; }
+    .chat-fab:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(0,0,0,0.5); }
+    .chat-fab.is-bounce-up { animation: chat-fab-up 0.35s ease; }
+    .chat-fab.is-bounce-down { animation: chat-fab-down 0.35s ease; }
+    .modal-open .chat-fab { opacity: 0; pointer-events: none; }
+    @keyframes chat-fab-up { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
+    @keyframes chat-fab-down { 0% { transform: translateY(0); } 50% { transform: translateY(10px); } 100% { transform: translateY(0); } }
+
     /* New Contact Section Styles */
     .contacts-list {
       display: flex;
@@ -7653,6 +7712,13 @@
             <p class="section-sub">
               Дарите баланс пользователям по их ID. Данные сохраняются в локальном реестре и файле пользователей.
             </p>
+            <div class="admin-panel-toggle">
+              <div>
+                <div class="admin-toggle-title">Доступ к админ-панелям</div>
+                <p class="section-sub" id="adminPanelStateLabel">Доступ закрыт. Главный админ может включить панели для высшего ранга.</p>
+              </div>
+              <button class="btn btn-ghost btn-xs" type="button" id="adminPanelsToggleBtn">Включить панели</button>
+            </div>
             <form class="admin-gift-form" id="adminGiftForm">
               <input type="text" id="giftUserId" placeholder="ID пользователя" autocomplete="off" required />
               <input type="number" id="giftAmount" placeholder="₽" min="1" step="1" required />
@@ -7709,6 +7775,16 @@
                 <div class="profile-overview-callout">
                   Переключайся между вкладками, чтобы отслеживать личную статистику прослушиваний и историю операций с баланс.
                   За активность и тестовые действия ты получаешь демо-монеты.
+                </div>
+                <div class="profile-overview-card">
+                  <div>
+                    <div class="profile-overview-kicker">Справочник ролей и чат</div>
+                    <p class="section-sub">Открой центр чата, чтобы увидеть слоты ботов, роли и сервисные фразы вне главной страницы.</p>
+                  </div>
+                  <div class="profile-overview-actions">
+                    <button class="btn btn-primary btn-xs" type="button" data-open-chat-hub>Центр чата</button>
+                    <button class="btn btn-ghost btn-xs" type="button" id="profileOpenChatBtn">Открыть чат</button>
+                  </div>
                 </div>
                 <div class="profile-achievements">
                   <h4>Достижения</h4>
@@ -8768,28 +8844,6 @@
       </div>
     </section>
 
-    <section id="mini-profile-demo">
-      <div class="section-header">
-        <h2 class="section-title">Мини-профили чата</h2>
-        <p class="section-sub">Все участники демо переписки собраны в одном блоке: роли, статусы, цвета и быстрый переход в чат.</p>
-      </div>
-      <div class="chat-mini-profiles" id="chatMiniProfiles" aria-live="polite"></div>
-
-      <div class="chat-demo-card">
-        <div>
-          <div class="chat-demo-kicker">Чат-демо</div>
-          <h3 class="chat-demo-title">Переписка мини-профилей</h3>
-          <p class="chat-demo-sub">Теперь это та же лента, что и в модальном окне: плавные паузы, ролевая палитра и обращения к пользователю.</p>
-          <p class="chat-demo-sub chat-demo-limit" id="chatMessageLimitInfo"></p>
-        </div>
-        <div class="chat-demo-actions">
-          <button class="btn btn-primary" type="button" id="openChatDemoBtn">Открыть чат</button>
-          <button class="btn btn-ghost" type="button" id="closeChatDemoBtn">Закрыть предпросмотр</button>
-        </div>
-        <div class="chat-demo-preview" id="chatDemoPreview" aria-live="polite"></div>
-      </div>
-    </section>
-
     <section id="contacts">
       <div class="section-header">
         <h2 class="section-title">Контакты</h2>
@@ -8848,44 +8902,91 @@
     </div>
   </section>
 
-  <section id="roles-lab" class="roles-lab">
-    <div class="section-header">
-      <h2 class="section-title">Роли и чат</h2>
-      <p class="section-sub">100 ролей с подсказками и 99 заполненных ботами слотов до распределения главным админом.</p>
-      <div class="role-stats" id="roleStatsSummary"></div>
-    </div>
-    <div class="role-panels">
-      <div class="role-grid" id="roleGrid" aria-live="polite"></div>
-      <aside class="role-admin-panel" aria-label="Админ-панель ролей">
-        <div class="role-admin-kicker">Админ-панель</div>
-        <h3>99 слотов под ботов</h3>
-        <p>Все роли, кроме главного админа, стартуют с holder: bot_001…bot_099 и ждут выдачи пользователям.</p>
-        <ul class="role-admin-list">
-          <li>Выдавать/снимать роли могут assign_roles: Главный админ, Супер-админ, Модераторы, Bot Manager, Mentor+, Guardian.</li>
-          <li>Флаг listen_all_tracks даёт бесплатное прослушивание в плеере. Список помечен на карточке роли.</li>
-          <li>visibleInProfile включает бейдж в профиле, а defaultBot подсвечивает служебные роли.</li>
-        </ul>
-        <div class="role-access-hint">
-          <strong>Бесплатное прослушивание:</strong> VIP, Partner, Label Owner, Sponsor, Investor, Hall of Fame, DJ и другие роли с флагом listen_all_tracks.
+  <section id="chat-entry" class="chat-entry">
+    <div class="chat-entry-card">
+      <div class="chat-entry-copy">
+        <div class="chat-entry-kicker">Чат и роли вынесены в отдельный центр</div>
+        <h2 class="section-title">Общение и роли — вне главной</h2>
+        <p class="section-sub">
+          Боты держат ленту в тонусе своими 5000 фразами, а роли и их функции доступны в отдельном окне с описаниями. Главная страница остаётся чистой.
+        </p>
+        <div class="chat-entry-actions">
+          <button class="btn btn-primary" type="button" data-open-chat-hub>Открыть центр чата</button>
+          <button class="btn btn-ghost" type="button" id="chatEntryOpenModalBtn">Перейти в чат</button>
         </div>
-      </aside>
-    </div>
-    <div class="phrase-panel">
-      <div class="phrase-panel-top">
-        <div>
-          <div class="phrase-kicker">Фразы для чата</div>
-          <h3>Готовая выборка + генератор 5000</h3>
-          <p class="section-sub" id="phraseStats">Данные загружаются…</p>
-        </div>
-        <div class="phrase-actions">
-          <button class="btn btn-primary" type="button" id="downloadPhrasesBtn">Скачать 5000 фраз</button>
-          <button class="btn btn-ghost" type="button" id="showSamplePhrasesBtn">Показать 120 фраз</button>
-        </div>
+        <p class="chat-entry-note">Все вспомогательные кнопки и админ-блоки теперь спрятаны в профиль и модальные окна.</p>
       </div>
-      <pre class="phrase-code" id="phraseCodeBlock" aria-label="Скрипт генерации"></pre>
-      <div class="phrase-sample" id="phraseSampleList" aria-live="polite"></div>
+      <div class="chat-entry-glow" aria-hidden="true"></div>
     </div>
   </section>
+
+  <div class="chat-hub-overlay" id="chatHubOverlay" aria-hidden="true">
+    <div class="chat-hub" role="dialog" aria-modal="true" aria-labelledby="chatHubTitle">
+      <button class="chat-hub-close" type="button" id="chatHubCloseBtn" aria-label="Закрыть центр чата">&times;</button>
+      <header class="chat-hub-header">
+        <div>
+          <div class="chat-hub-kicker">Центр чата</div>
+          <h3 class="chat-hub-title" id="chatHubTitle">Боты, роли и фразы</h3>
+          <p class="chat-hub-sub">Мини-профили ботов, лента сообщений и полный справочник ролей вынесены в модальное окно.</p>
+        </div>
+        <div class="chat-hub-actions">
+          <button class="btn btn-primary" type="button" id="openChatDemoBtn">Открыть чат</button>
+          <button class="btn btn-ghost" type="button" data-open-chat-hub>Справочник ролей</button>
+        </div>
+      </header>
+
+      <div class="chat-hub-body">
+        <div class="chat-preview-column">
+          <div class="chat-mini-profiles" id="chatMiniProfiles" aria-live="polite"></div>
+          <div class="chat-demo-card">
+            <div class="chat-demo-kicker">Чат-демо</div>
+            <h3 class="chat-demo-title">Переписка мини-профилей</h3>
+            <p class="chat-demo-sub">Теперь это та же лента, что и в модальном окне: плавные паузы, ролевая палитра и обращения к пользователю.</p>
+            <p class="chat-demo-sub chat-demo-limit" id="chatMessageLimitInfo"></p>
+            <div class="chat-demo-actions">
+              <button class="btn btn-primary" type="button" id="closeChatDemoBtn">Свернуть чат</button>
+              <button class="btn btn-ghost" type="button" id="fillChatWithPhraseBtn">Вставить фразу</button>
+            </div>
+            <div class="chat-demo-preview" id="chatDemoPreview" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div class="role-panels">
+          <div class="role-grid" id="roleGrid" aria-live="polite"></div>
+          <aside class="role-admin-panel" aria-label="Админ-панель ролей">
+            <div class="role-admin-kicker">Админ-панель</div>
+            <h3>99 слотов под ботов</h3>
+            <p>Все роли, кроме главного админа, стартуют с holder: bot_001…bot_099 и ждут выдачи пользователям.</p>
+            <ul class="role-admin-list">
+              <li>Выдавать/снимать роли могут assign_roles: Главный админ, Супер-админ, Модераторы, Bot Manager, Mentor+, Guardian.</li>
+              <li>Флаг listen_all_tracks даёт бесплатное прослушивание в плеере. Список помечен на карточке роли.</li>
+              <li>visibleInProfile включает бейдж в профиле, а defaultBot подсвечивает служебные роли.</li>
+            </ul>
+            <div class="role-access-hint">
+              <strong>Бесплатное прослушивание:</strong> VIP, Partner, Label Owner, Sponsor, Investor, Hall of Fame, DJ и другие роли с флагом listen_all_tracks.
+            </div>
+          </aside>
+        </div>
+
+        <div class="phrase-panel">
+          <div class="phrase-panel-top">
+            <div>
+              <div class="phrase-kicker">Фразы для чата</div>
+              <h3>Готовая выборка + генератор 5000</h3>
+              <p class="section-sub" id="phraseStats">Данные загружаются…</p>
+            </div>
+            <div class="phrase-actions">
+              <button class="btn btn-primary" type="button" id="downloadPhrasesBtn">Скачать 5000 фраз</button>
+              <button class="btn btn-ghost" type="button" id="showSamplePhrasesBtn">Показать 120 фраз</button>
+            </div>
+          </div>
+          <pre class="phrase-code" id="phraseCodeBlock" aria-label="Скрипт генерации"></pre>
+          <div class="phrase-sample" id="phraseSampleList" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="role-stats" id="roleStatsSummary"></div>
+    </div>
+  </div>
 
   <div class="role-modal-overlay" id="roleModalOverlay" aria-hidden="true">
     <div class="role-modal" role="dialog" aria-modal="true" aria-labelledby="roleModalTitle">
@@ -8966,6 +9067,10 @@
       </form>
     </div>
   </div>
+
+  <button class="chat-fab" id="chatFloatingBtn" type="button" aria-label="Открыть чат">
+    <i class="fa-solid fa-comments"></i>
+  </button>
 
 
 
@@ -9575,6 +9680,9 @@
       if (usersModalOverlay && usersModalOverlay.classList.contains("is-visible")) {
         closeUsersModal();
       }
+      if (chatHubOverlay && chatHubOverlay.classList.contains("is-visible")) {
+        closeChatHub();
+      }
       if (chatModalOverlay && chatModalOverlay.classList.contains("is-visible")) {
         closeChatModal();
       }
@@ -9648,10 +9756,17 @@
     const chatComposerForm = document.getElementById("chatComposerForm");
     const chatInput = document.getElementById("chatInput");
     const chatTyping = document.getElementById("chatTyping");
+    const chatHubOverlay = document.getElementById("chatHubOverlay");
+    const chatHubCloseBtn = document.getElementById("chatHubCloseBtn");
+    const openChatHubButtons = Array.from(document.querySelectorAll("[data-open-chat-hub]"));
+    const chatFloatingBtn = document.getElementById("chatFloatingBtn");
+    const chatEntryOpenModalBtn = document.getElementById("chatEntryOpenModalBtn");
+    const profileOpenChatBtn = document.getElementById("profileOpenChatBtn");
     const contactModalOverlay = document.getElementById("contactModalOverlay");
     const contactModalClose = document.getElementById("contactModalClose");
     const openContactModalBtn = document.getElementById("openContactModal");
     const contactMailtoBtnModal = document.getElementById("contactMailtoBtnModal");
+    const roleAdminPanel = document.querySelector(".role-admin-panel");
 
     let chatDataCache = null;
     let chatMessageHistory = [];
@@ -9665,6 +9780,11 @@
     let roleHolderOverrides = new Map();
     let activeRoleId = null;
     let phraseSampleCache = [];
+    const HIGH_RANK_ROLES = ["admin", "producer"];
+    const ADMIN_PANEL_TOGGLE_KEY = "avzal_admin_panels_allowed";
+    let adminPanelsAllowed = localStorage.getItem(ADMIN_PANEL_TOGGLE_KEY) === "true";
+    let chatFabNudgeTimeout = null;
+    let lastScrollY = window.scrollY || 0;
 
     async function loadChatData() {
       if (chatDataCache) {
@@ -9898,9 +10018,31 @@
       }
     }
 
+    function openChatHub() {
+      if (!chatHubOverlay) {
+        return;
+      }
+      hydrateChatPreview();
+      chatHubOverlay.classList.add("is-visible");
+      chatHubOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeChatHub() {
+      if (!chatHubOverlay) {
+        return;
+      }
+      chatHubOverlay.classList.remove("is-visible");
+      chatHubOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
     async function openChatModal() {
       if (!chatModalOverlay) {
         return;
+      }
+      if (chatHubOverlay && chatHubOverlay.classList.contains("is-visible")) {
+        closeChatHub();
       }
       try {
         const data = await loadChatData();
@@ -9931,6 +10073,27 @@
       stopBotChatLoop();
     }
 
+    openChatHubButtons.forEach(button => {
+      button.addEventListener("click", event => {
+        if (event && typeof event.preventDefault === "function") {
+          event.preventDefault();
+        }
+        openChatHub();
+      });
+    });
+
+    if (chatHubCloseBtn) {
+      chatHubCloseBtn.addEventListener("click", closeChatHub);
+    }
+
+    if (chatHubOverlay) {
+      chatHubOverlay.addEventListener("click", event => {
+        if (event.target === chatHubOverlay) {
+          closeChatHub();
+        }
+      });
+    }
+
     if (openChatDemoBtn) {
       openChatDemoBtn.addEventListener("click", () => {
         openChatModal();
@@ -9956,6 +10119,43 @@
           closeChatModal();
         }
       });
+    }
+
+    [chatEntryOpenModalBtn, profileOpenChatBtn, chatFloatingBtn].forEach(button => {
+      if (button) {
+        button.addEventListener("click", event => {
+          if (event && typeof event.preventDefault === "function") {
+            event.preventDefault();
+          }
+          openChatModal();
+        });
+      }
+    });
+
+    function nudgeChatButton(direction = "up") {
+      if (!chatFloatingBtn) {
+        return;
+      }
+      chatFloatingBtn.classList.remove("is-bounce-up", "is-bounce-down");
+      // reflow for restarting animation
+      void chatFloatingBtn.offsetWidth;
+      chatFloatingBtn.classList.add(direction === "down" ? "is-bounce-down" : "is-bounce-up");
+      if (chatFabNudgeTimeout) {
+        window.clearTimeout(chatFabNudgeTimeout);
+      }
+      chatFabNudgeTimeout = window.setTimeout(() => {
+        if (chatFloatingBtn) {
+          chatFloatingBtn.classList.remove("is-bounce-up", "is-bounce-down");
+        }
+      }, 420);
+    }
+
+    if (chatFloatingBtn) {
+      window.addEventListener("scroll", () => {
+        const direction = window.scrollY > lastScrollY ? "down" : "up";
+        nudgeChatButton(direction);
+        lastScrollY = window.scrollY;
+      }, { passive: true });
     }
 
     if (chatComposerForm) {
@@ -13380,6 +13580,8 @@
       const giftUserIdInput = document.getElementById("giftUserId");
       const giftAmountInput = document.getElementById("giftAmount");
       const adminGiftStatusEl = document.getElementById("adminGiftStatus");
+      const adminPanelsToggleBtn = document.getElementById("adminPanelsToggleBtn");
+      const adminPanelStateLabel = document.getElementById("adminPanelStateLabel");
 
       const headerCoinsBtn = document.getElementById("headerCoinsBtn");
       const headerCoinsPopover = document.getElementById("headerCoinsPopover");
@@ -13424,6 +13626,47 @@
       let profilePopoverController = null;
       let usersPopoverController = null;
       let mixPopoverController = null;
+
+      function isHighRankUser(user) {
+        if (!user) {
+          return false;
+        }
+        return HIGH_RANK_ROLES.includes((user.role || "").toLowerCase());
+      }
+
+      function canUseAdminPanels(user) {
+        return adminPanelsAllowed && isHighRankUser(user);
+      }
+
+      function setAdminPanelPreference(enabled) {
+        adminPanelsAllowed = Boolean(enabled);
+        localStorage.setItem(ADMIN_PANEL_TOGGLE_KEY, adminPanelsAllowed ? "true" : "false");
+        updateAdminPanelGateUI();
+      }
+
+      function updateAdminPanelGateUI() {
+        const canShow = canUseAdminPanels(currentUser);
+        if (adminToolsEl) {
+          adminToolsEl.classList.toggle("is-visible", canShow);
+          if (!canShow && adminGiftStatusEl) {
+            adminGiftStatusEl.textContent = "";
+          }
+        }
+        if (roleAdminPanel) {
+          roleAdminPanel.classList.toggle("is-locked", !canShow);
+          roleAdminPanel.setAttribute("aria-disabled", (!canShow).toString());
+        }
+        if (adminPanelsToggleBtn) {
+          const isOwner = isHighRankUser(currentUser) && (currentUser?.role || "").toLowerCase() === "admin";
+          adminPanelsToggleBtn.disabled = !isOwner;
+          adminPanelsToggleBtn.textContent = adminPanelsAllowed ? "Отключить панели" : "Включить панели";
+        }
+        if (adminPanelStateLabel) {
+          adminPanelStateLabel.textContent = adminPanelsAllowed
+            ? "Админ-панели открыты для высшего ранга."
+            : "Доступ к админ-панелям закрыт.";
+        }
+      }
 
       refreshOnlineCount();
       window.setInterval(refreshOnlineCount, 12000);
@@ -14811,13 +15054,7 @@
         } else if (profileRoleEl) {
           applyRoleBadge(profileRoleEl, "listener");
         }
-        if (adminToolsEl) {
-          const canGift = isLoggedIn && ["admin", "moderator"].includes((currentUser.role || "").toLowerCase());
-          adminToolsEl.classList.toggle("is-visible", canGift);
-          if (!canGift && adminGiftStatusEl) {
-            adminGiftStatusEl.textContent = "";
-          }
-        }
+        updateAdminPanelGateUI();
         updateHeaderCoins(isLoggedIn ? currentUser.coins : 0);
         updateHeaderProfileNameDisplay(isLoggedIn ? currentUser.name : "Войти");
       updateProfilePopoverState();
@@ -15264,12 +15501,18 @@
         });
       }
 
+      if (adminPanelsToggleBtn) {
+        adminPanelsToggleBtn.addEventListener("click", () => {
+          setAdminPanelPreference(!adminPanelsAllowed);
+        });
+      }
+
       if (adminGiftForm) {
         adminGiftForm.addEventListener("submit", event => {
           event.preventDefault();
-          if (!currentUser || !["admin", "moderator"].includes((currentUser.role || "").toLowerCase())) {
+          if (!canUseAdminPanels(currentUser)) {
             if (adminGiftStatusEl) {
-              adminGiftStatusEl.textContent = "Дарить баланс могут только администраторы и модераторы.";
+              adminGiftStatusEl.textContent = "Дарение доступно только высшему рангу и после разрешения главного админа.";
             }
             return;
           }
