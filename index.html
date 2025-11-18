@@ -306,266 +306,6 @@
       padding-bottom: 4px;
     }
 
-    .platforms-section {
-      margin-top: 26px;
-      padding: 24px;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(140deg, rgba(14, 18, 34, 0.9), rgba(8, 10, 20, 0.96));
-      border: 1px solid rgba(74, 100, 189, 0.3);
-      box-shadow: 0 16px 36px rgba(4, 6, 12, 0.75);
-    }
-
-    .platforms-layout {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .platforms-hero-card {
-      padding: 18px;
-      border-radius: var(--radius-md);
-      background: radial-gradient(circle at 16% 22%, rgba(47, 107, 255, 0.12), transparent 32%),
-        linear-gradient(145deg, rgba(14, 20, 44, 0.96), rgba(12, 16, 32, 0.86));
-      border: 1px solid rgba(73, 111, 215, 0.38);
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 14px;
-      align-items: center;
-    }
-
-    .platforms-hero-text {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .platforms-hero-kicker {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.62);
-    }
-
-    .platforms-hero-title {
-      font-size: 20px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .platforms-hero-desc {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .platforms-hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .platforms-hero-badge {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(47, 107, 255, 0.16);
-      color: #c7d6ff;
-      border: 1px solid rgba(47, 107, 255, 0.34);
-      font-size: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .platforms-hero-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 72px;
-      height: 72px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 0 0 1px rgba(47, 107, 255, 0.08);
-      font-size: 13px;
-      text-align: center;
-      line-height: 1.2;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-    }
-
-    .platforms-panel {
-      padding: 18px;
-      border-radius: var(--radius-md);
-      background: rgba(14, 18, 34, 0.92);
-      border: 1px solid rgba(59, 90, 177, 0.34);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .platforms-panel p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .platforms-cta {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .platforms-open-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(73, 111, 215, 0.55);
-      background: linear-gradient(135deg, rgba(47, 107, 255, 0.16), rgba(47, 107, 255, 0.05));
-      color: #cfe3ff;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      cursor: pointer;
-      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-    }
-
-    .platforms-open-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(15, 28, 64, 0.65);
-      border-color: rgba(109, 144, 255, 0.75);
-    }
-
-    .platforms-compact-note {
-      font-size: 13px;
-      color: #a8b7df;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .platforms-compact-note i {
-      color: var(--accent);
-    }
-
-    .platforms-mini-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .platforms-mini-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(59, 90, 177, 0.42);
-      background: rgba(14, 18, 34, 0.75);
-      color: #d5dfff;
-      font-size: 12px;
-      line-height: 1.2;
-    }
-
-    .platforms-mini-chip i {
-      color: var(--accent);
-    }
-
-    .platforms-section .platforms-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-    }
-
-    .platforms-section .platform-card {
-      padding: 14px;
-      border-radius: var(--radius-md);
-      background: rgba(14, 18, 34, 0.92);
-      border: 1px solid rgba(59, 90, 177, 0.34);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      box-shadow: var(--shadow-sm);
-      min-height: 100%;
-    }
-
-    .platforms-section .platform-card h3 {
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .platforms-section .platform-card p {
-      color: rgba(203, 209, 239, 0.86);
-      font-size: 13px;
-    }
-
-    .platforms-section .platform-card small {
-      color: rgba(255, 255, 255, 0.6);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .platforms-section .platform-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .platforms-section .platform-pill {
-      padding: 6px 10px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 12px;
-      color: rgba(226, 233, 255, 0.92);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      line-height: 1.1;
-    }
-
-    .platforms-section .platform-pill i {
-      color: var(--accent);
-      opacity: 0.8;
-    }
-
-    .platforms-section .platforms-footnote {
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(203, 209, 239, 0.7);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .platforms-section .platforms-packages {
-      margin-top: 10px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 10px;
-    }
-
-    .platforms-section .platforms-package {
-      padding: 12px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed rgba(74, 100, 189, 0.5);
-      font-size: 12px;
-      color: rgba(214, 220, 255, 0.86);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .platforms-section .platforms-package strong {
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #cdd7ff;
-      font-size: 12px;
-    }
 
     nav a::after {
       content: "";
@@ -1301,7 +1041,11 @@
 
     .bio-modal,
     .platforms-modal {
-      width: min(820px, 94vw);
+      width: min(940px, 95vw);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: radial-gradient(circle at 20% 20%, rgba(74, 117, 255, 0.12), transparent 40%),
@@ -1342,7 +1086,7 @@
 
     .bio-modal-sub,
     .platforms-modal-sub {
-      margin: 10px 0 20px;
+      margin: 6px 0 12px;
       color: rgba(195, 204, 238, 0.8);
       line-height: 1.5;
     }
@@ -1387,17 +1131,81 @@
       color: rgba(218, 224, 247, 0.9);
     }
 
-    .platforms-list {
+    .platforms-modal-header {
       display: flex;
-      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .platforms-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .platforms-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      color: rgba(229, 234, 255, 0.9);
+      letter-spacing: 0.04em;
+    }
+
+    .platforms-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      color: rgba(195, 204, 238, 0.82);
+    }
+
+    .platforms-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+
+    .platforms-legend .is-active {
+      border-color: rgba(110, 231, 183, 0.5);
+      color: #e9fffa;
+    }
+
+    .platforms-legend .is-available {
+      border-style: solid;
+      border-color: rgba(255, 205, 111, 0.5);
+    }
+
+    .platforms-legend .is-upcoming {
+      border-color: rgba(149, 163, 218, 0.4);
+      color: rgba(195, 204, 238, 0.82);
+    }
+
+    .platforms-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 12px;
+      max-height: 60vh;
+      overflow: auto;
+      padding-right: 6px;
     }
 
     .platforms-modal-group {
       padding: 12px;
       border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
 
     .platforms-modal-group-title {
@@ -1445,6 +1253,12 @@
     .platform-chip.is-available {
       border-style: dashed;
       border-color: rgba(255, 205, 111, 0.8);
+    }
+
+    .platform-chip.is-upcoming {
+      border-style: dashed;
+      border-color: rgba(160, 178, 235, 0.5);
+      color: rgba(198, 206, 240, 0.86);
     }
 
     .platform-chip-icon {
@@ -2512,6 +2326,14 @@
       margin-bottom: 16px;
     }
 
+    .section-meta {
+      display: grid;
+      gap: 6px;
+      align-items: start;
+      justify-items: end;
+      text-align: right;
+    }
+
     .section-title {
       font-size: 18px;
       text-transform: uppercase;
@@ -2521,6 +2343,19 @@
     .section-sub {
       font-size: 12px;
       color: var(--muted);
+    }
+
+    .section-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .section-hint {
+      font-size: 12px;
+      color: rgba(175, 188, 227, 0.86);
     }
 
     .moscow-time {
@@ -6506,19 +6341,6 @@
       gap: 16px;
     }
 
-    .platforms-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .platforms-hero-card {
-      grid-template-columns: 1fr;
-    }
-
-    .platforms-hero-pill {
-      width: 100%;
-      height: auto;
-      padding: 12px;
-    }
 
     .hero-avatar {
       width: 96px;
@@ -7117,53 +6939,6 @@
   </div>
 </section>
 
-    <section id="platforms" class="platforms-section">
-      <div class="section-header">
-        <h2 class="section-title">Площадки релизов</h2>
-        <p class="section-sub">
-          Весь каталог выходит сразу на основных российских сервисах, международных площадках и в соцсетях.
-        </p>
-      </div>
-
-      <div class="platforms-layout">
-        <div class="platforms-hero-card">
-          <div class="platforms-hero-text">
-            <div class="platforms-hero-kicker">Дистрибуция AVZALØV</div>
-            <div class="platforms-hero-title">29 площадок</div>
-            <p class="platforms-hero-desc">
-              Русские лейблы всегда заливают релизы на полный набор сервисов: от Яндекс.Музыки до TikTok Sounds и Beatport.
-            </p>
-            <div class="platforms-hero-badges">
-              <span class="platforms-hero-badge"><i class="fa-solid fa-location-dot"></i>Россия + СНГ</span>
-              <span class="platforms-hero-badge"><i class="fa-solid fa-globe"></i>Международно</span>
-              <span class="platforms-hero-badge"><i class="fa-solid fa-bolt"></i>Соцсети и клипы</span>
-            </div>
-          </div>
-          <div class="platforms-hero-pill">Always<br />Live</div>
-        </div>
-
-        <div class="platforms-panel">
-          <p>
-            Сами ссылки прячутся в модальном окне, а на карточке трека остаётся компактный бейдж с количеством площадок.
-            Наведи на иконку внутри модалки — появится описание сервиса.
-          </p>
-          <div class="platforms-mini-chips">
-            <span class="platforms-mini-chip" title="VK Music, Яндекс, СберЗвук, BOOM"><i class="fa-solid fa-flag"></i>Русские</span>
-            <span class="platforms-mini-chip" title="Apple Music, Spotify, Deezer, Amazon"><i class="fa-solid fa-globe"></i>Глобальные</span>
-            <span class="platforms-mini-chip" title="TikTok Sounds, Instagram Music, Shorts"><i class="fa-solid fa-share-nodes"></i>Соцсети</span>
-            <span class="platforms-mini-chip" title="YouTube, VK Видео, RuTube"><i class="fa-solid fa-video"></i>Видео</span>
-            <span class="platforms-mini-chip" title="Beatport, Traxsource, Juno"><i class="fa-solid fa-record-vinyl"></i>DJ</span>
-          </div>
-          <div class="platforms-cta">
-            <button class="platforms-open-btn" type="button" id="openPlatformsCatalogBtn">
-              <i class="fa-solid fa-globe"></i>
-              <span>Открыть модалку со списком площадок</span>
-            </button>
-            <span class="platforms-compact-note"><i class="fa-solid fa-circle-info"></i>Каждый трек раскрывает свой список площадок внутри окна.</span>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section id="profile">
       <div class="section-header">
@@ -7715,22 +7490,29 @@
     </section>
 
 
-    <section id="tracks">
-      <div class="section-header">
-        <h2 class="section-title">Релизы</h2>
-        <div>
-          <p class="section-sub">
-            Все синглы, EP и альбомы в одном списке.
-          </p>
-          <div class="moscow-time" id="moscowTime">
-            <i class="fa-solid fa-clock"></i>
-            <span>МСК: загружается…</span>
+      <section id="tracks">
+        <div class="section-header">
+          <h2 class="section-title">Релизы</h2>
+          <div class="section-meta">
+            <p class="section-sub">
+              Все синглы, EP и альбомы в одном списке.
+            </p>
+            <div class="section-actions">
+              <button class="btn btn-ghost btn-xs" type="button" id="openPlatformsCatalogBtn" title="Каталог площадок релизов">
+                <i class="fa-solid fa-globe"></i>
+                Каталог площадок
+              </button>
+              <span class="section-hint">Ссылки открываются только в модальном окне.</span>
+            </div>
+            <div class="moscow-time" id="moscowTime">
+              <i class="fa-solid fa-clock"></i>
+              <span>МСК: загружается…</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="tracks-grid">
-      </div>
-    </section>
+        <div class="tracks-grid">
+        </div>
+      </section>
 
     <section id="clips">
       <div class="section-header">
@@ -8460,9 +8242,24 @@
       <aside class="contact-methods">
         <h3>Другие способы связи</h3>
         <ul class="messengers-list">
-          <li><a href="https://t.me/avzalov19941994" target="_blank" rel="noopener">Telegram — @avzalov19941994</a></li>
-          <li><a href="https://chat.whatsapp.com/HOMj3afDgUkDacZVRKa7VF" target="_blank" rel="noopener">WhatsApp — +7XXXXXXXXXX</a></li>
-          <!-- остальные способы по необходимости -->
+          <li>
+            <a class="messenger-link" href="https://t.me/Ruzilavzalov" target="_blank" rel="noopener">
+              <img src="img/icons/telegram.svg" alt="Telegram" class="messenger-icon" />
+              <div class="messenger-text">
+                <span class="messenger-label">Telegram</span>
+                <span class="messenger-handle">@Ruzilavzalov</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="messenger-link" href="https://chat.whatsapp.com/HOMj3afDgUkDacZVRKa7VF" target="_blank" rel="noopener">
+              <img src="img/icons/whatsapp.svg" alt="WhatsApp" class="messenger-icon" />
+              <div class="messenger-text">
+                <span class="messenger-label">WhatsApp</span>
+                <span class="messenger-handle">Открытый чат</span>
+              </div>
+            </a>
+          </li>
         </ul>
       </aside>
     </div>
@@ -8570,9 +8367,19 @@
   <div class="platforms-modal-overlay" id="platformsModalOverlay" aria-hidden="true">
     <div class="platforms-modal" role="dialog" aria-modal="true" aria-labelledby="platformsModalTitle">
       <button class="platforms-modal-close" type="button" aria-label="Закрыть список площадок" data-platforms-close>&times;</button>
-      <div class="platforms-modal-kicker">Стриминги</div>
-      <h3 class="platforms-modal-title" id="platformsModalTitle">Площадки трека</h3>
-      <p class="platforms-modal-sub" id="platformsModalSub">Все площадки для выбранного трека.</p>
+      <div class="platforms-modal-header">
+        <div>
+          <div class="platforms-modal-kicker">Стриминги</div>
+          <h3 class="platforms-modal-title" id="platformsModalTitle">Площадки трека</h3>
+          <p class="platforms-modal-sub" id="platformsModalSub">Все площадки для выбранного трека.</p>
+        </div>
+        <div class="platforms-meta" id="platformsModalMeta"></div>
+      </div>
+      <div class="platforms-legend">
+        <span class="is-active"><i class="fa-solid fa-link"></i> Активная ссылка</span>
+        <span class="is-available"><i class="fa-solid fa-check"></i> Доступно без прямой ссылки</span>
+        <span class="is-upcoming"><i class="fa-solid fa-hourglass"></i> Готовится</span>
+      </div>
       <div class="platforms-list" id="platformsModalList">
         <p class="chart-modal-empty">Выбери трек, чтобы увидеть ссылки на сервисы.</p>
       </div>
@@ -8781,6 +8588,7 @@
     const platformsModalOverlay = document.getElementById("platformsModalOverlay");
     const platformsModalTitle = document.getElementById("platformsModalTitle");
     const platformsModalSub = document.getElementById("platformsModalSub");
+    const platformsModalMeta = document.getElementById("platformsModalMeta");
     const platformsModalList = document.getElementById("platformsModalList");
     const platformsModalCloseButtons = Array.from(document.querySelectorAll("[data-platforms-close]"));
     const openPlatformsCatalogBtn = document.getElementById("openPlatformsCatalogBtn");
@@ -8907,9 +8715,9 @@
       platforms: {
         title: "Площадки релизов",
         kicker: "Дистрибуция",
-        description: "Быстрый список всех сервисов: российские, международные, соцсети и DJ-площадки.",
-        sectionId: "platforms",
-        cta: "Открыть площадки"
+        description: "Весь список сервисов доступен только внутри модального окна, без отдельного блока на главной.",
+        cta: "Открыть площадки",
+        action: () => openPlatformsModal(null, DEFAULT_PLATFORM_LINKS, "Площадки релизов", "released")
       },
       tracks: {
         title: "Релизы",
@@ -11615,32 +11423,75 @@
         platformsModalList.innerHTML = '<p class="chart-modal-empty">Ссылки на площадки появятся позже.</p>';
         return;
       }
-      platformsModalList.innerHTML = platforms
-        .map(platform => {
-          const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
-          const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
-          const hasLink = platform.available && platform.url;
-          const actionMarkup = hasLink
-            ? `<a class="btn btn-primary btn-xs" href="${platform.url}" target="_blank" rel="noopener">Слушать</a>`
-            : '<button class="btn btn-ghost btn-xs" type="button" disabled>Скоро</button>';
-          const status = hasLink ? "Активная ссылка" : platform.available ? "Доступно без ссылки" : "Ссылка готовится";
+      const groups = platforms.reduce((acc, platform) => {
+        const groupKey = platform.category || platform.type || "other";
+        if (!acc[groupKey]) {
+          acc[groupKey] = [];
+        }
+        acc[groupKey].push(platform);
+        return acc;
+      }, {});
+
+      const groupLabels = {
+        ru: "Российские",
+        social: "Соцсети",
+        video: "Видео",
+        dj: "DJ",
+        global: "Международные",
+        regional: "Региональные",
+        other: "Дополнительно"
+      };
+
+      const groupIcons = {
+        ru: "fa-flag",
+        social: "fa-share-nodes",
+        video: "fa-video",
+        dj: "fa-record-vinyl",
+        global: "fa-globe",
+        regional: "fa-earth-europe",
+        other: "fa-music"
+      };
+
+      const groupOrder = ["ru", "global", "social", "video", "dj", "regional", "other"];
+      const extraGroupKeys = Object.keys(groups).filter(key => !groupOrder.includes(key));
+      const orderedKeys = [...groupOrder, ...extraGroupKeys];
+      const sections = orderedKeys
+        .filter(key => Array.isArray(groups[key]) && groups[key].length)
+        .map(key => {
+          const label = groupLabels[key] || "Площадки";
+          const icon = groupIcons[key] || "fa-music";
+          const chips = groups[key]
+            .map(platform => {
+              const iconClass = platform.icon && platform.icon.startsWith("fa-") ? platform.icon : "fa-music";
+              const iconPrefix = iconClass === "fa-music" ? "fa-solid" : "fa-brands";
+              const hasLink = platform.available && platform.url;
+              const status = hasLink
+                ? "Активная ссылка"
+                : platform.available
+                  ? "Доступно без прямой ссылки"
+                  : "Готовится";
+              const stateClass = hasLink ? "is-active" : platform.available ? "is-available" : "is-upcoming";
+              const description = platform.description || "Стриминговая площадка";
+              const title = `${platform.label} — ${description}. ${status}.`;
+              const content = `
+                <span class="platform-chip-icon"><i class="${iconPrefix} ${iconClass}"></i></span>
+                <span>${platform.short || platform.label}</span>
+              `;
+              if (hasLink) {
+                return `<a class="platform-chip ${stateClass}" href="${platform.url}" target="_blank" rel="noopener" title="${title}">${content}</a>`;
+              }
+              return `<div class="platform-chip ${stateClass}" title="${title}" role="text">${content}<small>${status}</small></div>`;
+            })
+            .join("");
           return `
-            <div class="platform-card">
-              <div class="platform-card-header">
-                <div class="platform-card-icon"><i class="${iconPrefix} ${iconClass}"></i></div>
-                <div>
-                  <div class="platform-card-title">${platform.label}</div>
-                  <div class="platform-card-note">${status}</div>
-                </div>
-              </div>
-              <div class="platform-card-actions">
-                ${actionMarkup}
-                <span class="platform-card-note">${platform.short || platform.label}</span>
-              </div>
+            <div class="platforms-modal-group">
+              <div class="platforms-modal-group-title"><i class="fa-solid ${icon}"></i>${label}</div>
+              <div class="platform-chips">${chips}</div>
             </div>
           `;
-        })
-        .join("");
+        });
+
+      platformsModalList.innerHTML = sections.join("") || '<p class="chart-modal-empty">Ссылки на площадки появятся позже.</p>';
     }
 
     function openPlatformsModal(card, overridePlatforms = null, heading = null, releaseStateOverride = null) {
@@ -11666,7 +11517,18 @@
         platformsModalTitle.textContent = heading ? heading : `Площадки: ${title}`;
       }
       if (platformsModalSub) {
-        platformsModalSub.textContent = "Все стриминговые ссылки трека. Наведите на иконку, чтобы увидеть описание.";
+        platformsModalSub.textContent = "Все стриминговые ссылки собраны внутри одного окна и разбиты по категориям.";
+      }
+      if (platformsModalMeta) {
+        const activeCount = platforms.filter(platform => platform.available && platform.url).length;
+        const availableCount = platforms.filter(platform => platform.available && !platform.url).length;
+        const upcomingCount = Math.max(0, platforms.length - activeCount - availableCount);
+        platformsModalMeta.innerHTML = `
+          <span class="platforms-meta-pill"><i class="fa-solid fa-layer-group"></i>${platforms.length} сервисов</span>
+          <span class="platforms-meta-pill"><i class="fa-solid fa-link"></i>${activeCount} со ссылками</span>
+          <span class="platforms-meta-pill"><i class="fa-solid fa-check"></i>${availableCount} включено</span>
+          <span class="platforms-meta-pill"><i class="fa-solid fa-hourglass"></i>${upcomingCount} готовится</span>
+        `;
       }
       renderPlatformsModalList(platforms);
       platformsModalOverlay.classList.add("is-visible");
