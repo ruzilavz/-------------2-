@@ -1,5 +1,8 @@
 window.RELEASES_TODAY = "2025-11-15";
 window.RELEASED_TRACKS_DATA = [
+  { slug: "davyl", title: "Davyl / Давыл", releaseDate: "01.12.2025", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
+  { slug: "the-psychopath", title: "The Psychopath / Психопат", releaseDate: "03.12.2025", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
+  { slug: "teapot", title: "Teapot / Чайник", releaseDate: "05.12.2025", access: "early-access", price: 1, languages: ["ru", "tt"], copyright: "© 2025 AVZALØV. All rights reserved.", plays: Math.floor(Math.random() * 1000) },
   {
     slug: "davyl",
     title: "Davyl",
