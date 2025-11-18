@@ -362,6 +362,98 @@
       justify-content: center;
     }
 
+    .header-chart-card {
+      flex: 1 1 280px;
+      min-width: 260px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(140deg, rgba(12, 15, 32, 0.95), rgba(6, 8, 18, 0.9));
+      box-shadow: 0 24px 45px rgba(0, 2, 18, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      order: 2;
+    }
+
+    .header-chart-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .header-chart-kicker {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .header-chart-title {
+      font-size: 19px;
+      margin: 2px 0 0;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+
+    .header-chart-count {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .header-chart-mini-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .header-chart-mini-item {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .header-chart-mini-rank {
+      font-weight: 700;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    .header-chart-mini-name {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .header-chart-mini-value {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .header-chart-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .header-chart-status {
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+    }
+
     .mix-button-wrapper {
       position: relative;
       display: flex;
