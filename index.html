@@ -2752,6 +2752,131 @@
       gap: 24px;
     }
 
+    .track-chart-panel {
+      margin: 18px 0 26px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(93, 128, 217, 0.28);
+      background: linear-gradient(135deg, rgba(16, 24, 52, 0.9), rgba(11, 15, 30, 0.95));
+      box-shadow: 0 14px 32px rgba(4, 6, 14, 0.5), 0 0 26px rgba(86, 132, 255, 0.12);
+    }
+
+    .track-chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .track-chart-header h3 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+    }
+
+    .track-chart-plays {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(187, 197, 236, 0.85);
+    }
+
+    .track-chart-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .track-chart-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(18, 22, 40, 0.65);
+      border: 1px solid rgba(87, 116, 203, 0.2);
+      box-shadow: 0 10px 22px rgba(3, 5, 10, 0.42);
+    }
+
+    .track-chart-rank {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(69, 107, 255, 0.32), rgba(47, 69, 139, 0.28));
+      border: 1px solid rgba(96, 129, 219, 0.38);
+      font-weight: 700;
+      font-size: 14px;
+      color: #eaf0ff;
+      flex-shrink: 0;
+    }
+
+    .track-chart-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .track-chart-meta strong {
+      font-size: 14px;
+      color: #f6f7ff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-chart-sub {
+      font-size: 11px;
+      color: rgba(186, 196, 235, 0.78);
+    }
+
+    .track-chart-trend {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(198, 207, 244, 0.86);
+    }
+
+    .track-chart-trend i {
+      font-size: 10px;
+    }
+
+    .track-chart-trend.is-up {
+      color: #6bf2ca;
+    }
+
+    .track-chart-trend.is-down {
+      color: #ff93b0;
+    }
+
+    .track-chart-trend.is-new {
+      color: #7cc7ff;
+    }
+
+    .track-chart-plays {
+      margin-left: auto;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: rgba(206, 214, 245, 0.88);
+      text-align: right;
+      min-width: 96px;
+    }
+
+    .track-chart-plays strong {
+      font-size: 13px;
+      color: #f3f5ff;
+    }
+
     .track-group {
       display: flex;
       flex-direction: column;
@@ -7244,10 +7369,14 @@
     const usersModalTriggers = [headerUsersBtn, document.getElementById("openUsersSectionBtn")].filter(Boolean);
 
     const tracksGrid = document.querySelector("#tracks .tracks-grid");
+    const trackChartPanel = document.getElementById("trackChartPanel");
+    const trackChartListEl = document.getElementById("trackChartList");
+    const trackChartSummaryEl = document.getElementById("trackChartSummary");
 
     const RUZCOIN_PRICE_RUB = 25;
     const TRACK_ID_ENDPOINT = "data/track-ids.json";
     const TRACK_CHART_COUNTS_KEY = "avzalov_track_chart_counts_v1";
+    const TRACK_CHART_PREVIOUS_POSITIONS_KEY = "avzalov_track_chart_prev_positions_v1";
     const VOLUME_STORAGE_KEY = "avzalov-volume";
     const onlineCountBase = 58 + Math.floor(Math.random() * 14);
     let liveOnlineCount = onlineCountBase;
@@ -8368,6 +8497,7 @@
     const trackTitleCache = new Map();
     let trackIdRegistry = new Map();
     let trackChartCounts = loadTrackChartCounts();
+    let trackChartPrevPositions = loadTrackChartPrevPositions();
     let clipLibrary = [];
     let getPersonalPlayCount = () => 0;
     let updateTrackPersonalPlayDisplay = () => {};
@@ -8392,6 +8522,29 @@
         localStorage.setItem(TRACK_CHART_COUNTS_KEY, JSON.stringify(trackChartCounts));
       } catch (error) {
         console.warn("Не удалось сохранить счётчик чарта:", error);
+      }
+    }
+
+    function loadTrackChartPrevPositions() {
+      try {
+        const raw = localStorage.getItem(TRACK_CHART_PREVIOUS_POSITIONS_KEY);
+        if (!raw) {
+          return {};
+        }
+        const parsed = JSON.parse(raw);
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch (error) {
+        console.warn("Не удалось загрузить историю позиций чарта:", error);
+        return {};
+      }
+    }
+
+    function saveTrackChartPrevPositions(snapshot = {}) {
+      trackChartPrevPositions = snapshot;
+      try {
+        localStorage.setItem(TRACK_CHART_PREVIOUS_POSITIONS_KEY, JSON.stringify(trackChartPrevPositions));
+      } catch (error) {
+        console.warn("Не удалось сохранить историю позиций чарта:", error);
       }
     }
 
@@ -8455,6 +8608,219 @@
       trackChartCounts[uniqueId] = current + 1;
       saveTrackChartCounts();
       refreshTrackChartHeat();
+      if (Array.isArray(trackLibrary) && trackLibrary.length) {
+        renderTrackChart(trackLibrary);
+      }
+    }
+
+    function describeTrackChartTrend(slug, currentRank) {
+      const previousRank = Number(trackChartPrevPositions[slug]);
+      if (!Number.isFinite(previousRank) || previousRank <= 0) {
+        return { label: "Новый", className: "is-new", icon: "fa-bolt", aria: "Новая позиция в чарте" };
+      }
+      const delta = previousRank - currentRank;
+      if (delta > 0) {
+        return { label: `▲ +${delta}`, className: "is-up", icon: "fa-arrow-trend-up", aria: `Рост на ${delta} позиций` };
+      }
+      if (delta < 0) {
+        return { label: `▼ ${Math.abs(delta)}`, className: "is-down", icon: "fa-arrow-trend-down", aria: `Падение на ${Math.abs(delta)} позиций` };
+      }
+      return { label: "→ 0", className: "", icon: "fa-arrows-left-right", aria: "Без изменений" };
+    }
+
+    function buildTrackChartEntries(library = []) {
+      if (!Array.isArray(library)) {
+        return [];
+      }
+
+      return library
+        .filter(track => track && track.slug && track.availability !== "upcoming")
+        .map(track => {
+          const basePlays = Number(track.plays) || 0;
+          const chartPlays = getTrackChartPlayCount(track.slug);
+          const metaLine = [track.releaseLabel, track.availabilityLabel].filter(Boolean).join(" · ") || "В чарте";
+          return {
+            slug: track.slug,
+            title: track.title || track.slug,
+            plays: Math.max(0, basePlays + chartPlays),
+            metaLine
+          };
+        })
+        .filter(entry => entry.plays > 0)
+        .sort((a, b) => {
+          if (a.plays === b.plays) {
+            return a.title.localeCompare(b.title, "ru", { sensitivity: "base" });
+          }
+          return b.plays - a.plays;
+        })
+        .slice(0, 10);
+    }
+
+    function renderTrackChart(library = trackLibrary) {
+      if (!trackChartListEl) {
+        return;
+      }
+
+      const entries = buildTrackChartEntries(library);
+      trackChartListEl.innerHTML = "";
+
+      if (!entries.length) {
+        trackChartListEl.innerHTML = `
+          <li class="track-chart-item">
+            <div class="track-chart-rank">—</div>
+            <div class="track-chart-meta">
+              <strong>Недостаточно данных</strong>
+              <span class="track-chart-sub">Ждём прослушивания</span>
+            </div>
+            <div class="track-chart-plays"><strong>0</strong> PLAY</div>
+          </li>
+        `;
+        if (trackChartSummaryEl) {
+          trackChartSummaryEl.textContent = "Слушай, чтобы попасть в список";
+          trackChartSummaryEl.title = "Разыграем места в чарте, как только появятся прослушивания";
+        }
+        saveTrackChartPrevPositions({});
+        return;
+      }
+
+      const snapshot = {};
+      const fragment = document.createDocumentFragment();
+      entries.forEach((entry, index) => {
+        const rank = index + 1;
+        const trend = describeTrackChartTrend(entry.slug, rank);
+        const item = document.createElement("li");
+        item.className = "track-chart-item";
+        item.innerHTML = `
+          <div class="track-chart-rank">${rank}</div>
+          <div class="track-chart-meta">
+            <strong>${entry.title}</strong>
+            <span class="track-chart-sub">${entry.metaLine}</span>
+            <span class="track-chart-trend ${trend.className}" aria-label="${trend.aria}"><i class="fa-solid ${trend.icon}"></i>${trend.label}</span>
+          </div>
+          <div class="track-chart-plays"><strong>${formatCount(entry.plays)}</strong> PLAY</div>
+        `;
+        fragment.appendChild(item);
+        snapshot[entry.slug] = rank;
+      });
+
+      trackChartListEl.appendChild(fragment);
+
+      const leader = entries[0];
+      const totalPlays = entries.reduce((sum, entry) => sum + entry.plays, 0);
+      if (trackChartSummaryEl) {
+        trackChartSummaryEl.textContent = `Лидер: ${leader.title} · ${formatCount(leader.plays)} PLAY`;
+        trackChartSummaryEl.title = `Всего в чарте: ${formatCount(totalPlays)} прослушиваний`;
+      }
+
+      saveTrackChartPrevPositions(snapshot);
+    }
+
+    const AUTO_PLAY_INTERVAL_MS = 8000;
+    const AUTO_PLAY_CHANCE = 0.45;
+    const AUTO_PLAY_BURST_MIN = 1;
+    const AUTO_PLAY_BURST_MAX = 3;
+    const AUTO_PLAY_FOCUS_BOOST = 1.8;
+    const AUTO_PLAY_PUBLIC_BOOST = 1.25;
+
+    let autoPlayTimer = null;
+    let autoPlayPool = [];
+
+    function isTrackFocusedByMix(slug) {
+      const activeEvent = findActiveMixEvent();
+      if (!activeEvent || !Array.isArray(activeEvent.focus)) {
+        return false;
+      }
+      return activeEvent.focus.some(entry => entry === slug);
+    }
+
+    function buildAutoPlayPool(library = []) {
+      if (!Array.isArray(library)) {
+        return [];
+      }
+      return library
+        .filter(track => track && track.slug && track.availability !== "upcoming")
+        .map(track => {
+          const releasedWeight = track.releaseState === "released" ? 1.35 : 0.85;
+          const availabilityWeight = track.availability === "public" ? AUTO_PLAY_PUBLIC_BOOST : 1;
+          const focusWeight = isTrackFocusedByMix(track.slug) ? AUTO_PLAY_FOCUS_BOOST : 1;
+          const weight = releasedWeight * availabilityWeight * focusWeight;
+          return { slug: track.slug, weight: Math.max(0.15, weight) };
+        });
+    }
+
+    function pickWeightedTrack(pool) {
+      const totalWeight = pool.reduce((sum, item) => sum + (item.weight || 0), 0);
+      if (totalWeight <= 0) {
+        return null;
+      }
+      const roll = Math.random() * totalWeight;
+      let cursor = 0;
+      for (const item of pool) {
+        cursor += item.weight || 0;
+        if (roll <= cursor) {
+          return item.slug;
+        }
+      }
+      return pool.length ? pool[pool.length - 1].slug : null;
+    }
+
+    function applySyntheticPlayToCard(slug, boost = 1) {
+      if (!slug || boost <= 0) {
+        return;
+      }
+      const card = document.querySelector(`.track-card[data-track-slug="${slug}"]`);
+      if (!card) {
+        return;
+      }
+      setupTrackStats(card);
+      const stats = trackRealtimeStats.get(card);
+      if (!stats || !stats.playsCountEl) {
+        return;
+      }
+      stats.autoPlays = (stats.autoPlays || 0) + boost;
+      const totalPlays = stats.basePlays + stats.elapsedSeconds + (stats.autoPlays || 0);
+      stats.playsCountEl.textContent = formatCount(totalPlays);
+    }
+
+    function runAutoPlayTick() {
+      if (!autoPlayPool.length) {
+        autoPlayPool = buildAutoPlayPool(trackLibrary);
+      }
+      if (!autoPlayPool.length || document.hidden) {
+        return;
+      }
+      if (Math.random() > AUTO_PLAY_CHANCE) {
+        return;
+      }
+      const burstSize = Math.floor(
+        Math.random() * (AUTO_PLAY_BURST_MAX - AUTO_PLAY_BURST_MIN + 1)
+      ) + AUTO_PLAY_BURST_MIN;
+      for (let index = 0; index < burstSize; index += 1) {
+        const targetSlug = pickWeightedTrack(autoPlayPool);
+        if (!targetSlug) {
+          continue;
+        }
+        recordTrackChartPlay(targetSlug);
+        recordMixEventPlay(targetSlug);
+        applySyntheticPlayToCard(targetSlug, 1);
+      }
+    }
+
+    function refreshAutoPlayPool(library = trackLibrary) {
+      autoPlayPool = buildAutoPlayPool(library);
+    }
+
+    function stopAutoPlayEngine() {
+      if (autoPlayTimer) {
+        window.clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    function startAutoPlayEngine() {
+      stopAutoPlayEngine();
+      refreshAutoPlayPool();
+      autoPlayTimer = window.setInterval(runAutoPlayTick, AUTO_PLAY_INTERVAL_MS);
     }
 
     function resolveTrackTitle(slug) {
@@ -8917,10 +9283,13 @@
     function renderAllTrackGrids(library) {
       renderTracksGrid(library);
       renderClipsGrid(library);
+      renderTrackChart(library);
+      refreshAutoPlayPool(library);
     }
 
     let trackLibrary = sortTrackLibrary(buildTrackLibrary());
     renderAllTrackGrids(trackLibrary);
+    startAutoPlayEngine();
     // initializeMixEventsSchedule();
 
     if (!releasedTracksConfig.length) {
@@ -8930,9 +9299,18 @@
           trackLibrary = sortTrackLibrary(buildTrackLibrary());
           renderAllTrackGrids(trackLibrary);
           rebindTrackCardEvents();
+          startAutoPlayEngine();
         }
       });
     }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        startAutoPlayEngine();
+      } else {
+        stopAutoPlayEngine();
+      }
+    });
 
     const lyricsModal = document.querySelector(".lyrics-modal");
     const prefersReducedMotion =
@@ -9138,6 +9516,7 @@
         basePlays,
         playsCountEl,
         elapsedSeconds: 0,
+        autoPlays: 0,
         lastSecondMark: 0
       };
       if (likeCountEl) {
@@ -9177,7 +9556,8 @@
       if (currentSecond > stats.lastSecondMark) {
         stats.elapsedSeconds += currentSecond - stats.lastSecondMark;
         stats.lastSecondMark = currentSecond;
-        stats.playsCountEl.textContent = formatCount(stats.basePlays + stats.elapsedSeconds);
+        const totalPlays = stats.basePlays + stats.elapsedSeconds + (stats.autoPlays || 0);
+        stats.playsCountEl.textContent = formatCount(totalPlays);
       }
     }
 
@@ -11659,10 +12039,12 @@
         });
       }
 
-    function renderAllTrackGrids(library) {
-      renderTracksGrid(library);
-      renderClipsGrid(library);
-    }
+      function renderAllTrackGrids(library) {
+        renderTracksGrid(library);
+        renderClipsGrid(library);
+        renderTrackChart(library);
+        refreshAutoPlayPool(library);
+      }
 
       function handleUnlockButtonClick(event) {
         const unlockBtn = event.target.closest(".unlock-btn");
