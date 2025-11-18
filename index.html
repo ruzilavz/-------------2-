@@ -276,6 +276,189 @@
       padding-bottom: 4px;
     }
 
+    .platforms-section {
+      margin-top: 26px;
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(140deg, rgba(14, 18, 34, 0.9), rgba(8, 10, 20, 0.96));
+      border: 1px solid rgba(74, 100, 189, 0.3);
+      box-shadow: 0 16px 36px rgba(4, 6, 12, 0.75);
+    }
+
+    .platforms-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .platforms-hero-card {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at 16% 22%, rgba(47, 107, 255, 0.12), transparent 32%),
+        linear-gradient(145deg, rgba(14, 20, 44, 0.96), rgba(12, 16, 32, 0.86));
+      border: 1px solid rgba(73, 111, 215, 0.38);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .platforms-hero-text {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .platforms-hero-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .platforms-hero-title {
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .platforms-hero-desc {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .platforms-hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .platforms-hero-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(47, 107, 255, 0.16);
+      color: #c7d6ff;
+      border: 1px solid rgba(47, 107, 255, 0.34);
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .platforms-hero-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(47, 107, 255, 0.08);
+      font-size: 13px;
+      text-align: center;
+      line-height: 1.2;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .platforms-section .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .platforms-section .platform-card {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: rgba(14, 18, 34, 0.92);
+      border: 1px solid rgba(59, 90, 177, 0.34);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: var(--shadow-sm);
+      min-height: 100%;
+    }
+
+    .platforms-section .platform-card h3 {
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .platforms-section .platform-card p {
+      color: rgba(203, 209, 239, 0.86);
+      font-size: 13px;
+    }
+
+    .platforms-section .platform-card small {
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .platforms-section .platform-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .platforms-section .platform-pill {
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      color: rgba(226, 233, 255, 0.92);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.1;
+    }
+
+    .platforms-section .platform-pill i {
+      color: var(--accent);
+      opacity: 0.8;
+    }
+
+    .platforms-section .platforms-footnote {
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(203, 209, 239, 0.7);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .platforms-section .platforms-packages {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .platforms-section .platforms-package {
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(74, 100, 189, 0.5);
+      font-size: 12px;
+      color: rgba(214, 220, 255, 0.86);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .platforms-section .platforms-package strong {
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #cdd7ff;
+      font-size: 12px;
+    }
+
     nav a::after {
       content: "";
       position: absolute;
@@ -6095,6 +6278,20 @@
       gap: 16px;
     }
 
+    .platforms-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .platforms-hero-card {
+      grid-template-columns: 1fr;
+    }
+
+    .platforms-hero-pill {
+      width: 100%;
+      height: auto;
+      padding: 12px;
+    }
+
     .hero-avatar {
       width: 96px;
       height: 96px;
@@ -6173,6 +6370,7 @@
       </button>
 
       <nav id="mainNav">
+        <a href="#platforms" data-nav-target="platforms">Площадки</a>
         <a href="#tracks" data-nav-target="tracks">Релизы</a>
         <a href="#clips" data-nav-target="clips">Клипы</a>
         <a href="#users" data-nav-target="users">Пользователи</a>
@@ -6543,13 +6741,141 @@
             <div class="tag">ru / tt</div>
           </div>
 
-          <div class="hero-actions">
-            <button class="btn btn-primary" onclick="document.getElementById('tracks').scrollIntoView({behavior:'smooth'})">
-              Слушать релизы
-            </button>
-            <button class="btn btn-ghost" onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">
-              Связаться
-            </button>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="document.getElementById('tracks').scrollIntoView({behavior:'smooth'})">
+          Слушать релизы
+        </button>
+        <button class="btn btn-ghost" onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">
+          Связаться
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section id="platforms" class="platforms-section">
+      <div class="section-header">
+        <h2 class="section-title">Площадки релизов</h2>
+        <p class="section-sub">
+          Весь каталог выходит сразу на основных российских сервисах, международных площадках и в соцсетях.
+        </p>
+      </div>
+
+      <div class="platforms-layout">
+        <div class="platforms-hero-card">
+          <div class="platforms-hero-text">
+            <div class="platforms-hero-kicker">Дистрибуция AVZALØV</div>
+            <div class="platforms-hero-title">29 площадок</div>
+            <p class="platforms-hero-desc">
+              Русские лейблы всегда заливают релизы на полный набор сервисов: от Яндекс.Музыки до TikTok Sounds и Beatport.
+            </p>
+            <div class="platforms-hero-badges">
+              <span class="platforms-hero-badge"><i class="fa-solid fa-location-dot"></i>Россия + СНГ</span>
+              <span class="platforms-hero-badge"><i class="fa-solid fa-globe"></i>Международно</span>
+              <span class="platforms-hero-badge"><i class="fa-solid fa-bolt"></i>Соцсети и клипы</span>
+            </div>
+          </div>
+          <div class="platforms-hero-pill">Always<br />Live</div>
+        </div>
+
+        <div>
+          <div class="platforms-packages">
+            <div class="platforms-package">
+              <strong>Базовый пакет</strong>
+              <span>Яндекс, VK Music, СберЗвук, BOOM — обязательный минимум для русских релизов.</span>
+            </div>
+            <div class="platforms-package">
+              <strong>Международный</strong>
+              <span>Spotify, Apple Music, YouTube Music, Deezer, Tidal, Amazon — чтобы собирать стримы по всему миру.</span>
+            </div>
+            <div class="platforms-package">
+              <strong>Социальный</strong>
+              <span>TikTok, Instagram, Facebook, Shorts, Snapchat — треки сразу готовы для трендов и клипов.</span>
+            </div>
+            <div class="platforms-package">
+              <strong>Видео +</strong>
+              <span>YouTube, VK Видео, RuTube — клипы, визуализеры и премьеры.</span>
+            </div>
+          </div>
+          <div class="platforms-footnote">Площадки открываются сразу — без переходов в модальные окна.</div>
+        </div>
+      </div>
+
+      <div class="platforms-grid" style="margin-top: 14px;">
+        <div class="platform-card">
+          <small>🇷🇺 Главные</small>
+          <h3>Российские сервисы</h3>
+          <p>Ключевые площадки по аудитории в РФ — база для любого релиза.</p>
+          <div class="platform-pills">
+            <span class="platform-pill"><i class="fa-solid fa-music"></i>Yandex Music</span>
+            <span class="platform-pill"><i class="fa-solid fa-headphones"></i>VK Music</span>
+            <span class="platform-pill"><i class="fa-solid fa-signal"></i>СберЗвук / Zvooq</span>
+            <span class="platform-pill"><i class="fa-solid fa-bolt"></i>Boom</span>
+            <span class="platform-pill"><i class="fa-solid fa-video"></i>RuTube Music</span>
+            <span class="platform-pill"><i class="fa-solid fa-tower-broadcast"></i>MTS Music</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <small>🌍 Мировые</small>
+          <h3>Стриминговые гиганты</h3>
+          <p>Российские артисты публикуются на мировых сервисах, чтобы собирать международные стримы.</p>
+          <div class="platform-pills">
+            <span class="platform-pill"><i class="fa-brands fa-spotify"></i>Spotify</span>
+            <span class="platform-pill"><i class="fa-brands fa-apple"></i>Apple Music</span>
+            <span class="platform-pill"><i class="fa-brands fa-youtube"></i>YouTube Music</span>
+            <span class="platform-pill"><i class="fa-solid fa-play"></i>Deezer</span>
+            <span class="platform-pill"><i class="fa-solid fa-water"></i>Tidal</span>
+            <span class="platform-pill"><i class="fa-brands fa-amazon"></i>Amazon Music</span>
+            <span class="platform-pill"><i class="fa-solid fa-cloud"></i>SoundCloud</span>
+            <span class="platform-pill"><i class="fa-solid fa-compact-disc"></i>Napster</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <small>📱 Соцсети</small>
+          <h3>Тренды и клипы</h3>
+          <p>Музыка сразу попадает в библиотеки соцсетей для челленджей и вирусных видео.</p>
+          <div class="platform-pills">
+            <span class="platform-pill"><i class="fa-brands fa-tiktok"></i>TikTok Sounds</span>
+            <span class="platform-pill"><i class="fa-brands fa-instagram"></i>Instagram Music</span>
+            <span class="platform-pill"><i class="fa-brands fa-facebook"></i>Facebook Music</span>
+            <span class="platform-pill"><i class="fa-solid fa-clapperboard"></i>YouTube Shorts Library</span>
+            <span class="platform-pill"><i class="fa-solid fa-ghost"></i>Snapchat Sounds</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <small>🎧 СНГ и регионы</small>
+          <h3>Локальные площадки</h3>
+          <p>Дополнительный охват по СНГ и Азии: Казахстан, Узбекистан, Африка.</p>
+          <div class="platform-pills">
+            <span class="platform-pill"><i class="fa-solid fa-star"></i>Zvuk KZ</span>
+            <span class="platform-pill"><i class="fa-solid fa-language"></i>UMG / узбекские</span>
+            <span class="platform-pill"><i class="fa-solid fa-flag"></i>iTunes СНГ</span>
+            <span class="platform-pill"><i class="fa-solid fa-earth-africa"></i>Boomplay</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <small>💿 Для диджеев</small>
+          <h3>DJ-площадки</h3>
+          <p>Танцевальные версии и ремиксы выходят для селекторов и сетов.</p>
+          <div class="platform-pills">
+            <span class="platform-pill"><i class="fa-solid fa-record-vinyl"></i>Beatport</span>
+            <span class="platform-pill"><i class="fa-solid fa-compact-disc"></i>Traxsource</span>
+            <span class="platform-pill"><i class="fa-solid fa-microphone-lines"></i>Juno Download</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <small>🎥 Видео</small>
+          <h3>Клипы и премьеры</h3>
+          <p>Визуалы выходят на площадках с самыми активными комьюнити.</p>
+          <div class="platform-pills">
+            <span class="platform-pill"><i class="fa-brands fa-youtube"></i>YouTube</span>
+            <span class="platform-pill"><i class="fa-brands fa-vk"></i>VK Видео</span>
+            <span class="platform-pill"><i class="fa-solid fa-tower-broadcast"></i>RuTube</span>
           </div>
         </div>
       </div>
@@ -8183,6 +8509,13 @@
     };
 
     const NAV_MODAL_CONTENT = {
+      platforms: {
+        title: "Площадки релизов",
+        kicker: "Дистрибуция",
+        description: "Быстрый список всех сервисов: российские, международные, соцсети и DJ-площадки.",
+        sectionId: "platforms",
+        cta: "Открыть площадки"
+      },
       tracks: {
         title: "Релизы",
         kicker: "Музыка",
