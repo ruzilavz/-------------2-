@@ -8485,6 +8485,165 @@
 
   <script src="tracks-data.js"></script>
   <script>
+    const BALANCE_UNIT_RUB = 25;
+    const TRACK_ID_ENDPOINT = "data/track-ids.json";
+    const TRACK_CHART_COUNTS_KEY = "avzalov_track_chart_counts_v1";
+    const TRACK_CHART_PREVIOUS_POSITIONS_KEY = "avzalov_track_chart_prev_positions_v1";
+    const VOLUME_STORAGE_KEY = "avzalov-volume";
+    const CLIPS_ENABLED = true;
+    const CLIP_NEWS_ITEMS = [
+      {
+        tag: "съёмки",
+        title: "Ночной сет для клипа «Яшьлек»",
+        meta: "Казань · ретро-авто во дворе",
+        text: "Снимаем сцены с ретро-машинами, поднимаем дым из-под капота и ловим блики фонарей в мокром асфальте.",
+        ticker: "Ночная площадка «Яшьлек»: ретро-авто, дым и уличный свет"
+      },
+      {
+        tag: "продакшн",
+        title: "Дрон-сцены для «Немножко»",
+        meta: "Ночной город · неон",
+        text: "Готовим пролёты дрона с подсветкой витрин, чтобы показать неоновый город в такт бита.",
+        ticker: "Дрон снимает неоновые улицы для клипа «Немножко»"
+      },
+      {
+        tag: "команда",
+        title: "Световые тесты по «Дикой комете»",
+        meta: "Павильон · световые анимации",
+        text: "Собираем микс из синего и пурпурного света, тестируем дымовые пушки и вспышки для эффекта пролёта кометы.",
+        ticker: "Световые тесты «Дикой кометы»: дым, вспышки и пурпурные фильтры"
+      },
+      {
+        tag: "план",
+        title: "Городские сцены для «Спички»",
+        meta: "Улица · мокрый асфальт",
+        text: "Переснимаем финальные кадры с мокрым асфальтом, чтобы усилить отражения огня от зажигалки.",
+        ticker: "«Спички»: финальные кадры на мокром асфальте для отражений огня"
+      }
+    ];
+    const STREAMING_PLATFORMS = [
+      { id: "vk", label: "VK Music", icon: "fa-vk", short: "VK" },
+      { id: "yandex", label: "Яндекс Музыка", icon: "fa-yandex", short: "Яндекс" },
+      { id: "apple", label: "Apple Music", icon: "fa-apple", short: "Apple" },
+      { id: "spotify", label: "Spotify", icon: "fa-spotify", short: "Spotify" },
+      { id: "youtube", label: "YouTube Music", icon: "fa-youtube", short: "YT Music" },
+      { id: "boom", label: "BOOM", icon: "fa-music", short: "BOOM" },
+      { id: "deezer", label: "Deezer", icon: "fa-music", short: "Deezer" }
+    ];
+    const UPCOMING_PRICE_RUB = 49;
+    const UNSCHEDULED_PRICE_RUB = 179;
+    const USD_EXCHANGE_RATE = 93;
+    const onlineCountBase = 58 + Math.floor(Math.random() * 14);
+    let liveOnlineCount = onlineCountBase;
+    const TOPUP_METHOD_CONFIG = {
+      card: {
+        label: "Банковская карта",
+        description: "Оплата банковской картой Visa, Mastercard или МИР"
+      },
+      sbp: {
+        label: "Система быстрых платежей",
+        description: "Перевод по номеру телефона через СБП"
+      },
+      yoomoney: {
+        label: "ЮMoney",
+        description: "Платёж через кошелёк или привязанную карту"
+      },
+      qiwi: {
+        label: "QIWI",
+        description: "Счёт или привязанная карта QIWI"
+      },
+      mirpay: {
+        label: "Mir Pay",
+        description: "Оплата в приложении Mir Pay"
+      },
+      tinkoff: {
+        label: "Tinkoff Pay",
+        description: "Подтверждение платежа в приложении Тинькофф"
+      },
+      sberpay: {
+        label: "СберPay",
+        description: "Подтверждение в Сбербанк Онлайн"
+      },
+      alfabank: {
+        label: "Альфа-Банк",
+        description: "Перевод по карте или счёту"
+      },
+      kaspi: {
+        label: "Kaspi",
+        description: "Перевод внутри Казахстана"
+      },
+      payeer: {
+        label: "Payeer/WebMoney",
+        description: "Оплата с мультивалютных кошельков"
+      }
+    };
+
+    const NAV_MODAL_CONTENT = {
+      platforms: {
+        title: "Площадки релизов",
+        kicker: "Дистрибуция",
+        description: "Быстрый список всех сервисов: российские, международные, соцсети и DJ-площадки.",
+        sectionId: "platforms",
+        cta: "Открыть площадки"
+      },
+      tracks: {
+        title: "Релизы",
+        kicker: "Музыка",
+        description: "Синглы, альбомы и EP с мгновенным воспроизведением и ссылками на платформы.",
+        sectionId: "tracks",
+        cta: "Открыть релизы"
+      },
+      clips: {
+        title: "Клипы",
+        kicker: "Видео",
+        description: "Подборка клипов и визуализаций, связанных с треками AVZALØV.",
+        sectionId: "clips",
+        cta: "Смотреть клипы"
+      },
+      users: {
+        title: "Пользователи",
+        kicker: "Комьюнити",
+        description: "Топ слушателей, онлайн-активность и быстрый доступ к профилям.",
+        sectionId: "users",
+        cta: "Открыть комьюнити",
+        action: () => {
+          openUsersModal();
+        }
+      },
+      payments: {
+        title: "Оплата и баланс",
+        kicker: "баланс",
+        description: "Выбери сумму и способ пополнения, чтобы отправить заявку и получить монеты.",
+        cta: "Перейти к оплате",
+        action: () => openPaymentsSection({ focusTopup: true })
+      },
+      news: {
+        title: "Новости",
+        kicker: "Блог",
+        description: "Анонсы релизов, обновления проектов и важные события вселенной AVZALØV.",
+        sectionId: "news",
+        cta: "Читать новости",
+          action: () => {
+          openNewsModal();
+        }
+      },
+
+
+      about: {
+        title: "Биография",
+        kicker: "Обо мне",
+        description: "История артиста, стиль, вдохновение и ключевые факты о творчестве.",
+        sectionId: "about",
+        cta: "Читать биографию"
+      },
+      contacts: {
+        title: "Контакты",
+        kicker: "Связь",
+        description: "Площадки для сотрудничества: концерты, коллаборации и приглашения в подборки.",
+        sectionId: "contacts",
+        cta: "Написать"
+      }
+    };
       // Показать/скрыть кнопку "Наверх"
       const scrollToTopBtn = document.getElementById("scrollToTopBtn");
       const siteHeader = document.querySelector(".site-header");
