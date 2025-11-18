@@ -325,21 +325,21 @@
 
     .site-header {
       position: sticky;
-      top: 18px;
+      top: 0;
       z-index: 80;
       display: flex;
       align-items: center;
       gap: 20px;
       flex-wrap: wrap;
       padding: 18px 22px;
-      margin: 24px 0 48px;
+      margin: 0 0 48px;
       border-radius: var(--radius-lg);
       border: 1px solid rgba(74, 100, 189, 0.36);
       background: linear-gradient(135deg, rgba(12, 16, 30, 0.94), rgba(7, 10, 22, 0.86));
       box-shadow: 0 22px 48px rgba(6, 8, 16, 0.72);
       overflow: visible;
       isolation: isolate;
-      transform: translateY(18px);
+      transform: translateY(-14px);
       transition:
         transform 0.35s ease,
         box-shadow 0.35s ease,
@@ -6305,34 +6305,42 @@
     }
 
     .chat-composer {
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      background: rgba(10,12,20,0.86);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(12,14,24,0.9), rgba(8,10,18,0.95));
       padding: 12px;
       display: grid;
-      gap: 8px;
+      gap: 10px;
+      position: sticky;
+      bottom: 0;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.55);
     }
 
     .chat-composer-form {
       display: flex;
       gap: 10px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
     }
 
     .chat-composer-form input {
       flex: 1;
       min-width: 0;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.18);
+      background: #0d1326;
       color: var(--text);
       border-radius: 10px;
-      padding: 10px 12px;
+      padding: 12px 14px;
       outline: none;
-      transition: border-color var(--transition), box-shadow var(--transition);
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
     }
 
     .chat-composer-form input:focus {
       border-color: rgba(47, 107, 255, 0.6);
       box-shadow: 0 0 0 3px rgba(47, 107, 255, 0.2);
+      background: #0f1a33;
     }
 
     .chat-typing {
@@ -6625,6 +6633,39 @@
 
       .chat-thread {
         max-height: 36vh;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .site-header {
+        padding: 14px 16px;
+        transform: translateY(0);
+        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      }
+
+      .chat-hub-overlay.is-inline .chat-hub {
+        border-radius: 16px;
+        border-color: rgba(255,255,255,0.08);
+      }
+
+      .chat-hub-body {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-thread {
+        max-height: 320px;
+      }
+
+      .chat-composer-form {
+        flex-direction: column;
+      }
+
+      .chat-composer-form .btn,
+      .chat-composer-form .btn-ghost,
+      .chat-composer-form .btn-primary,
+      .chat-fill-btn {
+        width: 100%;
+        justify-content: center;
       }
     }
 
@@ -7236,6 +7277,14 @@
     .chat-preview-column { display: grid; gap: 12px; }
     @media (min-width: 1024px) { .chat-hub-body { grid-template-columns: 1.15fr 1fr; } }
 
+    .chat-hub-overlay.is-inline { position: static; opacity: 1; pointer-events: auto; background: none; backdrop-filter: none; padding: 0; }
+    .chat-hub-overlay.is-inline .chat-hub { width: 100%; max-height: none; box-shadow: none; border: 1px solid var(--border); padding: 0; }
+    .chat-hub-overlay.is-inline .chat-hub-close { display: none; }
+    .chat-hub-overlay.is-inline .chat-hub-header { padding: 18px 18px 8px; }
+    .chat-hub-overlay.is-inline .chat-hub-body { padding: 0 18px 18px; }
+    .chat-hub-overlay.is-inline .role-stats { padding: 0 18px 18px; }
+    .chat-hub-overlay.is-inline .phrase-panel { margin-bottom: 0; }
+
     .role-admin-panel.is-locked { position: relative; opacity: 0.55; filter: grayscale(0.35); }
     .role-admin-panel.is-locked::after { content: "Только по решению главного админа"; position: absolute; inset: 12px; border-radius: 12px; border: 1px dashed rgba(255,255,255,0.18); background: rgba(5,6,10,0.8); display: grid; place-items: center; color: #cfe9ff; font-size: 12px; text-align: center; padding: 8px; }
 
@@ -7474,6 +7523,10 @@
         </div>
       </div>
     </header>
+
+    <button class="scroll-to-top-btn" id="scrollToTopBtn" type="button" aria-label="Вернуться наверх">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
     <div class="nav-modal-overlay" id="navModalOverlay" aria-hidden="true">
       <div class="nav-modal" role="dialog" aria-modal="true" aria-labelledby="navModalTitle">
@@ -7761,6 +7814,17 @@
             >
               История баланс
             </button>
+            <button
+              class="profile-tab-btn"
+              type="button"
+              role="tab"
+              id="profileTabChat"
+              aria-controls="profileViewChat"
+              aria-selected="false"
+              data-profile-tab="chat"
+            >
+              Чат и роли
+            </button>
           </div>
 
           <div class="profile-views">
@@ -7860,6 +7924,100 @@
 
                 <div class="history-list" id="coinHistoryList">
                   <div class="history-empty" id="coinHistoryEmpty">История появится после операций с балансом.</div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="profile-view"
+              data-profile-view="chat"
+              id="profileViewChat"
+              role="tabpanel"
+              aria-labelledby="profileTabChat"
+              hidden
+            >
+              <div class="profile-overview-grid">
+                <div class="profile-overview-callout">
+                  Все мини-профили ботов, ролевая сетка и служебные фразы теперь внутри личного кабинета. Пиши и тестируй чат
+                  прямо отсюда — модалки больше не перекрывают экран.
+                </div>
+                <div class="profile-overview-card">
+                  <div>
+                    <div class="profile-overview-kicker">Включить демо-чат</div>
+                    <p class="section-sub">Запусти живую переписку с паузами и сделай вставку любой фразы в поле ввода.</p>
+                  </div>
+                  <div class="profile-overview-actions">
+                    <button class="btn btn-primary btn-xs" type="button" data-open-chat-demo>Открыть чат</button>
+                    <button class="btn btn-ghost btn-xs" type="button" data-open-chat-hub>Показать роли</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chat-hub-overlay is-inline" id="chatHubOverlay" aria-hidden="false">
+                <div class="chat-hub" role="region" aria-labelledby="chatHubTitle">
+                  <button class="chat-hub-close" type="button" id="chatHubCloseBtn" aria-label="Закрыть центр чата">&times;</button>
+                  <header class="chat-hub-header">
+                    <div>
+                      <div class="chat-hub-kicker">Чат и роли</div>
+                      <h3 class="chat-hub-title" id="chatHubTitle">Боты, роли и фразы</h3>
+                      <p class="chat-hub-sub">Вкладка внутри профиля: мини-профили, лента сообщений и полный справочник ролей без лишних окон.</p>
+                    </div>
+                    <div class="chat-hub-actions">
+                      <button class="btn btn-primary" type="button" data-fill-chat-phrase>Вставить фразу</button>
+                      <button class="btn btn-ghost" type="button" id="closeChatDemoBtn">Свернуть чат</button>
+                    </div>
+                  </header>
+
+                  <div class="chat-hub-body">
+                    <div class="chat-preview-column">
+                      <div class="chat-mini-profiles" id="chatMiniProfiles" aria-live="polite"></div>
+                      <div class="chat-demo-card">
+                        <div class="chat-demo-kicker">Чат-демо</div>
+                        <h3 class="chat-demo-title">Переписка мини-профилей</h3>
+                        <p class="chat-demo-sub">Лента и модальное окно используют одни данные: видно статус, роль и паузы в ответах.</p>
+                        <p class="chat-demo-sub chat-demo-limit" id="chatMessageLimitInfo"></p>
+                        <div class="chat-demo-actions">
+                          <button class="btn btn-primary" type="button" data-open-chat-demo>Открыть чат</button>
+                          <button class="btn btn-ghost" type="button" data-open-chat-hub>Справочник ролей</button>
+                        </div>
+                        <div class="chat-demo-preview" id="chatDemoPreview" aria-live="polite"></div>
+                      </div>
+                    </div>
+
+                    <div class="role-panels">
+                      <div class="role-grid" id="roleGrid" aria-live="polite"></div>
+                      <aside class="role-admin-panel" aria-label="Админ-панель ролей">
+                        <div class="role-admin-kicker">Админ-панель</div>
+                        <h3>99 слотов под ботов</h3>
+                        <p>Все роли, кроме главного админа, стартуют с holder: bot_001…bot_099 и ждут выдачи пользователям.</p>
+                        <ul class="role-admin-list">
+                          <li>Выдавать/снимать роли могут assign_roles: Главный админ, Супер-админ, Модераторы, Bot Manager, Mentor+, Guardian.</li>
+                          <li>Флаг listen_all_tracks даёт бесплатное прослушивание в плеере. Список помечен на карточке роли.</li>
+                          <li>visibleInProfile включает бейдж в профиле, а defaultBot подсвечивает служебные роли.</li>
+                        </ul>
+                        <div class="role-access-hint">
+                          <strong>Бесплатное прослушивание:</strong> VIP, Partner, Label Owner, Sponsor, Investor, Hall of Fame, DJ и другие роли с флагом listen_all_tracks.
+                        </div>
+                      </aside>
+                    </div>
+
+                    <div class="phrase-panel">
+                      <div class="phrase-panel-top">
+                        <div>
+                          <div class="phrase-kicker">Фразы для чата</div>
+                          <h3>Готовая выборка + генератор 5000</h3>
+                          <p class="section-sub" id="phraseStats">Данные загружаются…</p>
+                        </div>
+                        <div class="phrase-actions">
+                          <button class="btn btn-primary" type="button" id="downloadPhrasesBtn">Скачать 5000 фраз</button>
+                          <button class="btn btn-ghost" type="button" id="showSamplePhrasesBtn">Показать 120 фраз</button>
+                        </div>
+                      </div>
+                      <pre class="phrase-code" id="phraseCodeBlock" aria-label="Скрипт генерации"></pre>
+                      <div class="phrase-sample" id="phraseSampleList" aria-live="polite"></div>
+                    </div>
+                  </div>
+                  <div class="role-stats" id="roleStatsSummary"></div>
                 </div>
               </div>
             </div>
@@ -8905,13 +9063,13 @@
   <section id="chat-entry" class="chat-entry">
     <div class="chat-entry-card">
       <div class="chat-entry-copy">
-        <div class="chat-entry-kicker">Чат и роли вынесены в отдельный центр</div>
-        <h2 class="section-title">Общение и роли — вне главной</h2>
+        <div class="chat-entry-kicker">Чат и роли внутри профиля</div>
+        <h2 class="section-title">Лента, роли и фразы доступны в кабинете</h2>
         <p class="section-sub">
-          Боты держат ленту в тонусе своими 5000 фразами, а роли и их функции доступны в отдельном окне с описаниями. Главная страница остаётся чистой.
+          Открой вкладку «Чат и роли» в профиле: там мини-профили ботов, вся переписка и справочник ролей. Кнопка «Отправить» и поле ввода всегда под рукой.
         </p>
         <div class="chat-entry-actions">
-          <button class="btn btn-primary" type="button" data-open-chat-hub>Открыть центр чата</button>
+          <button class="btn btn-primary" type="button" data-open-chat-hub>Открыть вкладку в профиле</button>
           <button class="btn btn-ghost" type="button" id="chatEntryOpenModalBtn">Перейти в чат</button>
         </div>
         <p class="chat-entry-note">Все вспомогательные кнопки и админ-блоки теперь спрятаны в профиль и модальные окна.</p>
@@ -8919,74 +9077,6 @@
       <div class="chat-entry-glow" aria-hidden="true"></div>
     </div>
   </section>
-
-  <div class="chat-hub-overlay" id="chatHubOverlay" aria-hidden="true">
-    <div class="chat-hub" role="dialog" aria-modal="true" aria-labelledby="chatHubTitle">
-      <button class="chat-hub-close" type="button" id="chatHubCloseBtn" aria-label="Закрыть центр чата">&times;</button>
-      <header class="chat-hub-header">
-        <div>
-          <div class="chat-hub-kicker">Центр чата</div>
-          <h3 class="chat-hub-title" id="chatHubTitle">Боты, роли и фразы</h3>
-          <p class="chat-hub-sub">Мини-профили ботов, лента сообщений и полный справочник ролей вынесены в модальное окно.</p>
-        </div>
-        <div class="chat-hub-actions">
-          <button class="btn btn-primary" type="button" id="openChatDemoBtn">Открыть чат</button>
-          <button class="btn btn-ghost" type="button" data-open-chat-hub>Справочник ролей</button>
-        </div>
-      </header>
-
-      <div class="chat-hub-body">
-        <div class="chat-preview-column">
-          <div class="chat-mini-profiles" id="chatMiniProfiles" aria-live="polite"></div>
-          <div class="chat-demo-card">
-            <div class="chat-demo-kicker">Чат-демо</div>
-            <h3 class="chat-demo-title">Переписка мини-профилей</h3>
-            <p class="chat-demo-sub">Теперь это та же лента, что и в модальном окне: плавные паузы, ролевая палитра и обращения к пользователю.</p>
-            <p class="chat-demo-sub chat-demo-limit" id="chatMessageLimitInfo"></p>
-            <div class="chat-demo-actions">
-              <button class="btn btn-primary" type="button" id="closeChatDemoBtn">Свернуть чат</button>
-              <button class="btn btn-ghost" type="button" id="fillChatWithPhraseBtn">Вставить фразу</button>
-            </div>
-            <div class="chat-demo-preview" id="chatDemoPreview" aria-live="polite"></div>
-          </div>
-        </div>
-
-        <div class="role-panels">
-          <div class="role-grid" id="roleGrid" aria-live="polite"></div>
-          <aside class="role-admin-panel" aria-label="Админ-панель ролей">
-            <div class="role-admin-kicker">Админ-панель</div>
-            <h3>99 слотов под ботов</h3>
-            <p>Все роли, кроме главного админа, стартуют с holder: bot_001…bot_099 и ждут выдачи пользователям.</p>
-            <ul class="role-admin-list">
-              <li>Выдавать/снимать роли могут assign_roles: Главный админ, Супер-админ, Модераторы, Bot Manager, Mentor+, Guardian.</li>
-              <li>Флаг listen_all_tracks даёт бесплатное прослушивание в плеере. Список помечен на карточке роли.</li>
-              <li>visibleInProfile включает бейдж в профиле, а defaultBot подсвечивает служебные роли.</li>
-            </ul>
-            <div class="role-access-hint">
-              <strong>Бесплатное прослушивание:</strong> VIP, Partner, Label Owner, Sponsor, Investor, Hall of Fame, DJ и другие роли с флагом listen_all_tracks.
-            </div>
-          </aside>
-        </div>
-
-        <div class="phrase-panel">
-          <div class="phrase-panel-top">
-            <div>
-              <div class="phrase-kicker">Фразы для чата</div>
-              <h3>Готовая выборка + генератор 5000</h3>
-              <p class="section-sub" id="phraseStats">Данные загружаются…</p>
-            </div>
-            <div class="phrase-actions">
-              <button class="btn btn-primary" type="button" id="downloadPhrasesBtn">Скачать 5000 фраз</button>
-              <button class="btn btn-ghost" type="button" id="showSamplePhrasesBtn">Показать 120 фраз</button>
-            </div>
-          </div>
-          <pre class="phrase-code" id="phraseCodeBlock" aria-label="Скрипт генерации"></pre>
-          <div class="phrase-sample" id="phraseSampleList" aria-live="polite"></div>
-        </div>
-      </div>
-      <div class="role-stats" id="roleStatsSummary"></div>
-    </div>
-  </div>
 
   <div class="role-modal-overlay" id="roleModalOverlay" aria-hidden="true">
     <div class="role-modal" role="dialog" aria-modal="true" aria-labelledby="roleModalTitle">
@@ -9032,7 +9122,7 @@
             <form class="chat-composer-form" id="chatComposerForm" autocomplete="off">
               <label class="sr-only" for="chatInput">Сообщение чату</label>
               <input id="chatInput" name="chatInput" type="text" placeholder="Напишите что-нибудь, боты ответят с паузой" />
-              <button type="button" class="btn btn-ghost chat-fill-btn" id="fillChatWithPhraseBtn">Вставить фразу</button>
+              <button type="button" class="btn btn-ghost chat-fill-btn" data-fill-chat-phrase>Вставить фразу</button>
               <button type="submit" class="btn btn-primary">Отправить</button>
             </form>
             <div class="chat-message-limit" id="chatMessageLimitInfoModal"></div>
@@ -9323,7 +9413,7 @@
     const contactSubjectInput = document.getElementById("contactSubject");
     const contactMessageInput = document.getElementById("contactMessage");
     const chatDemoPreview = document.getElementById("chatDemoPreview");
-    const openChatDemoBtn = document.getElementById("openChatDemoBtn");
+    const openChatDemoButtons = Array.from(document.querySelectorAll("[data-open-chat-demo]"));
     const closeChatDemoBtn = document.getElementById("closeChatDemoBtn");
     const chatModalOverlay = document.getElementById("chatModalOverlay");
     const chatModalCloseBtn = document.getElementById("chatModalCloseBtn");
@@ -9345,7 +9435,7 @@
     const phraseStats = document.getElementById("phraseStats");
     const downloadPhrasesBtn = document.getElementById("downloadPhrasesBtn");
     const showSamplePhrasesBtn = document.getElementById("showSamplePhrasesBtn");
-    const fillChatWithPhraseBtn = document.getElementById("fillChatWithPhraseBtn");
+    const fillChatWithPhraseButtons = Array.from(document.querySelectorAll("[data-fill-chat-phrase]"));
 
     if (topupModalOverlay) {
       topupModalOverlay.setAttribute("inert", "");
@@ -9680,7 +9770,7 @@
       if (usersModalOverlay && usersModalOverlay.classList.contains("is-visible")) {
         closeUsersModal();
       }
-      if (chatHubOverlay && chatHubOverlay.classList.contains("is-visible")) {
+      if (chatHubOverlay && !chatHubInline && chatHubOverlay.classList.contains("is-visible")) {
         closeChatHub();
       }
       if (chatModalOverlay && chatModalOverlay.classList.contains("is-visible")) {
@@ -9757,11 +9847,13 @@
     const chatInput = document.getElementById("chatInput");
     const chatTyping = document.getElementById("chatTyping");
     const chatHubOverlay = document.getElementById("chatHubOverlay");
+    const chatHubInline = chatHubOverlay && chatHubOverlay.classList.contains("is-inline");
     const chatHubCloseBtn = document.getElementById("chatHubCloseBtn");
     const openChatHubButtons = Array.from(document.querySelectorAll("[data-open-chat-hub]"));
     const chatFloatingBtn = document.getElementById("chatFloatingBtn");
     const chatEntryOpenModalBtn = document.getElementById("chatEntryOpenModalBtn");
     const profileOpenChatBtn = document.getElementById("profileOpenChatBtn");
+    const profileSection = document.getElementById("profile");
     const contactModalOverlay = document.getElementById("contactModalOverlay");
     const contactModalClose = document.getElementById("contactModalClose");
     const openContactModalBtn = document.getElementById("openContactModal");
@@ -9774,6 +9866,7 @@
     let botMessagePool = [];
     let chatLoopTimeout = null;
     let chatUserParticipant = null;
+    let chatHydrated = false;
     const CHAT_VISIBLE_LIMIT = 15;
     const CHAT_ARCHIVE_LIMIT = 30;
     let rolesCatalogCache = null;
@@ -9999,7 +10092,10 @@
       scheduleNextBotMessage();
     }
 
-    async function hydrateChatPreview() {
+    async function hydrateChatPreview(force = false) {
+      if (chatHydrated && !force) {
+        return;
+      }
       try {
         const data = await loadChatData();
         chatDataCache = data;
@@ -10011,6 +10107,7 @@
         renderChatMiniProfiles(data.bots);
         renderChatThread(chatMessageHistory, data.bots);
         updateMessageLimitLabel();
+        chatHydrated = true;
       } catch (error) {
         if (chatDemoPreview) {
           chatDemoPreview.textContent = "Не удалось загрузить превью переписки.";
@@ -10023,6 +10120,14 @@
         return;
       }
       hydrateChatPreview();
+      if (chatHubInline) {
+        chatHubOverlay.setAttribute("aria-hidden", "false");
+        setActiveProfileView("chat");
+        if (profileSection) {
+          profileSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        return;
+      }
       chatHubOverlay.classList.add("is-visible");
       chatHubOverlay.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-open");
@@ -10030,6 +10135,10 @@
 
     function closeChatHub() {
       if (!chatHubOverlay) {
+        return;
+      }
+      if (chatHubInline) {
+        chatHubOverlay.setAttribute("aria-hidden", "false");
         return;
       }
       chatHubOverlay.classList.remove("is-visible");
@@ -10086,7 +10195,7 @@
       chatHubCloseBtn.addEventListener("click", closeChatHub);
     }
 
-    if (chatHubOverlay) {
+    if (chatHubOverlay && !chatHubInline) {
       chatHubOverlay.addEventListener("click", event => {
         if (event.target === chatHubOverlay) {
           closeChatHub();
@@ -10094,9 +10203,11 @@
       });
     }
 
-    if (openChatDemoBtn) {
-      openChatDemoBtn.addEventListener("click", () => {
-        openChatModal();
+    if (openChatDemoButtons.length) {
+      openChatDemoButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          openChatModal();
+        });
       });
     }
 
@@ -10426,14 +10537,16 @@
       });
     }
 
-    if (fillChatWithPhraseBtn) {
-      fillChatWithPhraseBtn.addEventListener("click", async () => {
-        const sample = await loadSamplePhrases();
-        const phrase = sample[Math.floor(Math.random() * sample.length)] || "Привет!";
-        if (chatInput) {
-          chatInput.value = phrase;
-          chatInput.focus();
-        }
+    if (fillChatWithPhraseButtons.length) {
+      fillChatWithPhraseButtons.forEach(button => {
+        button.addEventListener("click", async () => {
+          const sample = await loadSamplePhrases();
+          const phrase = sample[Math.floor(Math.random() * sample.length)] || "Привет!";
+          if (chatInput) {
+            chatInput.value = phrase;
+            chatInput.focus();
+          }
+        });
       });
     }
 
@@ -10834,6 +10947,9 @@
         view.classList.toggle("is-active", isActive);
         view.hidden = !isActive;
       });
+      if (normalizedView === "chat") {
+        hydrateChatPreview();
+      }
     }
 
     if (profileTabButtons.length) {
