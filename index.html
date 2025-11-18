@@ -5975,6 +5975,93 @@
       border: 1px solid rgba(255,255,255,0.04);
     }
 
+    .contact-help {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    .contact-inline-tip {
+      color: #cfe9ff;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .contact-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 6, 12, 0.76);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+      z-index: 99;
+    }
+
+    .contact-modal-overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .contact-modal {
+      width: min(560px, 100%);
+      background: rgba(10, 12, 20, 0.96);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 28px 60px rgba(0,0,0,0.6);
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .contact-modal-kicker {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: #8cb5ff;
+      text-transform: uppercase;
+    }
+
+    .contact-modal-title {
+      margin-top: 4px;
+      font-size: 18px;
+    }
+
+    .contact-modal-sub {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 6px;
+    }
+
+    .contact-modal-close {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text);
+      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .contact-form-modal input,
+    .contact-form-modal textarea {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.08);
+    }
+
     .messengers-list {
       list-style: none;
       padding: 0;
@@ -6063,6 +6150,185 @@
       color: var(--muted);
       font-size: 14px;
       margin-top: 4px;
+    }
+
+    .chat-demo-limit {
+      color: #cfe9ff;
+      font-size: 12px;
+    }
+
+    .chat-mini-profiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .chat-mini-card {
+      position: relative;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(145deg, rgba(15,18,32,0.9), rgba(28,32,54,0.86));
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .chat-mini-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(95, 150, 255, 0.4);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+    }
+
+    .chat-mini-card .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.04);
+    }
+
+    .chat-mini-meta {
+      display: grid;
+      gap: 4px;
+    }
+
+    .chat-mini-header {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-mini-name {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .chat-role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      text-transform: capitalize;
+      background: color-mix(in srgb, var(--role-accent, #5ddcff) 40%, rgba(255,255,255,0.08));
+      border: 1px solid color-mix(in srgb, var(--role-accent, #5ddcff) 60%, rgba(255,255,255,0.18));
+      color: #e7f2ff;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .chat-role-badge::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25), transparent 40%);
+      opacity: 0;
+      transition: opacity 200ms ease;
+      z-index: -1;
+    }
+
+    .chat-mini-card:hover .chat-role-badge::after {
+      opacity: 1;
+    }
+
+    .role-tier-basic {
+      --role-accent: #5ddcff;
+      box-shadow: 0 0 12px rgba(93, 220, 255, 0.2);
+    }
+
+    .role-tier-gold {
+      --role-accent: #ffcc66;
+      box-shadow: 0 0 16px rgba(255, 204, 102, 0.25);
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    .role-tier-diamond {
+      --role-accent: #c08bff;
+      box-shadow: 0 0 18px rgba(192, 139, 255, 0.35);
+      animation: pulse-glow 5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 18px rgba(255, 204, 102, 0.2); }
+      50% { box-shadow: 0 0 26px rgba(255, 204, 102, 0.38); }
+    }
+
+    .chat-mini-stats {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chat-thread-stack {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 12px;
+      min-height: 360px;
+    }
+
+    .chat-composer {
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      background: rgba(10,12,20,0.86);
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .chat-composer-form {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-composer-form input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .chat-composer-form input:focus {
+      border-color: rgba(47, 107, 255, 0.6);
+      box-shadow: 0 0 0 3px rgba(47, 107, 255, 0.2);
+    }
+
+    .chat-typing {
+      font-size: 12px;
+      color: var(--muted);
+      min-height: 18px;
+    }
+
+    .chat-message-limit {
+      font-size: 12px;
+      color: rgba(207, 233, 255, 0.9);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .chat-demo-actions {
@@ -6205,12 +6471,12 @@
 
     .chat-participant {
       display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 8px 10px;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
       align-items: center;
       padding: 8px 10px;
       border-radius: 10px;
-      background: rgba(255,255,255,0.02);
+      background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.03));
       border: 1px solid rgba(255,255,255,0.04);
     }
 
@@ -6220,6 +6486,13 @@
       border-radius: 12px;
       object-fit: cover;
       background: linear-gradient(135deg, rgba(47, 107, 255, 0.28), rgba(111, 88, 255, 0.28));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .chat-participant-meta {
+      display: grid;
+      gap: 3px;
+      align-content: center;
     }
 
     .chat-participant-name {
@@ -6243,6 +6516,8 @@
     .chat-participant-status.online { background: #2ed58b; }
     .chat-participant-status.away { background: #ffcc66; }
     .chat-participant-status.dnd { background: #ff6b6b; }
+    .chat-participant-status.focus { background: #6cd0ff; }
+    .chat-participant-status.review { background: #c08bff; }
 
     .chat-thread {
       border: 1px solid rgba(255,255,255,0.06);
@@ -6269,6 +6544,40 @@
       gap: 8px;
       font-size: 12px;
       color: #c5d2ff;
+      flex-wrap: wrap;
+    }
+
+    .chat-message-author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .chat-message-author .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .chat-author-meta {
+      display: grid;
+      gap: 2px;
+    }
+
+    .chat-target {
+      color: var(--muted);
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .chat-time {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 11px;
     }
 
     .chat-message-text {
@@ -6745,6 +7054,10 @@
     }
     .status-dot.online { background: #34D399; }
     .status-dot.offline { background: #9CA3AF; }
+    .status-dot.away { background: #ffcc66; }
+    .status-dot.dnd { background: #ff6b6b; }
+    .status-dot.focus { background: #6cd0ff; }
+    .status-dot.review { background: #c08bff; }
     .meta {
       display: flex;
       flex-direction: column;
@@ -8407,85 +8720,17 @@
 
     <section id="mini-profile-demo">
       <div class="section-header">
-        <h2 class="section-title">Демо мини-профилей</h2>
-        <p class="section-sub">Пример реализации компонента пользователя из вашего концепта.</p>
+        <h2 class="section-title">Мини-профили чата</h2>
+        <p class="section-sub">Все участники демо переписки собраны в одном блоке: роли, статусы, цвета и быстрый переход в чат.</p>
       </div>
-      <div class="user-mini-container">
-        <!-- Example 1: Admin Profile -->
-        <div class="user-mini" tabIndex="0" aria-label="Рузиль Авзалов, Администратор">
-          <div class="avatar-wrap" style="width: 40px; height: 40px;">
-            <img class="avatar" src="img/avzalov.jpg" alt="Рузиль Авзалов avatar" />
-            <div class="role-icon" title="Администратор"><i class="fas fa-shield-halved"></i></div>
-            <span class="status-dot online"></span>
-          </div>
-          <div class="meta">
-            <div class="line1">
-              <span class="name">Рузиль Авзалов</span>
-              <span class="role-chip" style="background: #FF7A59;">Администратор</span>
-            </div>
-            <div class="badges">
-              <i class="fas fa-star badge" title="Ветеран"></i>
-              <i class="fas fa-medal badge" title="Топ-слушатель"></i>
-              <i class="fas fa-fire badge" title="Активный участник"></i>
-              <span class="more-badges">+2</span>
-            </div>
-          </div>
-          <div class="profile-card" role="dialog" aria-hidden="true">
-            <div class="pc-top">
-              <img src="img/avzalov.jpg" alt="Рузиль Авзалов avatar" class="pc-avatar" />
-              <div class="pc-info">
-                <div class="pc-name">Рузиль Авзалов</div>
-                <div class="pc-role">Администратор</div>
-              </div>
-            </div>
-            <div class="pc-achievements">
-              <div class="pc-ach"><i class="fas fa-star"></i> <div>Ветеран</div></div>
-              <div class="pc-ach"><i class="fas fa-medal"></i> <div>Топ-слушатель</div></div>
-              <div class="pc-ach"><i class="fas fa-fire"></i> <div>Активный участник</div></div>
-              <div class="pc-ach"><i class="fas fa-crown"></i> <div>Основатель</div></div>
-              <div class="pc-ach"><i class="fas fa-music"></i> <div>Все треки прослушаны</div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Example 2: Moderator Profile from concept -->
-        <div class="user-mini" tabIndex="0" aria-label="Анна Иванова, Модератор">
-          <div class="avatar-wrap" style="width: 40px; height: 40px;">
-            <img class="avatar" src="img/Howl.jpg" alt="Анна Иванова avatar" />
-            <div class="role-icon" title="Модератор"><i class="fas fa-gavel"></i></div>
-            <span class="status-dot online"></span>
-          </div>
-          <div class="meta">
-            <div class="line1">
-              <span class="name">Анна Иванова</span>
-              <span class="role-chip" style="background: #59a2ff;">Модератор</span>
-            </div>
-            <div class="badges">
-              <i class="fas fa-comment-dots badge" title="100 сообщений"></i>
-              <i class="fas fa-brain badge" title="Эксперт"></i>
-            </div>
-          </div>
-        <div class="profile-card" role="dialog" aria-hidden="true">
-          <div class="pc-top">
-            <img src="img/Howl.jpg" alt="Анна Иванова avatar" class="pc-avatar" />
-            <div class="pc-info">
-              <div class="pc-name">Анна Иванова</div>
-                <div class="pc-role">Модератор</div>
-              </div>
-            </div>
-            <div class="pc-achievements">
-              <div class="pc-ach"><i class="fas fa-comment-dots"></i> <div>100 сообщений</div></div>
-              <div class="pc-ach"><i class="fas fa-brain"></i> <div>Эксперт</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="chat-mini-profiles" id="chatMiniProfiles" aria-live="polite"></div>
 
       <div class="chat-demo-card">
         <div>
           <div class="chat-demo-kicker">Чат-демо</div>
           <h3 class="chat-demo-title">Переписка мини-профилей</h3>
-          <p class="chat-demo-sub">Небольшая сцена с ботами, которая показывает открытие и закрытие окна чата.</p>
+          <p class="chat-demo-sub">Теперь это та же лента, что и в модальном окне: плавные паузы, ролевая палитра и обращения к пользователю.</p>
+          <p class="chat-demo-sub chat-demo-limit" id="chatMessageLimitInfo"></p>
         </div>
         <div class="chat-demo-actions">
           <button class="btn btn-primary" type="button" id="openChatDemoBtn">Открыть чат</button>
@@ -8504,27 +8749,17 @@
       <div class="contacts-grid">
         <div class="contact-form-wrap">
           <h3>Написать артисту</h3>
+          <p class="contact-help">Форма теперь открывается в модальном окне и не блокирует страницу. Можно отправить письмо или открыть чат с паузами для вдумчивой переписки.</p>
+          <div class="contact-actions" style="margin-top:12px;">
+            <button type="button" class="btn btn-primary" id="openContactModal">Открыть окно</button>
+            <button type="button" id="contactMailtoBtn" class="btn btn-ghost">Написать на почту</button>
+          </div>
 
-          <!-- Обрати внимание: name="_replyto" важен для Formspree (reply-to) -->
-          <form id="contactForm" class="contact-form" action="https://formspree.io/f/xjklvvev" method="POST" autocomplete="off">
-            <input id="contactName" name="name" type="text" placeholder="Ваше имя" required>
-            <input id="contactEmail" name="_replyto" type="email" placeholder="Email для ответа" required>
-            <input id="contactSubject" name="subject" type="text" placeholder="Тема" required>
-            <textarea id="contactMessage" name="message" rows="6" placeholder="Текст сообщения" required></textarea>
-
-            <input type="hidden" name="_subject" value="Сообщение с сайта AVZALØV">
-            <div class="contact-actions">
-              <button type="submit" class="btn btn-primary">Отправить</button>
-              <button type="button" id="contactMailtoBtn" class="btn btn-ghost">Написать на почту</button>
-            </div>
-
-            <div id="contactStatus" role="status" aria-live="polite" style="margin-top:8px;color:#cfe9ff"></div>
-        </form>
-
-        <p style="margin-top:12px">
-          Или напрямую: <a href="mailto:avzalov19941994@gmail.com" style="color:var(--accent);">avzalov19941994@gmail.com</a>
-        </p>
-      </div>
+          <p class="contact-inline-tip">Черновик авто-сохраняется в сессии, а письмо уходит через Formspree без перезагрузки.</p>
+          <p style="margin-top:12px">
+            Или напрямую: <a href="mailto:avzalov19941994@gmail.com" style="color:var(--accent);">avzalov19941994@gmail.com</a>
+          </p>
+        </div>
 
       <aside class="contact-methods">
         <h3>Другие способы связи</h3>
@@ -8569,14 +8804,51 @@
         <div>
           <div class="chat-modal-kicker">Демо чата</div>
           <h3 class="chat-modal-title" id="chatModalTitle">Сообщения ботов</h3>
-          <p class="chat-modal-sub">Окно можно открыть и закрыть, чтобы протестировать слой чата.</p>
+          <p class="chat-modal-sub">Окно можно открыть и закрыть, чтобы протестировать слой чата и живые реплики ботов с паузами.</p>
         </div>
         <button class="chat-modal-close" type="button" id="chatModalCloseBtn" aria-label="Закрыть чат">&times;</button>
       </div>
       <div class="chat-modal-body">
         <div class="chat-participants" id="chatParticipantsList" aria-label="Участники"></div>
-        <div class="chat-thread" id="chatThread" aria-live="polite"></div>
+        <div class="chat-thread-stack">
+          <div class="chat-thread" id="chatThread" aria-live="polite"></div>
+          <div class="chat-composer" aria-live="polite">
+            <div class="chat-typing" id="chatTyping"></div>
+            <form class="chat-composer-form" id="chatComposerForm" autocomplete="off">
+              <label class="sr-only" for="chatInput">Сообщение чату</label>
+              <input id="chatInput" name="chatInput" type="text" placeholder="Напишите что-нибудь, боты ответят с паузой" />
+              <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+            <div class="chat-message-limit" id="chatMessageLimitInfoModal"></div>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <div class="contact-modal-overlay" id="contactModalOverlay" aria-hidden="true">
+    <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+      <div class="contact-modal-header">
+        <div>
+          <div class="contact-modal-kicker">Написать артисту</div>
+          <h3 class="contact-modal-title" id="contactModalTitle">Сообщение для AVZALØV</h3>
+          <p class="contact-modal-sub">Форма открывается в отдельном окне: можно ввести текст, сохранить черновик и отправить через Formspree.</p>
+        </div>
+        <button class="contact-modal-close" type="button" id="contactModalClose" aria-label="Закрыть окно">&times;</button>
+      </div>
+      <!-- Обрати внимание: name="_replyto" важен для Formspree (reply-to) -->
+      <form id="contactForm" class="contact-form contact-form-modal" action="https://formspree.io/f/xjklvvev" method="POST" autocomplete="off">
+        <input id="contactName" name="name" type="text" placeholder="Ваше имя" required>
+        <input id="contactEmail" name="_replyto" type="email" placeholder="Email для ответа" required>
+        <input id="contactSubject" name="subject" type="text" placeholder="Тема" required>
+        <textarea id="contactMessage" name="message" rows="6" placeholder="Текст сообщения" required></textarea>
+        <input type="hidden" name="_subject" value="Сообщение с сайта AVZALØV">
+        <div class="contact-actions">
+          <button type="submit" class="btn btn-primary">Отправить</button>
+          <button type="button" id="contactMailtoBtnModal" class="btn btn-ghost">Написать на почту</button>
+        </div>
+        <div id="contactStatus" role="status" aria-live="polite" style="margin-top:8px;color:#cfe9ff"></div>
+      </form>
     </div>
   </div>
 
@@ -9235,13 +9507,25 @@
       return `mailto:avzalov19941994@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
     }
 
-    if (contactMailtoBtn) {
-      contactMailtoBtn.addEventListener("click", () => {
-        window.location.href = buildContactMailto();
-      });
-    }
+    const chatMiniProfiles = document.getElementById("chatMiniProfiles");
+    const chatMessageLimitInfo = document.getElementById("chatMessageLimitInfo");
+    const chatMessageLimitInfoModal = document.getElementById("chatMessageLimitInfoModal");
+    const chatComposerForm = document.getElementById("chatComposerForm");
+    const chatInput = document.getElementById("chatInput");
+    const chatTyping = document.getElementById("chatTyping");
+    const contactModalOverlay = document.getElementById("contactModalOverlay");
+    const contactModalClose = document.getElementById("contactModalClose");
+    const openContactModalBtn = document.getElementById("openContactModal");
+    const contactMailtoBtnModal = document.getElementById("contactMailtoBtnModal");
 
     let chatDataCache = null;
+    let chatMessageHistory = [];
+    let chatArchivedMessages = [];
+    let botMessagePool = [];
+    let chatLoopTimeout = null;
+    let chatUserParticipant = null;
+    const CHAT_VISIBLE_LIMIT = 15;
+    const CHAT_ARCHIVE_LIMIT = 30;
 
     async function loadChatData() {
       if (chatDataCache) {
@@ -9255,25 +9539,38 @@
       return chatDataCache;
     }
 
+    function updateMessageLimitLabel() {
+      const visibleCount = Math.min(chatMessageHistory.length, CHAT_VISIBLE_LIMIT);
+      const archivedCount = Math.max(chatMessageHistory.length - CHAT_VISIBLE_LIMIT, 0);
+      const text = `Показываем ${visibleCount} из ${CHAT_VISIBLE_LIMIT} последних сообщений. В архиве ${archivedCount} — старые очищаются автоматически.`;
+      [chatMessageLimitInfo, chatMessageLimitInfoModal].forEach(el => {
+        if (el) {
+          el.textContent = text;
+        }
+      });
+    }
+
     function renderChatPreview(data) {
       if (!chatDemoPreview) {
         return;
       }
       const botsMap = new Map(data.bots.map(bot => [bot.id, bot]));
-      const previewMessages = data.messages.slice(-3);
+      const previewMessages = (data.messages || []).slice(-3);
       chatDemoPreview.innerHTML = previewMessages
         .map(message => {
           const bot = botsMap.get(message.from);
+          const target = botsMap.get(message.to);
           const statusClass = bot && bot.status ? bot.status : "";
           const name = bot ? bot.name : "Бот";
+          const targetName = target ? target.name : "чат";
           return `
             <div class="chat-message-preview">
-              <span class="from"><span class="status-dot ${statusClass}"></span>${name}</span>
+              <span class="from"><span class="status-dot ${statusClass}"></span>${name} → ${targetName}</span>
               <div class="bubble">${message.text}</div>
             </div>
           `;
         })
-        .join("");
+        .join("") || "<p class=\"chat-demo-sub\">Нет сообщений</p>";
     }
 
     function renderChatParticipants(bots = []) {
@@ -9283,14 +9580,51 @@
       chatParticipantsList.innerHTML = bots
         .map(bot => {
           const statusClass = bot.status ? bot.status : "";
+          const tierClass = bot.tier ? `role-tier-${bot.tier}` : "role-tier-basic";
+          const accentStyle = bot.accent ? `style=\"--role-accent:${bot.accent};\"` : "";
+          const avatar = bot.avatar
+            ? `<img class="avatar" src="${bot.avatar}" alt="${bot.name}" loading="lazy" />`
+            : `<span class="chat-avatar-fallback">${(bot.name || "?").slice(0, 1)}</span>`;
           return `
             <div class="chat-participant">
               <span class="chat-participant-status ${statusClass}" aria-label="${bot.status || "online"}"></span>
-              <div>
+              ${avatar}
+              <div class="chat-participant-meta">
                 <div class="chat-participant-name">${bot.name}</div>
                 <div class="chat-participant-role">${bot.role}</div>
               </div>
+              <span class="chat-role-badge ${tierClass}" ${accentStyle}>${bot.role}</span>
             </div>
+          `;
+        })
+        .join("");
+    }
+
+    function renderChatMiniProfiles(bots = []) {
+      if (!chatMiniProfiles) {
+        return;
+      }
+      chatMiniProfiles.innerHTML = bots
+        .map(bot => {
+          const tierClass = bot.tier ? `role-tier-${bot.tier}` : "role-tier-basic";
+          const accentStyle = bot.accent ? `style=\"--role-accent:${bot.accent};\"` : "";
+          const avatar = bot.avatar
+            ? `<img class="avatar" src="${bot.avatar}" alt="${bot.name}" loading="lazy" />`
+            : `<span class="chat-avatar-fallback">${(bot.name || "?").slice(0, 1)}</span>`;
+          const statusClass = bot.status || "online";
+          const tierLabel = bot.tier === "gold" ? "золотой" : bot.tier === "diamond" ? "премиум" : "базовый";
+          return `
+            <article class="chat-mini-card">
+              ${avatar}
+              <div class="chat-mini-meta">
+                <div class="chat-mini-header">
+                  <span class="chat-mini-name">${bot.name}${bot.isUser ? " — пользователь" : ""}</span>
+                  <span class="chat-participant-status ${statusClass}" aria-label="${statusClass}"></span>
+                </div>
+                <span class="chat-role-badge ${tierClass}" ${accentStyle}>${bot.role}</span>
+                <div class="chat-mini-stats"><span>${tierLabel} уровень</span><span>${statusClass}</span></div>
+              </div>
+            </article>
           `;
         })
         .join("");
@@ -9301,7 +9635,7 @@
         return;
       }
       const botsMap = new Map(bots.map(bot => [bot.id, bot]));
-      const recentMessages = messages.slice(-15);
+      const recentMessages = messages.slice(-CHAT_VISIBLE_LIMIT);
       chatThread.innerHTML = recentMessages
         .map(message => {
           const author = botsMap.get(message.from);
@@ -9309,13 +9643,24 @@
           const statusClass = author && author.status ? author.status : "";
           const authorName = author ? author.name : "Участник";
           const targetName = target ? target.name : "бот";
+          const tierClass = author && author.tier ? `role-tier-${author.tier}` : "role-tier-basic";
+          const accentStyle = author && author.accent ? `style=\"--role-accent:${author.accent};\"` : "";
+          const avatar = author && author.avatar
+            ? `<img class="avatar" src="${author.avatar}" alt="${authorName}" loading="lazy" />`
+            : `<span class="chat-avatar-fallback">${authorName.slice(0, 1)}</span>`;
           return `
             <article class="chat-message">
               <div class="chat-message-header">
-                <span class="chat-participant-status ${statusClass}"></span>
-                <span>${authorName}</span>
-                <span style="color: var(--muted);">→ ${targetName}</span>
-                <span style="margin-left:auto;color:var(--muted);font-size:11px;">${message.time || "12:00"}</span>
+                <div class="chat-message-author">
+                  <span class="chat-participant-status ${statusClass}"></span>
+                  ${avatar}
+                  <div class="chat-author-meta">
+                    <span>${authorName}</span>
+                    <span class="chat-role-badge ${tierClass}" ${accentStyle}>${author?.role || "участник"}</span>
+                  </div>
+                </div>
+                <span class="chat-target">→ ${targetName}</span>
+                <span class="chat-time">${message.time || "12:00"}</span>
               </div>
               <div class="chat-message-text">${message.text}</div>
             </article>
@@ -9324,15 +9669,93 @@
         .join("");
     }
 
-    async function hydrateChatPreview() {
-      if (!chatDemoPreview) {
+    function pushChatMessage(message) {
+      chatMessageHistory.push(message);
+      if (chatMessageHistory.length > CHAT_ARCHIVE_LIMIT) {
+        const removed = chatMessageHistory.splice(0, chatMessageHistory.length - CHAT_ARCHIVE_LIMIT);
+        chatArchivedMessages.push(...removed);
+      }
+      if (chatDataCache) {
+        renderChatThread(chatMessageHistory, chatDataCache.bots);
+        renderChatPreview({ bots: chatDataCache.bots, messages: chatMessageHistory });
+        updateMessageLimitLabel();
+      }
+    }
+
+    function queueBotMessage() {
+      if (!chatDataCache || !chatDataCache.bots || !chatDataCache.bots.length) {
         return;
       }
+      const bots = chatDataCache.bots.filter(bot => !bot.isUser);
+      if (!bots.length) {
+        return;
+      }
+      const author = bots[Math.floor(Math.random() * bots.length)];
+      const targets = chatDataCache.bots.filter(bot => bot.id !== author.id);
+      const target = targets[Math.floor(Math.random() * targets.length)] || null;
+      const seed = botMessagePool.shift() || { text: "Пишу, чтобы держать чат живым.", mood: "idea" };
+      if (botMessagePool.length < 5 && chatDataCache.messages) {
+        botMessagePool.push(...chatDataCache.messages);
+      }
+      const now = new Date();
+      pushChatMessage({
+        id: `rt_${now.getTime()}`,
+        from: author.id,
+        to: target ? target.id : chatUserParticipant?.id,
+        text: target && target.isUser ? `@${target.name}: ${seed.text}` : seed.text,
+        mood: seed.mood || "note",
+        time: `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`
+      });
+    }
+
+    function stopBotChatLoop() {
+      if (chatLoopTimeout) {
+        clearTimeout(chatLoopTimeout);
+        chatLoopTimeout = null;
+      }
+      if (chatTyping) {
+        chatTyping.textContent = "";
+      }
+    }
+
+    function scheduleNextBotMessage() {
+      if (!chatModalOverlay || !chatModalOverlay.classList.contains("is-visible")) {
+        return;
+      }
+      const delay = 4200 + Math.random() * 3800;
+      if (chatTyping) {
+        chatTyping.textContent = "Боты печатают...";
+      }
+      chatLoopTimeout = window.setTimeout(() => {
+        if (chatTyping) {
+          chatTyping.textContent = "";
+        }
+        queueBotMessage();
+        scheduleNextBotMessage();
+      }, delay);
+    }
+
+    function startBotChatLoop() {
+      stopBotChatLoop();
+      scheduleNextBotMessage();
+    }
+
+    async function hydrateChatPreview() {
       try {
         const data = await loadChatData();
-        renderChatPreview(data);
+        chatDataCache = data;
+        chatUserParticipant = data.bots.find(bot => bot.isUser) || null;
+        chatMessageHistory = data.messages.slice(-CHAT_ARCHIVE_LIMIT);
+        botMessagePool = [...data.messages];
+        renderChatPreview({ bots: data.bots, messages: chatMessageHistory });
+        renderChatParticipants(data.bots);
+        renderChatMiniProfiles(data.bots);
+        renderChatThread(chatMessageHistory, data.bots);
+        updateMessageLimitLabel();
       } catch (error) {
-        chatDemoPreview.textContent = "Не удалось загрузить превью переписки.";
+        if (chatDemoPreview) {
+          chatDemoPreview.textContent = "Не удалось загрузить превью переписки.";
+        }
       }
     }
 
@@ -9342,11 +9765,16 @@
       }
       try {
         const data = await loadChatData();
+        if (!chatMessageHistory.length) {
+          chatMessageHistory = data.messages.slice(-CHAT_ARCHIVE_LIMIT);
+        }
         renderChatParticipants(data.bots);
-        renderChatThread(data.messages, data.bots);
+        renderChatThread(chatMessageHistory, data.bots);
+        updateMessageLimitLabel();
         chatModalOverlay.classList.add("is-visible");
         chatModalOverlay.setAttribute("aria-hidden", "false");
         document.body.classList.add("modal-open");
+        startBotChatLoop();
       } catch (error) {
         if (chatDemoPreview) {
           chatDemoPreview.textContent = "Чат временно недоступен.";
@@ -9361,6 +9789,7 @@
       chatModalOverlay.classList.remove("is-visible");
       chatModalOverlay.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-open");
+      stopBotChatLoop();
     }
 
     if (openChatDemoBtn) {
@@ -9389,6 +9818,71 @@
         }
       });
     }
+
+    if (chatComposerForm) {
+      chatComposerForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const value = chatInput ? chatInput.value.trim() : "";
+        if (!value) {
+          return;
+        }
+        const bots = chatDataCache ? chatDataCache.bots : [];
+        const author = chatUserParticipant || bots.find(bot => bot.isUser) || bots[0];
+        const targets = bots.filter(bot => !bot.isUser);
+        const target = targets[Math.floor(Math.random() * targets.length)] || null;
+        pushChatMessage({
+          id: `user_${Date.now()}`,
+          from: author ? author.id : "user_listener",
+          to: target ? target.id : null,
+          text: value,
+          mood: "user",
+          time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        });
+        if (chatInput) {
+          chatInput.value = "";
+        }
+        if (chatModalOverlay && chatModalOverlay.classList.contains("is-visible")) {
+          startBotChatLoop();
+        }
+      });
+    }
+
+    function openContactModal() {
+      if (!contactModalOverlay) return;
+      contactModalOverlay.classList.add("is-visible");
+      contactModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeContactModal() {
+      if (!contactModalOverlay) return;
+      contactModalOverlay.classList.remove("is-visible");
+      contactModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    if (openContactModalBtn) {
+      openContactModalBtn.addEventListener("click", openContactModal);
+    }
+
+    if (contactModalClose) {
+      contactModalClose.addEventListener("click", closeContactModal);
+    }
+
+    if (contactModalOverlay) {
+      contactModalOverlay.addEventListener("click", event => {
+        if (event.target === contactModalOverlay) {
+          closeContactModal();
+        }
+      });
+    }
+
+    const contactMailButtons = [contactMailtoBtn, contactMailtoBtnModal].filter(Boolean);
+    contactMailButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        window.location.href = buildContactMailto();
+      });
+    });
 
     hydrateChatPreview();
 
