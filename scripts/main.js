@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         card.innerHTML = `
           <div class="track-cover">
-            <img src="img/${track.slug}${coverExt}" alt="${track.title}" />
+            <img src="img/${track.slug}${coverExt}" alt="${track.title}" loading="lazy" />
             <div class="track-overlay">
               <button class="play-track-btn"><i class="fas fa-play"></i></button>
             </div>
