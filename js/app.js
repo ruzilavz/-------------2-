@@ -8,6 +8,9 @@
     playerTitle: document.getElementById('playerTitle'),
     playerInfo: document.getElementById('playerInfo'),
     playerStatus: document.getElementById('playerStatus'),
+    playerAccess: document.getElementById('playerAccess'),
+    playerLanguages: document.getElementById('playerLanguages'),
+    playerPlays: document.getElementById('playerPlays'),
     currentTime: document.getElementById('currentTime'),
     duration: document.getElementById('duration'),
     progress: document.getElementById('progress'),
@@ -82,6 +85,8 @@
     newsList: document.getElementById('newsList'),
     themeToggle: document.getElementById('themeToggle'),
     loginStatus: document.getElementById('loginStatus'),
+    navToggle: document.getElementById('navToggle'),
+    mainNav: document.getElementById('mainNav'),
   };
 
   const ADMIN_CODES = Array.from({ length: 50 }, (_, i) => `AVZAL-${String(i + 1).padStart(3, '0')}`);
@@ -198,6 +203,29 @@
     const releaseDate = getReleaseDate(track);
     if (!releaseDate) return 'Скоро релиз';
     return releaseDate.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  };
+
+  const accessLabel = (track) => {
+    const access = (track.access || '').toLowerCase();
+    if (access.includes('early')) return 'Ранний доступ';
+    if (access.includes('open')) return 'Открытый доступ';
+    if (access) return access;
+    return 'Открытый релиз';
+  };
+
+  const updatePlayerBadges = (track) => {
+    if (elements.playerAccess) {
+      elements.playerAccess.textContent = accessLabel(track);
+      elements.playerAccess.classList.toggle('chip--soon', (track.access || '').includes('early'));
+    }
+    if (elements.playerLanguages) {
+      elements.playerLanguages.textContent = languagesLabel(track.languages);
+    }
+    if (elements.playerPlays) {
+      elements.playerPlays.textContent = track.plays
+        ? `${track.plays.toLocaleString('ru-RU')} прослушиваний`
+        : 'Новый трек';
+    }
   };
 
   const languagesLabel = (langs) => (langs ? langs.join(' / ') : 'multi');
@@ -517,6 +545,7 @@
       ? `Вышел ${formatReleaseDate(track)}`
       : `До релиза: ${formatReleaseDate(track)}`;
     renderPlatforms(track);
+    updatePlayerBadges(track);
     renderPlaylist();
     if (autoplay) {
       playTrack();
@@ -799,6 +828,8 @@
     elements.chartOpenBtn?.addEventListener('click', renderChartModal);
     elements.newsModalBtn?.addEventListener('click', renderNewsModal);
     elements.newsTickerBtn?.addEventListener('click', renderNewsModal);
+    elements.navToggle?.addEventListener('click', handleNavToggle);
+    document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', closeMobileNav));
     document.querySelectorAll('[data-social]').forEach((btn) => {
       btn.addEventListener('click', () => applySocialProfile(btn.dataset.social || 'social'));
     });
@@ -839,8 +870,28 @@
           elements.newsModal,
           elements.profileModal,
         ].forEach((modal) => closeModal(modal));
+        closeMobileNav();
       }
     });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) closeMobileNav();
+    });
+  };
+
+  const handleNavToggle = () => {
+    if (!elements.navToggle || !elements.mainNav) return;
+    const expanded = elements.navToggle.getAttribute('aria-expanded') === 'true';
+    const next = !expanded;
+    elements.navToggle.setAttribute('aria-expanded', String(next));
+    elements.mainNav.classList.toggle('is-open', next);
+    document.body.classList.toggle('nav-open', next);
+  };
+
+  const closeMobileNav = () => {
+    if (!elements.navToggle || !elements.mainNav) return;
+    elements.navToggle.setAttribute('aria-expanded', 'false');
+    elements.mainNav.classList.remove('is-open');
+    document.body.classList.remove('nav-open');
   };
 
   const init = async () => {
