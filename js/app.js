@@ -815,6 +815,7 @@
     state.roles = ['Админ'];
     state.purchased.clear();
     saveUsersToState(state.user);
+    loadLiked();
     renderProfile();
     renderChat();
     if (elements.loginStatus) elements.loginStatus.textContent = 'Админ-доступ активирован на этом устройстве.';
