@@ -77,9 +77,10 @@
     newsModal: document.getElementById('newsModal'),
     newsList: document.getElementById('newsList'),
     themeToggle: document.getElementById('themeToggle'),
+    loginStatus: document.getElementById('loginStatus'),
   };
 
-  const ADMIN_SECRET = '4096-AVZALOV';
+  const ADMIN_CODES = Array.from({ length: 50 }, (_, i) => `AVZAL-${String(i + 1).padStart(3, '0')}`);
   const STORAGE_KEY = 'avzal_users';
   const CURRENT_KEY = 'avzal_current_user';
   const state = {
@@ -208,19 +209,20 @@
   const renderRoles = () => {
     if (elements.roleBadges) {
       elements.roleBadges.innerHTML = '';
-      state.roles.forEach((role) => {
-        const span = document.createElement('span');
-        span.className = 'badge';
-        span.textContent = role;
-        elements.roleBadges.appendChild(span);
-      });
-    }
-    elements.roleChip.textContent = `${state.user.name} · ${state.roles.join(', ')}`;
+    state.roles.forEach((role) => {
+      const span = document.createElement('span');
+      span.className = 'badge';
+      span.textContent = role;
+      elements.roleBadges.appendChild(span);
+    });
+  }
+    const chipLabel = state.roles.includes('Админ') ? `${state.user.name} · ${state.roles.join(', ')}` : 'Вход на сайт · гость';
+    elements.roleChip.textContent = chipLabel;
   };
 
   const renderProfile = () => {
     elements.profileName.textContent = state.user.name;
-    elements.profileMeta.textContent = `ID: ${state.user.id || '—'} · уровень ${state.user.level} · RUZCOIN: ${state.user.ruz}`;
+    elements.profileMeta.textContent = `ID: ${state.user.id || '—'} · уровень ${state.user.level} · RUZCOIN: ${state.user.ruz} · устройство сохранено`;
     elements.profileToken.textContent = `Токен: ${state.user.token || '—'}`;
     if (elements.profileAvatar) {
       elements.profileAvatar.style.backgroundImage = state.user.avatar
@@ -315,17 +317,10 @@
   };
 
   const applySocialProfile = (provider) => {
-    const presets = {
-      vk: { name: 'VK · AVZALØV', avatar: 'img/background.jpg' },
-      gmail: { name: 'Gmail · AVZALØV', avatar: 'img/background.jpg' },
-    };
-    const preset = presets[provider];
-    if (!preset) return;
-    state.user.name = preset.name;
-    state.user.avatar = preset.avatar;
-    state.user.nameLocked = true;
-    saveUsersToState(state.user);
-    renderProfile();
+    if (elements.loginStatus) {
+      elements.loginStatus.textContent = `${provider.toUpperCase()} · вход в разработке`;
+    }
+    alert('Авторизация через соцсети пока в разработке. Используйте админ-код.');
   };
 
   const createTrackCard = (track) => {
@@ -346,6 +341,9 @@
     const title = document.createElement('h3');
     title.className = 'track-card__title';
     title.textContent = track.title;
+    const artist = document.createElement('p');
+    artist.className = 'muted tiny';
+    artist.textContent = track.artist || 'AVZALØV';
     const price = document.createElement('span');
     price.className = 'chip';
     const effectivePrice = isReleased(track) ? track.price ?? 0 : 1;
@@ -356,7 +354,7 @@
     meta.className = 'track-card__meta';
     const release = document.createElement('span');
     release.className = 'chip chip--soon';
-    release.textContent = formatReleaseDate(track);
+    release.textContent = formatReleaseDate(track) || 'Скоро';
     const access = document.createElement('span');
     access.className = 'chip';
     access.textContent = track.access ? `Доступ: ${track.access}` : 'Открытый';
@@ -374,7 +372,7 @@
     footer.append(plays, copyright);
 
     const actions = document.createElement('div');
-    actions.className = 'hero__actions';
+    actions.className = 'hero__actions track-card__actions';
     const listen = document.createElement('button');
     listen.className = 'btn primary tiny';
     listen.textContent = 'Слушать';
@@ -385,7 +383,21 @@
     details.textContent = track.hasClip ? 'Клип' : 'Подробнее';
     actions.append(listen, details);
 
-    body.append(top, meta, actions, footer);
+    const info = document.createElement('div');
+    info.className = 'track-card__info';
+    const lyrics = document.createElement('p');
+    lyrics.className = 'tiny muted';
+    lyrics.textContent = track.lyricsPreview || 'Текст песни появится ближе к релизу.';
+    const like = document.createElement('button');
+    like.className = 'pill track-like';
+    like.textContent = '♡ Нравится';
+    like.addEventListener('click', () => {
+      like.classList.toggle('active');
+      like.textContent = like.classList.contains('active') ? '♥ В избранном' : '♡ Нравится';
+    });
+    info.append(artist, lyrics, like);
+
+    body.append(top, meta, info, actions, footer);
     card.append(cover, body);
     return card;
   };
@@ -429,6 +441,7 @@
         <div class="pill">${track.hasClip ? 'Есть клип' : 'Аудио'}</div>
         <div class="pill">${track.copyright || '© AVZALØV'}</div>
       </div>
+      <div class="track-modal__lyrics">${track.lyricsPreview || 'Текст появится позже, следи за обновлениями.'}</div>
       <div class="track-modal__actions">
         <button class="btn primary" ${getAudioPath(track) ? '' : 'disabled'} data-play="${track.slug}">Слушать</button>
         ${track.clipUrl ? `<a class="btn ghost" href="${track.clipUrl}" target="_blank" rel="noreferrer">Клип</a>` : ''}
@@ -731,34 +744,26 @@
 
   const handleLogin = () => {
     const code = elements.adminCode.value.trim();
-    if (code === ADMIN_SECRET) {
-      state.user = {
-        ...state.user,
-        name: 'Рузиль AVZALØV',
-        level: 12,
-        ruz: 128,
-        id: state.user.id || 'ADMIN-4096',
-        token: state.user.token || generateToken(),
-        role: 'Админ',
-        nameLocked: true,
-      };
-      state.roles = ['Админ'];
-    } else {
-      state.user = {
-        ...state.user,
-        name: 'Слушатель',
-        level: 2,
-        ruz: 24,
-        token: state.user.token || generateToken(),
-        role: 'Слушатель',
-        nameLocked: true,
-      };
-      state.roles = ['Слушатель'];
+    if (!ADMIN_CODES.includes(code)) {
+      if (elements.loginStatus) elements.loginStatus.textContent = 'Код не принят. Только 50 сервисных ключей работают.';
+      return;
     }
+    state.user = {
+      ...state.user,
+      name: 'Рузиль AVZALØV',
+      level: 12,
+      ruz: 128,
+      id: state.user.id || 'ADMIN-4096',
+      token: state.user.token || generateToken(),
+      role: 'Админ',
+      nameLocked: true,
+    };
+    state.roles = ['Админ'];
     state.purchased.clear();
     saveUsersToState(state.user);
     renderProfile();
     renderChat();
+    if (elements.loginStatus) elements.loginStatus.textContent = 'Админ-доступ активирован на этом устройстве.';
     closeModal(elements.loginModal);
   };
 
@@ -769,6 +774,7 @@
     saveUsersToState(state.user);
     renderProfile();
     renderChat();
+    if (elements.loginStatus) elements.loginStatus.textContent = 'Профиль сброшен, вход доступен только по коду.';
     closeModal(elements.loginModal);
   };
 
@@ -818,6 +824,9 @@
     elements.chartOpenBtn?.addEventListener('click', renderChartModal);
     elements.newsModalBtn?.addEventListener('click', renderNewsModal);
     elements.newsTickerBtn?.addEventListener('click', renderNewsModal);
+    document.querySelectorAll('[data-social]').forEach((btn) => {
+      btn.addEventListener('click', () => applySocialProfile(btn.dataset.social || 'social'));
+    });
     elements.dockToggle.addEventListener('change', () => {
       elements.playerDock.style.display = elements.dockToggle.checked ? 'grid' : 'none';
     });
