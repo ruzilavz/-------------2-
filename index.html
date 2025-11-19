@@ -16,141 +16,197 @@
     <nav class="main-nav">
       <a href="#hero">Главная</a>
       <a href="#music">Музыка</a>
-      <a href="#news">Новости</a>
+      <a href="#game">Игра</a>
+      <a href="#chat">Чат</a>
       <a href="#profile">Профиль</a>
     </nav>
-    <div class="balance-chip">RUZCOIN · 128</div>
+    <div class="header-actions">
+      <div class="chip pill" id="roleChip">Гость · слушатель</div>
+      <button class="btn ghost" id="openProfile">Панель</button>
+    </div>
   </header>
 
-  <main>
+  <main class="page">
     <section id="hero" class="hero">
       <div class="hero__text">
         <p class="eyebrow">музыка · игры · ai</p>
-        <h1>AVZALØV — музыка, игры и AI</h1>
+        <h1>Музыкальный мир AVZALØV вернулся</h1>
         <p class="lede">
-          Новый дом для релизов, миксов и экспериментов. Упорядоченная навигация,
-          чистый интерфейс и быстрый доступ ко всем инструментам.
+          Вся библиотека треков с обложками, датами релизов и ранним доступом снова на месте.
+          Аудиоплеер, чат и роли подключены в едином интерфейсе.
         </p>
         <div class="hero__actions">
-          <button class="btn primary">Слушать музыку</button>
-          <button class="btn ghost">Смотреть клипы</button>
-          <button class="btn outline">Поддержать</button>
+          <button class="btn primary" id="ctaPlay">Слушать лучшие треки</button>
+          <button class="btn outline" id="ctaChat">Открыть чат</button>
+          <button class="btn ghost" id="ctaGame">Запуск игры</button>
         </div>
         <div class="hero__tags">
-          <span>trap</span><span>tatar</span><span>experimental</span><span>ai</span>
+          <span>trap</span><span>tatar</span><span>experimental</span><span>ai</span><span>idle game</span>
+        </div>
+        <div class="hero__stats">
+          <div><p class="label">Треков в базе</p><p class="value" id="tracksCount">—</p></div>
+          <div><p class="label">Готовы к прослушиванию</p><p class="value" id="playableCount">—</p></div>
+          <div><p class="label">Ранний доступ</p><p class="value" id="earlyCount">—</p></div>
         </div>
       </div>
       <div class="hero__card">
         <div class="hero__avatar">AV</div>
         <div class="hero__meta">
           <p class="label">Следующий релиз</p>
-          <p class="value">15 ноября 2025</p>
+          <p class="value" id="nextRelease">Скоро</p>
           <div class="chip chip--soon">Early access</div>
         </div>
-        <div class="hero__stats">
-          <div><p class="label">Треки</p><p class="value">36</p></div>
-          <div><p class="label">Прослушивания</p><p class="value">64.2K</p></div>
-          <div><p class="label">Участники</p><p class="value">1.8K</p></div>
+        <div class="grid-mini">
+          <div class="pill glass">Чарт · обновляется</div>
+          <div class="pill glass">Профиль · роли</div>
+          <div class="pill glass">AI чат</div>
+          <div class="pill glass">RUZCOIN · 128</div>
         </div>
       </div>
     </section>
 
-    <section id="news" class="section grid">
+    <section class="section" id="music">
       <div class="section__header">
-        <h2>Навигация без дубликатов</h2>
-        <p>Главные действия собраны в одном месте, кнопка «Новости» теперь живёт только в шапке.</p>
-      </div>
-      <div class="card-grid">
-        <article class="mini-card">
-          <h3>Музыка</h3>
-          <p>Каталог треков, клипы и релизы — чистая сетка без повторяющихся кнопок.</p>
-          <button class="btn tiny">Открыть музыку</button>
-        </article>
-        <article class="mini-card">
-          <h3>Проекты</h3>
-          <p>Игровые события, миксы и турниры собраны отдельно, чтобы не мешать основным действиям.</p>
-          <button class="btn tiny">Перейти в проекты</button>
-        </article>
-        <article class="mini-card">
-          <h3>Сообщество</h3>
-          <p>Чат, поддержка и комьюнити-карточки расположены в одном блоке.</p>
-          <button class="btn tiny">Открыть чат</button>
-        </article>
-      </div>
-    </section>
-
-    <section id="music" class="section">
-      <div class="section__header">
-        <h2>Чарт релизов</h2>
-        <p>Больше данных о треках: дата, доступ, язык, прослушивания и статус.</p>
-      </div>
-      <div class="chart" id="chart"></div>
-    </section>
-
-    <section class="section">
-      <div class="section__header">
-        <h2>Отзывы и комментарии</h2>
-        <p>Мини-карточки для фидбэка: отметь трек лайком и оставь быстрый комментарий.</p>
-      </div>
-      <div class="comments-grid" id="comments"></div>
-    </section>
-
-    <section id="profile" class="section profile">
-      <div class="profile__card">
-        <div class="bot-avatar">AI</div>
         <div>
-          <p class="label">Профиль</p>
-          <h3>AVZALØV · @avzalov</h3>
-          <p class="muted">ID: 4096 · уровень 12 · RUZCOIN баланс: 128</p>
+          <h2>Слушай треки с обложками и датами</h2>
+          <p>Каждый релиз подтягивается из tracks-data.js — даты, статусы и доступы сохраняются.</p>
         </div>
-      </div>
-
-      <div class="profile__layout">
-        <div class="panel">
-          <h4>Обзор</h4>
-          <ul class="stat-list">
-            <li><span>Недавние прослушивания</span><strong>12</strong></li>
-            <li><span>Открытых достижений</span><strong>7</strong></li>
-            <li><span>История покупок</span><strong>3</strong></li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Настройки</h4>
-          <div class="field">
-            <label for="language">Язык интерфейса</label>
-            <select id="language">
+        <div class="filters">
+          <label class="filter">
+            <span>Фильтр доступа</span>
+            <select id="accessFilter">
+              <option value="all">Все</option>
+              <option value="early-access">Early access</option>
+              <option value="open">Открытые</option>
+            </select>
+          </label>
+          <label class="filter">
+            <span>Язык</span>
+            <select id="languageFilter">
+              <option value="all">Любой</option>
               <option value="ru">Русский</option>
               <option value="tt">Татарский</option>
               <option value="en">English</option>
             </select>
-          </div>
-          <div class="field">
-            <label>Загрузка и сбор данных</label>
-            <div class="toggle-row">
-              <span>Разрешить сбор статистики</span>
-              <input type="checkbox" checked />
-            </div>
-            <div class="toggle-row">
-              <span>Экспорт аккаунта</span>
-              <button class="btn tiny">Скачать</button>
-            </div>
-          </div>
-          <p class="muted">Управление языком, приватностью и выгрузками переехало сюда, чтобы профиль оставался чистым.</p>
+          </label>
         </div>
-        <div class="panel">
-          <h4>Достижения</h4>
-          <div class="badges">
-            <span class="badge">Early Access</span>
-            <span class="badge">Top Listener</span>
-            <span class="badge">Beta Tester</span>
+      </div>
+      <div class="chart" id="tracksList"></div>
+    </section>
+
+    <section class="section two-column" id="chat">
+      <div class="panel">
+        <div class="section__header">
+          <h2>Чат сообщества</h2>
+          <p>Вернули быстрый чат с ролями и поддержкой админ-кода.</p>
+        </div>
+        <div class="chat-feed" id="chatFeed"></div>
+        <form class="chat-form" id="chatForm">
+          <input type="text" id="chatInput" placeholder="Напиши сообщение" aria-label="Сообщение" required />
+          <button class="btn primary" type="submit">Отправить</button>
+        </form>
+      </div>
+      <div class="panel role-panel">
+        <h3>Роли и статусы</h3>
+        <p class="muted">Отмечаем ключевые роли профиля. Админ-код добавляет права модерации.</p>
+        <div class="badges" id="roleBadges"></div>
+        <div class="toggle-row">
+          <span>Игровой режим</span>
+          <input type="checkbox" id="gameToggle" checked />
+        </div>
+        <div class="toggle-row">
+          <span>Уведомления чата</span>
+          <input type="checkbox" id="notifyToggle" checked />
+        </div>
+        <div class="toggle-row">
+          <span>Закрепить плеер</span>
+          <input type="checkbox" id="dockToggle" checked />
+        </div>
+      </div>
+    </section>
+
+    <section class="section two-column" id="profile">
+      <div class="panel">
+        <h2>Профиль и вход</h2>
+        <p class="muted">Вход по коду администратора и классическая авторизация для слушателей.</p>
+        <div class="profile__card">
+          <div class="bot-avatar">AI</div>
+          <div>
+            <p class="label">Профиль</p>
+            <h3 id="profileName">Гость</h3>
+            <p class="muted" id="profileMeta">ID: — · уровень — · RUZCOIN: 0</p>
           </div>
+        </div>
+        <div class="field">
+          <label for="adminCode">Админ-код</label>
+          <input type="password" id="adminCode" placeholder="Введите код" />
+        </div>
+        <div class="field double">
+          <button class="btn primary" id="loginBtn">Войти</button>
+          <button class="btn ghost" id="logoutBtn">Выйти</button>
+        </div>
+        <p class="muted">После ввода админ-кода профиль получает роль «Админ» и доступ к управлению треками и чату.</p>
+      </div>
+      <div class="panel" id="game">
+        <h2>Игровая панель</h2>
+        <p class="muted">Мини-дашборд для Idle Game: уровни, токены и события.</p>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <p class="label">Уровень</p>
+            <p class="value" id="levelStat">12</p>
+            <span class="chip">Опыт растёт</span>
+          </div>
+          <div class="stat-card">
+            <p class="label">RUZCOIN</p>
+            <p class="value" id="ruzBalance">128</p>
+            <span class="chip">Баланс</span>
+          </div>
+          <div class="stat-card">
+            <p class="label">Ачивки</p>
+            <p class="value">7</p>
+            <span class="chip">Открыто</span>
+          </div>
+          <div class="stat-card">
+            <p class="label">События</p>
+            <p class="value">3</p>
+            <span class="chip">Live</span>
+          </div>
+        </div>
+        <div class="game-actions">
+          <button class="btn outline" id="gameStart">Стартовать матч</button>
+          <button class="btn ghost" id="gameRewards">Забрать награды</button>
         </div>
       </div>
     </section>
   </main>
 
+  <section class="player-dock" id="playerDock">
+    <div class="player-meta">
+      <img id="playerCover" src="img/background.jpg" alt="Обложка трека" />
+      <div>
+        <p class="label" id="playerStatus">Плеер готов</p>
+        <h3 id="playerTitle">Выберите трек</h3>
+        <p class="muted" id="playerInfo">Даты релиза, статусы и авторские права подтягиваются автоматически.</p>
+      </div>
+    </div>
+    <div class="player-controls">
+      <div class="buttons">
+        <button class="icon" id="prevBtn" aria-label="Предыдущий трек">⏮️</button>
+        <button class="icon primary" id="playBtn" aria-label="Пуск/Пауза">▶️</button>
+        <button class="icon" id="nextBtn" aria-label="Следующий трек">⏭️</button>
+      </div>
+      <div class="timeline">
+        <span id="currentTime">0:00</span>
+        <input type="range" id="progress" min="0" max="100" value="0" />
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+    <div class="playlist" id="playlist"></div>
+    <audio id="audio"></audio>
+  </section>
+
   <footer class="site-footer">
-    <p>AVZALØV · музыка, проекты и AI. Чистый интерфейс без дубликатов.</p>
+    <p>AVZALØV · музыка, проекты и AI. Плеер, чат и роли возвращены на главную.</p>
   </footer>
 
   <script src="tracks-data.js"></script>
