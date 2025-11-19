@@ -109,6 +109,7 @@
       avatar: '',
     },
     purchased: new Set(),
+    liked: new Set(),
     users: [],
   };
 
