@@ -46,7 +46,24 @@
         mouse.x = e.clientX;
         mouse.y = e.clientY;
         mouse.lastMove = performance.now();
-      });
+      }, { passive: true });
+
+      // слежение за касанием на мобильных устройствах
+      window.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+          mouse.x = e.touches[0].clientX;
+          mouse.y = e.touches[0].clientY;
+          mouse.lastMove = performance.now();
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          mouse.x = e.touches[0].clientX;
+          mouse.y = e.touches[0].clientY;
+          mouse.lastMove = performance.now();
+        }
+      }, { passive: true });
 
       function getTarget(time) {
         const now = performance.now();
