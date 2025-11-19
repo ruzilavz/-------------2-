@@ -306,6 +306,55 @@
     }
     state.user = current;
     state.roles = [current.role || 'Слушатель'];
+    loadLiked();
+  };
+
+  const persistLiked = () => {
+    if (!state.user || !state.user.id) return;
+    localStorage.setItem(`avzal_liked_${state.user.id}`, JSON.stringify(Array.from(state.liked)));
+  };
+
+  const loadLiked = () => {
+    if (!state.user || !state.user.id) return;
+    const liked = localStorage.getItem(`avzal_liked_${state.user.id}`);
+    if (liked) {
+      state.liked = new Set(JSON.parse(liked));
+    } else {
+      state.liked = new Set();
+    }
+  };
+
+  const toggleLike = (slug) => {
+    if (state.liked.has(slug)) {
+      state.liked.delete(slug);
+    } else {
+      state.liked.add(slug);
+    }
+    persistLiked();
+    renderTracks();
+  };
+
+  const shareTrack = async (track) => {
+    const url = `${window.location.origin}/#track-${track.slug}`;
+    const shareData = {
+      title: `${track.artist || 'AVZALØV'} - ${track.title}`,
+      text: `Слушай ${track.artist || 'AVZALØV'} - ${track.title} на новой платформе AVZALØV!`,
+      url,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(url);
+        alert('Ссылка на трек скопирована в буфер обмена!');
+      }
+    } catch (err) {
+      console.error('Share failed:', err);
+      // Fallback to clipboard
+      await navigator.clipboard.writeText(url);
+      alert('Ссылка на трек скопирована в буфер обмена.');
+    }
   };
 
   const saveUsersToState = (user) => {
