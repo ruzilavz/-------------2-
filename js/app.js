@@ -36,9 +36,25 @@
     ctaChat: document.getElementById('ctaChat'),
     ctaGame: document.getElementById('ctaGame'),
     playerDock: document.getElementById('playerDock'),
+    playerHandle: document.getElementById('playerHandle'),
     dockToggle: document.getElementById('dockToggle'),
     gameToggle: document.getElementById('gameToggle'),
     notifyToggle: document.getElementById('notifyToggle'),
+    gamePlatforms: document.getElementById('gamePlatforms'),
+    chatLauncher: document.getElementById('chatLauncher'),
+    chatModal: document.getElementById('chatModal'),
+    loginModal: document.getElementById('loginModal'),
+    settingsModal: document.getElementById('settingsModal'),
+    loginModalBtn: document.getElementById('loginModalBtn'),
+    settingsModalBtn: document.getElementById('settingsModalBtn'),
+    releaseBadge: document.getElementById('releaseBadge'),
+    volume: document.getElementById('volume'),
+    repeatBtn: document.getElementById('repeatBtn'),
+    muteBtn: document.getElementById('muteBtn'),
+    platformLinks: document.getElementById('platformLinks'),
+    chatTitle: document.getElementById('chatTitle'),
+    clock: document.getElementById('clock'),
+    themeToggle: document.getElementById('themeToggle'),
   };
 
   const ADMIN_SECRET = '4096-AVZALOV';
@@ -46,9 +62,14 @@
     playlist: [],
     currentIndex: 0,
     isPlaying: false,
+    isMuted: false,
+    isRepeat: false,
     roles: ['Слушатель'],
     user: { name: 'Гость', level: 1, ruz: 0 },
+    purchased: new Set(),
   };
+
+  document.body.dataset.theme = 'dark';
 
   const overrides = {
     'davyl': 'Davyl.mp3',
@@ -70,27 +91,69 @@
     return `audio/${track.slug}${audioExt(track)}`;
   };
 
-  const formatReleaseDate = (date) => date || 'Скоро';
+  const parseReleaseDateString = (track) => {
+    const value = track.releaseDate;
+    if (!value) return null;
+    const normalized = value.toString().trim().toLowerCase();
+    if (normalized.includes('скоро')) return null;
+    const parts = normalized.split('.');
+    if (parts.length === 3) {
+      const [day, month, year] = parts.map((p) => Number(p));
+      if (day && month && year) return new Date(year, month - 1, day);
+    }
+    const parsed = Date.parse(value);
+    return Number.isNaN(parsed) ? null : new Date(parsed);
+  };
+
+  const getReleaseDate = (track) => {
+    const base = parseReleaseDateString(track);
+    if (!base) return null;
+    const [hours, minutes] = (track.releaseTime || '12:00').split(':').map((p) => Number(p));
+    const release = new Date(base.getTime());
+    release.setHours(hours || 0, minutes || 0, 0, 0);
+    return release;
+  };
+
+  const isReleased = (track) => {
+    const releaseDate = getReleaseDate(track);
+    if (!releaseDate) return false;
+    return Date.now() >= releaseDate.getTime();
+  };
+
+  const formatReleaseDate = (track) => {
+    const releaseDate = getReleaseDate(track);
+    if (!releaseDate) return 'Скоро релиз';
+    return releaseDate.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  };
+
   const languagesLabel = (langs) => (langs ? langs.join(' / ') : 'multi');
 
   const renderStats = () => {
     elements.tracksCount.textContent = tracksData.length;
     const playable = tracksData.filter((t) => Boolean(getAudioPath(t)));
     elements.playableCount.textContent = playable.length;
-    const early = tracksData.filter((t) => (t.access || '').includes('early')).length;
+    const early = tracksData.filter((t) => (t.access || '').includes('early') && !isReleased(t)).length;
     elements.earlyCount.textContent = early;
-    const next = tracksData.find((t) => (t.releaseDate || '').toLowerCase() !== 'скоро');
-    elements.nextRelease.textContent = next ? next.releaseDate : 'Скоро';
+    const withDates = tracksData
+      .map((track) => ({ track, date: getReleaseDate(track) }))
+      .filter((item) => item.date)
+      .sort((a, b) => a.date.getTime() - b.date.getTime());
+    const next = withDates.find((item) => item.date.getTime() >= Date.now()) || withDates[0];
+    elements.nextRelease.textContent = next
+      ? `${next.track.title} · ${next.date.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}`
+      : 'Скоро';
   };
 
   const renderRoles = () => {
-    elements.roleBadges.innerHTML = '';
-    state.roles.forEach((role) => {
-      const span = document.createElement('span');
-      span.className = 'badge';
-      span.textContent = role;
-      elements.roleBadges.appendChild(span);
-    });
+    if (elements.roleBadges) {
+      elements.roleBadges.innerHTML = '';
+      state.roles.forEach((role) => {
+        const span = document.createElement('span');
+        span.className = 'badge';
+        span.textContent = role;
+        elements.roleBadges.appendChild(span);
+      });
+    }
     elements.roleChip.textContent = `${state.user.name} · ${state.roles.join(', ')}`;
   };
 
@@ -120,17 +183,18 @@
     title.textContent = track.title;
     const price = document.createElement('span');
     price.className = 'chip';
-    price.textContent = track.price === 0 ? 'Free' : `${track.price} RUZ`;
+    const effectivePrice = isReleased(track) ? track.price ?? 0 : 1;
+    price.textContent = effectivePrice === 0 ? 'Бесплатно' : `${effectivePrice} RUZCOIN`;
     top.append(title, price);
 
     const meta = document.createElement('div');
     meta.className = 'track-card__meta';
     const release = document.createElement('span');
     release.className = 'chip chip--soon';
-    release.textContent = formatReleaseDate(track.releaseDate);
+    release.textContent = formatReleaseDate(track);
     const access = document.createElement('span');
     access.className = 'chip';
-    access.textContent = track.access ? `Доступ: ${track.access}` : 'Open';
+    access.textContent = track.access ? `Доступ: ${track.access}` : 'Открытый';
     const langs = document.createElement('span');
     langs.className = 'chip';
     langs.textContent = `Языки: ${languagesLabel(track.languages)}`;
@@ -176,7 +240,10 @@
 
   const buildPlaylist = () => {
     state.playlist = tracksData
-      .map((track) => ({ ...track, audioPath: getAudioPath(track), coverPath: getCoverPath(track) }))
+      .map((track) => {
+        const price = isReleased(track) ? track.price ?? 0 : 1;
+        return { ...track, price, audioPath: getAudioPath(track), coverPath: getCoverPath(track) };
+      })
       .filter((item) => Boolean(item.audioPath));
     renderPlaylist();
   };
@@ -185,12 +252,23 @@
     elements.playlist.innerHTML = '';
     state.playlist.forEach((track, index) => {
       const button = document.createElement('button');
-      button.textContent = track.title;
+      button.textContent = `${track.title} · ${formatReleaseDate(track)}`;
       if (state.currentIndex === index) button.classList.add('active');
       button.addEventListener('click', () => setCurrentTrack(index, true));
       elements.playlist.appendChild(button);
     });
   };
+
+  function renderPlatforms(track) {
+    const platforms = track.platforms || ['Yandex Music', 'VK Музыка', 'Apple Music'];
+    elements.platformLinks.innerHTML = '';
+    platforms.forEach((item) => {
+      const badge = document.createElement('span');
+      badge.className = 'chip';
+      badge.textContent = item;
+      elements.platformLinks.appendChild(badge);
+    });
+  }
 
   const formatTime = (time) => {
     if (Number.isNaN(time)) return '0:00';
@@ -208,17 +286,42 @@
     elements.audio.src = track.audioPath;
     elements.playerCover.src = track.coverPath;
     elements.playerTitle.textContent = track.title;
-    elements.playerInfo.textContent = `${formatReleaseDate(track.releaseDate)} · ${languagesLabel(track.languages)} · ${
+    elements.playerInfo.textContent = `${formatReleaseDate(track)} · ${languagesLabel(track.languages)} · ${
       track.copyright || '© AVZALØV'
     }`;
-    elements.playerStatus.textContent = track.access ? `Доступ: ${track.access}` : 'Открытый трек';
+    const released = isReleased(track);
+    elements.playerStatus.textContent = released ? 'Трек вышел' : 'Ранний доступ: 1 RUZCOIN до релиза';
+    elements.releaseBadge.textContent = released
+      ? `Вышел ${formatReleaseDate(track)}`
+      : `До релиза: ${formatReleaseDate(track)}`;
+    renderPlatforms(track);
     renderPlaylist();
     if (autoplay) {
       playTrack();
     }
   };
 
+  const ensureEarlyAccess = () => {
+    const track = state.playlist[state.currentIndex];
+    if (!track) return false;
+    const released = isReleased(track);
+    const price = track.price ?? 1;
+    const open = (track.access || '').includes('open') || price === 0;
+    if (released || open || state.purchased.has(track.slug)) return true;
+    if (state.user.ruz < price) {
+      alert('Нужно минимум 1 RUZCOIN для раннего прослушивания. Пополните баланс в профиле.');
+      return false;
+    }
+    const allow = confirm(`Трек в раннем доступе. Списать ${price} RUZCOIN и открыть прослушивание до релиза?`);
+    if (!allow) return false;
+    state.user.ruz -= price;
+    state.purchased.add(track.slug);
+    renderProfile();
+    return true;
+  };
+
   const playTrack = () => {
+    if (!ensureEarlyAccess()) return;
     elements.audio.play();
     state.isPlaying = true;
     elements.playBtn.textContent = '⏸️';
@@ -255,23 +358,100 @@
     elements.audio.currentTime = target;
   };
 
+  const updateClock = () => {
+    const now = new Date();
+    if (elements.clock) {
+      elements.clock.textContent = now.toLocaleString('ru-RU', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+  };
+
+  const toggleRepeat = () => {
+    state.isRepeat = !state.isRepeat;
+    elements.audio.loop = state.isRepeat;
+    elements.repeatBtn.classList.toggle('active', state.isRepeat);
+  };
+
+  const toggleMute = () => {
+    state.isMuted = !state.isMuted;
+    elements.audio.muted = state.isMuted;
+    elements.muteBtn.textContent = state.isMuted ? '🔈' : '🔇';
+  };
+
+  const changeVolume = () => {
+    const volume = Number(elements.volume.value);
+    elements.audio.volume = volume;
+    state.isMuted = volume === 0;
+    elements.muteBtn.textContent = state.isMuted ? '🔈' : '🔇';
+  };
+
+  const enableDrag = () => {
+    let dragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startLeft = 0;
+    let startTop = 0;
+
+    const onMove = (evt) => {
+      if (!dragging) return;
+      const deltaX = evt.clientX - startX;
+      const deltaY = evt.clientY - startY;
+      const newLeft = Math.min(Math.max(startLeft + deltaX, 8), window.innerWidth - elements.playerDock.offsetWidth - 8);
+      const newTop = Math.min(Math.max(startTop + deltaY, 8), window.innerHeight - elements.playerDock.offsetHeight - 8);
+      elements.playerDock.style.left = `${newLeft}px`;
+      elements.playerDock.style.top = `${newTop}px`;
+      elements.playerDock.style.right = 'auto';
+      elements.playerDock.style.bottom = 'auto';
+    };
+
+    const stop = () => {
+      dragging = false;
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', stop);
+    };
+
+    elements.playerHandle.addEventListener('mousedown', (evt) => {
+      dragging = true;
+      startX = evt.clientX;
+      startY = evt.clientY;
+      startLeft = elements.playerDock.offsetLeft;
+      startTop = elements.playerDock.offsetTop;
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', stop);
+    });
+  };
+
   const selectTrackBySlug = (slug) => {
     const index = state.playlist.findIndex((item) => item.slug === slug);
     if (index >= 0) setCurrentTrack(index, true);
   };
 
   const chatMessages = [
-    { user: 'AI-бот', role: 'модератор', text: 'Плеер снова активен. Можно слушать любые треки из базы.' },
-    { user: 'Рузиль', role: 'админ', text: 'Даты релизов и обложки подтягиваются из tracks-data.js, как и раньше.' },
-    { user: 'Слушатель', role: 'fan', text: 'Класс, роли и игра вернулись в шапку. Спасибо!' },
+    { user: 'AI-бот', role: 'модератор', text: 'Плеер стал компактнее и перетаскивается за угол ⇲.' },
+    { user: 'Рузиль', role: 'админ', text: 'Ранние треки стоят 1 RUZCOIN до даты релиза, дальше бесплатно.' },
+    { user: 'AI-бот', role: 'модератор', text: 'Чат показывает последние 10 сообщений и подсвечивает автора.' },
+    { user: 'Слушатель', role: 'fan', text: 'Дата релиза «Перегрев» — 27.11.2025 12:00, уже в расписании.' },
+    { user: 'Модератор', role: 'staff', text: 'Новые площадки: Яндекс, VK Музыка, Apple Music добавлены в плеер.' },
+    { user: 'Слушатель', role: 'fan', text: 'За 1 RUZCOIN можно крутить ранний доступ неограниченно до премьеры.' },
+    { user: 'Рузиль', role: 'админ', text: 'Не вышедшие треки продаются по 1 монете, баланс видно в профиле.' },
+    { user: 'AI-бот', role: 'модератор', text: 'Даты релизов синхронизированы с календарём — сайт сам понимает статус.' },
+    { user: 'Слушатель', role: 'fan', text: 'Игровая панель теперь открывает список площадок через кнопку.' },
+    { user: 'AI-бот', role: 'модератор', text: 'Пишите вопросы по релизам в чат или через контакты Telegram и WhatsApp.' },
   ];
 
   const renderChat = () => {
     elements.chatFeed.innerHTML = '';
-    chatMessages.forEach((msg) => {
+    const lastMessages = chatMessages.slice(-10);
+    lastMessages.forEach((msg) => {
       const item = document.createElement('div');
-      item.className = 'chat-message';
-      item.innerHTML = `<strong>${msg.user} · ${msg.role}</strong><p class="muted">${msg.text}</p>`;
+      const isMe = msg.user === state.user.name;
+      item.className = `chat-message${isMe ? ' chat-message--me' : ''}`;
+      item.innerHTML = `<strong>${msg.user} · <span class="chat-badge">${msg.role}</span></strong><p class="muted">${msg.text}</p>`;
       elements.chatFeed.appendChild(item);
     });
   };
@@ -295,7 +475,10 @@
       state.user = { name: 'Слушатель', level: 2, ruz: 24, id: 512 };
       state.roles = ['Слушатель'];
     }
+    state.purchased.clear();
     renderProfile();
+    renderChat();
+    closeModal(elements.loginModal);
   };
 
   const handleLogout = () => {
@@ -303,6 +486,22 @@
     state.roles = ['Слушатель'];
     elements.adminCode.value = '';
     renderProfile();
+    renderChat();
+    closeModal(elements.loginModal);
+  };
+
+  const openModal = (modal) => {
+    if (!modal) return;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = (modal) => {
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
   };
 
   const bindEvents = () => {
@@ -310,7 +509,15 @@
     elements.nextBtn.addEventListener('click', nextTrack);
     elements.prevBtn.addEventListener('click', prevTrack);
     elements.audio.addEventListener('timeupdate', updateProgress);
-    elements.audio.addEventListener('ended', nextTrack);
+    elements.audio.addEventListener('loadedmetadata', updateProgress);
+    elements.audio.addEventListener('ended', () => {
+      if (state.isRepeat) {
+        elements.audio.currentTime = 0;
+        playTrack();
+      } else {
+        nextTrack();
+      }
+    });
     elements.progress.addEventListener('input', seek);
     elements.chatForm.addEventListener('submit', handleChatSubmit);
     elements.loginBtn.addEventListener('click', handleLogin);
@@ -318,16 +525,38 @@
     elements.accessFilter.addEventListener('change', renderTracks);
     elements.languageFilter.addEventListener('change', renderTracks);
     elements.ctaPlay.addEventListener('click', () => selectTrackBySlug(state.playlist[0]?.slug));
-    elements.ctaChat.addEventListener('click', () => document.getElementById('chat').scrollIntoView({ behavior: 'smooth' }));
+    elements.ctaChat.addEventListener('click', () => openModal(elements.chatModal));
     elements.ctaGame.addEventListener('click', () => document.getElementById('game').scrollIntoView({ behavior: 'smooth' }));
     elements.openProfile.addEventListener('click', () => document.getElementById('profile').scrollIntoView({ behavior: 'smooth' }));
     elements.dockToggle.addEventListener('change', () => {
       elements.playerDock.style.display = elements.dockToggle.checked ? 'grid' : 'none';
     });
+    elements.chatLauncher.addEventListener('click', () => openModal(elements.chatModal));
+    elements.loginModalBtn.addEventListener('click', () => openModal(elements.loginModal));
+    elements.settingsModalBtn.addEventListener('click', () => openModal(elements.settingsModal));
+    document.querySelectorAll('.modal__close').forEach((btn) => {
+      btn.addEventListener('click', () => closeModal(document.getElementById(btn.dataset.close)));
+    });
+    elements.repeatBtn.addEventListener('click', toggleRepeat);
+    elements.muteBtn.addEventListener('click', toggleMute);
+    elements.volume.addEventListener('input', changeVolume);
+    elements.themeToggle.addEventListener('change', () => {
+      document.body.dataset.theme = elements.themeToggle.checked ? 'dark' : 'light';
+    });
+    elements.gamePlatforms.addEventListener('click', () => alert('Площадки: Steam mini, VK Play, itch.io — подключаются из Idle Game.'));
+    [elements.chatModal, elements.loginModal, elements.settingsModal].forEach((modal) => {
+      if (!modal) return;
+      modal.addEventListener('click', (evt) => {
+        if (evt.target === modal) closeModal(modal);
+      });
+    });
     document.addEventListener('keydown', (evt) => {
       if (evt.code === 'Space' && evt.target === document.body) {
         evt.preventDefault();
         togglePlay();
+      }
+      if (evt.code === 'Escape') {
+        [elements.chatModal, elements.loginModal, elements.settingsModal].forEach((modal) => closeModal(modal));
       }
     });
   };
@@ -339,4 +568,8 @@
   renderChat();
   bindEvents();
   setCurrentTrack(0);
+  changeVolume();
+  enableDrag();
+  updateClock();
+  setInterval(updateClock, 1000);
 })();
