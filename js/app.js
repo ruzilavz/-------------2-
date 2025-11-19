@@ -454,8 +454,14 @@
           </div>
         </div>
         <p class="muted tiny track-card__lyrics">${track.lyricsPreview || 'Текст появится ближе к релизу. Следите за обновлениями.'}</p>
+        <div class="track-card__meta-row track-card__meta-row--icons">
+          <span class="chip chip--icon" title="Прослушивания">👁️ ${track.plays?.toLocaleString('ru-RU') || '—'}</span>
+          <span class="chip chip--icon" title="Дата релиза">📅 ${formatReleaseDate(track)}</span>
+          <span class="chip chip--icon" title="Языки">🈂️ ${languagesLabel(track.languages)}</span>
+          ${track.hasClip ? '<span class="chip chip--icon">🎬 Клип</span>' : '<span class="chip chip--icon">🎧 Аудио</span>'}
+          ${track.explicit ? '<span class="chip chip--icon chip--alert">⚠️ Explicit</span>' : ''}
+        </div>
         <div class="track-card__meta-row">
-          <span class="pill">${track.plays?.toLocaleString('ru-RU') || '—'} прослушиваний</span>
           <span class="pill">${track.copyright || '© AVZALØV'}</span>
           <span class="pill pill--glass">${released ? 'Вышел' : 'Ранний доступ'}</span>
         </div>
@@ -971,6 +977,33 @@
     document.body.classList.remove('nav-open');
   };
 
+  const observeBottomNav = () => {
+    const links = Array.from(document.querySelectorAll('.bottom-nav__item'));
+    if (!links.length) return;
+
+    const sections = links
+      .map((link) => ({ link, section: document.getElementById(link.dataset.nav || '') }))
+      .filter((item) => Boolean(item.section));
+
+    const activate = (id) => {
+      links.forEach((lnk) => lnk.classList.toggle('active', lnk.dataset.nav === id));
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) activate(visible[0].target.id);
+      },
+      { threshold: 0.35, rootMargin: '-40% 0px -40% 0px' }
+    );
+
+    sections.forEach((item) => observer.observe(item.section));
+    if (sections[0]) activate(sections[0].section.id);
+    links.forEach((link) => link.addEventListener('click', () => activate(link.dataset.nav || '')));
+  };
+
   const init = async () => {
     await bootstrapUser();
     renderStats();
@@ -978,6 +1011,7 @@
     buildPlaylist();
     renderProfile();
     renderChat();
+    observeBottomNav();
     bindEvents();
     setCurrentTrack(0);
     changeVolume();
