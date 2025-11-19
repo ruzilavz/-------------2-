@@ -827,6 +827,7 @@
     state.roles = ['Слушатель'];
     elements.adminCode.value = '';
     saveUsersToState(state.user);
+    loadLiked();
     renderProfile();
     renderChat();
     if (elements.loginStatus) elements.loginStatus.textContent = 'Профиль сброшен, вход доступен только по коду.';
