@@ -7325,108 +7325,32 @@
   <canvas id="reptile-cursor"></canvas>
 
     <header class="site-header">
-      <div class="logo-group">
-        <div class="logo-mark">Ø</div>
-        <div class="logo-text">
-          <div class="logo-text-main">AVZALØV</div>
-          <div class="logo-text-sub">Рузиль Авзалов</div>
-        </div>
-      </div>
-
-      <button class="nav-toggle" id="navToggle" aria-label="Меню">
-        ☰
-      </button>
-
-      <nav id="mainNav">
-        <a href="#platforms" data-nav-target="platforms">Площадки</a>
-        <a href="#tracks" data-nav-target="tracks">Релизы</a>
-        <a href="#clips" data-nav-target="clips">Клипы</a>
-        <a href="#users" data-nav-target="users">Пользователи</a>
-        <a href="#payments" data-nav-target="payments">Оплата</a>
-        <a href="#news" data-nav-target="news">Новости</a>
-        <a href="#about" data-nav-target="about">Биография</a>
-        <a href="#contacts" data-nav-target="contacts">Контакты</a>
-      </nav>
-      <div class="header-chart-card" id="headerChartCard">
-        <div class="header-chart-top">
-          <div>
-            <p class="header-chart-kicker">Тёмный чарт</p>
-            <h3 class="header-chart-title" id="headerChartTopTitle">Скоро появятся лидеры</h3>
-          </div>
-          <div class="header-chart-count" id="headerChartTopPlays">0 прослушиваний</div>
-        </div>
-        <div class="header-chart-mini-list" id="headerChartMiniList">
-          <span class="header-chart-mini-item">Слушай треки, чтобы увидеть обновления</span>
-        </div>
-        <div class="header-chart-actions">
-          <button class="btn btn-ghost btn-xs" type="button" id="openChartModalBtn">
-            <i class="fas fa-chart-line"></i>
-            Открыть чарт
-          </button>
-          <span class="header-chart-status" id="headerChartStatus">Собираем данные</span>
-        </div>
-      </div>
-      <div class="mix-button-wrapper">
-        <button class="mix-button" id="mixEventsBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
-          <span class="mix-label">MIX</span>
-          <span class="mix-countdown" id="mixCountdownLabel">Загрузка…</span>
-        </button>
-        <div class="header-popover mix-popover" id="mixEventsPopover" role="dialog" aria-hidden="true">
-          <div class="popover-header">
-            <div class="popover-title">MIX события</div>
-            <div class="popover-sub" id="mixPopoverStatus">Расписание обновляется…</div>
-          </div>
-          <div class="mix-events-list" id="mixEventsList">
-            <p class="users-popover-empty">Подготавливаем события…</p>
-          </div>
-        </div>
-      </div>
-      <div class="header-actions">
-        <div class="header-action-group">
-          <div id="liveTime" class="live-time" aria-live="polite"></div>
-        </div>
-            <div class="header-action-group">
-              <button
-                id="headerUsersBtn"
-                class="header-action-btn users-btn"
-                type="button"
-                aria-label="Пользователи"
-                aria-haspopup="dialog"
-                data-users-modal-open
-              >
-                <div class="users-btn-inner">
-                  <i class="fas fa-user-friends"></i>
-                  <span class="users-btn-label">Пользователи</span>
-                  <span class="users-btn-sub">Топ слушателей</span>
-                </div>
-              </button>
-
-              <div class="header-popover users-popover" id="headerUsersPopover" role="dialog" aria-hidden="true">
-                <div class="popover-header">
-                  <div class="popover-title">Пользователи</div>
-                  <div class="popover-sub">Топ слушателей</div>
-                </div>
-                <div class="users-popover-list" id="headerUsersList">
-                  <p class="users-popover-empty">Войдите в профиль, чтобы увидеть активность слушателей.</p>
-                </div>
-                <div class="popover-actions">
-                  <button class="btn btn-ghost btn-xs" type="button" id="openUsersSectionBtn">Открыть раздел</button>
-                </div>
+          <div class="logo-group">
+            <div class="logo-mark">A</div>
+            <div class="logo-text">
+              <span class="logo-text-main">AVZALØV</span>
+              <span class="logo-text-sub">Official</span>
             </div>
-        </div>
-
-        <div class="header-action-group">
-          <button
-            class="header-profile-btn"
-            id="headerProfileBtn"
-            type="button"
-            aria-haspopup="dialog"
-            aria-expanded="false"
-          >
-            <div class="header-profile-avatar" id="headerProfileAvatar" aria-hidden="true">RU</div>
-            <span id="headerProfileName">Войти</span>
+          </div>
+      
+          <button class="nav-toggle" aria-label="Открыть меню">
+            <i class="fas fa-bars"></i>
           </button>
-          <div class="header-popover profile-popover" id="headerProfilePopover" role="dialog" aria-hidden="true">
+      
+          <nav class="main-nav">
+            <a href="#music" data-section="music">Музыка</a>
+            <a href="#projects" data-section="projects">Проекты</a>
+            <a href="#shop" data-section="shop">Магазин</a>
+            <a href="#contacts" data-section="contacts">Контакты</a>
+          </nav>
+      
+          <div class="header-actions">
+            <div class="header-action-group">
+              <button class="header-profile-btn" data-popover-trigger="profile-popover">
+                <span class="header-profile-avatar" data-avatar-placeholder="A"></span>
+                <span>Профиль</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>          <div class="header-popover profile-popover" id="headerProfilePopover" role="dialog" aria-hidden="true">
             <div class="profile-popover-section" data-state="logged-out">
               <div class="popover-header">
                 <div class="popover-title">Вход в профиль</div>
