@@ -484,6 +484,16 @@
       const langOk = language === 'all' || langs.includes(language);
       return accessOk && langOk;
     });
+    if (filtered.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.innerHTML = `
+        <h3>Нет треков под фильтры</h3>
+        <p class="muted">Сбросьте параметры или выберите другой язык, чтобы увидеть доступные релизы.</p>
+      `;
+      elements.tracksList.appendChild(empty);
+      return;
+    }
     filtered.forEach((track) => {
       const card = createTrackCard(track);
       elements.tracksList.appendChild(card);

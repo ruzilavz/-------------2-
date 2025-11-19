@@ -351,6 +351,19 @@ body[data-theme='light'] .muted {
   padding: 8px 10px;
 }
 
+.empty-state {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  grid-column: 1 / -1;
+}
+
+.empty-state h3 {
+  margin: 0 0 8px;
+}
+
 .chart {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
