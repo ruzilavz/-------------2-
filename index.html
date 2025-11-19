@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="AVZALØV — музыкальная платформа с релизами, клипами, AI-инструментами и игровой экономикой RUZCOIN."
-  />
-  <title>AVZALØV · музыка · AI · RUZCOIN</title>
+  <meta name="description" content="AVZALØV — музыка, релизы, сцена и библиотека треков с ранним доступом." />
+  <title>AVZALØV · музыка · сцена</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -20,6 +17,8 @@
       <a href="#profile">Профиль</a>
     </nav>
     <div class="header-actions">
+      <div class="header-clock" id="headerClock">—</div>
+      <button class="pill glass" id="newsModalBtn" aria-label="Новости">Новости</button>
       <button class="icon ghost" id="chatLauncher" aria-label="Открыть чат" title="Чат">
         <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -37,11 +36,11 @@
   <main class="page">
     <section id="hero" class="hero">
       <div class="hero__text">
-        <p class="eyebrow">музыка · игры · ai</p>
-        <h1>Музыкальный мир AVZALØV вернулся</h1>
+        <p class="eyebrow">музыка · релизы · сцена</p>
+        <h1>AVZALØV — артист и музыкант, главная сцена здесь</h1>
         <p class="lede">
-          Вся библиотека треков с обложками, датами релизов и ранним доступом снова на месте.
-          Аудиоплеер, чат и роли подключены в едином интерфейсе.
+          Вся библиотека треков с обложками, датами релизов и ранним доступом снова на месте. Плеер и чат остаются
+          удобными дополнениями — главное здесь музыка и релизы.
         </p>
         <div class="hero__actions">
           <button class="btn primary" id="ctaPlay">Слушать лучшие треки</button>
@@ -49,7 +48,7 @@
           <button class="btn ghost" id="ctaGame">Запуск игры</button>
         </div>
         <div class="hero__tags">
-          <span>trap</span><span>tatar</span><span>experimental</span><span>ai</span><span>idle game</span>
+          <span>trap</span><span>tatar</span><span>experimental</span><span>live</span><span>studio</span>
         </div>
         <div class="hero__stats">
           <div><p class="label">Треков в базе</p><p class="value" id="tracksCount">—</p></div>
@@ -68,10 +67,16 @@
         <div class="grid-mini">
           <div class="pill glass">Чарт · обновляется</div>
           <div class="pill glass">Профиль · роли</div>
-          <div class="pill glass">AI чат</div>
+          <div class="pill glass">Чат для слушателей</div>
           <div class="pill glass">RUZCOIN · 128</div>
         </div>
       </div>
+    </section>
+
+    <section class="ticker" aria-label="Лента новостей">
+      <div class="ticker__title">AVZALØV NEWS</div>
+      <div class="ticker__items" id="newsTicker">Свежие новости артиста появляются здесь...</div>
+      <button class="pill ghost" id="newsTickerBtn">Открыть ленту</button>
     </section>
 
     <section class="section" id="music">
@@ -98,6 +103,7 @@
               <option value="en">English</option>
             </select>
           </label>
+          <button class="btn ghost" id="chartOpenBtn">Чарт и динамика</button>
         </div>
       </div>
       <div class="chart" id="tracksList"></div>
@@ -106,19 +112,42 @@
     <section class="section two-column" id="profile">
       <div class="panel">
         <h2>Профиль и вход</h2>
-        <p class="muted">Вход по коду администратора и классическая авторизация для слушателей.</p>
-        <div class="profile__card">
-          <div class="bot-avatar">AI</div>
+        <p class="muted">Аватар, подарочные коды, роли и ID сохраняются в users.json (локально для устройства).</p>
+        <div class="profile__card profile__card--wide">
+          <div class="avatar" id="profileAvatar" aria-label="Аватар пользователя"></div>
           <div>
             <p class="label">Профиль</p>
             <h3 id="profileName">Гость</h3>
             <p class="muted" id="profileMeta">ID: — · уровень — · RUZCOIN: 0</p>
+            <p class="tiny" id="profileToken">Токен: —</p>
           </div>
         </div>
         <div class="badges" id="roleBadges"></div>
         <div class="profile-actions">
           <button class="btn primary" id="loginModalBtn">Войти / роли</button>
           <button class="btn ghost" id="settingsModalBtn">Настройки профиля</button>
+          <button class="pill" id="vkLogin">Вход через ВК</button>
+          <button class="pill" id="gmailLogin">Вход через Gmail</button>
+        </div>
+        <div class="profile-forms">
+          <div class="field">
+            <label for="nameInput">Имя в профиле</label>
+            <input type="text" id="nameInput" placeholder="Укажите имя" />
+            <p class="tiny" id="nameWarning">Имя можно изменить только один раз. После сохранения поле заблокируется.</p>
+            <button class="btn outline" id="saveNameBtn">Сохранить имя</button>
+          </div>
+          <div class="field">
+            <label for="avatarInput">Загрузить аватар (круг)</label>
+            <input type="file" id="avatarInput" accept="image/*" />
+          </div>
+          <div class="field">
+            <label for="giftCodeInput">Подарочный код</label>
+            <div class="gift-row">
+              <input type="text" id="giftCodeInput" placeholder="Ввести промокод" />
+              <button class="btn primary" id="giftCodeBtn">Активировать</button>
+            </div>
+            <p class="tiny" id="giftStatus">Коды начисляют монеты и ранний доступ.</p>
+          </div>
         </div>
         <div class="contacts">
           <h4>Связь с артистом</h4>
@@ -264,8 +293,36 @@
     </div>
   </div>
 
+  <div class="modal" id="chartModal" aria-hidden="true">
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="chartTitleModal">
+      <button class="modal__close" data-close="chartModal" aria-label="Закрыть">×</button>
+      <div class="section__header">
+        <div>
+          <h2 id="chartTitleModal">Чарт топ-10</h2>
+          <p class="muted">Динамика роста и падения по прослушиваниям и раннему доступу.</p>
+        </div>
+      </div>
+      <div class="chart-modal__list" id="chartList"></div>
+    </div>
+  </div>
+
+  <div class="modal" id="trackModal" aria-hidden="true">
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle">
+      <button class="modal__close" data-close="trackModal" aria-label="Закрыть">×</button>
+      <div class="track-modal" id="trackModalBody"></div>
+    </div>
+  </div>
+
+  <div class="modal" id="newsModal" aria-hidden="true">
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="newsTitle">
+      <button class="modal__close" data-close="newsModal" aria-label="Закрыть">×</button>
+      <h3 id="newsTitle">Новости AVZALØV</h3>
+      <div class="news-list" id="newsList"></div>
+    </div>
+  </div>
+
   <footer class="site-footer">
-    <p>AVZALØV · музыка, проекты и AI. Плеер, чат и роли возвращены на главную.</p>
+    <p>AVZALØV · музыка и проекты. Плеер, чат и роли остаются аккуратными дополнениями.</p>
   </footer>
 
   <script src="tracks-data.js"></script>
