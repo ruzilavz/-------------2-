@@ -115,6 +115,16 @@
 
   document.body.dataset.theme = 'dark';
 
+  const pseudoRandom = (seed, mod = 1000) => {
+    const str = String(seed);
+    let hash = 0;
+    for (let i = 0; i < str.length; i += 1) {
+      hash = (hash << 5) - hash + str.charCodeAt(i);
+      hash |= 0;
+    }
+    return Math.abs(hash % mod);
+  };
+
   const overrides = {
     'davyl': 'Davyl.mp3',
     'teapot': 'Teapot.mp3',
@@ -169,6 +179,68 @@
     if (track.audio === false) return null;
     if (overrides[track.slug]) return `audio/${overrides[track.slug]}`;
     return `audio/${track.slug}${audioExt(track)}`;
+  };
+
+  const deriveDurationSeconds = (track) => {
+    if (typeof track.duration === 'number') return track.duration;
+    return 150 + pseudoRandom(`${track.slug}-duration`, 90);
+  };
+
+  const formatDurationLabel = (seconds) => {
+    const mins = Math.floor(seconds / 60) || 0;
+    const secs = Math.floor(seconds % 60)
+      .toString()
+      .padStart(2, '0');
+    return `${mins}:${secs}`;
+  };
+
+  const deriveTags = (track) => {
+    const tags = [];
+    if (track.access?.includes('early')) tags.push('#early-access');
+    if (track.languages?.includes('tt')) tags.push('#tatar');
+    if (track.languages?.includes('ru')) tags.push('#russian');
+    if (track.explicit) tags.push('#explicit');
+    if (track.hasClip) tags.push('#clip-ready');
+    if ((track.platforms || []).includes('Spotify')) tags.push('#spotify');
+    return tags;
+  };
+
+  const getTrackStats = (track) => {
+    const plays = track.plays || 480;
+    const likes = track.likes ?? Math.max(120, Math.round(plays * 0.62));
+    const comments = track.comments ?? Math.max(6, Math.round(plays * 0.08));
+    const remixes = track.remixes ?? Math.max(0, Math.round((plays % 180) / 12));
+    const listeners = track.listeners ?? Math.max(likes + comments, Math.round(plays * 0.48));
+    const durationSeconds = deriveDurationSeconds(track);
+    const tags = track.tags?.length ? track.tags : deriveTags(track);
+    return { plays, likes, comments, remixes, listeners, durationSeconds, tags };
+  };
+
+  const isFreshRelease = (track) => {
+    const releaseDate = getReleaseDate(track);
+    if (!releaseDate) return false;
+    const diff = Math.abs(Date.now() - releaseDate.getTime());
+    const days = diff / (1000 * 60 * 60 * 24);
+    return days <= 10;
+  };
+
+  const getTrackBadges = (track, stats, released) => {
+    const badges = [];
+    if (!released) badges.push('🆕 Early');
+    if (released && isFreshRelease(track)) badges.push('✨ Новинка');
+    if (stats.plays > 900 || stats.likes > 800) badges.push('🔥 Хит');
+    if (track.hasClip) badges.push('🎬 Клип');
+    if (track.explicit) badges.push('⚠️ Explicit');
+    if ((track.platforms || []).includes('Apple Music')) badges.push('🍎 Apple Music');
+    return badges;
+  };
+
+  const renderWaveform = (track, size = 'default') => {
+    const bars = Array.from({ length: size === 'compact' ? 16 : 24 }, (_, index) => 12 + pseudoRandom(`${track.slug}-${index}`, 48));
+    const className = `waveform waveform--${size}`;
+    return `<div class="${className}" aria-hidden="true">${bars
+      .map((height) => `<span style="height:${height}px"></span>`)
+      .join('')}</div>`;
   };
 
   const parseReleaseDateString = (track) => {
@@ -422,6 +494,8 @@
     const card = document.createElement('article');
     const released = isReleased(track);
     const isLiked = state.liked.has(track.slug);
+    const stats = getTrackStats(track);
+    const badges = getTrackBadges(track, stats, released);
 
     card.className = 'track-card track-card--neo';
     card.innerHTML = `
@@ -453,6 +527,13 @@
             </button>
           </div>
         </div>
+        ${
+          badges.length
+            ? `<div class="track-card__badges-row">${badges
+                .map((badge) => `<span class="pill pill--status">${badge}</span>`)
+                .join('')}</div>`
+            : ''
+        }
         <p class="muted tiny track-card__lyrics">${track.lyricsPreview || 'Текст появится ближе к релизу. Следите за обновлениями.'}</p>
         <div class="track-card__meta-row track-card__meta-row--icons">
           <span class="chip chip--icon" title="Прослушивания">👁️ ${track.plays?.toLocaleString('ru-RU') || '—'}</span>
@@ -461,6 +542,21 @@
           ${track.hasClip ? '<span class="chip chip--icon">🎬 Клип</span>' : '<span class="chip chip--icon">🎧 Аудио</span>'}
           ${track.explicit ? '<span class="chip chip--icon chip--alert">⚠️ Explicit</span>' : ''}
         </div>
+        <div class="track-card__meta-row track-card__meta-row--icons track-card__meta-row--micro">
+          <span class="chip chip--icon" title="Лайки">❤️ ${stats.likes.toLocaleString('ru-RU')}</span>
+          <span class="chip chip--icon" title="Комментарии">💬 ${stats.comments.toLocaleString('ru-RU')}</span>
+          <span class="chip chip--icon" title="Ремиксы или репосты">🔁 ${stats.remixes}</span>
+          <span class="chip chip--icon" title="Слушатели">🎧 ${stats.listeners.toLocaleString('ru-RU')}</span>
+          <span class="chip chip--icon" title="Длительность">⏱️ ${formatDurationLabel(stats.durationSeconds)}</span>
+        </div>
+        ${
+          stats.tags.length
+            ? `<div class="track-card__tags">${stats.tags
+                .map((tag) => `<span class="tag">${tag}</span>`)
+                .join('')}</div>`
+            : ''
+        }
+        ${renderWaveform(track)}
         <div class="track-card__meta-row">
           <span class="pill">${track.copyright || '© AVZALØV'}</span>
           <span class="pill pill--glass">${released ? 'Вышел' : 'Ранний доступ'}</span>
@@ -510,6 +606,7 @@
     if (!elements.trackModalBody) return;
     const release = formatReleaseDate(track);
     const access = track.access ? `Доступ: ${track.access}` : 'Открытый';
+    const stats = getTrackStats(track);
     elements.trackModalBody.innerHTML = `
       <div class="track-modal__header">
         <img src="${getCoverPath(track)}" alt="Обложка ${track.title}" onerror="this.src='img/background.jpg'" />
@@ -525,11 +622,19 @@
         <div class="pill">${track.hasClip ? 'Есть клип' : 'Аудио'}</div>
         <div class="pill">${track.copyright || '© AVZALØV'}</div>
       </div>
+      <div class="track-modal__meta track-modal__meta--icons">
+        <span class="chip chip--icon">❤️ ${stats.likes.toLocaleString('ru-RU')}</span>
+        <span class="chip chip--icon">💬 ${stats.comments.toLocaleString('ru-RU')}</span>
+        <span class="chip chip--icon">🔁 ${stats.remixes}</span>
+        <span class="chip chip--icon">🎧 ${stats.listeners.toLocaleString('ru-RU')}</span>
+        <span class="chip chip--icon">⏱️ ${formatDurationLabel(stats.durationSeconds)}</span>
+      </div>
       <div class="track-modal__lyrics">${track.lyricsPreview || 'Текст появится позже, следи за обновлениями.'}</div>
       <div class="track-modal__actions">
         <button class="btn primary" ${getAudioPath(track) ? '' : 'disabled'} data-play="${track.slug}">Слушать</button>
         ${track.clipUrl ? `<a class="btn ghost" href="${track.clipUrl}" target="_blank" rel="noreferrer">Клип</a>` : ''}
       </div>
+      ${renderWaveform(track, 'compact')}
     `;
     const playBtn = elements.trackModalBody.querySelector('[data-play]');
     if (playBtn) playBtn.addEventListener('click', () => selectTrackBySlug(track.slug));
