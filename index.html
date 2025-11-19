@@ -2,18 +2,154 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Reptile Lizard Autopilot</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #000; /* фон, можно убрать если будет на твоём сайте */
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AVZALØV · музыкальный хаб</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <header class="site-header">
+    <div class="logo">AVZALØV</div>
+    <nav class="main-nav">
+      <a href="#hero">Главная</a>
+      <a href="#music">Музыка</a>
+      <a href="#news">Новости</a>
+      <a href="#profile">Профиль</a>
+    </nav>
+    <div class="balance-chip">RUZCOIN · 128</div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="hero__text">
+        <p class="eyebrow">музыка · игры · ai</p>
+        <h1>AVZALØV Autopilot</h1>
+        <p class="lede">
+          Новый дом для релизов, миксов и экспериментов. Упорядоченная навигация,
+          чистый интерфейс и быстрый доступ ко всем инструментам.
+        </p>
+        <div class="hero__actions">
+          <button class="btn primary">Слушать музыку</button>
+          <button class="btn ghost">Смотреть клипы</button>
+          <button class="btn outline">Поддержать</button>
+        </div>
+        <div class="hero__tags">
+          <span>trap</span><span>tatar</span><span>experimental</span><span>ai</span>
+        </div>
+      </div>
+      <div class="hero__card">
+        <div class="hero__avatar">AV</div>
+        <div class="hero__meta">
+          <p class="label">Следующий релиз</p>
+          <p class="value">15 ноября 2025</p>
+          <div class="chip chip--soon">Early access</div>
+        </div>
+        <div class="hero__stats">
+          <div><p class="label">Треки</p><p class="value">36</p></div>
+          <div><p class="label">Прослушивания</p><p class="value">64.2K</p></div>
+          <div><p class="label">Участники</p><p class="value">1.8K</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="news" class="section grid">
+      <div class="section__header">
+        <h2>Навигация без дубликатов</h2>
+        <p>Главные действия собраны в одном месте, кнопка «Новости» теперь живёт только в шапке.</p>
+      </div>
+      <div class="card-grid">
+        <article class="mini-card">
+          <h3>Музыка</h3>
+          <p>Каталог треков, клипы и релизы — чистая сетка без повторяющихся кнопок.</p>
+          <button class="btn tiny">Открыть музыку</button>
+        </article>
+        <article class="mini-card">
+          <h3>Проекты</h3>
+          <p>Игровые события, миксы и турниры собраны отдельно, чтобы не мешать основным действиям.</p>
+          <button class="btn tiny">Перейти в проекты</button>
+        </article>
+        <article class="mini-card">
+          <h3>Сообщество</h3>
+          <p>Чат, поддержка и комьюнити-карточки расположены в одном блоке.</p>
+          <button class="btn tiny">Открыть чат</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="music" class="section">
+      <div class="section__header">
+        <h2>Чарт релизов</h2>
+        <p>Больше данных о треках: дата, доступ, язык, прослушивания и статус.</p>
+      </div>
+      <div class="chart" id="chart"></div>
+    </section>
+
+    <section class="section">
+      <div class="section__header">
+        <h2>Отзывы и комментарии</h2>
+        <p>Мини-карточки для фидбэка: отметь трек лайком и оставь быстрый комментарий.</p>
+      </div>
+      <div class="comments-grid" id="comments"></div>
+    </section>
+
+    <section id="profile" class="section profile">
+      <div class="profile__card">
+        <div class="bot-avatar">AI</div>
+        <div>
+          <p class="label">Профиль</p>
+          <h3>AVZALØV · @avzalov</h3>
+          <p class="muted">ID: 4096 · уровень 12 · RUZCOIN баланс: 128</p>
+        </div>
+      </div>
+
+      <div class="profile__layout">
+        <div class="panel">
+          <h4>Обзор</h4>
+          <ul class="stat-list">
+            <li><span>Недавние прослушивания</span><strong>12</strong></li>
+            <li><span>Открытых достижений</span><strong>7</strong></li>
+            <li><span>История покупок</span><strong>3</strong></li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Настройки</h4>
+          <div class="field">
+            <label for="language">Язык интерфейса</label>
+            <select id="language">
+              <option value="ru">Русский</option>
+              <option value="tt">Татарский</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Загрузка и сбор данных</label>
+            <div class="toggle-row">
+              <span>Разрешить сбор статистики</span>
+              <input type="checkbox" checked />
+            </div>
+            <div class="toggle-row">
+              <span>Экспорт аккаунта</span>
+              <button class="btn tiny">Скачать</button>
+            </div>
+          </div>
+          <p class="muted">Управление языком, приватностью и выгрузками переехало сюда, чтобы профиль оставался чистым.</p>
+        </div>
+        <div class="panel">
+          <h4>Достижения</h4>
+          <div class="badges">
+            <span class="badge">Early Access</span>
+            <span class="badge">Top Listener</span>
+            <span class="badge">Beta Tester</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>AVZALØV · музыка, проекты и AI. Чистый интерфейс без дубликатов.</p>
+  </footer>
+
+  <script src="tracks-data.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
