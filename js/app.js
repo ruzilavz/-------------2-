@@ -501,7 +501,7 @@
         </div>
         <div class="chart-row__meta">
           <span class="pill">${track.plays?.toLocaleString('ru-RU') || '—'} прослушиваний</span>
-          <span class="pill ${track.delta >= 0 ? 'pill--up' : 'pill--down'}">${sign}${Math.abs(track.delta)}%</span>
+          <span class="pill ${track.delta >= 0 ? 'pill--up' : 'pill--down'}">${track.sign}${Math.abs(track.delta)}%</span>
         </div>
       `;
       elements.chartList.appendChild(row);
