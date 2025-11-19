@@ -24,6 +24,10 @@
     profileMeta: document.getElementById('profileMeta'),
     profileToken: document.getElementById('profileToken'),
     profileAvatar: document.getElementById('profileAvatar'),
+    profileModal: document.getElementById('profileModal'),
+    profileModalName: document.getElementById('profileTitle'),
+    profileModalMeta: document.getElementById('profileModalMeta'),
+    profileModalToken: document.getElementById('profileModalToken'),
     loginBtn: document.getElementById('loginBtn'),
     logoutBtn: document.getElementById('logoutBtn'),
     adminCode: document.getElementById('adminCode'),
@@ -90,7 +94,15 @@
     isMuted: false,
     isRepeat: false,
     roles: ['Слушатель'],
-    user: { name: 'Гость', level: 1, ruz: 0, id: '—', token: '—', nameLocked: false, avatar: '' },
+    user: {
+      name: 'Гость',
+      level: 2,
+      ruz: 23,
+      id: 'ID-BA3B1-0d8',
+      token: 'tok-89cd5f0f-f50a-42f2-bd25-27ff05d2ca65',
+      nameLocked: false,
+      avatar: '',
+    },
     purchased: new Set(),
     users: [],
   };
@@ -209,13 +221,13 @@
   const renderRoles = () => {
     if (elements.roleBadges) {
       elements.roleBadges.innerHTML = '';
+    }
     state.roles.forEach((role) => {
       const span = document.createElement('span');
       span.className = 'badge';
       span.textContent = role;
       elements.roleBadges.appendChild(span);
     });
-  }
     const chipLabel = state.roles.includes('Админ') ? `${state.user.name} · ${state.roles.join(', ')}` : 'Вход на сайт · гость';
     elements.roleChip.textContent = chipLabel;
   };
@@ -224,6 +236,10 @@
     elements.profileName.textContent = state.user.name;
     elements.profileMeta.textContent = `ID: ${state.user.id || '—'} · уровень ${state.user.level} · RUZCOIN: ${state.user.ruz} · устройство сохранено`;
     elements.profileToken.textContent = `Токен: ${state.user.token || '—'}`;
+    if (elements.profileModalName) elements.profileModalName.textContent = state.user.name || 'Профиль устройства';
+    if (elements.profileModalMeta)
+      elements.profileModalMeta.textContent = `ID: ${state.user.id || '—'} · уровень ${state.user.level} · RUZCOIN: ${state.user.ruz}`;
+    if (elements.profileModalToken) elements.profileModalToken.textContent = `Токен: ${state.user.token || '—'}`;
     if (elements.profileAvatar) {
       elements.profileAvatar.style.backgroundImage = state.user.avatar
         ? `url(${state.user.avatar})`
@@ -326,79 +342,42 @@
   const createTrackCard = (track) => {
     const audioPath = getAudioPath(track);
     const card = document.createElement('article');
-    card.className = 'track-card';
-
-    const cover = document.createElement('img');
-    cover.src = getCoverPath(track);
-    cover.alt = `Обложка ${track.title}`;
-    cover.onerror = () => (cover.src = 'img/background.jpg');
-
-    const body = document.createElement('div');
-    body.className = 'track-card__body';
-
-    const top = document.createElement('div');
-    top.className = 'track-card__top';
-    const title = document.createElement('h3');
-    title.className = 'track-card__title';
-    title.textContent = track.title;
-    const artist = document.createElement('p');
-    artist.className = 'muted tiny';
-    artist.textContent = track.artist || 'AVZALØV';
-    const price = document.createElement('span');
-    price.className = 'chip';
-    const effectivePrice = isReleased(track) ? track.price ?? 0 : 1;
-    price.textContent = effectivePrice === 0 ? 'Бесплатно' : `${effectivePrice} RUZCOIN`;
-    top.append(title, price);
-
-    const meta = document.createElement('div');
-    meta.className = 'track-card__meta';
-    const release = document.createElement('span');
-    release.className = 'chip chip--soon';
-    release.textContent = formatReleaseDate(track) || 'Скоро';
-    const access = document.createElement('span');
-    access.className = 'chip';
-    access.textContent = track.access ? `Доступ: ${track.access}` : 'Открытый';
-    const langs = document.createElement('span');
-    langs.className = 'chip';
-    langs.textContent = `Языки: ${languagesLabel(track.languages)}`;
-    meta.append(release, access, langs);
-
-    const footer = document.createElement('div');
-    footer.className = 'track-card__footer';
-    const plays = document.createElement('span');
-    plays.textContent = `Прослушивания: ${track.plays?.toLocaleString('ru-RU') || '—'}`;
-    const copyright = document.createElement('span');
-    copyright.textContent = track.copyright || '© AVZALØV';
-    footer.append(plays, copyright);
-
-    const actions = document.createElement('div');
-    actions.className = 'hero__actions track-card__actions';
-    const listen = document.createElement('button');
-    listen.className = 'btn primary tiny';
-    listen.textContent = 'Слушать';
-    listen.disabled = !audioPath;
-    listen.addEventListener('click', () => selectTrackBySlug(track.slug));
-    const details = document.createElement('button');
-    details.className = 'btn ghost tiny';
-    details.textContent = track.hasClip ? 'Клип' : 'Подробнее';
-    actions.append(listen, details);
-
-    const info = document.createElement('div');
-    info.className = 'track-card__info';
-    const lyrics = document.createElement('p');
-    lyrics.className = 'tiny muted';
-    lyrics.textContent = track.lyricsPreview || 'Текст песни появится ближе к релизу.';
-    const like = document.createElement('button');
-    like.className = 'pill track-like';
-    like.textContent = '♡ Нравится';
-    like.addEventListener('click', () => {
-      like.classList.toggle('active');
-      like.textContent = like.classList.contains('active') ? '♥ В избранном' : '♡ Нравится';
-    });
-    info.append(artist, lyrics, like);
-
-    body.append(top, meta, info, actions, footer);
-    card.append(cover, body);
+    const released = isReleased(track);
+    card.className = 'track-card track-card--neo';
+    card.innerHTML = `
+      <div class="track-card__cover">
+        <img src="${getCoverPath(track)}" alt="Обложка ${track.title}" onerror="this.src='img/background.jpg'" />
+        <div class="track-card__status ${released ? 'track-card__status--live' : ''}">${released ? 'Вышел' : 'Early'}</div>
+        <div class="track-card__badge">${track.type || 'Single'}</div>
+      </div>
+      <div class="track-card__body">
+        <div class="track-card__top">
+          <div>
+            <p class="label">${languagesLabel(track.languages)}</p>
+            <h3 class="track-card__title">${track.title}</h3>
+            <p class="muted tiny">${formatReleaseDate(track)} · ${track.access || 'open'}</p>
+          </div>
+          <div class="track-card__cta">
+            <button class="icon-btn ghost js-play-card" ${audioPath ? '' : 'disabled'} aria-label="Слушать ${track.title}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14 19 12 8 18.86V5.14Z" fill="currentColor"/></svg>
+            </button>
+            <button class="icon-btn ghost js-info-card" aria-label="Подробнее о треке">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z" fill="currentColor"/></svg>
+            </button>
+          </div>
+        </div>
+        <p class="muted tiny track-card__lyrics">${track.lyricsPreview || 'Текст появится ближе к релизу. Следите за обновлениями.'}</p>
+        <div class="track-card__meta-row">
+          <span class="pill">${track.plays?.toLocaleString('ru-RU') || '—'} прослушиваний</span>
+          <span class="pill">${track.copyright || '© AVZALØV'}</span>
+          <span class="pill pill--glass">${released ? 'Вышел' : 'Ранний доступ'}</span>
+        </div>
+      </div>
+    `;
+    const playBtn = card.querySelector('.js-play-card');
+    const infoBtn = card.querySelector('.js-info-card');
+    if (playBtn) playBtn.addEventListener('click', () => selectTrackBySlug(track.slug));
+    if (infoBtn) infoBtn.addEventListener('click', () => openTrackModal(track));
     return card;
   };
 
@@ -414,10 +393,6 @@
     });
     filtered.forEach((track) => {
       const card = createTrackCard(track);
-      const detailsBtn = card.querySelector('.btn.ghost');
-      if (detailsBtn) {
-        detailsBtn.addEventListener('click', () => openTrackModal(track));
-      }
       elements.tracksList.appendChild(card);
     });
   };
@@ -571,14 +546,14 @@
     if (!ensureEarlyAccess()) return;
     elements.audio.play();
     state.isPlaying = true;
-    elements.playBtn.textContent = '⏸️';
+    elements.playBtn.classList.add('is-playing');
     elements.playerStatus.textContent = 'Сейчас играет';
   };
 
   const pauseTrack = () => {
     elements.audio.pause();
     state.isPlaying = false;
-    elements.playBtn.textContent = '▶️';
+    elements.playBtn.classList.remove('is-playing');
     elements.playerStatus.textContent = 'Плеер на паузе';
   };
 
@@ -630,14 +605,14 @@
   const toggleMute = () => {
     state.isMuted = !state.isMuted;
     elements.audio.muted = state.isMuted;
-    elements.muteBtn.textContent = state.isMuted ? '🔈' : '🔇';
+    elements.muteBtn.classList.toggle('is-muted', state.isMuted);
   };
 
   const changeVolume = () => {
     const volume = Number(elements.volume.value);
     elements.audio.volume = volume;
     state.isMuted = volume === 0;
-    elements.muteBtn.textContent = state.isMuted ? '🔈' : '🔇';
+    elements.muteBtn.classList.toggle('is-muted', state.isMuted);
   };
 
   const enableDrag = () => {
@@ -843,7 +818,7 @@
       document.body.dataset.theme = elements.themeToggle.checked ? 'dark' : 'light';
     });
     elements.gamePlatforms.addEventListener('click', () => alert('Площадки: Steam mini, VK Play, itch.io — подключаются из Idle Game.'));
-    [elements.chatModal, elements.loginModal, elements.settingsModal, elements.chartModal, elements.trackModal, elements.newsModal].forEach((modal) => {
+    [elements.chatModal, elements.loginModal, elements.settingsModal, elements.chartModal, elements.trackModal, elements.newsModal, elements.profileModal].forEach((modal) => {
       if (!modal) return;
       modal.addEventListener('click', (evt) => {
         if (evt.target === modal) closeModal(modal);
@@ -862,6 +837,7 @@
           elements.chartModal,
           elements.trackModal,
           elements.newsModal,
+          elements.profileModal,
         ].forEach((modal) => closeModal(modal));
       }
     });
