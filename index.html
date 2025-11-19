@@ -28,8 +28,8 @@
         </svg>
         <span class="icon-label">Чат</span>
       </button>
-      <div class="chip pill" id="roleChip">Гость · слушатель</div>
-      <button class="btn ghost" id="openProfile">Панель</button>
+      <div class="chip pill" id="roleChip">Вход на сайт · гость</div>
+      <button class="btn ghost" id="openProfile">Профиль</button>
     </div>
   </header>
 
@@ -240,16 +240,34 @@
     <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
       <button class="modal__close" data-close="loginModal" aria-label="Закрыть">×</button>
       <h3 id="loginTitle">Вход и роли</h3>
-      <p class="muted">Используйте код администратора или войдите как слушатель. Баланс RUZCOIN сохранится для ранних треков.</p>
-      <div class="field">
-        <label for="adminCode">Админ-код</label>
-        <input type="password" id="adminCode" placeholder="Введите код" />
+      <p class="muted">
+        Регистрация на этом устройстве доступна только по 50 сервисным кодам администратора. Соцсети пока в разработке —
+        устройство и ID сохраняются локально.
+      </p>
+      <div class="login-grid">
+        <div class="login-panel">
+          <p class="label">Админ-доступ</p>
+          <div class="field">
+            <label for="adminCode">Секретный код</label>
+            <input type="password" id="adminCode" placeholder="Ввести один из 50 кодов" />
+          </div>
+          <div class="field double">
+            <button class="btn primary" id="loginBtn">Подтвердить</button>
+            <button class="btn ghost" id="logoutBtn">Сбросить профиль</button>
+          </div>
+          <p class="tiny muted">Код проверяется локально, случайный набор символов не сработает.</p>
+          <p class="tiny" id="loginStatus">—</p>
+        </div>
+        <div class="login-panel">
+          <p class="label">Соцсети</p>
+          <div class="social-grid">
+            <button class="pill full" data-social="vk">VK — в разработке</button>
+            <button class="pill full" data-social="gmail">Gmail — в разработке</button>
+            <button class="pill full" data-social="yandex">Yandex ID — в разработке</button>
+          </div>
+          <p class="tiny muted">Как только интеграции будут готовы, здесь появится полноценный вход через площадки.</p>
+        </div>
       </div>
-      <div class="field double">
-        <button class="btn primary" id="loginBtn">Войти</button>
-        <button class="btn ghost" id="logoutBtn">Выйти</button>
-      </div>
-      <p class="muted tiny">После ввода админ-кода профиль получает роль «Админ» и доступ к управлению треками и чату.</p>
     </div>
   </div>
 
