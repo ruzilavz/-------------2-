@@ -22,9 +22,20 @@
     roleChip: document.getElementById('roleChip'),
     profileName: document.getElementById('profileName'),
     profileMeta: document.getElementById('profileMeta'),
+    profileToken: document.getElementById('profileToken'),
+    profileAvatar: document.getElementById('profileAvatar'),
     loginBtn: document.getElementById('loginBtn'),
     logoutBtn: document.getElementById('logoutBtn'),
     adminCode: document.getElementById('adminCode'),
+    nameInput: document.getElementById('nameInput'),
+    nameWarning: document.getElementById('nameWarning'),
+    saveNameBtn: document.getElementById('saveNameBtn'),
+    avatarInput: document.getElementById('avatarInput'),
+    giftCodeInput: document.getElementById('giftCodeInput'),
+    giftCodeBtn: document.getElementById('giftCodeBtn'),
+    giftStatus: document.getElementById('giftStatus'),
+    vkLogin: document.getElementById('vkLogin'),
+    gmailLogin: document.getElementById('gmailLogin'),
     accessFilter: document.getElementById('accessFilter'),
     languageFilter: document.getElementById('languageFilter'),
     tracksCount: document.getElementById('tracksCount'),
@@ -45,8 +56,13 @@
     chatModal: document.getElementById('chatModal'),
     loginModal: document.getElementById('loginModal'),
     settingsModal: document.getElementById('settingsModal'),
+    chartModal: document.getElementById('chartModal'),
+    chartList: document.getElementById('chartList'),
+    trackModal: document.getElementById('trackModal'),
+    trackModalBody: document.getElementById('trackModalBody'),
     loginModalBtn: document.getElementById('loginModalBtn'),
     settingsModalBtn: document.getElementById('settingsModalBtn'),
+    chartOpenBtn: document.getElementById('chartOpenBtn'),
     releaseBadge: document.getElementById('releaseBadge'),
     volume: document.getElementById('volume'),
     repeatBtn: document.getElementById('repeatBtn'),
@@ -54,10 +70,18 @@
     platformLinks: document.getElementById('platformLinks'),
     chatTitle: document.getElementById('chatTitle'),
     clock: document.getElementById('clock'),
+    headerClock: document.getElementById('headerClock'),
+    newsTicker: document.getElementById('newsTicker'),
+    newsTickerBtn: document.getElementById('newsTickerBtn'),
+    newsModalBtn: document.getElementById('newsModalBtn'),
+    newsModal: document.getElementById('newsModal'),
+    newsList: document.getElementById('newsList'),
     themeToggle: document.getElementById('themeToggle'),
   };
 
   const ADMIN_SECRET = '4096-AVZALOV';
+  const STORAGE_KEY = 'avzal_users';
+  const CURRENT_KEY = 'avzal_current_user';
   const state = {
     playlist: [],
     currentIndex: 0,
@@ -65,8 +89,9 @@
     isMuted: false,
     isRepeat: false,
     roles: ['Слушатель'],
-    user: { name: 'Гость', level: 1, ruz: 0 },
+    user: { name: 'Гость', level: 1, ruz: 0, id: '—', token: '—', nameLocked: false, avatar: '' },
     purchased: new Set(),
+    users: [],
   };
 
   document.body.dataset.theme = 'dark';
@@ -83,6 +108,42 @@
 
   const coverExt = (track) => track.coverExt || '.jpg';
   const audioExt = (track) => track.audioExt || '.mp3';
+
+  const generateId = () => `ID-${Math.random().toString(16).slice(2, 7).toUpperCase()}-${Date.now().toString(16).slice(-3)}`;
+  const generateToken = () => {
+    const cryptoObj = typeof crypto !== 'undefined' ? crypto : null;
+    const uuid = cryptoObj?.randomUUID ? cryptoObj.randomUUID() : null;
+    return `tok-${uuid || Math.random().toString(36).slice(2, 10)}`;
+  };
+
+  const persistUsers = () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ users: state.users }));
+    localStorage.setItem(CURRENT_KEY, state.user.id);
+  };
+
+  const loadUsers = async () => {
+    const local = localStorage.getItem(STORAGE_KEY);
+    if (local) {
+      const parsed = JSON.parse(local);
+      state.users = parsed.users || [];
+      return state.users;
+    }
+    try {
+      const res = await fetch('data/users.json');
+      const json = await res.json();
+      state.users = json.users || [];
+      persistUsers();
+      return state.users;
+    } catch (e) {
+      state.users = [];
+      return state.users;
+    }
+  };
+
+  const setCurrentUser = (user) => {
+    state.user = user;
+    persistUsers();
+  };
 
   const getCoverPath = (track) => coverOverrides[track.slug] ? `img/${coverOverrides[track.slug]}` : `img/${track.slug}${coverExt(track)}`;
   const getAudioPath = (track) => {
@@ -160,7 +221,111 @@
   const renderProfile = () => {
     elements.profileName.textContent = state.user.name;
     elements.profileMeta.textContent = `ID: ${state.user.id || '—'} · уровень ${state.user.level} · RUZCOIN: ${state.user.ruz}`;
+    elements.profileToken.textContent = `Токен: ${state.user.token || '—'}`;
+    if (elements.profileAvatar) {
+      elements.profileAvatar.style.backgroundImage = state.user.avatar
+        ? `url(${state.user.avatar})`
+        : 'linear-gradient(135deg, var(--accent-2), var(--accent-1))';
+      elements.profileAvatar.textContent = state.user.avatar ? '' : state.user.name.slice(0, 2).toUpperCase();
+    }
+    if (elements.nameInput) {
+      elements.nameInput.value = state.user.name || '';
+      elements.nameInput.disabled = Boolean(state.user.nameLocked);
+      elements.saveNameBtn.disabled = Boolean(state.user.nameLocked);
+      elements.nameWarning.textContent = state.user.nameLocked
+        ? 'Имя уже закреплено. Повторное изменение недоступно.'
+        : 'Имя можно изменить только один раз. После сохранения поле заблокируется.';
+    }
     renderRoles();
+  };
+
+  const bootstrapUser = async () => {
+    await loadUsers();
+    const currentId = localStorage.getItem(CURRENT_KEY);
+    let current = state.users.find((u) => u.id === currentId);
+    if (!current) {
+      current = {
+        id: generateId(),
+        token: generateToken(),
+        name: 'Гость',
+        level: 1,
+        ruz: 5,
+        avatar: '',
+        nameLocked: false,
+        role: 'Слушатель',
+      };
+      state.users.push(current);
+      persistUsers();
+    }
+    state.user = current;
+    state.roles = [current.role || 'Слушатель'];
+  };
+
+  const saveUsersToState = (user) => {
+    const existingIndex = state.users.findIndex((u) => u.id === user.id);
+    if (existingIndex >= 0) state.users[existingIndex] = user;
+    else state.users.push(user);
+    setCurrentUser(user);
+  };
+
+  const handleNameSave = () => {
+    const value = (elements.nameInput.value || '').trim();
+    if (!value) return;
+    if (state.user.nameLocked) {
+      elements.nameWarning.textContent = 'Имя уже закреплено. Изменить нельзя.';
+      return;
+    }
+    state.user.name = value;
+    state.user.nameLocked = true;
+    saveUsersToState(state.user);
+    renderProfile();
+  };
+
+  const handleAvatarUpload = (evt) => {
+    const file = evt.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      state.user.avatar = reader.result;
+      saveUsersToState(state.user);
+      renderProfile();
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const giftCodes = {
+    AVZALLOVE: { ruz: 50, message: 'Добавлено 50 RUZCOIN за поддержку артиста.' },
+    EARLYDROP: { ruz: 10, message: '10 RUZCOIN за ранние релизы.' },
+    BACKTOSTAGE: { ruz: 30, message: 'Возврат на сцену · бонус 30 RUZCOIN.' },
+  };
+
+  const handleGiftCode = () => {
+    const code = (elements.giftCodeInput.value || '').trim().toUpperCase();
+    if (!code) return;
+    const gift = giftCodes[code];
+    if (!gift) {
+      elements.giftStatus.textContent = 'Код не найден. Попробуйте другой.';
+      return;
+    }
+    state.user.ruz += gift.ruz;
+    elements.giftStatus.textContent = `${gift.message} Новый баланс: ${state.user.ruz}`;
+    elements.giftCodeInput.value = '';
+    saveUsersToState(state.user);
+    renderProfile();
+  };
+
+  const applySocialProfile = (provider) => {
+    const presets = {
+      vk: { name: 'VK · AVZALØV', avatar: 'img/background.jpg' },
+      gmail: { name: 'Gmail · AVZALØV', avatar: 'img/background.jpg' },
+    };
+    const preset = presets[provider];
+    if (!preset) return;
+    state.user.name = preset.name;
+    state.user.avatar = preset.avatar;
+    state.user.nameLocked = true;
+    saveUsersToState(state.user);
+    renderProfile();
   };
 
   const createTrackCard = (track) => {
@@ -235,7 +400,43 @@
       const langOk = language === 'all' || langs.includes(language);
       return accessOk && langOk;
     });
-    filtered.forEach((track) => elements.tracksList.appendChild(createTrackCard(track)));
+    filtered.forEach((track) => {
+      const card = createTrackCard(track);
+      const detailsBtn = card.querySelector('.btn.ghost');
+      if (detailsBtn) {
+        detailsBtn.addEventListener('click', () => openTrackModal(track));
+      }
+      elements.tracksList.appendChild(card);
+    });
+  };
+
+  const openTrackModal = (track) => {
+    if (!elements.trackModalBody) return;
+    const release = formatReleaseDate(track);
+    const access = track.access ? `Доступ: ${track.access}` : 'Открытый';
+    elements.trackModalBody.innerHTML = `
+      <div class="track-modal__header">
+        <img src="${getCoverPath(track)}" alt="Обложка ${track.title}" onerror="this.src='img/background.jpg'" />
+        <div>
+          <p class="label">${track.type || 'Single'}</p>
+          <h3 id="trackModalTitle">${track.title}</h3>
+          <p class="muted">${release} · ${access}</p>
+          <div class="chip">${languagesLabel(track.languages)}</div>
+        </div>
+      </div>
+      <div class="track-modal__meta">
+        <div class="pill">Прослушивания: ${track.plays?.toLocaleString('ru-RU') || '—'}</div>
+        <div class="pill">${track.hasClip ? 'Есть клип' : 'Аудио'}</div>
+        <div class="pill">${track.copyright || '© AVZALØV'}</div>
+      </div>
+      <div class="track-modal__actions">
+        <button class="btn primary" ${getAudioPath(track) ? '' : 'disabled'} data-play="${track.slug}">Слушать</button>
+        ${track.clipUrl ? `<a class="btn ghost" href="${track.clipUrl}" target="_blank" rel="noreferrer">Клип</a>` : ''}
+      </div>
+    `;
+    const playBtn = elements.trackModalBody.querySelector('[data-play]');
+    if (playBtn) playBtn.addEventListener('click', () => selectTrackBySlug(track.slug));
+    openModal(elements.trackModal);
   };
 
   const buildPlaylist = () => {
@@ -257,6 +458,39 @@
       button.addEventListener('click', () => setCurrentTrack(index, true));
       elements.playlist.appendChild(button);
     });
+  };
+
+  const renderChartModal = () => {
+    if (!elements.chartList) return;
+    const top = [...state.playlist]
+      .sort((a, b) => (b.plays || 0) - (a.plays || 0))
+      .slice(0, 10)
+      .map((track, index) => {
+        const delta = Math.round((Math.random() - 0.5) * 20);
+        const sign = delta >= 0 ? '+' : '–';
+        return { ...track, position: index + 1, delta, sign };
+      });
+    elements.chartList.innerHTML = '';
+    top.forEach((track) => {
+      const row = document.createElement('div');
+      row.className = 'chart-row';
+      row.innerHTML = `
+        <div class="chart-row__left">
+          <span class="chart-pos">${track.position}</span>
+          <img src="${track.coverPath || getCoverPath(track)}" alt="${track.title}" onerror="this.src='img/background.jpg'" />
+          <div>
+            <strong>${track.title}</strong>
+            <p class="muted tiny">${formatReleaseDate(track)}</p>
+          </div>
+        </div>
+        <div class="chart-row__meta">
+          <span class="pill">${track.plays?.toLocaleString('ru-RU') || '—'} прослушиваний</span>
+          <span class="pill ${track.delta >= 0 ? 'pill--up' : 'pill--down'}">${sign}${Math.abs(track.delta)}%</span>
+        </div>
+      `;
+      elements.chartList.appendChild(row);
+    });
+    openModal(elements.chartModal);
   };
 
   function renderPlatforms(track) {
@@ -369,6 +603,9 @@
         minute: '2-digit',
       });
     }
+    if (elements.headerClock) {
+      elements.headerClock.textContent = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+    }
   };
 
   const toggleRepeat = () => {
@@ -432,17 +669,43 @@
   };
 
   const chatMessages = [
-    { user: 'AI-бот', role: 'модератор', text: 'Плеер стал компактнее и перетаскивается за угол ⇲.' },
-    { user: 'Рузиль', role: 'админ', text: 'Ранние треки стоят 1 RUZCOIN до даты релиза, дальше бесплатно.' },
-    { user: 'AI-бот', role: 'модератор', text: 'Чат показывает последние 10 сообщений и подсвечивает автора.' },
+    { user: 'AVZALØV', role: 'артист', text: 'Плеер стал компактнее и перетаскивается за угол ⇲.' },
+    { user: 'Команда', role: 'модератор', text: 'Ранние треки стоят 1 RUZCOIN до даты релиза, дальше бесплатно.' },
     { user: 'Слушатель', role: 'fan', text: 'Дата релиза «Перегрев» — 27.11.2025 12:00, уже в расписании.' },
-    { user: 'Модератор', role: 'staff', text: 'Новые площадки: Яндекс, VK Музыка, Apple Music добавлены в плеер.' },
+    { user: 'Комьюнити', role: 'staff', text: 'Новые площадки: Яндекс, VK Музыка, Apple Music добавлены в плеер.' },
     { user: 'Слушатель', role: 'fan', text: 'За 1 RUZCOIN можно крутить ранний доступ неограниченно до премьеры.' },
-    { user: 'Рузиль', role: 'админ', text: 'Не вышедшие треки продаются по 1 монете, баланс видно в профиле.' },
-    { user: 'AI-бот', role: 'модератор', text: 'Даты релизов синхронизированы с календарём — сайт сам понимает статус.' },
+    { user: 'AVZALØV', role: 'артист', text: 'Не вышедшие треки продаются по 1 монете, баланс видно в профиле.' },
+    { user: 'Команда', role: 'модератор', text: 'Даты релизов синхронизированы с календарём — сайт сам понимает статус.' },
     { user: 'Слушатель', role: 'fan', text: 'Игровая панель теперь открывает список площадок через кнопку.' },
-    { user: 'AI-бот', role: 'модератор', text: 'Пишите вопросы по релизам в чат или через контакты Telegram и WhatsApp.' },
+    { user: 'Команда', role: 'модератор', text: 'Пишите вопросы по релизам в чат или через контакты Telegram и WhatsApp.' },
   ];
+
+  const newsItems = [
+    'AVZALØV: вся библиотека треков с обложками и ранним доступом снова на месте.',
+    'Аудиоплеер, чат и роли подключены в едином интерфейсе — можно слушать и общаться.',
+    'AVZALØV NEWS: готовятся живые выступления, следи за датами релизов.',
+    'Обновление профиля: аватар кругом, уникальный ID и токен сохраняются на устройстве.',
+    'Промокоды добавляют RUZCOIN и доступ к ранним релизам, проверь свои бонусы.',
+  ];
+  let newsPointer = 0;
+
+  const renderNewsTicker = () => {
+    if (!elements.newsTicker) return;
+    elements.newsTicker.textContent = newsItems[newsPointer % newsItems.length];
+    newsPointer += 1;
+  };
+
+  const renderNewsModal = () => {
+    if (!elements.newsList) return;
+    elements.newsList.innerHTML = '';
+    newsItems.forEach((item, index) => {
+      const row = document.createElement('div');
+      row.className = 'news-item';
+      row.innerHTML = `<span class="pill">${index + 1}</span><p>${item}</p>`;
+      elements.newsList.appendChild(row);
+    });
+    openModal(elements.newsModal);
+  };
 
   const renderChat = () => {
     elements.chatFeed.innerHTML = '';
@@ -469,22 +732,41 @@
   const handleLogin = () => {
     const code = elements.adminCode.value.trim();
     if (code === ADMIN_SECRET) {
-      state.user = { name: 'Рузиль', level: 12, ruz: 128, id: 4096 };
-      if (!state.roles.includes('Админ')) state.roles.push('Админ');
+      state.user = {
+        ...state.user,
+        name: 'Рузиль AVZALØV',
+        level: 12,
+        ruz: 128,
+        id: state.user.id || 'ADMIN-4096',
+        token: state.user.token || generateToken(),
+        role: 'Админ',
+        nameLocked: true,
+      };
+      state.roles = ['Админ'];
     } else {
-      state.user = { name: 'Слушатель', level: 2, ruz: 24, id: 512 };
+      state.user = {
+        ...state.user,
+        name: 'Слушатель',
+        level: 2,
+        ruz: 24,
+        token: state.user.token || generateToken(),
+        role: 'Слушатель',
+        nameLocked: true,
+      };
       state.roles = ['Слушатель'];
     }
     state.purchased.clear();
+    saveUsersToState(state.user);
     renderProfile();
     renderChat();
     closeModal(elements.loginModal);
   };
 
   const handleLogout = () => {
-    state.user = { name: 'Гость', level: 1, ruz: 0 };
+    state.user = { ...state.user, name: 'Гость', level: 1, ruz: 0, role: 'Слушатель', nameLocked: false };
     state.roles = ['Слушатель'];
     elements.adminCode.value = '';
+    saveUsersToState(state.user);
     renderProfile();
     renderChat();
     closeModal(elements.loginModal);
@@ -522,12 +804,20 @@
     elements.chatForm.addEventListener('submit', handleChatSubmit);
     elements.loginBtn.addEventListener('click', handleLogin);
     elements.logoutBtn.addEventListener('click', handleLogout);
+    elements.saveNameBtn?.addEventListener('click', handleNameSave);
+    elements.avatarInput?.addEventListener('change', handleAvatarUpload);
+    elements.giftCodeBtn?.addEventListener('click', handleGiftCode);
+    elements.vkLogin?.addEventListener('click', () => applySocialProfile('vk'));
+    elements.gmailLogin?.addEventListener('click', () => applySocialProfile('gmail'));
     elements.accessFilter.addEventListener('change', renderTracks);
     elements.languageFilter.addEventListener('change', renderTracks);
     elements.ctaPlay.addEventListener('click', () => selectTrackBySlug(state.playlist[0]?.slug));
     elements.ctaChat.addEventListener('click', () => openModal(elements.chatModal));
     elements.ctaGame.addEventListener('click', () => document.getElementById('game').scrollIntoView({ behavior: 'smooth' }));
     elements.openProfile.addEventListener('click', () => document.getElementById('profile').scrollIntoView({ behavior: 'smooth' }));
+    elements.chartOpenBtn?.addEventListener('click', renderChartModal);
+    elements.newsModalBtn?.addEventListener('click', renderNewsModal);
+    elements.newsTickerBtn?.addEventListener('click', renderNewsModal);
     elements.dockToggle.addEventListener('change', () => {
       elements.playerDock.style.display = elements.dockToggle.checked ? 'grid' : 'none';
     });
@@ -544,7 +834,7 @@
       document.body.dataset.theme = elements.themeToggle.checked ? 'dark' : 'light';
     });
     elements.gamePlatforms.addEventListener('click', () => alert('Площадки: Steam mini, VK Play, itch.io — подключаются из Idle Game.'));
-    [elements.chatModal, elements.loginModal, elements.settingsModal].forEach((modal) => {
+    [elements.chatModal, elements.loginModal, elements.settingsModal, elements.chartModal, elements.trackModal, elements.newsModal].forEach((modal) => {
       if (!modal) return;
       modal.addEventListener('click', (evt) => {
         if (evt.target === modal) closeModal(modal);
@@ -556,20 +846,34 @@
         togglePlay();
       }
       if (evt.code === 'Escape') {
-        [elements.chatModal, elements.loginModal, elements.settingsModal].forEach((modal) => closeModal(modal));
+        [
+          elements.chatModal,
+          elements.loginModal,
+          elements.settingsModal,
+          elements.chartModal,
+          elements.trackModal,
+          elements.newsModal,
+        ].forEach((modal) => closeModal(modal));
       }
     });
   };
 
-  renderStats();
-  renderTracks();
-  buildPlaylist();
-  renderProfile();
-  renderChat();
-  bindEvents();
-  setCurrentTrack(0);
-  changeVolume();
-  enableDrag();
-  updateClock();
-  setInterval(updateClock, 1000);
+  const init = async () => {
+    await bootstrapUser();
+    renderStats();
+    renderTracks();
+    buildPlaylist();
+    renderProfile();
+    renderChat();
+    bindEvents();
+    setCurrentTrack(0);
+    changeVolume();
+    enableDrag();
+    updateClock();
+    renderNewsTicker();
+    setInterval(updateClock, 1000);
+    setInterval(renderNewsTicker, 5000);
+  };
+
+  init();
 })();
