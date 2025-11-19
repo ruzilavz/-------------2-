@@ -66,14 +66,6 @@
       }, { passive: true });
 
       function getTarget(time) {
-        const now = performance.now();
-        const idle = now - mouse.lastMove;
-
-        if (idle < AUTO_DELAY) {
-          // активный режим — тянемся к курсору
-          return { x: mouse.x, y: mouse.y };
-        }
-
         // автопилот — плавная траектория (лисажу/спираль)
         const t = time * 0.0005;
         const cx = width / 2;
