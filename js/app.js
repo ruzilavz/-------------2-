@@ -421,23 +421,32 @@
     const audioPath = getAudioPath(track);
     const card = document.createElement('article');
     const released = isReleased(track);
+    const isLiked = state.liked.has(track.slug);
+
     card.className = 'track-card track-card--neo';
     card.innerHTML = `
       <div class="track-card__cover">
         <img src="${getCoverPath(track)}" alt="Обложка ${track.title}" onerror="this.src='img/background.jpg'" />
         <div class="track-card__status ${released ? 'track-card__status--live' : ''}">${released ? 'Вышел' : 'Early'}</div>
         <div class="track-card__badge">${track.type || 'Single'}</div>
+        ${track.explicit ? '<div class="track-card__badge track-card__badge--explicit">E</div>' : ''}
       </div>
       <div class="track-card__body">
         <div class="track-card__top">
           <div>
-            <p class="label">${languagesLabel(track.languages)}</p>
             <h3 class="track-card__title">${track.title}</h3>
+            <p class="track-card__artist">${track.artist || 'AVZALØV'}</p>
             <p class="muted tiny">${formatReleaseDate(track)} · ${track.access || 'open'}</p>
           </div>
           <div class="track-card__cta">
             <button class="icon-btn ghost js-play-card" ${audioPath ? '' : 'disabled'} aria-label="Слушать ${track.title}">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14 19 12 8 18.86V5.14Z" fill="currentColor"/></svg>
+            </button>
+            <button class="icon-btn ghost js-like-card ${isLiked ? 'active' : ''}" aria-label="Нравится">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="icon-btn ghost js-share-card" aria-label="Поделиться">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
             </button>
             <button class="icon-btn ghost js-info-card" aria-label="Подробнее о треке">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z" fill="currentColor"/></svg>
@@ -454,8 +463,14 @@
     `;
     const playBtn = card.querySelector('.js-play-card');
     const infoBtn = card.querySelector('.js-info-card');
+    const likeBtn = card.querySelector('.js-like-card');
+    const shareBtn = card.querySelector('.js-share-card');
+
     if (playBtn) playBtn.addEventListener('click', () => selectTrackBySlug(track.slug));
     if (infoBtn) infoBtn.addEventListener('click', () => openTrackModal(track));
+    if (likeBtn) likeBtn.addEventListener('click', () => toggleLike(track.slug));
+    if (shareBtn) shareBtn.addEventListener('click', () => shareTrack(track));
+    
     return card;
   };
 
