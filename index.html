@@ -10,12 +10,17 @@
 <body>
   <header class="site-header">
     <div class="logo">AVZALØV</div>
-    <nav class="main-nav">
+    <nav class="main-nav" id="mainNav" aria-label="Основное меню">
       <a href="#hero">Главная</a>
       <a href="#music">Музыка</a>
       <a href="#game">Игра</a>
       <a href="#profile">Профиль</a>
     </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Открыть меню" aria-controls="mainNav" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     <div class="header-actions">
       <div class="header-clock" id="headerClock">—</div>
       <button class="pill glass" id="newsModalBtn" aria-label="Новости">Новости</button>
@@ -199,10 +204,15 @@
     <div class="player-row">
       <div class="player-meta">
         <img id="playerCover" src="img/background.jpg" alt="Обложка трека" />
-        <div>
+        <div class="player-meta__info">
           <p class="label" id="playerStatus">Плеер готов</p>
           <h3 id="playerTitle">Выберите трек</h3>
           <p class="muted" id="playerInfo">Даты релиза, статусы и авторские права подтягиваются автоматически.</p>
+          <div class="player-insight">
+            <span class="chip chip--compact" id="playerAccess">Доступ</span>
+            <span class="chip chip--compact" id="playerLanguages">Языки</span>
+            <span class="chip chip--compact" id="playerPlays">Прослушивания</span>
+          </div>
           <div class="platforms" id="platformLinks">
             <span class="chip">Yandex Music</span>
             <span class="chip">VK Музыка</span>
