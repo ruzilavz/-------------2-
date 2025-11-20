@@ -174,7 +174,6 @@
       <audio id="audio" preload="metadata"></audio>
       <div class="player__playlist" id="playlist" aria-label="Плейлист"></div>
       <div class="player__toggles">
-        <label><input type="checkbox" id="dockToggle" checked> Док-панель</label>
         <label><input type="checkbox" id="gameToggle" checked> Игровой режим</label>
         <label><input type="checkbox" id="notifyToggle" checked> Уведомления</label>
       </div>
@@ -321,15 +320,24 @@
     </button>
   </nav>
 
-  <div id="playerDock" class="player-dock">
-    <div id="playerHandle" class="player-dock__handle"></div>
-    <div class="player-dock__body">
-      <img id="playerDockCover" src="img/background.jpg" alt="Ковер" class="player-dock__cover">
-      <div class="player-dock__meta">
-        <strong id="playerDockTitle">Трек</strong>
-        <p id="playerDockInfo" class="muted tiny">—</p>
+  <div id="miniPlayer" class="mini-player" aria-hidden="true">
+    <div class="mini-player__backdrop"></div>
+    <div class="mini-player__body">
+      <img id="miniCover" src="img/background.jpg" alt="Обложка" class="mini-player__cover">
+      <div class="mini-player__meta">
+        <p class="label tiny">Сейчас играет</p>
+        <strong id="miniTitle">Трек</strong>
+        <p id="miniInfo" class="muted tiny">—</p>
+        <div class="mini-player__timeline">
+          <span id="miniProgress" class="mini-player__progress" style="width: 0%"></span>
+        </div>
       </div>
-      <button id="dockPlay" class="btn primary" type="button">▶</button>
+      <div class="mini-player__controls">
+        <button id="miniPrev" class="icon-button" type="button" aria-label="Предыдущий">⏮</button>
+        <button id="miniPlay" class="btn primary" type="button" aria-label="Старт">▶</button>
+        <button id="miniNext" class="icon-button" type="button" aria-label="Следующий">⏭</button>
+      </div>
+      <button id="miniHide" class="icon-button" type="button" aria-label="Скрыть мини-плеер">✕</button>
     </div>
   </div>
 

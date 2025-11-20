@@ -59,9 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
       ctaPlay: document.getElementById('ctaPlay'),
       ctaChat: document.getElementById('ctaChat'),
       ctaGame: document.getElementById('ctaGame'),
-      playerDock: document.getElementById('playerDock'),
-      playerHandle: document.getElementById('playerHandle'),
-      dockToggle: document.getElementById('dockToggle'),
+      miniPlayer: document.getElementById('miniPlayer'),
+      miniCover: document.getElementById('miniCover'),
+      miniTitle: document.getElementById('miniTitle'),
+      miniInfo: document.getElementById('miniInfo'),
+      miniProgress: document.getElementById('miniProgress'),
+      miniPlay: document.getElementById('miniPlay'),
+      miniPrev: document.getElementById('miniPrev'),
+      miniNext: document.getElementById('miniNext'),
+      miniHide: document.getElementById('miniHide'),
       gameToggle: document.getElementById('gameToggle'),
       notifyToggle: document.getElementById('notifyToggle'),
       gamePlatforms: document.getElementById('gamePlatforms'),
@@ -813,6 +819,34 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
+    const updateMiniPlayer = (track) => {
+      if (!elements.miniPlayer || !track) return;
+      elements.miniCover.src = track.coverPath;
+      elements.miniTitle.textContent = track.title;
+      elements.miniInfo.textContent = `${formatReleaseDate(track)} · ${languagesLabel(track.languages)}`;
+      updateMiniProgress(0);
+      elements.miniPlayer.classList.add('is-visible');
+      elements.miniPlayer.setAttribute('aria-hidden', 'false');
+      elements.miniPlayer.classList.remove('is-collapsed');
+    };
+
+    const setMiniPlayingState = () => {
+      if (!elements.miniPlay) return;
+      elements.miniPlay.textContent = state.isPlaying ? '⏸' : '▶';
+      elements.miniPlayer?.classList.toggle('is-playing', state.isPlaying);
+    };
+
+    const updateMiniProgress = (percent) => {
+      if (!elements.miniProgress) return;
+      elements.miniProgress.style.width = Number.isFinite(percent) ? `${percent}%` : '0%';
+    };
+
+    const hideMiniPlayer = () => {
+      if (!elements.miniPlayer) return;
+      elements.miniPlayer.classList.remove('is-visible');
+      elements.miniPlayer.setAttribute('aria-hidden', 'true');
+    };
+
     const syncActiveCards = () => {
       const current = state.playlist[state.currentIndex];
       document.querySelectorAll('[data-track-slug]').forEach((card) => {
@@ -904,6 +938,8 @@ document.addEventListener('DOMContentLoaded', () => {
       renderPlaylist();
       syncActiveCards();
       updateMobileHub(track);
+      updateMiniPlayer(track);
+      setMiniPlayingState();
       if (autoplay) {
         playTrack();
       }
@@ -934,7 +970,10 @@ document.addEventListener('DOMContentLoaded', () => {
       state.isPlaying = true;
       elements.playBtn.classList.add('is-playing');
       elements.playerStatus.textContent = 'Сейчас играет';
+      elements.miniPlayer?.classList.add('is-visible');
+      elements.miniPlayer?.setAttribute('aria-hidden', 'false');
       syncActiveCards();
+      setMiniPlayingState();
     };
 
     const pauseTrack = () => {
@@ -943,6 +982,7 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.playBtn.classList.remove('is-playing');
       elements.playerStatus.textContent = 'Плеер на паузе';
       syncActiveCards();
+      setMiniPlayingState();
     };
 
     const togglePlay = () => {
@@ -962,6 +1002,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const percent = (elements.audio.currentTime / elements.audio.duration) * 100;
       elements.progress.value = Number.isFinite(percent) ? percent : 0;
       updateInlineProgress();
+      updateMiniProgress(percent);
     };
 
     const seek = () => {
@@ -1002,42 +1043,6 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.audio.volume = volume;
       state.isMuted = volume === 0;
       elements.muteBtn.classList.toggle('is-muted', state.isMuted);
-    };
-
-    const enableDrag = () => {
-      let dragging = false;
-      let startX = 0;
-      let startY = 0;
-      let startLeft = 0;
-      let startTop = 0;
-
-      const onMove = (evt) => {
-        if (!dragging) return;
-        const deltaX = evt.clientX - startX;
-        const deltaY = evt.clientY - startY;
-        const newLeft = Math.min(Math.max(startLeft + deltaX, 8), window.innerWidth - elements.playerDock.offsetWidth - 8);
-        const newTop = Math.min(Math.max(startTop + deltaY, 8), window.innerHeight - elements.playerDock.offsetHeight - 8);
-        elements.playerDock.style.left = `${newLeft}px`;
-        elements.playerDock.style.top = `${newTop}px`;
-        elements.playerDock.style.right = 'auto';
-        elements.playerDock.style.bottom = 'auto';
-      };
-
-      const stop = () => {
-        dragging = false;
-        document.removeEventListener('mousemove', onMove);
-        document.removeEventListener('mouseup', stop);
-      };
-
-      elements.playerHandle.addEventListener('mousedown', (evt) => {
-        dragging = true;
-        startX = evt.clientX;
-        startY = evt.clientY;
-        startLeft = elements.playerDock.offsetLeft;
-        startTop = elements.playerDock.offsetTop;
-        document.addEventListener('mousemove', onMove);
-        document.addEventListener('mouseup', stop);
-      });
     };
 
     const selectTrackBySlug = (slug) => {
@@ -1242,6 +1247,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const track = state.playlist.find((item) => item.slug === slug);
         if (track) shareTrack(track);
       });
+      elements.miniPlay?.addEventListener('click', togglePlay);
+      elements.miniPrev?.addEventListener('click', prevTrack);
+      elements.miniNext?.addEventListener('click', nextTrack);
+      elements.miniHide?.addEventListener('click', hideMiniPlayer);
       elements.navToggle?.addEventListener('click', handleNavToggle);
       document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', closeMobileNav));
       if (elements.profileToggle && elements.profileDropdown) {
@@ -1256,9 +1265,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       document.querySelectorAll('[data-social]').forEach((btn) => {
         btn.addEventListener('click', () => applySocialProfile(btn.dataset.social || 'social'));
-      });
-      elements.dockToggle.addEventListener('change', () => {
-        elements.playerDock.style.display = elements.dockToggle.checked ? 'grid' : 'none';
       });
       elements.chatLauncher.addEventListener('click', () => openModal(elements.chatModal));
       elements.loginModalBtn.addEventListener('click', () => openModal(elements.loginModal));
@@ -1356,7 +1362,6 @@ document.addEventListener('DOMContentLoaded', () => {
       bindEvents();
       setCurrentTrack(0);
       changeVolume();
-      enableDrag();
       updateClock();
       renderNewsTicker();
       setInterval(updateClock, 1000);
