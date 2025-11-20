@@ -1,491 +1,291 @@
-<style>
-  :root{
-    --bg: #0f1115;
-    --card: #0b0d10;
-    --muted: #98a0aa;
-    --accent: #6ee7b7;
-    --glass: rgba(255,255,255,0.03);
-    --chip-bg: rgba(255,255,255,0.04);
-    --radius: 12px;
-    --text: #e6eef6;
-    --small: 12px;
-  }
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AVZALØV · Музыкальный портал</title>
+  <link rel="icon" href="favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="dark">
+  <header class="site-header">
+    <div class="logo">AVZALØV</div>
+    <nav id="mainNav" class="main-nav" aria-label="Главная навигация">
+      <a href="#hero">Главная</a>
+      <a href="#tracks">Треки</a>
+      <a href="#profile">Профиль</a>
+      <a href="#news">Новости</a>
+      <a href="#chat">Чат</a>
+    </nav>
+    <div class="header-actions">
+      <span id="headerClock" class="pill">--:--</span>
+      <label class="switch" title="Переключить тему">
+        <input type="checkbox" id="themeToggle" checked>
+        <span class="slider"></span>
+      </label>
+      <button id="navToggle" aria-expanded="false" aria-label="Меню" class="ghost">☰</button>
+    </div>
+  </header>
 
-  body{
-    background: linear-gradient(180deg,#071018 0%, #0b0f16 100%);
-    color:var(--text);
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    padding:24px;
-  }
-
-  .tracks-section{
-    max-width:1100px;
-    margin:0 auto;
-  }
-
-  .tracks-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
-    gap:16px;
-  }
-
-  .track-card{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:12px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:var(--radius);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.02);
-    transition:transform .18s ease, box-shadow .18s ease;
-    cursor:pointer;
-    position:relative;
-  }
-
-  .track-card:hover{ transform: translateY(-6px); box-shadow: 0 14px 30px rgba(2,6,23,0.6); }
-
-  .cover{
-    width:84px;
-    height:84px;
-    border-radius:8px;
-    object-fit:cover;
-    flex:0 0 84px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-    background: linear-gradient(135deg,#111315,#0d1014);
-  }
-
-  .meta{
-    flex:1 1 auto;
-    min-width:0;
-  }
-
-  .label{ font-size:12px; color:var(--accent); margin:0 0 6px 0; font-weight:600; }
-  .title{ margin:0 0 6px 0; font-size:16px; line-height:1.1; }
-  .muted{ margin:0; color:var(--muted); font-size:13px; }
-
-  .player-insight{
-    margin-top:8px;
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-  }
-
-  .chip{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    padding:6px 8px;
-    border-radius:999px;
-    background:var(--chip-bg);
-    color:var(--muted);
-    font-size:12px;
-  }
-
-  /* Right column: controls + price */
-  .actions{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-    flex:0 0 96px;
-  }
-
-  .controls{
-    display:flex;
-    gap:8px;
-    align-items:center;
-  }
-
-  .icon-btn{
-    width:36px;
-    height:36px;
-    border-radius:8px;
-    background:transparent;
-    border:0;
-    display:inline-grid;
-    place-items:center;
-    color:var(--text);
-    cursor:pointer;
-    transition:all .15s ease;
-  }
-
-  .icon-btn.ghost{ background:var(--glass); }
-  .icon-btn.primary{
-    background: linear-gradient(90deg,#00c1a1,#4de1b0);
-    color:#052018;
-    box-shadow: 0 6px 14px rgba(3, 140, 110, 0.18);
-  }
-
-  .icon-btn:hover{ transform: translateY(-3px); }
-
-  /* Price block */
-  .price{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background:rgba(255,255,255,0.02);
-    padding:6px 8px;
-    border-radius:999px;
-    font-size:12px;
-    color:var(--muted);
-  }
-
-  .price .amount{
-    font-weight:700;
-    color:var(--text);
-    font-size:14px;
-  }
-
-  .price svg{
-    width:22px;
-    height:22px;
-    display:block;
-    transform-origin:center;
-    transition:transform .3s ease;
-  }
-
-  /* Animate SVG when active */
-  .track-card.is-playing .price svg{ animation: coin-spin 0.9s linear infinite; }
-  .track-card:hover .price svg{ transform: translateY(-2px) scale(1.05); }
-
-  @keyframes coin-spin{
-    from{ transform: rotateY(0deg); }
-    to{ transform: rotateY(360deg); }
-  }
-
-  /* small helper */
-  .sr-only{
-    position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important;
-  }
-
-  /* Track list for mobile: make each card clickable; active state */
-  .track-card.is-active{
-    outline:2px solid rgba(110,231,183,0.12);
-    box-shadow: 0 18px 40px rgba(2,6,23,0.75);
-  }
-
-  /* tiny meta row icons (svg color) */
-  .meta svg{ width:14px; height:14px; color:var(--muted); vertical-align:middle; }
-  .meta .chip svg{ width:12px; height:12px; color:var(--muted); }
-
-  /* progress inside card (optional) */
-  .progress-wrap{ width:100%; margin-top:10px; height:6px; background:rgba(255,255,255,0.03); border-radius:999px; overflow:hidden; }
-  .progress-bar{ width:0%; height:100%; background: linear-gradient(90deg,#00d1a8,#4de1b0); transition:width .1s linear; }
-
-  /* Responsive */
-  @media (max-width:520px){
-    .track-card{ flex-direction:row; gap:12px; padding:10px; }
-    .actions{ flex:0 0 86px; }
-    .cover{ width:64px; height:64px; flex:0 0 64px; }
-  }
-
-</style>
-
-<section class="tracks-section" aria-label="Список треков">
-  <h2 style="margin:0 0 14px 0; font-weight:600;">Треки</h2>
-
-  <div class="tracks-grid" id="tracksGrid">
-    <article class="track-card is-active" data-src="audio/Davyl.mp3" data-price="49">
-      <img class="cover" src="img/Davyl.jpg" alt="Обложка — Давыл">
-      <div class="meta">
-        <p class="label">Сейчас играет</p>
-        <h3 class="title">Давыл</h3>
-        <p class="muted">Скоро релиз · ru / tt · © 2025 AVZALØV</p>
-
-        <div class="player-insight" aria-hidden="true">
-          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a2 2 0 0 1 2 2v4h4a2 2 0 0 1 0 4h-4v4a2 2 0 0 1-4 0v-4H6a2 2 0 0 1 0-4h4V4a2 2 0 0 1 2-2z"/></svg> Ранний доступ</span>
-          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM7 9h10v2H7V9z"/></svg> ru / tt</span>
-          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 5c-4.97 0-9 3.58-9 8s4.03 8 9 8 9-3.58 9-8-4.03-8-9-8z"/></svg> 898 прослушиваний</span>
+  <main>
+    <section id="hero" class="hero panel">
+      <div>
+        <p class="label">Новый релиз</p>
+        <h1>Музыка AVZALØV — премиальный опыт</h1>
+        <p class="muted">Слушайте свежие треки, обсуждайте новинки в чате и следите за статистикой релизов.</p>
+        <div class="cta-row">
+          <button id="ctaPlay" class="btn primary">▶️ Слушать</button>
+          <button id="ctaChat" class="btn ghost">💬 Открыть чат</button>
+          <button id="ctaGame" class="btn ghost">🎮 Game hub</button>
         </div>
-
-        <div class="progress-wrap" aria-hidden="true">
-          <div class="progress-bar" style="width:12%"></div>
+        <div class="stats-row">
+          <div class="stat"><p class="muted">Релизы</p><strong id="tracksCount">0</strong></div>
+          <div class="stat"><p class="muted">Доступно</p><strong id="playableCount">0</strong></div>
+          <div class="stat"><p class="muted">Ранний доступ</p><strong id="earlyCount">0</strong></div>
+          <div class="stat"><p class="muted">Следующий релиз</p><strong id="nextRelease">—</strong></div>
         </div>
       </div>
+      <div class="hero-aside">
+        <span id="releaseBadge" class="badge">Премьера</span>
+        <div class="platforms" id="platformLinks"></div>
+        <p id="newsTicker" class="muted">—</p>
+        <button id="newsTickerBtn" class="btn ghost">Все новости</button>
+      </div>
+    </section>
 
-      <div class="actions" role="group" aria-label="Управление треком">
-        <div class="controls" aria-hidden="true">
-          <button class="icon-btn ghost prev-btn" title="Предыдущий">
-            <!-- prev icon -->
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 12L17 5v14L7 12Z"/><path d="M5 5h2v14H5z"/></svg>
-          </button>
-
-          <button class="icon-btn primary play-btn" title="Пуск / Пауза" aria-pressed="true">
-            <!-- play + pause toggles via JS -->
-            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14 19 12 8 18.86V5.14Z"/></svg>
-            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><path d="M7 5h4v14H7z"/><path d="M13 5h4v14h-4z"/></svg>
-            <span class="sr-only">Пуск</span>
-          </button>
-
-          <button class="icon-btn ghost next-btn" title="Следующий">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 19V5l10 7-10 7Zm12-14h2v14h-2z"/></svg>
-          </button>
+    <section id="player" class="panel player">
+      <div class="player__meta">
+        <div class="player__cover">
+          <img id="playerCover" src="img/background.jpg" alt="Обложка трека">
         </div>
-
-        <!-- price with animated SVG coin -->
-        <div class="price" aria-label="Цена трека">
-          <svg class="coin" viewBox="0 0 24 24" aria-hidden="true">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0%" stop-color="#ffd166"/>
-                <stop offset="100%" stop-color="#fca311"/>
-              </linearGradient>
-            </defs>
-            <!-- stylized coin -->
-            <circle cx="12" cy="12" r="9" fill="url(#g1)"></circle>
-            <path d="M9.5 11.2c0-.8.9-1.1 2.5-1.6 1.6-.4 2.1-.7 2.1-1.5 0-1-.9-1.5-2.3-1.5-1 0-2.1.2-2.9.6l-.5-1.3c.9-.4 2-.7 3.6-.7 2.5 0 3.7 1 3.7 2.8 0 1.6-1.1 2-2.8 2.4-1.5.4-2.1.7-2.1 1.6 0 .9 1 1.6 2.6 1.6c1 0 2-.2 2.6-.6l.4 1.3c-.8.4-1.9.7-3.6.7-2.5 0-3.9-1-3.9-2.9z" fill="#8a5c00" opacity="0.9"></path>
-          </svg>
-
-          <div>
-            <small style="display:block; font-size:11px; color:var(--muted);">Цена</small>
-            <div class="amount">49</div>
+        <div class="player__info">
+          <p id="playerStatus" class="muted">—</p>
+          <h2 id="playerTitle">Трек</h2>
+          <p id="playerInfo" class="muted">—</p>
+          <div class="chips">
+            <span id="playerAccess" class="chip">Доступ</span>
+            <span id="playerLanguages" class="chip">Языки</span>
+            <span id="playerPlays" class="chip">—</span>
           </div>
         </div>
       </div>
-    </article>
-
-    <article class="track-card" data-src="audio/Psychopat.mp3" data-price="59">
-      <img class="cover" src="img/Davyl.jpg" alt="Обложка — Психопат">
-      <div class="meta">
-        <h3 class="title">Психопат</h3>
-        <p class="muted">Скоро релиз · ru · © 2025</p>
-
-        <div class="player-insight" aria-hidden="true">
-          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg> 12K</span>
-          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 9h10v2H7z"/></svg> ru</span>
+      <div class="player__controls">
+        <div class="time">
+          <span id="currentTime">0:00</span>
+          <input id="progress" type="range" min="0" max="100" value="0">
+          <span id="duration">0:00</span>
         </div>
-
-        <div class="progress-wrap" aria-hidden="true">
-          <div class="progress-bar" style="width:0%"></div>
+        <div class="controls-row">
+          <button id="prevBtn" class="btn ghost" aria-label="Предыдущий">⏮</button>
+          <button id="playBtn" class="btn primary" aria-label="Воспроизведение">▶</button>
+          <button id="nextBtn" class="btn ghost" aria-label="Следующий">⏭</button>
+          <button id="repeatBtn" class="btn ghost" aria-label="Повтор">🔁</button>
+          <button id="muteBtn" class="btn ghost" aria-label="Звук">🔇</button>
+          <input id="volume" type="range" min="0" max="1" step="0.01" value="1" aria-label="Громкость">
         </div>
       </div>
+      <audio id="audio" preload="metadata"></audio>
+      <div class="player__playlist" id="playlist" aria-label="Плейлист"></div>
+      <div class="player__toggles">
+        <label><input type="checkbox" id="dockToggle" checked> Док-панель</label>
+        <label><input type="checkbox" id="gameToggle" checked> Игровой режим</label>
+        <label><input type="checkbox" id="notifyToggle" checked> Уведомления</label>
+      </div>
+    </section>
 
-      <div class="actions" role="group" aria-label="Управление треком">
-        <div class="controls" aria-hidden="true">
-          <button class="icon-btn ghost prev-btn" title="Предыдущий">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 12L17 5v14L7 12Z"/><path d="M5 5h2v14H5z"/></svg>
-          </button>
-
-          <button class="icon-btn primary play-btn" title="Пуск / Пауза" aria-pressed="false">
-            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14 19 12 8 18.86V5.14Z"/></svg>
-            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M7 5h4v14H7z"/><path d="M13 5h4v14h-4z"/></svg>
-            <span class="sr-only">Пуск</span>
-          </button>
-
-          <button class="icon-btn ghost next-btn" title="Следующий">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 19V5l10 7-10 7Zm12-14h2v14h-2z"/></svg>
-          </button>
+    <section id="tracks" class="panel">
+      <header class="panel__header">
+        <div>
+          <p class="label">Каталог</p>
+          <h2>Треки</h2>
         </div>
+        <div class="filters">
+          <select id="accessFilter" aria-label="Фильтр доступа">
+            <option value="all">Все</option>
+            <option value="early-access">Ранний доступ</option>
+            <option value="open">Открытые</option>
+          </select>
+          <select id="languageFilter" aria-label="Фильтр языка">
+            <option value="all">Все языки</option>
+            <option value="ru">RU</option>
+            <option value="tt">TT</option>
+          </select>
+        </div>
+      </header>
+      <div id="tracksList" class="tracks"></div>
+      <button id="chartOpenBtn" class="btn ghost" type="button">🏆 Топ-10</button>
+    </section>
 
-        <div class="price" aria-label="Цена трека">
-          <svg class="coin" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" fill="#ffd8a8"></circle>
-            <path d="M9 11h6v2H9z" fill="#8a5c00"></path>
-          </svg>
-          <div>
-            <small style="display:block; font-size:11px; color:var(--muted);">Цена</small>
-            <div class="amount">59</div>
-          </div>
+    <section id="profile" class="panel">
+      <header class="panel__header">
+        <div>
+          <p class="label">Профиль</p>
+          <h2>Управление</h2>
+        </div>
+        <button id="openProfile" class="btn ghost" type="button">Перейти</button>
+      </header>
+      <div class="profile-card">
+        <img id="profileAvatar" src="img/background.jpg" alt="Аватар" class="avatar">
+        <div>
+          <p id="roleChip" class="chip">Слушатель</p>
+          <h3 id="profileName">Гость</h3>
+          <p id="profileMeta" class="muted">Уровень 1 · 0 RUZ</p>
+          <p id="profileToken" class="muted tiny">—</p>
+          <div id="roleBadges" class="chips"></div>
         </div>
       </div>
-    </article>
-
-    <article class="track-card" data-src="audio/NewTrack.mp3" data-price="39">
-      <img class="cover" src="img/Davyl.jpg" alt="Обложка — Новый трек">
-      <div class="meta">
-        <h3 class="title">Новый трек</h3>
-        <p class="muted">Скоро релиз · ru · © 2025</p>
-
-        <div class="player-insight" aria-hidden="true">
-          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg> 1.2K</span>
-          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 9h10v2H7z"/></svg> ru</span>
-        </div>
-
-        <div class="progress-wrap" aria-hidden="true">
-          <div class="progress-bar" style="width:0%"></div>
-        </div>
+      <div class="form-grid">
+        <label>Имя
+          <input id="nameInput" type="text" placeholder="Ваш ник">
+        </label>
+        <label>Аватар
+          <input id="avatarInput" type="file" accept="image/*">
+        </label>
+        <label>Gift-код
+          <input id="giftCodeInput" type="text" placeholder="AVZAL-001">
+        </label>
+        <label>Admin code
+          <input id="adminCode" type="text" placeholder="AVZAL-001">
+        </label>
       </div>
-
-      <div class="actions" role="group" aria-label="Управление треком">
-        <div class="controls" aria-hidden="true">
-          <button class="icon-btn ghost prev-btn" title="Предыдущий">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 12L17 5v14L7 12Z"/><path d="M5 5h2v14H5z"/></svg>
-          </button>
-
-          <button class="icon-btn primary play-btn" title="Пуск / Пауза" aria-pressed="false">
-            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14 19 12 8 18.86V5.14Z"/></svg>
-            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M7 5h4v14H7z"/><path d="M13 5h4v14h-4z"/></svg>
-            <span class="sr-only">Пуск</span>
-          </button>
-
-          <button class="icon-btn ghost next-btn" title="Следующий">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 19V5l10 7-10 7Zm12-14h2v14h-2z"/></svg>
-          </button>
-        </div>
-
-        <div class="price" aria-label="Цена трека">
-          <svg class="coin" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" fill="#ffd8a8"></circle>
-            <path d="M9 11h6v2H9z" fill="#8a5c00"></path>
-          </svg>
-          <div>
-            <small style="display:block; font-size:11px; color:var(--muted);">Цена</small>
-            <div class="amount">39</div>
-          </div>
-        </div>
+      <div class="cta-row">
+        <button id="saveNameBtn" class="btn primary" type="button">Сохранить</button>
+        <button id="giftCodeBtn" class="btn ghost" type="button">Активировать</button>
+        <button id="loginModalBtn" class="btn ghost" type="button">Войти</button>
+        <button id="settingsModalBtn" class="btn ghost" type="button">Настройки</button>
       </div>
-    </article>
+      <p id="nameWarning" class="muted tiny">Имя должно быть уникальным.</p>
+      <p id="giftStatus" class="muted tiny">Введите код для бонусов.</p>
+    </section>
 
+    <section id="news" class="panel">
+      <header class="panel__header">
+        <div>
+          <p class="label">Новости</p>
+          <h2>Лента</h2>
+        </div>
+        <div class="cta-row">
+          <button id="newsModalBtn" class="btn ghost" type="button">Открыть</button>
+          <span id="clock" class="pill">--:--</span>
+        </div>
+      </header>
+    </section>
+
+    <section id="game" class="panel">
+      <header class="panel__header">
+        <div>
+          <p class="label">Game hub</p>
+          <h2>Мини-игра</h2>
+        </div>
+        <button id="gamePlatforms" class="btn ghost" type="button">Площадки</button>
+      </header>
+      <div class="chips">
+        <span class="chip">VK Play</span>
+        <span class="chip">Steam mini</span>
+        <span class="chip">itch.io</span>
+      </div>
+    </section>
+
+    <section id="chat" class="panel">
+      <header class="panel__header">
+        <div>
+          <p class="label">Чат</p>
+          <h2 id="chatTitle">Сообщество</h2>
+        </div>
+        <button id="chatLauncher" class="btn primary" type="button">Открыть чат</button>
+      </header>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="bottom-nav__item" data-nav="hero">🏠</button>
+    <button class="bottom-nav__item" data-nav="tracks">🎧</button>
+    <button class="bottom-nav__item" data-nav="profile">🧑</button>
+    <button class="bottom-nav__item" data-nav="news">📰</button>
+    <button class="bottom-nav__item" data-nav="chat">💬</button>
+  </nav>
+
+  <div id="playerDock" class="player-dock">
+    <div id="playerHandle" class="player-dock__handle"></div>
+    <div class="player-dock__body">
+      <img id="playerDockCover" src="img/background.jpg" alt="Ковер" class="player-dock__cover">
+      <div>
+        <strong id="playerDockTitle">Трек</strong>
+        <p id="playerDockInfo" class="muted tiny">—</p>
+      </div>
+      <button id="dockPlay" class="btn primary" type="button">▶</button>
+    </div>
   </div>
 
-  <audio id="audio" preload="metadata"></audio>
-</section>
+  <div id="chatModal" class="modal" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" data-close="chatModal" aria-label="Закрыть">✕</button>
+      <h3>Чат</h3>
+      <div id="chatFeed" class="chat-feed"></div>
+      <form id="chatForm" class="chat-form">
+        <input id="chatInput" type="text" placeholder="Сообщение">
+        <button type="submit" class="btn primary">Отправить</button>
+      </form>
+    </div>
+  </div>
 
-<script>
-  (function(){
-    const audio = document.getElementById('audio');
-    const cards = Array.from(document.querySelectorAll('.track-card'));
+  <div id="loginModal" class="modal" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" data-close="loginModal" aria-label="Закрыть">✕</button>
+      <h3>Вход</h3>
+      <p id="loginStatus" class="muted">Доступ по сервисному коду.</p>
+      <div class="form-grid">
+        <input id="vkLogin" data-social="vk" type="button" class="btn ghost" value="VK Login">
+        <input id="gmailLogin" data-social="gmail" type="button" class="btn ghost" value="Gmail Login">
+      </div>
+      <div class="cta-row">
+        <button id="loginBtn" class="btn primary" type="button">Активировать</button>
+        <button id="logoutBtn" class="btn ghost" type="button">Выйти</button>
+      </div>
+    </div>
+  </div>
 
-    let currentCard = document.querySelector('.track-card.is-active') || null;
+  <div id="settingsModal" class="modal" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" data-close="settingsModal" aria-label="Закрыть">✕</button>
+      <h3>Настройки</h3>
+      <p class="muted">Используйте переключатель «Уведомления» в док-панели, чтобы включить или отключить пуши.</p>
+    </div>
+  </div>
 
-    function setActiveCard(card){
-      if(currentCard) currentCard.classList.remove('is-active');
-      currentCard = card;
-      card.classList.add('is-active');
-      // обновим aria
-      cards.forEach(c => {
-        const playBtn = c.querySelector('.play-btn');
-        if(playBtn) playBtn.setAttribute('aria-pressed', c === card && card.classList.contains('is-playing'));
-      });
-    }
+  <div id="chartModal" class="modal" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" data-close="chartModal" aria-label="Закрыть">✕</button>
+      <h3>Чарт</h3>
+      <div id="chartList"></div>
+    </div>
+  </div>
 
-    function loadAndPlay(card){
-      const src = card.dataset.src;
-      if(!src) return;
-      // если выбранный — текущий и уже играет, toggle pause
-      if(card === currentCard && card.classList.contains('is-playing')){
-        audio.pause();
-        return;
-      }
-      // установить src и начать проигрывание
-      const currentSrc = audio.src.endsWith(src) ? audio.src : null;
-      if (currentSrc !== audio.src) {
-        audio.src = src;
-      }
-      audio.play().catch(e => console.log('Playback blocked:', e));
+  <div id="trackModal" class="modal" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" data-close="trackModal" aria-label="Закрыть">✕</button>
+      <div id="trackModalBody"></div>
+    </div>
+  </div>
 
-      // установим is-playing на карточке (остальные — убрать)
-      cards.forEach(c => c.classList.remove('is-playing'));
-      card.classList.add('is-playing');
-      // обнов aria-pressed
-      const pb = card.querySelector('.play-btn');
-      if(pb) pb.setAttribute('aria-pressed','true');
-    }
+  <div id="newsModal" class="modal" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" data-close="newsModal" aria-label="Закрыть">✕</button>
+      <h3>Новости</h3>
+      <div id="newsList"></div>
+    </div>
+  </div>
 
-    function togglePlay(card){
-      if(!card) return;
-      if(card.classList.contains('is-playing')){
-        // pause
-        audio.pause();
-        card.classList.remove('is-playing');
-      } else {
-        loadAndPlay(card);
-      }
-    }
+  <div id="profileModal" class="modal" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" data-close="profileModal" aria-label="Закрыть">✕</button>
+      <h3 id="profileTitle">Профиль</h3>
+      <p id="profileModalMeta" class="muted"></p>
+      <p id="profileModalToken" class="muted tiny"></p>
+    </div>
+  </div>
 
-    // клики по карточке — выбрать и проиграть
-    cards.forEach(card=>{
-      const playBtn = card.querySelector('.play-btn');
-      // click whole card (except clicks on control buttons) plays track
-      card.addEventListener('click', (e)=>{
-        // если кликнули по кнопками управления — обработаем отдельно
-        setActiveCard(card);
-        if(e.target.closest('.controls') || e.target.closest('.price')) return;
-        togglePlay(card);
-      });
-
-      // play button
-      if(playBtn){
-        playBtn.addEventListener('click', (e)=>{
-          e.stopPropagation();
-          setActiveCard(card);
-          togglePlay(card);
-        });
-      }
-
-      // prev/next (простой переключатель по порядку)
-      const prevBtn = card.querySelector('.prev-btn');
-      const nextBtn = card.querySelector('.next-btn');
-      if(prevBtn) prevBtn.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        const idx = cards.indexOf(card);
-        const prev = cards[(idx - 1 + cards.length) % cards.length];
-        if(prev) loadAndPlay(prev);
-      });
-      if(nextBtn) nextBtn.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        const idx = cards.indexOf(card);
-        const next = cards[(idx + 1) % cards.length];
-        if(next) loadAndPlay(next);
-      });
-    });
-
-    // audio events — синхронизируем UI
-    audio.addEventListener('play', ()=>{
-      if(currentCard){
-        currentCard.classList.add('is-playing');
-        setActiveCard(currentCard);
-        // swap icons
-        const playSvg = currentCard.querySelector('.icon-play');
-        const pauseSvg = currentCard.querySelector('.icon-pause');
-        if(playSvg) playSvg.style.display = 'none';
-        if(pauseSvg) pauseSvg.style.display = 'block';
-      }
-    });
-    audio.addEventListener('pause', ()=>{
-      cards.forEach(c => c.classList.remove('is-playing'));
-      // swap all pause->play
-      cards.forEach(c=>{
-        const playSvg = c.querySelector('.icon-play');
-        const pauseSvg = c.querySelector('.icon-pause');
-        if(playSvg) playSvg.style.display = '';
-        if(pauseSvg) pauseSvg.style.display = 'none';
-        const pb = c.querySelector('.play-btn');
-        if(pb) pb.setAttribute('aria-pressed','false');
-      });
-    });
-
-    // обновление прогресса для активной карточки
-    audio.addEventListener('timeupdate', ()=>{
-      if(!currentCard) return;
-      const prog = currentCard.querySelector('.progress-bar');
-      if(!prog) return;
-      const pct = (audio.currentTime / Math.max(1, audio.duration)) * 100;
-      prog.style.width = pct + '%';
-    });
-
-    // при окончании — переключаем на следующий
-    audio.addEventListener('ended', ()=>{
-      if(!currentCard) return;
-      const idx = cards.indexOf(currentCard);
-      const next = cards[(idx + 1) % cards.length];
-      if(next) loadAndPlay(next);
-    });
-
-    // Инициализация: если есть активная карточка, загрузим её (не автоматически не проигрывая)
-    if(currentCard && currentCard.dataset.src){
-      audio.src = currentCard.dataset.src;
-      // оставляем паузу — пользователь нажмёт play
-    }
-
-    // Пример: анимация монетки при hover/play реализована через CSS (coin-spin)
-    // Если нужно, можно менять цену программно:
-    window.updateTrackPrice = function(trackIndex, newPrice){
-      const card = cards[trackIndex];
-      if(!card) return;
-      card.dataset.price = newPrice;
-      const amount = card.querySelector('.amount');
-      if(amount) amount.textContent = newPrice;
-    };
-  })();
-</script>
+  <script src="tracks-data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
