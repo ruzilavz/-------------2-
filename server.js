@@ -8,12 +8,22 @@ const HttpError = require('./utils/httpError');
 
 const app = express();
 
+const path = require('path');
+
 app.use(cors());
 app.use(morgan(process.env.LOG_FORMAT || 'combined'));
 app.use(express.json());
 
 app.use('/api', routes);
 
+app.use((req, res, next) => {
+  next(new HttpError(404, 'Route not found'));
+});
+
+// API
+app.use('/api', routes);
+
+// 404 для всего, что не найдено
 app.use((req, res, next) => {
   next(new HttpError(404, 'Route not found'));
 });
