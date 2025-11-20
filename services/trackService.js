@@ -97,6 +97,12 @@ async function updateTrack(slug, updates) {
     throw new HttpError(404, 'Track not found');
   }
 
+  const nextSlug = updates.slug || ids[trackIndex].slug;
+  const duplicateSlugIndex = ids.findIndex((item, index) => item.slug === nextSlug && index !== trackIndex);
+  if (duplicateSlugIndex !== -1) {
+    throw new HttpError(409, 'Track with this slug already exists');
+  }
+
   const currentMeta = tracks[trackIndex] || {};
   const updatedMeta = {
     ...currentMeta,
@@ -105,7 +111,7 @@ async function updateTrack(slug, updates) {
   };
 
   tracks[trackIndex] = updatedMeta;
-  ids[trackIndex] = { ...ids[trackIndex], slug: updates.slug || ids[trackIndex].slug };
+  ids[trackIndex] = { ...ids[trackIndex], slug: nextSlug };
 
   await Promise.all([
     writeJson(tracksFile, tracks),
