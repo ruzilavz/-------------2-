@@ -88,6 +88,20 @@ document.addEventListener('DOMContentLoaded', () => {
       loginStatus: document.getElementById('loginStatus'),
       navToggle: document.getElementById('navToggle'),
       mainNav: document.getElementById('mainNav'),
+      mobileBadge: document.getElementById('mobileBadge'),
+      mobileCover: document.getElementById('mobileCover'),
+      mobileTitle: document.getElementById('mobileTitle'),
+      mobileMeta: document.getElementById('mobileMeta'),
+      mobileEyebrow: document.getElementById('mobileEyebrow'),
+      mobilePlays: document.getElementById('mobilePlays'),
+      mobileDuration: document.getElementById('mobileDuration'),
+      mobileAccess: document.getElementById('mobileAccess'),
+      mobileExplicit: document.getElementById('mobileExplicit'),
+      mobileTags: document.getElementById('mobileTags'),
+      mobileRelease: document.getElementById('mobileRelease'),
+      mobilePlay: document.getElementById('mobilePlay'),
+      mobileLike: document.getElementById('mobileLike'),
+      mobileShare: document.getElementById('mobileShare'),
     };
 
     const ADMIN_CODES = Array.from({ length: 50 }, (_, i) => `AVZAL-${String(i + 1).padStart(3, '0')}`);
@@ -397,6 +411,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    const renderMobilePreview = (track) => {
+      if (!track || !elements.mobileTitle) return;
+      const released = isReleased(track);
+      const stats = getTrackStats(track);
+      elements.mobileCover.src = track.coverPath || getCoverPath(track);
+      elements.mobileCover.alt = `Обложка ${track.title}`;
+      elements.mobileEyebrow.textContent = released ? 'Вышел' : 'Ранний доступ';
+      elements.mobileTitle.textContent = track.title;
+      elements.mobileMeta.textContent = `${track.artist || 'AVZALØV'} · ${languagesLabel(track.languages)}`;
+      elements.mobileBadge.textContent = released ? 'Live' : 'Early';
+      elements.mobileBadge.classList.toggle('pill--live', released);
+      elements.mobileBadge.classList.toggle('pill--glass', !released);
+      elements.mobilePlays.textContent = `👁️ ${stats.plays.toLocaleString('ru-RU')}`;
+      elements.mobileDuration.textContent = `⏱️ ${formatDurationLabel(stats.durationSeconds)}`;
+      elements.mobileAccess.textContent = track.hasClip ? '🎬 Клип' : accessLabel(track);
+      elements.mobileExplicit.textContent = track.explicit ? '⚠️ Explicit' : '✔️ Clean';
+      elements.mobileRelease.textContent = `📅 ${formatReleaseDate(track)}`;
+      elements.mobileTags.innerHTML = stats.tags.map((tag) => `<span class="tag">${tag}</span>`).join('');
+      if (elements.mobilePlay) elements.mobilePlay.dataset.slug = track.slug;
+      if (elements.mobileLike) elements.mobileLike.dataset.slug = track.slug;
+      if (elements.mobileShare) elements.mobileShare.dataset.slug = track.slug;
+    };
+
     const toggleLike = (slug) => {
       if (state.liked.has(slug)) {
         state.liked.delete(slug);
@@ -405,6 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       persistLiked();
       renderTracks();
+      renderMobilePreview(state.playlist[state.currentIndex]);
     };
 
     const shareTrack = async (track) => {
@@ -730,6 +768,7 @@ document.addEventListener('DOMContentLoaded', () => {
         : `До релиза: ${formatReleaseDate(track)}`;
       renderPlatforms(track);
       updatePlayerBadges(track);
+      renderMobilePreview(track);
       renderPlaylist();
       if (autoplay) {
         playTrack();
@@ -1014,6 +1053,19 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.chartOpenBtn?.addEventListener('click', renderChartModal);
       elements.newsModalBtn?.addEventListener('click', renderNewsModal);
       elements.newsTickerBtn?.addEventListener('click', renderNewsModal);
+      elements.mobilePlay?.addEventListener('click', () => {
+        const slug = elements.mobilePlay.dataset.slug;
+        if (slug) selectTrackBySlug(slug);
+      });
+      elements.mobileLike?.addEventListener('click', () => {
+        const slug = elements.mobileLike.dataset.slug;
+        if (slug) toggleLike(slug);
+      });
+      elements.mobileShare?.addEventListener('click', () => {
+        const slug = elements.mobileShare.dataset.slug;
+        const track = state.playlist.find((item) => item.slug === slug);
+        if (track) shareTrack(track);
+      });
       elements.navToggle?.addEventListener('click', handleNavToggle);
       document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', closeMobileNav));
       document.querySelectorAll('[data-social]').forEach((btn) => {
