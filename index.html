@@ -185,7 +185,7 @@
 
   <div class="tracks-grid" id="tracksGrid">
     <!-- Пример карточки; дублируйте/генерируйте для других треков -->
-    <article class="track-card is-active" data-src="audio/Davyl.mp3" data-price="49">
+    <article class="track-card is-active" data-src="Davyl.mp3" data-price="49">
       <img class="cover" src="img/Davyl.jpg" alt="Обложка — Давыл">
       <div class="meta">
         <p class="label">Сейчас играет</p>
@@ -245,8 +245,8 @@
     </article>
 
     <!-- Еще одна карточка для примера -->
-    <article class="track-card" data-src="audio/Psychopat.mp3" data-price="59">
-      <img class="cover" src="img/Psychopat.jpg" alt="Обложка — Психопат">
+    <article class="track-card" data-src="Psychopat.mp3" data-price="59">
+      <img class="cover" src="img/Davyl.jpg" alt="Обложка — Психопат">
       <div class="meta">
         <p class="label" style="color:#ffc371">Скоро релиз</p>
         <h3 class="title">Психопат</h3>
@@ -262,7 +262,7 @@
         </div>
       </div>
 
-      <div class="actions" role="group">
+      <div class="actions" role="group" aria-label="Управление треком">
         <div class="controls" aria-hidden="true">
           <button class="icon-btn ghost prev-btn" title="Предыдущий">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 12L17 5v14L7 12Z"/><path d="M5 5h2v14H5z"/></svg>
@@ -326,11 +326,12 @@
         return;
       }
       // установить src и начать проигрывание
-      if(audio.src !== src){
+      const currentSrc = audio.src.endsWith(src) ? audio.src : null;
+      if (currentSrc !== audio.src) {
         audio.src = src;
       }
       audio.play().catch(e => console.log('Playback blocked:', e));
-      setActiveCard(card);
+
       // установим is-playing на карточке (остальные — убрать)
       cards.forEach(c => c.classList.remove('is-playing'));
       card.classList.add('is-playing');
@@ -344,6 +345,7 @@
       if(card.classList.contains('is-playing')){
         // pause
         audio.pause();
+        card.classList.remove('is-playing');
       } else {
         loadAndPlay(card);
       }
@@ -355,6 +357,7 @@
       // click whole card (except clicks on control buttons) plays track
       card.addEventListener('click', (e)=>{
         // если кликнули по кнопками управления — обработаем отдельно
+        setActiveCard(card);
         if(e.target.closest('.controls') || e.target.closest('.price')) return;
         togglePlay(card);
       });
@@ -363,6 +366,7 @@
       if(playBtn){
         playBtn.addEventListener('click', (e)=>{
           e.stopPropagation();
+          setActiveCard(card);
           togglePlay(card);
         });
       }
@@ -388,6 +392,7 @@
     audio.addEventListener('play', ()=>{
       if(currentCard){
         currentCard.classList.add('is-playing');
+        setActiveCard(currentCard);
         // swap icons
         const playSvg = currentCard.querySelector('.icon-play');
         const pauseSvg = currentCard.querySelector('.icon-pause');
