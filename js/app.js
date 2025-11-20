@@ -507,13 +507,13 @@ document.addEventListener('DOMContentLoaded', () => {
           ${track.explicit ? '<div class="track-card__badge track-card__badge--explicit">E</div>' : ''}
         </div>
         <div class="track-card__body">
-          <div class="track-card__top">
+          <div class="track-card__head">
             <div>
+              <p class="track-card__eyebrow">${released ? 'Вышел' : 'Ранний доступ'}</p>
               <h3 class="track-card__title">${track.title}</h3>
-              <p class="track-card__artist">${track.artist || 'AVZALØV'}</p>
-              <p class="muted tiny">${formatReleaseDate(track)} · ${track.access || 'open'}</p>
+              <p class="muted tiny">${track.artist || 'AVZALØV'} · ${languagesLabel(track.languages)}</p>
             </div>
-            <div class="track-card__cta">
+            <div class="track-card__cta" aria-label="Действия с треком">
               <button class="icon-btn ghost js-play-card" ${audioPath ? '' : 'disabled'} aria-label="Слушать ${track.title}">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14 19 12 8 18.86V5.14Z" fill="currentColor"/></svg>
               </button>
@@ -535,32 +535,25 @@ document.addEventListener('DOMContentLoaded', () => {
                   .join('')}</div>`
               : ''
           }
-          <p class="muted tiny track-card__lyrics">${track.lyricsPreview || 'Текст появится ближе к релизу. Следите за обновлениями.'}</p>
-          <div class="track-card__meta-row track-card__meta-row--icons">
-            <span class="chip chip--icon" title="Прослушивания">👁️ ${track.plays?.toLocaleString('ru-RU') || '—'}</span>
-            <span class="chip chip--icon" title="Дата релиза">📅 ${formatReleaseDate(track)}</span>
-            <span class="chip chip--icon" title="Языки">🈂️ ${languagesLabel(track.languages)}</span>
-            ${track.hasClip ? '<span class="chip chip--icon">🎬 Клип</span>' : '<span class="chip chip--icon">🎧 Аудио</span>'}
-            ${track.explicit ? '<span class="chip chip--icon chip--alert">⚠️ Explicit</span>' : ''}
+          <div class="track-card__stats">
+            <span class="pill">👁️ ${stats.plays.toLocaleString('ru-RU')}</span>
+            <span class="pill">❤️ ${stats.likes.toLocaleString('ru-RU')}</span>
+            <span class="pill">💬 ${stats.comments.toLocaleString('ru-RU')}</span>
+            <span class="pill">🔁 ${stats.remixes}</span>
+            <span class="pill">🎧 ${stats.listeners.toLocaleString('ru-RU')}</span>
           </div>
-          <div class="track-card__meta-row track-card__meta-row--icons track-card__meta-row--micro">
-            <span class="chip chip--icon" title="Лайки">❤️ ${stats.likes.toLocaleString('ru-RU')}</span>
-            <span class="chip chip--icon" title="Комментарии">💬 ${stats.comments.toLocaleString('ru-RU')}</span>
-            <span class="chip chip--icon" title="Ремиксы или репосты">🔁 ${stats.remixes}</span>
-            <span class="chip chip--icon" title="Слушатели">🎧 ${stats.listeners.toLocaleString('ru-RU')}</span>
-            <span class="chip chip--icon" title="Длительность">⏱️ ${formatDurationLabel(stats.durationSeconds)}</span>
-          </div>
-          ${
-            stats.tags.length
-              ? `<div class="track-card__tags">${stats.tags
-                  .map((tag) => `<span class="tag">${tag}</span>`)
-                  .join('')}</div>`
-              : ''
-          }
-          ${renderWaveform(track)}
           <div class="track-card__meta-row">
+            <span class="pill">${languagesLabel(track.languages)}</span>
+            ${track.hasClip ? '<span class="pill">🎬 Клип</span>' : ''}
+            <span class="pill pill--glass">${accessLabel(track)}</span>
+          </div>
+          <div class="track-card__tags">${stats.tags.map((tag) => `<span class="tag">${tag}</span>`).join('')}</div>
+          <div class="track-card__foot">
+            <div class="track-card__foot-meta">
+              <span class="micro-label">⏱️ ${formatDurationLabel(stats.durationSeconds)}</span>
+              <span class="micro-label">📅 ${formatReleaseDate(track)}</span>
+            </div>
             <span class="pill">${track.copyright || '© AVZALØV'}</span>
-            <span class="pill pill--glass">${released ? 'Вышел' : 'Ранний доступ'}</span>
           </div>
         </div>
       `;
