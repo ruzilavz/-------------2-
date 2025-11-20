@@ -1,390 +1,444 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="AVZALØV — музыка, релизы, сцена и библиотека треков с ранним доступом." />
-  <title>AVZALØV · музыка · сцена</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <header class="site-header">
-    <div class="logo">AVZALØV</div>
-    <nav class="main-nav" id="mainNav" aria-label="Основное меню">
-      <a href="#hero">Главная</a>
-      <a href="#music">Музыка</a>
-      <a href="#game">Игра</a>
-      <a href="#profile">Профиль</a>
-    </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Открыть меню" aria-controls="mainNav" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <div class="header-actions">
-      <div class="header-clock" id="headerClock">—</div>
-      <button class="pill glass" id="newsModalBtn" aria-label="Новости">Новости</button>
-      <button class="icon ghost" id="chatLauncher" aria-label="Открыть чат" title="Чат">
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            fill="currentColor"
-            d="M5 4h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2Zm0 2v9.17L6.17 14H19V6H5Zm3 4h8v2H8v-2Zm0-4h8v2H8V6Z"
-          />
-        </svg>
-        <span class="icon-label">Чат</span>
-      </button>
-      <div class="chip pill" id="roleChip">Вход на сайт · гость</div>
-      <button class="btn ghost" id="openProfile">Профиль</button>
-    </div>
-  </header>
+:root{
+    --bg: #0f1115;
+    --card: #0b0d10;
+    --muted: #98a0aa;
+    --accent: #6ee7b7;
+    --glass: rgba(255,255,255,0.03);
+    --chip-bg: rgba(255,255,255,0.04);
+    --radius: 12px;
+    --text: #e6eef6;
+    --small: 12px;
+  }
 
-  <main class="page">
-    <section id="hero" class="hero">
-      <div class="hero__text">
-        <p class="eyebrow">музыка · релизы · сцена</p>
-        <h1>AVZALØV — артист и музыкант, главная сцена здесь</h1>
-        <p class="lede">
-          Вся библиотека треков с обложками, датами релизов и ранним доступом снова на месте. Плеер и чат остаются
-          удобными дополнениями — главное здесь музыка и релизы.
-        </p>
-        <div class="hero__actions">
-          <button class="btn primary" id="ctaPlay">Слушать лучшие треки</button>
-          <button class="btn outline" id="ctaChat">Открыть чат</button>
-          <button class="btn ghost" id="ctaGame">Запуск игры</button>
+  body{
+    background: linear-gradient(180deg,#071018 0%, #0b0f16 100%);
+    color:var(--text);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    padding:24px;
+  }
+
+  .tracks-section{
+    max-width:1100px;
+    margin:0 auto;
+  }
+
+  .tracks-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
+    gap:16px;
+  }
+
+  .track-card{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:var(--radius);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.02);
+    transition:transform .18s ease, box-shadow .18s ease;
+    cursor:pointer;
+    position:relative;
+  }
+
+  .track-card:hover{ transform: translateY(-6px); box-shadow: 0 14px 30px rgba(2,6,23,0.6); }
+
+  .cover{
+    width:84px;
+    height:84px;
+    border-radius:8px;
+    object-fit:cover;
+    flex:0 0 84px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    background: linear-gradient(135deg,#111315,#0d1014);
+  }
+
+  .meta{
+    flex:1 1 auto;
+    min-width:0;
+  }
+
+  .label{ font-size:12px; color:var(--accent); margin:0 0 6px 0; font-weight:600; }
+  .title{ margin:0 0 6px 0; font-size:16px; line-height:1.1; }
+  .muted{ margin:0; color:var(--muted); font-size:13px; }
+
+  .player-insight{
+    margin-top:8px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 8px;
+    border-radius:999px;
+    background:var(--chip-bg);
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  /* Right column: controls + price */
+  .actions{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    flex:0 0 96px;
+  }
+
+  .controls{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  .icon-btn{
+    width:36px;
+    height:36px;
+    border-radius:8px;
+    background:transparent;
+    border:0;
+    display:inline-grid;
+    place-items:center;
+    color:var(--text);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+
+  .icon-btn.ghost{ background:var(--glass); }
+  .icon-btn.primary{
+    background: linear-gradient(90deg,#00c1a1,#4de1b0);
+    color:#052018;
+    box-shadow: 0 6px 14px rgba(3, 140, 110, 0.18);
+  }
+
+  .icon-btn:hover{ transform: translateY(-3px); }
+
+  /* Price block */
+  .price{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,255,255,0.02);
+    padding:6px 8px;
+    border-radius:999px;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .price .amount{
+    font-weight:700;
+    color:var(--text);
+    font-size:14px;
+  }
+
+  .price svg{
+    width:22px;
+    height:22px;
+    display:block;
+    transform-origin:center;
+    transition:transform .3s ease;
+  }
+
+  /* Animate SVG when active */
+  .track-card.is-playing .price svg{ animation: coin-spin 0.9s linear infinite; }
+  .track-card:hover .price svg{ transform: translateY(-2px) scale(1.05); }
+
+  @keyframes coin-spin{
+    from{ transform: rotateY(0deg); }
+    to{ transform: rotateY(360deg); }
+  }
+
+  /* small helper */
+  .sr-only{
+    position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important;
+  }
+
+  /* Track list for mobile: make each card clickable; active state */
+  .track-card.is-active{
+    outline:2px solid rgba(110,231,183,0.12);
+    box-shadow: 0 18px 40px rgba(2,6,23,0.75);
+  }
+
+  /* tiny meta row icons (svg color) */
+  .meta svg{ width:14px; height:14px; color:var(--muted); vertical-align:middle; }
+  .meta .chip svg{ width:12px; height:12px; color:var(--muted); }
+
+  /* progress inside card (optional) */
+  .progress-wrap{ width:100%; margin-top:10px; height:6px; background:rgba(255,255,255,0.03); border-radius:999px; overflow:hidden; }
+  .progress-bar{ width:0%; height:100%; background: linear-gradient(90deg,#00d1a8,#4de1b0); transition:width .1s linear; }
+
+  /* Responsive */
+  @media (max-width:520px){
+    .track-card{ flex-direction:row; gap:12px; padding:10px; }
+    .actions{ flex:0 0 86px; }
+    .cover{ width:64px; height:64px; flex:0 0 64px; }
+  }
+
+</style>
+
+<section class="tracks-section" aria-label="Список треков">
+  <h2 style="margin:0 0 14px 0; font-weight:600;">Треки</h2>
+
+  <div class="tracks-grid" id="tracksGrid">
+    <!-- Пример карточки; дублируйте/генерируйте для других треков -->
+    <article class="track-card is-active" data-src="audio/Davyl.mp3" data-price="49">
+      <img class="cover" src="img/Davyl.jpg" alt="Обложка — Давыл">
+      <div class="meta">
+        <p class="label">Сейчас играет</p>
+        <h3 class="title">Давыл</h3>
+        <p class="muted">Скоро релиз · ru / tt · © 2025 AVZALØV</p>
+
+        <div class="player-insight" aria-hidden="true">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a2 2 0 0 1 2 2v4h4a2 2 0 0 1 0 4h-4v4a2 2 0 0 1-4 0v-4H6a2 2 0 0 1 0-4h4V4a2 2 0 0 1 2-2z"/></svg> Ранний доступ</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM7 9h10v2H7V9z"/></svg> ru / tt</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 5c-4.97 0-9 3.58-9 8s4.03 8 9 8 9-3.58 9-8-4.03-8-9-8z"/></svg> 898 прослушиваний</span>
         </div>
-        <div class="hero__tags">
-          <span>trap</span><span>tatar</span><span>experimental</span><span>live</span><span>studio</span>
-        </div>
-        <div class="hero__stats">
-          <div><p class="label">Треков в базе</p><p class="value" id="tracksCount">—</p></div>
-          <div><p class="label">Готовы к прослушиванию</p><p class="value" id="playableCount">—</p></div>
-          <div><p class="label">Ранний доступ</p><p class="value" id="earlyCount">—</p></div>
-          <div><p class="label">Время и дата</p><p class="value" id="clock">—</p></div>
+
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress-bar" style="width:12%"></div>
         </div>
       </div>
-      <div class="hero__card">
-        <div class="hero__avatar">AV</div>
-        <div class="hero__meta">
-          <p class="label">Следующий релиз</p>
-          <p class="value" id="nextRelease">Скоро</p>
-          <div class="chip chip--soon">Early access</div>
-        </div>
-        <div class="grid-mini">
-          <div class="pill glass">Чарт · обновляется</div>
-          <div class="pill glass">Профиль · роли</div>
-          <div class="pill glass">Чат для слушателей</div>
-          <div class="pill glass">RUZCOIN · 128</div>
-        </div>
-      </div>
-    </section>
 
-    <section class="ticker" aria-label="Лента новостей">
-      <div class="ticker__title">AVZALØV NEWS</div>
-      <div class="ticker__items" id="newsTicker">Свежие новости артиста появляются здесь...</div>
-      <button class="pill ghost" id="newsTickerBtn">Открыть ленту</button>
-    </section>
+      <div class="actions" role="group" aria-label="Управление треком">
+        <div class="controls" aria-hidden="true">
+          <button class="icon-btn ghost prev-btn" title="Предыдущий">
+            <!-- prev icon -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 12L17 5v14L7 12Z"/><path d="M5 5h2v14H5z"/></svg>
+          </button>
 
-    <section class="section" id="music">
-      <div class="section__header">
-        <div>
-          <h2>Слушай треки с обложками и датами</h2>
-          <p>Каждый релиз подтягивается из tracks-data.js — даты, статусы и доступы сохраняются.</p>
-        </div>
-        <div class="filters">
-          <label class="filter">
-            <span>Фильтр доступа</span>
-            <select id="accessFilter">
-              <option value="all">Все</option>
-              <option value="early-access">Early access</option>
-              <option value="open">Открытые</option>
-            </select>
-          </label>
-          <label class="filter">
-            <span>Язык</span>
-            <select id="languageFilter">
-              <option value="all">Любой</option>
-              <option value="ru">Русский</option>
-              <option value="tt">Татарский</option>
-              <option value="en">English</option>
-            </select>
-          </label>
-          <button class="btn ghost" id="chartOpenBtn">Чарт и динамика</button>
-        </div>
-      </div>
-      <!-- Новая сетка для треков -->
-      <div class="tracks-grid" id="tracksGrid">
-        <!-- Карточки треков будут сгенерированы здесь с помощью JavaScript -->
-      </div>
-      <!-- Общий аудио-элемент для всех треков -->
-      <audio id="audioPlayer" preload="metadata"></audio>
-    </section>
+          <button class="icon-btn primary play-btn" title="Пуск / Пауза" aria-pressed="true">
+            <!-- play + pause toggles via JS -->
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14 19 12 8 18.86V5.14Z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><path d="M7 5h4v14H7z"/><path d="M13 5h4v14h-4z"/></svg>
+            <span class="sr-only">Пуск</span>
+          </button>
 
-    <section class="section two-column" id="profile">
-      <div class="panel">
-        <h2>Профиль и вход</h2>
-        <p class="muted">Аватар, подарочные коды, роли и ID сохраняются в users.json (локально для устройства).</p>
-        <div class="profile__card profile__card--wide">
-          <div class="avatar" id="profileAvatar" aria-label="Аватар пользователя"></div>
+          <button class="icon-btn ghost next-btn" title="Следующий">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 19V5l10 7-10 7Zm12-14h2v14h-2z"/></svg>
+          </button>
+        </div>
+
+        <!-- price with animated SVG coin -->
+        <div class="price" aria-label="Цена трека">
+          <svg class="coin" viewBox="0 0 24 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#ffd166"/>
+                <stop offset="100%" stop-color="#fca311"/>
+              </linearGradient>
+            </defs>
+            <!-- stylized coin -->
+            <circle cx="12" cy="12" r="9" fill="url(#g1)"></circle>
+            <path d="M9.5 11.2c0-.8.9-1.1 2.5-1.6 1.6-.4 2.1-.7 2.1-1.5 0-1-.9-1.5-2.3-1.5-1 0-2.1.2-2.9.6l-.5-1.3c.9-.4 2- .7 3.6-.7 2.5 0 3.7 1 3.7 2.8 0 1.6-1.1 2-2.8 2.4-1.5.4-2.1.7-2.1 1.6 0 .9 1 1.6 2.6 1.6c1 0 2-.2 2.6-.6l.4 1.3c-.8.4-1.9.7-3.6.7-2.5 0-3.9-1-3.9-2.9 0-1.6 1.1-2.1 2.9-2.5 1.6-.4 2.1-.7 2.1-1.6 0-.7-.7-1.1-1.9-1.1-1 0-1.9.2-2.5.4l-.4-1.2z" fill="#8a5c00" opacity="0.9"></path>
+          </svg>
+
           <div>
-            <p class="label">Профиль</p>
-            <h3 id="profileName">Гость</h3>
-            <p class="muted" id="profileMeta">ID: — · уровень — · RUZCOIN: 0</p>
-            <p class="tiny" id="profileToken">Токен: —</p>
+            <small style="display:block; font-size:11px; color:var(--muted);">Цена</small>
+            <div class="amount">49</div>
           </div>
-        </div>
-        <div class="badges" id="roleBadges"></div>
-        <div class="profile-actions">
-          <button class="btn primary" id="loginModalBtn">Войти / роли</button>
-          <button class="btn ghost" id="settingsModalBtn">Настройки профиля</button>
-          <button class="pill" id="vkLogin">Вход через ВК</button>
-          <button class="pill" id="gmailLogin">Вход через Gmail</button>
-        </div>
-        <div class="profile-forms">
-          <div class="field">
-            <label for="nameInput">Имя в профиле</label>
-            <input type="text" id="nameInput" placeholder="Укажите имя" />
-            <p class="tiny" id="nameWarning">Имя можно изменить только один раз. После сохранения поле заблокируется.</p>
-            <button class="btn outline" id="saveNameBtn">Сохранить имя</button>
-          </div>
-          <div class="field">
-            <label for="avatarInput">Загрузить аватар (круг)</label>
-            <input type="file" id="avatarInput" accept="image/*" />
-          </div>
-          <div class="field">
-            <label for="giftCodeInput">Подарочный код</label>
-            <div class="gift-row">
-              <input type="text" id="giftCodeInput" placeholder="Ввести промокод" />
-              <button class="btn primary" id="giftCodeBtn">Активировать</button>
-            </div>
-            <p class="tiny" id="giftStatus">Коды начисляют монеты и ранний доступ.</p>
-          </div>
-        </div>
-        <div class="contacts">
-          <h4>Связь с артистом</h4>
-          <div class="contact-links">
-            <a href="mailto:avzalov.music@gmail.com" class="pill">Почта</a>
-            <a href="https://t.me/avzalov" target="_blank" rel="noreferrer" class="pill">Telegram</a>
-            <a href="https://wa.me/79000000000" target="_blank" rel="noreferrer" class="pill">WhatsApp</a>
-          </div>
-          <p class="muted tiny">Можно отправить заявку на коллаб, вопросы по релизам и ссылки на площадки.</p>
         </div>
       </div>
-      <div class="panel" id="game">
-        <h2>Игровая панель</h2>
-        <p class="muted">Мини-дашборд для Idle Game: уровни, токены и события.</p>
-        <div class="stat-grid">
-          <div class="stat-card">
-            <p class="label">Уровень</p>
-            <p class="value" id="levelStat">12</p>
-            <span class="chip">Опыт растёт</span>
-          </div>
-          <div class="stat-card">
-            <p class="label">RUZCOIN</p>
-            <p class="value" id="ruzBalance">128</p>
-            <span class="chip">Баланс</span>
-          </div>
-          <div class="stat-card">
-            <p class="label">Ачивки</p>
-            <p class="value">7</p>
-            <span class="chip">Открыто</span>
-          </div>
-          <div class="stat-card">
-            <p class="label">События</p>
-            <p class="value">3</p>
-            <span class="chip">Live</span>
-          </div>
-        </div>
-        <div class="game-actions">
-          <button class="btn outline" id="gameStart">Стартовать матч</button>
-          <button class="btn ghost" id="gameRewards">Забрать награды</button>
-          <button class="btn ghost" id="gamePlatforms">Площадки</button>
-        </div>
-        <div class="muted tiny">Здесь можно отслеживать события, активировать турниры и выгружать статистику по RUZCOIN.</div>
-      </div>
-    </section>
-  </main>
+    </article>
 
-  <nav class="bottom-nav" aria-label="Быстрая навигация">
-    <a href="#hero" class="bottom-nav__item" data-nav="hero">
-      <span class="bottom-nav__icon" aria-hidden="true">🏠</span>
-      <span class="bottom-nav__label">Главная</span>
-    </a>
-    <a href="#music" class="bottom-nav__item" data-nav="music">
-      <span class="bottom-nav__icon" aria-hidden="true">🎧</span>
-      <span class="bottom-nav__label">Музыка</span>
-    </a>
-    <a href="#game" class="bottom-nav__item" data-nav="game">
-      <span class="bottom-nav__icon" aria-hidden="true">🕹️</span>
-      <span class="bottom-nav__label">Игра</span>
-    </a>
-    <a href="#profile" class="bottom-nav__item" data-nav="profile">
-      <span class="bottom-nav__icon" aria-hidden="true">👤</span>
-      <span class="bottom-nav__label">Профиль</span>
-    </a>
-  </nav>
+    <!-- Еще одна карточка для примера -->
+    <article class="track-card" data-src="audio/Psychopat.mp3" data-price="59">
+      <img class="cover" src="img/Psychopat.jpg" alt="Обложка — Психопат">
+      <div class="meta">
+        <p class="label" style="color:#ffc371">Скоро релиз</p>
+        <h3 class="title">Психопат</h3>
+        <p class="muted">Скоро релиз · ru · © 2025</p>
 
-  <div class="modal" id="loginModal" aria-hidden="true">
-    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-      <button class="modal__close" data-close="loginModal" aria-label="Закрыть">×</button>
-      <h3 id="loginTitle">Вход и роли</h3>
-      <p class="muted">
-        Регистрация на этом устройстве доступна только по 50 сервисным кодам администратора. Соцсети пока в разработке —
-        устройство и ID сохраняются локально.
-      </p>
-      <div class="login-grid">
-        <div class="login-panel">
-          <p class="label">Админ-доступ</p>
-          <div class="field">
-            <label for="adminCode">Секретный код</label>
-            <input type="text" id="adminCode" placeholder="Ввести один из 50 кодов" />
-          </div>
-          <div class="field double">
-            <button class="btn primary" id="loginBtn">Подтвердить</button>
-            <button class="btn ghost" id="logoutBtn">Сбросить профиль</button>
-          </div>
-          <p class="tiny muted">Код проверяется локально, случайный набор символов не сработает.</p>
-          <p class="tiny" id="loginStatus">—</p>
+        <div class="player-insight" aria-hidden="true">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg> 12K</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 9h10v2H7z"/></svg> ru</span>
         </div>
-        <div class="login-panel">
-          <p class="label">Соцсети</p>
-          <div class="social-grid">
-            <button class="pill full" data-social="vk">VK — в разработке</button>
-            <button class="pill full" data-social="gmail">Gmail — в разработке</button>
-            <button class="pill full" data-social="yandex">Yandex ID — в разработке</button>
-          </div>
-          <p class="tiny muted">Как только интеграции будут готовы, здесь появится полноценный вход через площадки.</p>
+
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress-bar" style="width:0%"></div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="modal" id="profileModal" aria-hidden="true">
-    <div class="modal__dialog modal__dialog--wide" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
-      <button class="modal__close" data-close="profileModal" aria-label="Закрыть">×</button>
-      <div class="profile-modal">
-        <div class="profile-modal__header">
-          <div class="avatar avatar--glow" aria-hidden="true">AV</div>
+      <div class="actions" role="group">
+        <div class="controls" aria-hidden="true">
+          <button class="icon-btn ghost prev-btn" title="Предыдущий">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 12L17 5v14L7 12Z"/><path d="M5 5h2v14H5z"/></svg>
+          </button>
+
+          <button class="icon-btn primary play-btn" title="Пуск / Пауза" aria-pressed="false">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14 19 12 8 18.86V5.14Z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M7 5h4v14H7z"/><path d="M13 5h4v14h-4z"/></svg>
+            <span class="sr-only">Пуск</span>
+          </button>
+
+          <button class="icon-btn ghost next-btn" title="Следующий">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 19V5l10 7-10 7Zm12-14h2v14h-2z"/></svg>
+          </button>
+        </div>
+
+        <div class="price" aria-label="Цена трека">
+          <svg class="coin" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" fill="#ffd8a8"></circle>
+            <path d="M9 11h6v2H9z" fill="#8a5c00"></path>
+          </svg>
           <div>
-            <p class="label">Профиль устройства</p>
-            <h3 id="profileTitle">RUZCOIN слушатель</h3>
-            <p class="muted tiny" id="profileModalMeta">ID: ID-BA3B1-0d8 · уровень 2 · RUZCOIN: 23</p>
-            <p class="tiny" id="profileModalToken">Токен: tok-89cd5f0f-f50a-42f2-bd25-27ff05d2ca65</p>
-            <div class="profile-modal__chips">
-              <span class="chip">Верифицировано устройством</span>
-              <span class="chip chip--glass">Профиль в разработке</span>
-            </div>
-          </div>
-        </div>
-        <div class="profile-modal__grid">
-          <div class="profile-modal__card">
-            <p class="label">О артисте</p>
-            <p class="muted">
-              AVZALØV — артист и саунд-продюсер. Здесь собираются ранние дропы, сотрудничества и будущие релизы. Биография
-              дополняется вместе с новыми релизами.
-            </p>
-          </div>
-          <div class="profile-modal__card">
-            <p class="label">Связь и коллаборации</p>
-            <div class="contact-links">
-              <a href="mailto:avzalov.music@gmail.com" class="pill">Почта</a>
-              <a href="https://t.me/avzalov" target="_blank" rel="noreferrer" class="pill">Telegram</a>
-              <a href="https://wa.me/79000000000" target="_blank" rel="noreferrer" class="pill">WhatsApp</a>
-            </div>
-            <p class="tiny muted">Напишите для фитов, менеджмента, букинга и предложений по релизам.</p>
-          </div>
-          <div class="profile-modal__card profile-modal__card--stack">
-            <p class="label">Биография</p>
-            <ul class="bio-list">
-              <li>Ранний доступ к дропам и экспериментальным версиям треков.</li>
-              <li>Чарт обновляется по активности комьюнити и RUZCOIN.</li>
-              <li>Профиль хранится локально на устройстве и синхронизируется позже.</li>
-            </ul>
+            <small style="display:block; font-size:11px; color:var(--muted);">Цена</small>
+            <div class="amount">59</div>
           </div>
         </div>
       </div>
-    </div>
+    </article>
+
+    <!-- вставьте дополнительные карточки аналогично -->
   </div>
 
-  <div class="modal" id="settingsModal" aria-hidden="true">
-    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
-      <button class="modal__close" data-close="settingsModal" aria-label="Закрыть">×</button>
-      <h3 id="settingsTitle">Настройки профиля</h3>
-      <div class="toggle-row">
-        <span>Игровой режим</span>
-        <input type="checkbox" id="gameToggle" checked />
-      </div>
-      <div class="toggle-row">
-        <span>Уведомления чата</span>
-        <input type="checkbox" id="notifyToggle" checked />
-      </div>
-      <div class="toggle-row">
-        <span>Закрепить плеер</span>
-        <input type="checkbox" id="dockToggle" checked />
-      </div>
-      <div class="toggle-row">
-        <span>Тёмная тема</span>
-        <input type="checkbox" id="themeToggle" checked />
-      </div>
-      <div class="settings-docs">
-        <p class="label">Документы профиля</p>
-        <div class="doc-row disabled">Политика конфиденциальности <span class="pill">в разработке</span></div>
-        <div class="doc-row disabled">Публичная оферта <span class="pill">в разработке</span></div>
-        <div class="doc-row disabled">Согласие на обработку данных <span class="pill">в разработке</span></div>
-        <div class="doc-row disabled">Согласие на рассылку <span class="pill">в разработке</span></div>
-      </div>
-    </div>
-  </div>
+  <!-- Общий элемент audio — управляет проигрыванием любого выбранного трека -->
+  <audio id="audio" preload="metadata"></audio>
+</section>
 
-  <div class="modal" id="chatModal" aria-hidden="true">
-    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="chatTitle">
-      <button class="modal__close" data-close="chatModal" aria-label="Закрыть">×</button>
-      <div class="section__header">
-        <div>
-          <h2 id="chatTitle">Чат сообщества</h2>
-          <p class="muted">Показываем последние 10 сообщений. Сообщения пользователя подсвечены.</p>
-        </div>
-      </div>
-      <div class="chat-feed" id="chatFeed"></div>
-      <form class="chat-form" id="chatForm">
-        <input type="text" id="chatInput" placeholder="Напиши сообщение" aria-label="Сообщение" required />
-        <button class="btn primary" type="submit">Отправить</button>
-      </form>
-    </div>
-  </div>
+<script>
+  (function(){
+    const audio = document.getElementById('audio');
+    const cards = Array.from(document.querySelectorAll('.track-card'));
 
-  <div class="modal" id="chartModal" aria-hidden="true">
-    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="chartTitleModal">
-      <button class="modal__close" data-close="chartModal" aria-label="Закрыть">×</button>
-      <div class="section__header">
-        <div>
-          <h2 id="chartTitleModal">Чарт топ-10</h2>
-          <p class="muted">Динамика роста и падения по прослушиваниям и раннему доступу.</p>
-        </div>
-      </div>
-      <div class="chart-modal__list" id="chartList"></div>
-    </div>
-  </div>
+    let currentCard = document.querySelector('.track-card.is-active') || null;
 
-  <div class="modal" id="trackModal" aria-hidden="true">
-    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle">
-      <button class="modal__close" data-close="trackModal" aria-label="Закрыть">×</button>
-      <div class="track-modal" id="trackModalBody"></div>
-    </div>
-  </div>
+    function setActiveCard(card){
+      if(currentCard) currentCard.classList.remove('is-active');
+      currentCard = card;
+      card.classList.add('is-active');
+      // обновим aria
+      cards.forEach(c => {
+        const playBtn = c.querySelector('.play-btn');
+        if(playBtn) playBtn.setAttribute('aria-pressed', c === card && card.classList.contains('is-playing'));
+      });
+    }
 
-  <div class="modal" id="newsModal" aria-hidden="true">
-    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="newsTitle">
-      <button class="modal__close" data-close="newsModal" aria-label="Закрыть">×</button>
-      <h3 id="newsTitle">Новости AVZALØV</h3>
-      <div class="news-list" id="newsList"></div>
-    </div>
-  </div>
+    function loadAndPlay(card){
+      const src = card.dataset.src;
+      if(!src) return;
+      // если выбранный — текущий и уже играет, toggle pause
+      if(card === currentCard && card.classList.contains('is-playing')){
+        audio.pause();
+        return;
+      }
+      // установить src и начать проигрывание
+      if(audio.src !== src){
+        audio.src = src;
+      }
+      audio.play().catch(e => console.log('Playback blocked:', e));
+      setActiveCard(card);
+      // установим is-playing на карточке (остальные — убрать)
+      cards.forEach(c => c.classList.remove('is-playing'));
+      card.classList.add('is-playing');
+      // обнов aria-pressed
+      const pb = card.querySelector('.play-btn');
+      if(pb) pb.setAttribute('aria-pressed','true');
+    }
 
-  <footer class="site-footer">
-    <p>AVZALØV · музыка и проекты. Плеер, чат и роли остаются аккуратными дополнениями.</p>
-  </footer>
+    function togglePlay(card){
+      if(!card) return;
+      if(card.classList.contains('is-playing')){
+        // pause
+        audio.pause();
+      } else {
+        loadAndPlay(card);
+      }
+    }
 
-  <script src="tracks-data.js"></script>
-  <script src="js/app.js"></script>
-</body>
-</html>
+    // клики по карточке — выбрать и проиграть
+    cards.forEach(card=>{
+      const playBtn = card.querySelector('.play-btn');
+      // click whole card (except clicks on control buttons) plays track
+      card.addEventListener('click', (e)=>{
+        // если кликнули по кнопками управления — обработаем отдельно
+        if(e.target.closest('.controls') || e.target.closest('.price')) return;
+        togglePlay(card);
+      });
+
+      // play button
+      if(playBtn){
+        playBtn.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          togglePlay(card);
+        });
+      }
+
+      // prev/next (простой переключатель по порядку)
+      const prevBtn = card.querySelector('.prev-btn');
+      const nextBtn = card.querySelector('.next-btn');
+      if(prevBtn) prevBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const idx = cards.indexOf(card);
+        const prev = cards[(idx - 1 + cards.length) % cards.length];
+        if(prev) loadAndPlay(prev);
+      });
+      if(nextBtn) nextBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const idx = cards.indexOf(card);
+        const next = cards[(idx + 1) % cards.length];
+        if(next) loadAndPlay(next);
+      });
+    });
+
+    // audio events — синхронизируем UI
+    audio.addEventListener('play', ()=>{
+      if(currentCard){
+        currentCard.classList.add('is-playing');
+        // swap icons
+        const playSvg = currentCard.querySelector('.icon-play');
+        const pauseSvg = currentCard.querySelector('.icon-pause');
+        if(playSvg) playSvg.style.display = 'none';
+        if(pauseSvg) pauseSvg.style.display = 'block';
+      }
+    });
+    audio.addEventListener('pause', ()=>{
+      cards.forEach(c => c.classList.remove('is-playing'));
+      // swap all pause->play
+      cards.forEach(c=>{
+        const playSvg = c.querySelector('.icon-play');
+        const pauseSvg = c.querySelector('.icon-pause');
+        if(playSvg) playSvg.style.display = '';
+        if(pauseSvg) pauseSvg.style.display = 'none';
+        const pb = c.querySelector('.play-btn');
+        if(pb) pb.setAttribute('aria-pressed','false');
+      });
+    });
+
+    // обновление прогресса для активной карточки
+    audio.addEventListener('timeupdate', ()=>{
+      if(!currentCard) return;
+      const prog = currentCard.querySelector('.progress-bar');
+      if(!prog) return;
+      const pct = (audio.currentTime / Math.max(1, audio.duration)) * 100;
+      prog.style.width = pct + '%';
+    });
+
+    // при окончании — переключаем на следующий
+    audio.addEventListener('ended', ()=>{
+      if(!currentCard) return;
+      const idx = cards.indexOf(currentCard);
+      const next = cards[(idx + 1) % cards.length];
+      if(next) loadAndPlay(next);
+    });
+
+    // Инициализация: если есть активная карточка, загрузим её (не автоматически не проигрывая)
+    if(currentCard && currentCard.dataset.src){
+      audio.src = currentCard.dataset.src;
+      // оставляем паузу — пользователь нажмёт play
+    }
+
+    // Пример: анимация монетки при hover/play реализована через CSS (coin-spin)
+    // Если нужно, можно менять цену программно:
+    window.updateTrackPrice = function(trackIndex, newPrice){
+      const card = cards[trackIndex];
+      if(!card) return;
+      card.dataset.price = newPrice;
+      const amount = card.querySelector('.amount');
+      if(amount) amount.textContent = newPrice;
+    };
+  })();
+</script>
