@@ -751,6 +751,46 @@ body[data-theme='light'] .muted {
   z-index: 15;
 }
 
+.player-dock__body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-dock__cover {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  background: #05070f;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.player-dock__meta {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.player-dock__meta strong,
+.player-dock__meta p {
+  margin: 0;
+}
+
+.player-dock__meta p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-dock__body .btn {
+  margin-left: auto;
+  padding: 10px 12px;
+  flex-shrink: 0;
+}
+
 .player-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; align-items: flex-start; }
 .player-drag {
   position: absolute;
