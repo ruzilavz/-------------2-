@@ -111,7 +111,12 @@
           <button class="btn ghost" id="chartOpenBtn">Чарт и динамика</button>
         </div>
       </div>
-      <div class="chart" id="tracksList"></div>
+      <!-- Новая сетка для треков -->
+      <div class="tracks-grid" id="tracksGrid">
+        <!-- Карточки треков будут сгенерированы здесь с помощью JavaScript -->
+      </div>
+      <!-- Общий аудио-элемент для всех треков -->
+      <audio id="audioPlayer" preload="metadata"></audio>
     </section>
 
     <section class="section two-column" id="profile">
@@ -217,65 +222,6 @@
       <span class="bottom-nav__label">Профиль</span>
     </a>
   </nav>
-
-  <section class="player-card" id="playerDock">
-    <img id="playerCover" src="img/Davyl.jpg" alt="Обложка трека" class="player-card__cover" />
-    <div class="player-card__main">
-      <div class="player-card__header">
-        <div>
-          <h3 id="playerTitle">Давыл</h3>
-          <p id="playerInfo" class="muted">Скоро релиз · ru / tt</p>
-          <div class="player-insight" style="display: none;">
-            <span class="chip chip--compact" id="playerAccess"></span>
-            <span class="chip chip--compact" id="playerLanguages"></span>
-            <span class="chip chip--compact" id="playerPlays"></span>
-          </div>
-          <div class="platforms" id="platformLinks" style="display: none;">
-            <!-- Ссылки на платформы будут добавлены сюда динамически -->
-          </div>
-        </div>
-        <div class="player-card__price">
-          <svg viewBox="0 0 100 100" class="animated-svg">
-            <circle class="animated-circle" cx="50" cy="50" r="45" />
-          </svg>
-          <span>128</span>
-        </div>
-      </div>
-      <div class="timeline">
-        <span id="currentTime">0:31</span>
-        <div class="timeline__track">
-          <input type="range" id="progress" min="0" max="100" value="15" aria-label="Позиция трека" />
-          <div class="timeline__bar" style="width: 15%;"></div>
-        </div>
-        <span id="duration">3:10</span>
-      </div>
-      <div class="player-card__controls">
-        <button class="icon-btn ghost" id="prevBtn" aria-label="Предыдущий трек">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12L17 5v14L7 12Zm-2-7h2v14H5V5Z" fill="currentColor"></path></svg>
-        </button>
-        <button class="icon-btn primary is-playing" id="playBtn" aria-label="Пуск/Пауза">
-          <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14 19 12 8 18.86V5.14Z" fill="currentColor"></path></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7V5Zm6 0h4v14h-4V5Z" fill="currentColor"></path></svg>
-        </button>
-        <button class="icon-btn ghost" id="nextBtn" aria-label="Следующий трек">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V5l10 7-10 7Zm12-14h2v14h-2V5Z" fill="currentColor"></path></svg>
-        </button>
-        <div class="volume-control">
-          <button class="icon-btn ghost" id="muteBtn" aria-label="Звук">
-            <svg class="mute-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v6h4l5 5V4L9 9H5Z" fill="currentColor"></path><path d="m18.5 12 3 3-1.5 1.5-3-3-3 3L12.5 15l3-3-3-3L14 7.5l3 3 3-3L21.5 9l-3 3Z" fill="currentColor"></path></svg>
-            <svg class="mute-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v6h4l5 5V4L9 9H5Z" fill="currentColor"></path></svg>
-          </button>
-          <input type="range" id="volume" min="0" max="1" step="0.01" value="1" aria-label="Громкость" />
-        </div>
-        <button class="icon-btn ghost" id="playlistBtn" aria-label="Плейлист">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15h18v-2H3v2Zm0 4h18v-2H3v2Zm0-8h18V9H3v2Zm0-6v2h18V5H3Z" fill="currentColor"></path></svg>
-        </button>
-      </div>
-    </div>
-    <div class="pill" id="releaseBadge" style="display: none;"></div>
-    <div class="playlist" id="playlist"></div>
-    <audio id="audio"></audio>
-  </section>
 
   <div class="modal" id="loginModal" aria-hidden="true">
     <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
