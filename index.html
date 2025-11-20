@@ -290,6 +290,52 @@
       </div>
     </article>
 
+    <article class="track-card" data-src="audio/NewTrack.mp3" data-price="39">
+      <img class="cover" src="img/Davyl.jpg" alt="Обложка — Новый трек">
+      <div class="meta">
+        <h3 class="title">Новый трек</h3>
+        <p class="muted">Скоро релиз · ru · © 2025</p>
+
+        <div class="player-insight" aria-hidden="true">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg> 1.2K</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 9h10v2H7z"/></svg> ru</span>
+        </div>
+
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress-bar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="actions" role="group" aria-label="Управление треком">
+        <div class="controls" aria-hidden="true">
+          <button class="icon-btn ghost prev-btn" title="Предыдущий">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 12L17 5v14L7 12Z"/><path d="M5 5h2v14H5z"/></svg>
+          </button>
+
+          <button class="icon-btn primary play-btn" title="Пуск / Пауза" aria-pressed="false">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14 19 12 8 18.86V5.14Z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M7 5h4v14H7z"/><path d="M13 5h4v14h-4z"/></svg>
+            <span class="sr-only">Пуск</span>
+          </button>
+
+          <button class="icon-btn ghost next-btn" title="Следующий">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 19V5l10 7-10 7Zm12-14h2v14h-2z"/></svg>
+          </button>
+        </div>
+
+        <div class="price" aria-label="Цена трека">
+          <svg class="coin" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" fill="#ffd8a8"></circle>
+            <path d="M9 11h6v2H9z" fill="#8a5c00"></path>
+          </svg>
+          <div>
+            <small style="display:block; font-size:11px; color:var(--muted);">Цена</small>
+            <div class="amount">39</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
   </div>
 
   <audio id="audio" preload="metadata"></audio>
