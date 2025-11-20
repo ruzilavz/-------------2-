@@ -13,13 +13,9 @@ app.use(cors());
 app.use(morgan(process.env.LOG_FORMAT || 'combined'));
 app.use(express.json());
 
-// 👉 САМОЕ ГЛАВНОЕ — раздаём фронтенд
-app.use(express.static(__dirname));
-
-// 👉 Главная страница
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+// 👉 САМОЕ ГЛАВНОЕ — раздаём фронтенд из текущей папки
+// Это обработает и GET '/', отдав index.html, и другие статические файлы (css, js, mp3)
+app.use(express.static(path.join(__dirname)));
 
 // 👉 API маршруты
 app.use('/api', routes);
