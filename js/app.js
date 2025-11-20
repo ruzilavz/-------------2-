@@ -578,13 +578,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderTracks = () => {
-      const access = elements.accessFilter.value;
-      const language = elements.languageFilter.value;
+      if (!elements.tracksList) return;
+
+      const access = elements.accessFilter?.value || 'all';
+      const language = elements.languageFilter?.value || 'all';
+
       elements.tracksList.innerHTML = '';
       const filtered = tracksData.filter((track) => {
-        const accessOk = access === 'all' || (track.access || 'open') === access;
-        const langs = track.languages || [];
-        const langOk = language === 'all' || langs.includes(language);
+        const accessValue = track.access || 'open';
+        const languages = track.languages || [];
+        const accessOk = access === 'all' || accessValue === access;
+        const langOk = language === 'all' || languages.includes(language) || languages.length === 0;
         return accessOk && langOk;
       });
       if (filtered.length === 0) {
@@ -1008,8 +1012,8 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.giftCodeBtn?.addEventListener('click', handleGiftCode);
       elements.vkLogin?.addEventListener('click', () => applySocialProfile('vk'));
       elements.gmailLogin?.addEventListener('click', () => applySocialProfile('gmail'));
-      elements.accessFilter.addEventListener('change', renderTracks);
-      elements.languageFilter.addEventListener('change', renderTracks);
+      elements.accessFilter?.addEventListener('change', renderTracks);
+      elements.languageFilter?.addEventListener('change', renderTracks);
       elements.ctaPlay.addEventListener('click', () => selectTrackBySlug(state.playlist[0]?.slug));
       elements.ctaChat.addEventListener('click', () => openModal(elements.chatModal));
       elements.ctaGame.addEventListener('click', () => document.getElementById('game').scrollIntoView({ behavior: 'smooth' }));
