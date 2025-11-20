@@ -1,79 +1,79 @@
 {
   "codes": [
     {
-      "code": "AVZ-ADMIN-001",
+      "code": "AVZ-ADM-R91K",
       "label": "Главный админ",
       "role": "admin",
       "color": "#ff5c8d"
     },
     {
-      "code": "AVZ-ADMIN-002",
+      "code": "AVZ-PROD-T4G7",
       "label": "Главный продюсер",
       "role": "producer",
       "color": "#c084fc"
     },
     {
-      "code": "AVZ-MOD-777",
+      "code": "AVZ-MOD-L2P8",
       "label": "Команда поддержки",
       "role": "moderator",
       "color": "#7dd3fc"
     },
     {
-      "code": "AVZ-LEAD-010",
+      "code": "AVZ-CUR-B5N3",
       "label": "Куратор релизов",
       "role": "curator",
       "color": "#8ef0c1"
     },
     {
-      "code": "AVZ-CORE-011",
+      "code": "AVZ-COM-X1Y0",
       "label": "Руководитель комьюнити",
       "role": "community",
       "color": "#f8c07a"
     },
     {
-      "code": "AVZ-TECH-012",
+      "code": "AVZ-SUP-F8Z2",
       "label": "Техподдержка",
       "role": "support",
       "color": "#89e0ff"
     },
     {
-      "code": "AVZ-SEC-013",
+      "code": "AVZ-SEC-A9V5",
       "label": "Контроль безопасности",
       "role": "security",
       "color": "#ff9ba8"
     },
     {
-      "code": "AVZ-PR-014",
+      "code": "AVZ-PR-M3C4",
       "label": "PR и партнёры",
       "role": "pr",
       "color": "#ffc2f2"
     },
     {
-      "code": "AVZ-VIP-015",
+      "code": "AVZ-VIP-W6D9",
       "label": "Золотой слушатель",
       "role": "vip",
       "color": "#ffd166"
     },
     {
-      "code": "AVZ-CREW-016",
+      "code": "AVZ-CRW-E2S1",
       "label": "Команда сценографии",
       "role": "crew",
       "color": "#9ad0ff"
     },
     {
-      "code": "AVZ-DESIGN-017",
+      "code": "AVZ-DSN-J7H5",
       "label": "Дизайн и обложки",
       "role": "design",
       "color": "#a5b4ff"
     },
     {
-      "code": "AVZ-MEDIA-018",
+      "code": "AVZ-MED-P4K8",
       "label": "Медиа-редактор",
       "role": "editor",
       "color": "#7cffe0"
     },
     {
-      "code": "AVZ-GAME-019",
+      "code": "AVZ-GME-U9R2",
       "label": "Игровой мастер",
       "role": "game-master",
       "color": "#c4f08a"
