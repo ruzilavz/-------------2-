@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const elements = {
       tracksList: document.getElementById('tracksList'),
+      tracksGallery: document.getElementById('tracksGallery'),
+      mobileRail: document.getElementById('mobileRail'),
+      mobilePlayerTitle: document.getElementById('mobilePlayerTitle'),
+      mobilePlayerMeta: document.getElementById('mobilePlayerMeta'),
       playlist: document.getElementById('playlist'),
       playerCover: document.getElementById('playerCover'),
       playerTitle: document.getElementById('playerTitle'),
@@ -50,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
       playableCount: document.getElementById('playableCount'),
       earlyCount: document.getElementById('earlyCount'),
       nextRelease: document.getElementById('nextRelease'),
-      openProfile: document.getElementById('openProfile'),
+      profileToggle: document.getElementById('profileToggle'),
+      profileDropdown: document.getElementById('profileDropdown'),
       ctaPlay: document.getElementById('ctaPlay'),
       ctaChat: document.getElementById('ctaChat'),
       ctaGame: document.getElementById('ctaGame'),
@@ -88,6 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
       loginStatus: document.getElementById('loginStatus'),
       navToggle: document.getElementById('navToggle'),
       mainNav: document.getElementById('mainNav'),
+      mobileBadge: document.getElementById('mobileBadge'),
+      mobileCover: document.getElementById('mobileCover'),
+      mobileTitle: document.getElementById('mobileTitle'),
+      mobileMeta: document.getElementById('mobileMeta'),
+      mobileEyebrow: document.getElementById('mobileEyebrow'),
+      mobilePlays: document.getElementById('mobilePlays'),
+      mobileDuration: document.getElementById('mobileDuration'),
+      mobileAccess: document.getElementById('mobileAccess'),
+      mobileExplicit: document.getElementById('mobileExplicit'),
+      mobileTags: document.getElementById('mobileTags'),
+      mobileRelease: document.getElementById('mobileRelease'),
+      mobilePlay: document.getElementById('mobilePlay'),
+      mobileLike: document.getElementById('mobileLike'),
+      mobileShare: document.getElementById('mobileShare'),
     };
 
     const ADMIN_CODES = Array.from({ length: 50 }, (_, i) => `AVZAL-${String(i + 1).padStart(3, '0')}`);
@@ -135,6 +154,25 @@ document.addEventListener('DOMContentLoaded', () => {
       'davyl': 'Davyl.jpg',
       'teapot': 'Teapot.jpg',
     };
+
+    const icons = {
+      eye: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 5c5 0 9.27 3.11 11 7-1.73 3.89-6 7-11 7S2.73 15.89 1 12c1.73-3.89 6-7 11-7Zm0 2c-3.08 0-6.08 1.8-7.67 5C5.92 15.2 8.92 17 12 17s6.08-1.8 7.67-5C18.08 8.8 15.08 7 12 7Zm0 2.5a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5Z"/></svg>',
+      calendar: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V2Zm13 7H4v10h16V9Z"/></svg>',
+      language: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 4h7v2H5v4h6v2H5v4h7v2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V2Zm13.94 0l.77 1.85-4.63 11.1h-2.17l1.55-3.6L9 5h2.17l3.04 7.48L16.83 9h-3.1l.77-2H19Z"/></svg>',
+      clip: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17 3a5 5 0 0 1 5 5v5a6.5 6.5 0 1 1-13 0V8a3 3 0 0 1 6 0v5a1.5 1.5 0 1 1-3 0V9h2v4a.5.5 0 0 0 1 0V8a1 1 0 1 0-2 0v5a2.5 2.5 0 1 0 5 0V8a3 3 0 0 0-6 0v5a4.5 4.5 0 1 0 9 0V8a5 5 0 0 0-5-5Z"/></svg>',
+      audio: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 4l6 4v8l-6 4V4Zm-7 3h2v10H4V7Zm14 0h2v10h-2V7Z"/></svg>',
+      heart: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21c-5-4.55-8.33-7.72-8.33-11.39C3.67 6.2 6.1 4 8.92 4c1.5 0 2.75.72 3.58 1.82C13.33 4.72 14.58 4 16.08 4c2.83 0 5.25 2.2 5.25 5.61c0 3.67-3.33 6.84-8.33 11.39Z"/></svg>',
+      comment: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H7l-4 4V6a2 2 0 0 1 2-2Zm0 2v9.17L6.17 14H19V6H5Z"/></svg>',
+      repeat: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17 2v2H7a5 5 0 0 0-5 5v3h2V9a3 3 0 0 1 3-3h10v2l4-3l-4-3Zm0 11v2H7l-4 3l4 3v-2h10a5 5 0 0 0 5-5v-3h-2v3a3 3 0 0 1-3 3Z"/></svg>',
+      headphones: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 0 1 9 9v7a2 2 0 0 1-2 2h-3v-8h5a7 7 0 0 0-14 0h5v8H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 9-9Z"/></svg>',
+      timer: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 2h6v2H9V2Zm3 4a8 8 0 1 1-8 8a8 8 0 0 1 8-8Zm0 2a6 6 0 1 0 6 6a6 6 0 0 0-6-6Zm-1 1.5h2v4.25l2.25 2.25l-1.5 1.5L11 13.75Z"/></svg>',
+      play: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.14 19 12 8 18.86V5.14Z"/></svg>',
+      pause: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 5h4v14H7V5Zm6 0h4v14h-4V5Z"/></svg>',
+      share: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m18 16.08l-7.05-3.49l-.9.44l-.13.06A4 4 0 1 1 9 9.91l.9.44L17 6l-7.1-3.51L8.9 3a4 4 0 1 1-.08 2.69l.08-.19l.9-.44L17 8l-7.05 3.48l-.9-.43l-.08-.04A4 4 0 1 0 8.9 15l.1-.23l.95-.44L18 13Z"/></svg>',
+      info: '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 9h2v8h-2V9Zm0-4h2v2h-2V5Zm1-3a10 10 0 1 1-10 10A10 10 0 0 1 12 2Zm0 2a8 8 0 1 0 8 8a8 8 0 0 0-8-8Z"/></svg>',
+    };
+
+    const icon = (name) => icons[name] || '';
 
     const coverExt = (track) => track.coverExt || '.jpg';
     const audioExt = (track) => track.audioExt || '.mp3';
@@ -227,12 +265,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getTrackBadges = (track, stats, released) => {
       const badges = [];
-      if (!released) badges.push('🆕 Early');
-      if (released && isFreshRelease(track)) badges.push('✨ Новинка');
-      if (stats.plays > 900 || stats.likes > 800) badges.push('🔥 Хит');
-      if (track.hasClip) badges.push('🎬 Клип');
-      if (track.explicit) badges.push('⚠️ Explicit');
-      if ((track.platforms || []).includes('Apple Music')) badges.push('🍎 Apple Music');
+      if (!released) badges.push('Ранний доступ');
+      if (released && isFreshRelease(track)) badges.push('Новый релиз');
+      if (stats.plays > 900 || stats.likes > 800) badges.push('Топ чарт');
+      if (track.hasClip) badges.push('Клип доступен');
+      if (track.explicit) badges.push('Explicit');
+      if ((track.platforms || []).includes('Apple Music')) badges.push('Apple Music');
       return badges;
     };
 
@@ -397,6 +435,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    const renderMobilePreview = (track) => {
+      if (!track || !elements.mobileTitle) return;
+      const released = isReleased(track);
+      const stats = getTrackStats(track);
+      elements.mobileCover.src = track.coverPath || getCoverPath(track);
+      elements.mobileCover.alt = `Обложка ${track.title}`;
+      elements.mobileEyebrow.textContent = released ? 'Вышел' : 'Ранний доступ';
+      elements.mobileTitle.textContent = track.title;
+      elements.mobileMeta.textContent = `${track.artist || 'AVZALØV'} · ${languagesLabel(track.languages)}`;
+      elements.mobileBadge.textContent = released ? 'Live' : 'Early';
+      elements.mobileBadge.classList.toggle('pill--live', released);
+      elements.mobileBadge.classList.toggle('pill--glass', !released);
+      elements.mobilePlays.textContent = `👁️ ${stats.plays.toLocaleString('ru-RU')}`;
+      elements.mobileDuration.textContent = `⏱️ ${formatDurationLabel(stats.durationSeconds)}`;
+      elements.mobileAccess.textContent = track.hasClip ? '🎬 Клип' : accessLabel(track);
+      elements.mobileExplicit.textContent = track.explicit ? '⚠️ Explicit' : '✔️ Clean';
+      elements.mobileRelease.textContent = `📅 ${formatReleaseDate(track)}`;
+      elements.mobileTags.innerHTML = stats.tags.map((tag) => `<span class="tag">${tag}</span>`).join('');
+      if (elements.mobilePlay) elements.mobilePlay.dataset.slug = track.slug;
+      if (elements.mobileLike) elements.mobileLike.dataset.slug = track.slug;
+      if (elements.mobileShare) elements.mobileShare.dataset.slug = track.slug;
+    };
+
     const toggleLike = (slug) => {
       if (state.liked.has(slug)) {
         state.liked.delete(slug);
@@ -405,6 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       persistLiked();
       renderTracks();
+      renderMobilePreview(state.playlist[state.currentIndex]);
     };
 
     const shareTrack = async (track) => {
@@ -499,6 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const badges = getTrackBadges(track, stats, released);
 
       card.className = 'track-card track-card--neo';
+      card.dataset.trackSlug = track.slug;
       card.innerHTML = `
         <div class="track-card__cover">
           <img src="${getCoverPath(track)}" alt="Обложка ${track.title}" onerror="this.src='img/background.jpg'" />
@@ -507,25 +570,17 @@ document.addEventListener('DOMContentLoaded', () => {
           ${track.explicit ? '<div class="track-card__badge track-card__badge--explicit">E</div>' : ''}
         </div>
         <div class="track-card__body">
-          <div class="track-card__head">
+          <div class="track-card__top">
             <div>
-              <p class="track-card__eyebrow">${released ? 'Вышел' : 'Ранний доступ'}</p>
               <h3 class="track-card__title">${track.title}</h3>
-              <p class="muted tiny">${track.artist || 'AVZALØV'} · ${languagesLabel(track.languages)}</p>
+              <p class="track-card__artist">${track.artist || 'AVZALØV'}</p>
+              <p class="muted tiny">${formatReleaseDate(track)} · ${track.access || 'open'}</p>
             </div>
-            <div class="track-card__cta" aria-label="Действия с треком">
-              <button class="icon-btn ghost js-play-card" ${audioPath ? '' : 'disabled'} aria-label="Слушать ${track.title}">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14 19 12 8 18.86V5.14Z" fill="currentColor"/></svg>
-              </button>
-              <button class="icon-btn ghost js-like-card ${isLiked ? 'active' : ''}" aria-label="Нравится">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-              </button>
-              <button class="icon-btn ghost js-share-card" aria-label="Поделиться">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
-              </button>
-              <button class="icon-btn ghost js-info-card" aria-label="Подробнее о треке">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z" fill="currentColor"/></svg>
-              </button>
+            <div class="track-card__cta">
+              <button class="icon-btn ghost js-play-card" ${audioPath ? '' : 'disabled'} aria-label="Слушать ${track.title}">${icon('play')}</button>
+              <button class="icon-btn ghost js-like-card ${isLiked ? 'active' : ''}" aria-label="Нравится">${icon('heart')}</button>
+              <button class="icon-btn ghost js-share-card" aria-label="Поделиться">${icon('share')}</button>
+              <button class="icon-btn ghost js-info-card" aria-label="Подробнее о треке">${icon('info')}</button>
             </div>
           </div>
           ${
@@ -535,39 +590,108 @@ document.addEventListener('DOMContentLoaded', () => {
                   .join('')}</div>`
               : ''
           }
-          <div class="track-card__stats">
-            <span class="pill">👁️ ${stats.plays.toLocaleString('ru-RU')}</span>
-            <span class="pill">❤️ ${stats.likes.toLocaleString('ru-RU')}</span>
-            <span class="pill">💬 ${stats.comments.toLocaleString('ru-RU')}</span>
-            <span class="pill">🔁 ${stats.remixes}</span>
-            <span class="pill">🎧 ${stats.listeners.toLocaleString('ru-RU')}</span>
+          <p class="muted tiny track-card__lyrics">${track.lyricsPreview || 'Текст появится ближе к релизу. Следите за обновлениями.'}</p>
+          <div class="track-card__meta-row track-card__meta-row--icons">
+            <span class="chip chip--icon" title="Прослушивания">${icon('eye')}<span>${track.plays?.toLocaleString('ru-RU') || '—'}</span></span>
+            <span class="chip chip--icon" title="Дата релиза">${icon('calendar')}<span>${formatReleaseDate(track)}</span></span>
+            <span class="chip chip--icon" title="Языки">${icon('language')}<span>${languagesLabel(track.languages)}</span></span>
+            ${track.hasClip ? `<span class="chip chip--icon">${icon('clip')}<span>Клип</span></span>` : `<span class="chip chip--icon">${icon('audio')}<span>Аудио</span></span>`}
+            ${track.explicit ? `<span class="chip chip--icon chip--alert"><span class="chip__explicit">E</span><span>Explicit</span></span>` : ''}
+          </div>
+          <div class="track-card__meta-row track-card__meta-row--icons track-card__meta-row--micro">
+            <span class="chip chip--icon" title="Лайки">${icon('heart')}<span>${stats.likes.toLocaleString('ru-RU')}</span></span>
+            <span class="chip chip--icon" title="Комментарии">${icon('comment')}<span>${stats.comments.toLocaleString('ru-RU')}</span></span>
+            <span class="chip chip--icon" title="Ремиксы или репосты">${icon('repeat')}<span>${stats.remixes}</span></span>
+            <span class="chip chip--icon" title="Слушатели">${icon('headphones')}<span>${stats.listeners.toLocaleString('ru-RU')}</span></span>
+            <span class="chip chip--icon" title="Длительность">${icon('timer')}<span>${formatDurationLabel(stats.durationSeconds)}</span></span>
+          </div>
+          ${
+            stats.tags.length
+              ? `<div class="track-card__tags">${stats.tags
+                  .map((tag) => `<span class="tag">${tag}</span>`)
+                  .join('')}</div>`
+              : ''
+          }
+          ${renderWaveform(track)}
+          <div class="track-inline" data-inline-player>
+            <div class="track-inline__header">
+              <span class="pill pill--status" data-inline-label>Карточка готова к проигрыванию</span>
+              <span class="track-inline__time" data-inline-time>0:00</span>
+            </div>
+            <div class="track-inline__progress"><span data-inline-progress></span></div>
+            <div class="track-inline__controls">
+              <button class="icon-btn ghost js-play-card" ${audioPath ? '' : 'disabled'} aria-label="Слушать ${track.title}">${icon('play')}</button>
+              <button class="icon-btn ghost js-next-card" aria-label="Следующий трек">${icon('repeat')}</button>
+              <button class="icon-btn ghost js-info-card" aria-label="Подробнее о треке">${icon('info')}</button>
+            </div>
           </div>
           <div class="track-card__meta-row">
-            <span class="pill">${languagesLabel(track.languages)}</span>
-            ${track.hasClip ? '<span class="pill">🎬 Клип</span>' : ''}
-            <span class="pill pill--glass">${accessLabel(track)}</span>
-          </div>
-          <div class="track-card__tags">${stats.tags.map((tag) => `<span class="tag">${tag}</span>`).join('')}</div>
-          <div class="track-card__foot">
-            <div class="track-card__foot-meta">
-              <span class="micro-label">⏱️ ${formatDurationLabel(stats.durationSeconds)}</span>
-              <span class="micro-label">📅 ${formatReleaseDate(track)}</span>
-            </div>
             <span class="pill">${track.copyright || '© AVZALØV'}</span>
+            <span class="pill pill--glass">${released ? 'Вышел' : 'Ранний доступ'}</span>
           </div>
         </div>
       `;
-      const playBtn = card.querySelector('.js-play-card');
-      const infoBtn = card.querySelector('.js-info-card');
+      const playBtns = card.querySelectorAll('.js-play-card');
+      const infoBtns = card.querySelectorAll('.js-info-card');
       const likeBtn = card.querySelector('.js-like-card');
       const shareBtn = card.querySelector('.js-share-card');
+      const nextBtn = card.querySelector('.js-next-card');
 
-      if (playBtn) playBtn.addEventListener('click', () => selectTrackBySlug(track.slug));
-      if (infoBtn) infoBtn.addEventListener('click', () => openTrackModal(track));
+      playBtns.forEach((btn) => btn.addEventListener('click', () => selectTrackBySlug(track.slug)));
+      infoBtns.forEach((btn) => btn.addEventListener('click', () => openTrackModal(track)));
       if (likeBtn) likeBtn.addEventListener('click', () => toggleLike(track.slug));
       if (shareBtn) shareBtn.addEventListener('click', () => shareTrack(track));
-      
+      if (nextBtn) nextBtn.addEventListener('click', () => nextTrack());
+
       return card;
+    };
+
+    const createGalleryCard = (track) => {
+      const released = isReleased(track);
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'gallery-card';
+      card.dataset.trackSlug = track.slug;
+      card.innerHTML = `
+        <div class="gallery-card__cover">
+          <img src="${getCoverPath(track)}" alt="${track.title}" onerror="this.src='img/background.jpg'" />
+          <span class="gallery-card__status ${released ? 'gallery-card__status--live' : ''}">${released ? 'Вышел' : 'Early'}</span>
+        </div>
+        <div class="gallery-card__body">
+          <div class="gallery-card__titles">
+            <strong>${track.title}</strong>
+            <p class="muted tiny">${languagesLabel(track.languages)} · ${formatReleaseDate(track)}</p>
+          </div>
+          <div class="gallery-card__meta">
+            <span>${icon('eye')}${track.plays?.toLocaleString('ru-RU') || '—'}</span>
+            <span>${icon('timer')}${formatDurationLabel(deriveDurationSeconds(track))}</span>
+          </div>
+        </div>
+      `;
+      card.addEventListener('click', () => selectTrackBySlug(track.slug));
+      return card;
+    };
+
+    const renderGallery = (tracks) => {
+      if (!elements.tracksGallery) return;
+      elements.tracksGallery.innerHTML = '';
+      tracks.slice(0, 12).forEach((track) => {
+        elements.tracksGallery.appendChild(createGalleryCard(track));
+      });
+    };
+
+    const renderMobileRail = (tracks) => {
+      if (!elements.mobileRail) return;
+      elements.mobileRail.innerHTML = '';
+      tracks.slice(0, 8).forEach((track) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'mobile-rail__item';
+        chip.dataset.trackSlug = track.slug;
+        chip.innerHTML = `<span class="mobile-rail__cover">${icon('play')}</span><span>${track.title}</span>`;
+        chip.addEventListener('click', () => selectTrackBySlug(track.slug));
+        elements.mobileRail.appendChild(chip);
+      });
     };
 
     const renderTracks = () => {
@@ -592,8 +716,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="muted">Сбросьте параметры или выберите другой язык, чтобы увидеть доступные релизы.</p>
         `;
         elements.tracksList.appendChild(empty);
+        renderGallery([]);
+        renderMobileRail([]);
         return;
       }
+      renderGallery(filtered);
+      renderMobileRail(filtered);
       filtered.forEach((track) => {
         const card = createTrackCard(track);
         elements.tracksList.appendChild(card);
@@ -621,11 +749,11 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="pill">${track.copyright || '© AVZALØV'}</div>
         </div>
         <div class="track-modal__meta track-modal__meta--icons">
-          <span class="chip chip--icon">❤️ ${stats.likes.toLocaleString('ru-RU')}</span>
-          <span class="chip chip--icon">💬 ${stats.comments.toLocaleString('ru-RU')}</span>
-          <span class="chip chip--icon">🔁 ${stats.remixes}</span>
-          <span class="chip chip--icon">🎧 ${stats.listeners.toLocaleString('ru-RU')}</span>
-          <span class="chip chip--icon">⏱️ ${formatDurationLabel(stats.durationSeconds)}</span>
+          <span class="chip chip--icon">${icon('heart')}<span>${stats.likes.toLocaleString('ru-RU')}</span></span>
+          <span class="chip chip--icon">${icon('comment')}<span>${stats.comments.toLocaleString('ru-RU')}</span></span>
+          <span class="chip chip--icon">${icon('repeat')}<span>${stats.remixes}</span></span>
+          <span class="chip chip--icon">${icon('headphones')}<span>${stats.listeners.toLocaleString('ru-RU')}</span></span>
+          <span class="chip chip--icon">${icon('timer')}<span>${formatDurationLabel(stats.durationSeconds)}</span></span>
         </div>
         <div class="track-modal__lyrics">${track.lyricsPreview || 'Текст появится позже, следи за обновлениями.'}</div>
         <div class="track-modal__actions">
@@ -657,6 +785,48 @@ document.addEventListener('DOMContentLoaded', () => {
         if (state.currentIndex === index) button.classList.add('active');
         button.addEventListener('click', () => setCurrentTrack(index, true));
         elements.playlist.appendChild(button);
+      });
+    };
+
+    const updateInlineProgress = () => {
+      const track = state.playlist[state.currentIndex];
+      if (!track) return;
+      const percent = (elements.audio.currentTime / elements.audio.duration) * 100;
+      document.querySelectorAll(`[data-track-slug="${track.slug}"] [data-inline-progress]`).forEach((bar) => {
+        bar.style.width = Number.isFinite(percent) ? `${percent}%` : '0%';
+      });
+      document.querySelectorAll(`[data-track-slug="${track.slug}"] [data-inline-time]`).forEach((timeEl) => {
+        timeEl.textContent = formatTime(elements.audio.currentTime);
+      });
+    };
+
+    const updateMobileHub = (track) => {
+      if (!track) return;
+      if (elements.mobilePlayerTitle) {
+        elements.mobilePlayerTitle.textContent = `${track.title} · ${track.artist || 'AVZALØV'}`;
+      }
+      if (elements.mobilePlayerMeta) {
+        elements.mobilePlayerMeta.textContent = `${formatReleaseDate(track)} · ${languagesLabel(track.languages)} · ${accessLabel(track)}`;
+      }
+      document.querySelectorAll('.gallery-card, .mobile-rail__item').forEach((node) => {
+        node.classList.toggle('is-active', node.dataset.trackSlug === track.slug);
+      });
+    };
+
+    const syncActiveCards = () => {
+      const current = state.playlist[state.currentIndex];
+      document.querySelectorAll('[data-track-slug]').forEach((card) => {
+        const isCurrent = current && card.dataset.trackSlug === current.slug;
+        card.classList.toggle('is-active', Boolean(isCurrent));
+        card.classList.toggle('is-playing', Boolean(isCurrent && state.isPlaying));
+        const label = card.querySelector('[data-inline-label]');
+        if (label) label.textContent = isCurrent && state.isPlaying ? 'Карточка играет' : 'Карточка готова к проигрыванию';
+        if (!isCurrent) {
+          const progress = card.querySelector('[data-inline-progress]');
+          const timeEl = card.querySelector('[data-inline-time]');
+          if (progress) progress.style.width = '0%';
+          if (timeEl) timeEl.textContent = '0:00';
+        }
       });
     };
 
@@ -730,7 +900,10 @@ document.addEventListener('DOMContentLoaded', () => {
         : `До релиза: ${formatReleaseDate(track)}`;
       renderPlatforms(track);
       updatePlayerBadges(track);
+      renderMobilePreview(track);
       renderPlaylist();
+      syncActiveCards();
+      updateMobileHub(track);
       if (autoplay) {
         playTrack();
       }
@@ -761,6 +934,7 @@ document.addEventListener('DOMContentLoaded', () => {
       state.isPlaying = true;
       elements.playBtn.classList.add('is-playing');
       elements.playerStatus.textContent = 'Сейчас играет';
+      syncActiveCards();
     };
 
     const pauseTrack = () => {
@@ -768,6 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
       state.isPlaying = false;
       elements.playBtn.classList.remove('is-playing');
       elements.playerStatus.textContent = 'Плеер на паузе';
+      syncActiveCards();
     };
 
     const togglePlay = () => {
@@ -786,6 +961,7 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.duration.textContent = formatTime(elements.audio.duration);
       const percent = (elements.audio.currentTime / elements.audio.duration) * 100;
       elements.progress.value = Number.isFinite(percent) ? percent : 0;
+      updateInlineProgress();
     };
 
     const seek = () => {
@@ -866,7 +1042,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const selectTrackBySlug = (slug) => {
       const index = state.playlist.findIndex((item) => item.slug === slug);
-      if (index >= 0) setCurrentTrack(index, true);
+      if (index >= 0) {
+        setCurrentTrack(index, true);
+        return;
+      }
+      const track = tracksData.find((item) => item.slug === slug);
+      if (track && getAudioPath(track)) {
+        state.playlist = [{ ...track, audioPath: getAudioPath(track), coverPath: getCoverPath(track) }, ...state.playlist];
+        renderPlaylist();
+        setCurrentTrack(0, true);
+      }
     };
 
     const chatMessages = [
@@ -915,7 +1100,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const item = document.createElement('div');
         const isMe = msg.user === state.user.name;
         item.className = `chat-message${isMe ? ' chat-message--me' : ''}`;
-        item.innerHTML = `<strong>${msg.user} · <span class="chat-badge">${msg.role}</span></strong><p class="muted">${msg.text}</p>`;
+        const initials = (msg.user || 'U')
+          .split(' ')
+          .map((part) => part[0])
+          .join('')
+          .slice(0, 2)
+          .toUpperCase();
+        item.innerHTML = `
+          <div class="chat-message__profile">
+            <div class="chat-avatar">${initials}</div>
+            <div>
+              <div class="chat-identity">
+                <strong>${msg.user}</strong>
+                <span class="chat-badge">${msg.role}</span>
+              </div>
+              <p class="muted chat-message__text">${msg.text}</p>
+            </div>
+          </div>`;
         elements.chatFeed.appendChild(item);
       });
     };
@@ -982,6 +1183,21 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = '';
     };
 
+    const handleProfileAction = (action) => {
+      const dropdown = elements.profileDropdown;
+      if (dropdown) dropdown.classList.remove('open');
+      if (elements.profileToggle) elements.profileToggle.setAttribute('aria-expanded', 'false');
+      if (action === 'open-profile') {
+        document.getElementById('profile')?.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (action === 'open-settings') {
+        openModal(elements.settingsModal);
+      }
+      if (action === 'open-chat') {
+        openModal(elements.chatModal);
+      }
+    };
+
     const bindEvents = () => {
       elements.playBtn.addEventListener('click', togglePlay);
       elements.nextBtn.addEventListener('click', nextTrack);
@@ -1010,12 +1226,34 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.ctaPlay.addEventListener('click', () => selectTrackBySlug(state.playlist[0]?.slug));
       elements.ctaChat.addEventListener('click', () => openModal(elements.chatModal));
       elements.ctaGame.addEventListener('click', () => document.getElementById('game').scrollIntoView({ behavior: 'smooth' }));
-      elements.openProfile.addEventListener('click', () => document.getElementById('profile').scrollIntoView({ behavior: 'smooth' }));
       elements.chartOpenBtn?.addEventListener('click', renderChartModal);
       elements.newsModalBtn?.addEventListener('click', renderNewsModal);
       elements.newsTickerBtn?.addEventListener('click', renderNewsModal);
+      elements.mobilePlay?.addEventListener('click', () => {
+        const slug = elements.mobilePlay.dataset.slug;
+        if (slug) selectTrackBySlug(slug);
+      });
+      elements.mobileLike?.addEventListener('click', () => {
+        const slug = elements.mobileLike.dataset.slug;
+        if (slug) toggleLike(slug);
+      });
+      elements.mobileShare?.addEventListener('click', () => {
+        const slug = elements.mobileShare.dataset.slug;
+        const track = state.playlist.find((item) => item.slug === slug);
+        if (track) shareTrack(track);
+      });
       elements.navToggle?.addEventListener('click', handleNavToggle);
       document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', closeMobileNav));
+      if (elements.profileToggle && elements.profileDropdown) {
+        elements.profileToggle.addEventListener('click', () => {
+          const isOpen = elements.profileToggle.getAttribute('aria-expanded') === 'true';
+          elements.profileToggle.setAttribute('aria-expanded', String(!isOpen));
+          elements.profileDropdown.classList.toggle('open', !isOpen);
+        });
+        elements.profileDropdown.querySelectorAll('[data-action]').forEach((btn) => {
+          btn.addEventListener('click', () => handleProfileAction(btn.dataset.action));
+        });
+      }
       document.querySelectorAll('[data-social]').forEach((btn) => {
         btn.addEventListener('click', () => applySocialProfile(btn.dataset.social || 'social'));
       });
